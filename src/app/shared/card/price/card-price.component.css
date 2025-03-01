@@ -1,0 +1,32 @@
+.card {
+    display: grid;
+    height: 280px;
+    width: 144px;
+    margin: 8px;
+    border: 2px solid black;
+    /* border-radius: 8px; */
+    background-color: cyan;
+}
+
+.text {
+    padding: 10%;
+}
+
+h3{
+    text-align: left;
+    font-size: 15px;
+    justify-content: left
+}
+
+p {
+    margin-top: 8%;
+    justify-content: left;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.img-backgroud {
+    background-color: brown;
+    height: 150px;
+    width: 100%;
+}
