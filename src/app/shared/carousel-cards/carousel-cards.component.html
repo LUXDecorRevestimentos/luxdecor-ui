@@ -1,10 +1,13 @@
 <div class="carousel">
-  <div class="cards-container-category cards-container" *ngIf="cardsCategory.length > 0">
+  <!-- Container de categorias -->
+  <div class="cards-container-category cards-container" *ngIf="cardsCategory.length > 0" #categoryContainer>
     <ng-container *ngFor="let card of cardsCategory">
       <app-card [title]="card.title"></app-card>
     </ng-container>
   </div>
-  <div class="cards-container-product cards-container" *ngIf="cardsProduct.length > 0">
+
+  <!-- Container de produtos -->
+  <div class="cards-container-product cards-container" *ngIf="cardsProduct.length > 0" #productContainer>
     <ng-container *ngFor="let card of cardsProduct">
       <app-card-price [card]="card"></app-card-price>
     </ng-container>

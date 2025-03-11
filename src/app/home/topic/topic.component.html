@@ -1,0 +1,9 @@
+<section>
+    <ng-container *ngFor="let section of sections">
+        <h3>{{ section.title }}</h3>
+        <ng-container *ngIf="section.data !== null">
+            <app-featured-promotions [cardsContent]="section.data"></app-featured-promotions>
+            <app-gallery [cardsContent]="section.data"></app-gallery>
+        </ng-container>
+    </ng-container>
+</section>

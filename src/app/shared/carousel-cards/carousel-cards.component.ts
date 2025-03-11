@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/default/card-default.component';
 import { GenericCard } from '../../data/card.data'
@@ -13,6 +13,9 @@ import { CardPriceComponent } from '../card/price/card-price.component';
 export class CarouselCardsComponent {
   @Input() cardsCategory: GenericCard[] = [];
   @Input() cardsProduct: GenericCard[] = [];
+
+  @ViewChild('categoryContainer', { static: false }) categoryContainer!: ElementRef;
+  @ViewChild('productContainer', { static: false }) productContainer!: ElementRef;
 
   touchStartX: number = 0;
   constructor() { }
@@ -29,34 +32,32 @@ export class CarouselCardsComponent {
     const touchEndX = event.changedTouches[0].clientX;
     const deltaX = touchEndX - this.touchStartX;
 
-    if (deltaX > 50) {
+    if (deltaX > 100) {
       this.scrollLeft();
-    } else if (deltaX < -50) {
+    } else if (deltaX < -100) {
       this.scrollRight();
     }
   }
 
   scrollLeft(): void {
-    console.log(this.cardsProduct)
-    if (this.cardsCategory.length > 0){
-      const container = document.querySelector('.cards-container-category') as HTMLElement;
+    if (this.cardsCategory.length > 0 && this.categoryContainer) {
+      const container = this.categoryContainer.nativeElement;
       container.scrollBy({ left: -200, behavior: 'smooth' });
     }
-    if (this.cardsProduct.length > 0){
-      const container = document.querySelector('.cards-container-product') as HTMLElement;
+    if (this.cardsProduct.length > 0 && this.productContainer) {
+      const container = this.productContainer.nativeElement;
       container.scrollBy({ left: -200, behavior: 'smooth' });
     }
   }
 
   scrollRight(): void {
-    if (this.cardsCategory.length > 0){
-      const container = document.querySelector('.cards-container-category') as HTMLElement;
+    if (this.cardsCategory.length > 0 && this.categoryContainer) {
+      const container = this.categoryContainer.nativeElement;
       container.scrollBy({ left: 200, behavior: 'smooth' });
     }
-    console.log(this.cardsProduct)
-    if (this.cardsProduct.length > 0){
-      const containerProduct = document.querySelector('.cards-container-product') as HTMLElement;
-      containerProduct.scrollBy({ left: 200, behavior: 'smooth' });
+    if (this.cardsProduct.length > 0 && this.productContainer) {
+      const container = this.productContainer.nativeElement;
+      container.scrollBy({ left: 200, behavior: 'smooth' });
     }
   }
 }

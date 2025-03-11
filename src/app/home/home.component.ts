@@ -3,11 +3,12 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselCardsComponent } from '../shared/carousel-cards/carousel-cards.component';
 import { ProductService } from '../service/product.service';
 import { GenericCard } from '../data/card.data';
-import { ProductSectionComponent } from './product-section/product-section.component';
+// import { ProductSectionComponent } from './product-section/product-section.component';
+import { TopicComponent } from './topic/topic.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselComponent, CarouselCardsComponent, ProductSectionComponent],
+  imports: [CarouselComponent, CarouselCardsComponent, TopicComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
