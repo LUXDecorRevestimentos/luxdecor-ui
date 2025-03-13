@@ -4,6 +4,7 @@
     max-width: 800px;
     margin: auto;
     overflow: hidden;
+    margin-top: 1%;
   }
   
   .carousel-inner {
