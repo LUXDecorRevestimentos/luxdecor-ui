@@ -2,14 +2,25 @@
     <div class="header-container">
         <div class="header">
             <div class="logo-menu">
-                <button class="menu-hamburguer">☰</button> <!--menu hambúrguer -->
-                <img src="logo.png" alt="Logo">
+                <button class="menu-hamburguer">
+                    <div class="menu-icon">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>                        
+                </button>
+                <a [routerLink]="['/']">
+                    <img class="logo-mobile" src="logo.png" alt="Logo">
+                </a>
                 <div class="icons-mobile">
                     <mat-icon class="account_icon">account_circle</mat-icon>
                     <mat-icon class="cart_icon">shopping_cart</mat-icon>
                 </div>
             </div>
             <div class="search-container">
+                <a [routerLink]="['/']">
+                    <img class="logo" src="logo.png" alt="Logo">
+                </a>
                 <button class="search">
                     <mat-icon class="search-icon">search</mat-icon>
                 </button>
@@ -26,9 +37,9 @@
     </div>
     <div class="nav-container">
         <div class="nav-items">
-            <a class="nav-link" href="#">Piso</a>
-            <a class="nav-link" href="#">Rodape</a>
-            <a class="nav-link" href="#">Outros</a>
+            <a class="nav-link" *ngFor="let item of navItems" [routerLink]="['/category', item.route]">
+                {{ item.label }}
+            </a>
         </div>
     </div>
 </header>

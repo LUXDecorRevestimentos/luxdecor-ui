@@ -5,7 +5,7 @@ header{
 .header-container {
     max-width: 1440px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 0;
 }
 
 .header {
@@ -14,7 +14,6 @@ header{
     justify-content: space-between;
     align-items: flex-end;
     gap: 10px;
-    padding-left: 10px;
 }
 .header img {
     padding-top: 5%;
@@ -41,7 +40,6 @@ header{
     border: 1px solid #ccc;
     border-radius: 4px;
     border: 1px solid #010000;
-    margin-right: 8%;
 }
 
 .search-container button {
@@ -67,15 +65,17 @@ header{
     width: 100%;
     justify-content: flex-start;
     align-items: center;
-    padding: 0 10%;
+    padding: 0 8px;
     background-color: #000000;
     border-bottom: 1px solid #ddd;
+    height: 50px;
 }
 
 .nav-items{
     max-width: 1440px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0;
+    font-weight: bold;
 }
 
 .nav-link {
@@ -83,19 +83,53 @@ header{
     font-size: 16px;
     color: #ffffff;
     cursor: pointer;
-    /* font-weight: bold; */
-    padding: 5vh;
-    font-size: 2vw;
+    font-weight: bold;
     text-decoration: none;
+    padding: 5px;
 }
 
 .nav-link:hover {
     color: #454545;
 }
 
-@media (max-width: 767px) {
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30px;
+    width: 40px;
+    margin-bottom: 30%;
+}
+  
+.menu-icon .bar {
+    background-color: #555555;
+    height: 6px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+
+.account_icon {
+    color: #555555;
+}
+
+.cart_icon {
+    color: #555555;
+}
+
+@media (max-width: 385px) {
     .header {
         align-items: flex-start; 
+    }
+
+    .logo-mobile {
+        margin: 2%;
+    }
+
+    .logo {
+        display: none;
     }
 
     .logo-menu {
@@ -114,11 +148,10 @@ header{
     }
 
     .icons-mobile {
-        margin-left: 25%;
+        position: absolute;
+        right: 20px;
         display: flex;
-        width: 100%;
         gap: 20px;
-        padding: 10px;
     }
 
     .account_icon {
@@ -136,31 +169,43 @@ header{
 
     .menu-hamburguer {
         display: block;
+        margin-left: 20px;
     }
 
     .search-container {
         width: 100%;
     }
 
+    .search-icon {
+        margin: 10px;
+    }
+
     .search-container input {
         flex: 1;
-        margin-right: 5%;
+        margin-right: 20px;
     }
 
     .nav-container {
         display: none;
     }
+
+
 }
 
-@media (min-width: 768px) {
+@media (min-width: 386px) {
     .header {
         padding: 20px;
         justify-content: center;
         align-items: center;
     }
 
+    .logo-mobile {
+        display: none;
+    }
+
     .header img {
-        width: 168px;
+        width: 140px;
+        padding: 0;
     }
     
     .menu-hamburguer {
@@ -178,13 +223,13 @@ header{
     }
 
     .account_icon {
-        font-size: 48px;
+        font-size: 50px;
         width: 100%;
         height: auto;
     }
 
     .cart_icon {
-        font-size: 48px;
+        font-size: 50px;
         width: 100%;
         height: auto;
     }
@@ -194,10 +239,14 @@ header{
     }
 
     .search-container input {
-        width: 100%;
+        width: 65%;
+        height: 50px;
+        font-size: 32px;
     }
+
+
     .search-icon {
-        font-size: 64px;
+        font-size: 52px;
     }
 
 }

@@ -1,10 +1,9 @@
 .carousel {
     position: relative;
     width: 100%;
-    max-width: 800px;
+    max-width: 1440px;
     margin: auto;
     overflow: hidden;
-    margin-top: 1%;
   }
   
   .carousel-inner {

@@ -1,9 +1,8 @@
 import { Component,OnInit  } from '@angular/core';
 import { CarouselComponent } from './carousel/carousel.component';
-import { CarouselCardsComponent } from '../shared/carousel-cards/carousel-cards.component';
-import { ProductService } from '../service/product.service';
-import { GenericCard } from '../data/card.data';
-// import { ProductSectionComponent } from './product-section/product-section.component';
+import { CarouselCardsComponent } from '../../shared/carousel-cards/carousel-cards.component';
+import { ProductService } from '../../service/product.service';
+import { GenericCard } from '../../data/card.data';
 import { TopicComponent } from './topic/topic.component';
 
 @Component({

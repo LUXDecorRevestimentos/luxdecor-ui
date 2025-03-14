@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeaturedPromotionsComponent } from '../../shared/featured-promotions/featured-promotions.component'
-import { SectionService } from '../../service/section.service';
-import { GenericSection } from '../../data/card.data';
-import { GalleryComponent } from '../../shared/gallery/gallery.component';
+import { FeaturedPromotionsComponent } from '../../../shared/featured-promotions/featured-promotions.component'
+import { SectionService } from '../../../service/section.service';
+import { GenericSection } from '../../../data/card.data';
+import { GalleryComponent } from '../../../shared/gallery/gallery.component';
 
 
 @Component({

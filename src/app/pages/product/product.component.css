@@ -1,0 +1,10 @@
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    font-weight: bold;
+    width: 100%;
+    height: 151px;
+    background-color: bisque;
+}
