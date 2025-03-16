@@ -20,3 +20,26 @@
   border-radius: 8px;
   text-align: center;
 }
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.cards-container {
+display: flex;
+overflow: hidden;
+transition: transform 0.5s ease-in-out;
+max-width: 1440px;
+}
+
+.card {
+border: 1px solid black;
+border-radius: 8px;
+text-align: center;
+}

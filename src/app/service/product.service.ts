@@ -29,7 +29,16 @@ export class ProductService {
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } }
-];
+    ];
     return of(mockCards)
   }
+
+  getProdutctsCategoryId(): Observable<GenericCard[]> {
+    const mockCards: GenericCard[] = [
+      { id: 0, title: "Vinílicos", type: "category", imageUrl: ""},
+      { id: 1, title: "Laminados", type: "category", imageUrl: ""},
+    ];
+    return of(mockCards);
+  }
+
 }

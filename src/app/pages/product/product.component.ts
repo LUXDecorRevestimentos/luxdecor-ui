@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../service/product.service';
 import { CarouselCardsComponent } from '../../shared/carousel-cards/carousel-cards.component';
 import { GenericCard } from '../../data/card.data';
+import { FilterPriceComponent } from '../../shared/card/filter-price/filter-price.component';
 
 @Component({
   selector: 'app-product',
-  imports: [CarouselCardsComponent],
+  imports: [CarouselCardsComponent, FilterPriceComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -27,7 +28,7 @@ export class ProductComponent implements OnInit {
   }
 
   populateCategory(){
-    this.productService.getProductsCategories().subscribe(categories => {
+    this.productService.getProdutctsCategoryId().subscribe(categories => {
       this.cardsCategory = this.cardsCategory.concat(categories);
     })
 

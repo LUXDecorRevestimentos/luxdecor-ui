@@ -1,0 +1,13 @@
+.container {
+    max-width: 1440px;
+    margin-left: 50px;
+}
+.bar {
+    height: 2px;
+    background-color: #000;
+    border: none;
+}
+
+h2 {
+    margin: 8px;
+}
