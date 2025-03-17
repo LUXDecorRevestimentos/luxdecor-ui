@@ -1,3 +1,9 @@
+.container {
+    /* max-width: 1440px; */
+    display: flex;
+    justify-content: center;
+}
+
 section {
     display: flex;
     justify-content: center;
@@ -5,6 +11,20 @@ section {
     font-size: 42px;
     font-weight: bold;
     width: 100%;
-    height: 151px;
+    height: 180px;
     background-color: bisque;
+    color: white;
+    background-image: url('../../../../public/promo.png');
+}
+
+@media (min-width: 481px) {
+    section{
+        font-size: 70px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        /* width: 1030px; */
+    }
 }

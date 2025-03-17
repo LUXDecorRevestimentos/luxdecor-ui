@@ -1,0 +1,14 @@
+<app-bar [title]="title"></app-bar>
+
+<div class="container">
+    <ng-container *ngFor="let image of images; let i = index">
+        <img
+            [src]="image"
+            [ngClass]="{
+                'small-image': i < 2,
+                'large-image': i === 2
+            }"
+            alt="Imagem {{ i + 1 }}"
+        />
+    </ng-container>
+</div>

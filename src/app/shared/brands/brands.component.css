@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+    .small-image {
+        width: 145px;
+        height: auto;
+        margin: 5px;
+        border: 1px solid black;
+    }
+    
+    .large-image {
+        width: 300px;
+        height: auto;
+        margin-top: 10px;
+        border: 1px solid black;
+    }
+}
+
+@media (min-width: 481px) {
+    .small-image {
+        width: 200px;
+        height: auto;
+        margin: 5px;
+        border: 1px solid black;
+    }
+    
+    .large-image {
+        width: auto;
+        height: 200px;
+        margin: 5px;
+        border: 1px solid black;
+    }
+}

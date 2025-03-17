@@ -305,7 +305,7 @@ header{
     border: none;
 }
 
-@media (max-width: 386px) {
+@media (max-width: 481px) {
     .header {
         align-items: flex-start; 
     }
@@ -370,7 +370,7 @@ header{
     }
 }
 
-@media (min-width: 387px) {
+@media (min-width: 481px) {
     .header {
         padding: 20px;
         justify-content: center;

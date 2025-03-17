@@ -119,7 +119,7 @@ header{
     color: #555555;
 }
 
-@media (max-width: 385px) {
+@media (max-width: 480px) {
     .header {
         align-items: flex-start; 
     }
@@ -192,7 +192,7 @@ header{
 
 }
 
-@media (min-width: 386px) {
+@media (min-width: 481px) {
     .header {
         padding: 20px;
         justify-content: center;

@@ -1,7 +1,17 @@
-<section>
-    <p>{{ category }}</p>
-</section>
+<div class="container">
+    <app-side-menu></app-side-menu>
 
-<app-carousel-cards [cardsCategory]="cardsCategory"></app-carousel-cards>
-<app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-<app-filter-price></app-filter-price>
+    <div class="page">
+        <section>
+            <p>{{ category }}</p>
+        </section>
+    
+        <app-sub-product [cardsCategory]="cardsCategory"></app-sub-product>
+        <app-btn-call [title]=""></app-btn-call>
+        <app-filter-price></app-filter-price>
+        <app-brands [images]="imageList"></app-brands>
+        <app-bar [title]="typeInstall"></app-bar>
+        <app-sub-product [cardsCategory]="cardsInstall"></app-sub-product>
+    
+    </div>
+</div>

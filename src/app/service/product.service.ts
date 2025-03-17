@@ -41,4 +41,11 @@ export class ProductService {
     return of(mockCards);
   }
 
+  getProdutctsCategoryIdInstallType(): Observable<GenericCard[]> {
+    const mockCards: GenericCard[] = [
+      { id: 0, title: "Cola", type: "category", imageUrl: ""},
+      { id: 1, title: "Click", type: "category", imageUrl: ""},
+    ];
+    return of(mockCards);
+  }
 }

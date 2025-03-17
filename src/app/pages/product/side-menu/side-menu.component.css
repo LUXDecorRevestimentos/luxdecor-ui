@@ -1,0 +1,19 @@
+.side-menu {
+    width: 250px;
+    height: 100vh;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: none;
+    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); */
+    /* transform: translateX(-100%);  */
+    /* transition: transform 0.3s ease; */
+}
+
+
+
+@media (min-width: 1000px) {
+    .side-menu{
+        display: block;
+    }
+}
