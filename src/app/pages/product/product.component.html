@@ -1,17 +1,21 @@
 <div class="container">
-    <app-side-menu></app-side-menu>
-
+    
     <div class="page">
-        <section>
-            <p>{{ category }}</p>
-        </section>
-    
-        <app-sub-product [cardsCategory]="cardsCategory"></app-sub-product>
-        <app-btn-call [title]=""></app-btn-call>
-        <app-filter-price></app-filter-price>
-        <app-brands [images]="imageList"></app-brands>
-        <app-bar [title]="typeInstall"></app-bar>
-        <app-sub-product [cardsCategory]="cardsInstall"></app-sub-product>
-    
-    </div>
+        <app-side-menu></app-side-menu>
+       
+        <div class="content">
+            <section>
+                <p>{{ category }}</p>
+            </section>
+            <app-sub-product [cardsCategory]="cardsCategory"></app-sub-product>
+            <app-filter-price></app-filter-price>
+            <app-btn-call [title]=""></app-btn-call>
+            <app-bar [title]="typeInstall"></app-bar>
+            <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
+            <app-brands [images]="imageList"></app-brands>
+            <app-bar [title]="moreLabel"></app-bar>
+            <app-sub-product [cardsCategory]="cardsInstall"></app-sub-product>
+            <app-btn-call [title]=""></app-btn-call>
+        </div>
+      </div>
 </div>

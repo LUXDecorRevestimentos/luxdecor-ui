@@ -1,10 +1,55 @@
 <div class="container">
-    <nav class="side-menu">
-        <ul>
-            <li><a routerLink="/home">Home</a></li>
-            <li><a routerLink="/products">Produtos</a></li>
-            <li><a routerLink="/about">Sobre</a></li>
-            <li><a routerLink="/contact">Contato</a></li>
-        </ul>
-    </nav>
+  <mat-card class="result-card">
+    <h2>Sub Categorias</h2>
+    <app-bar></app-bar>
+    <mat-chip-listbox selected color="primary" class="mat-mdc-chip-set-stacked" aria-label="Cutest dog breeds">
+      @for (subCategory of subCategorys; track subCategory) {
+        <mat-chip-option class="custom-chip">{{subCategory}}</mat-chip-option>
+      }
+    </mat-chip-listbox>
+    <h2>Faixa de Preco</h2>
+    <app-bar class="bar"></app-bar>
+    <mat-card-content>    
+      <div class="label-container">
+        <label id="name-label" class="name-label">Valor Inicial:</label>
+        <label class="value-label">R$ {{slider_start.value}},00</label>
+        <label id="name-label" class="name-label">Valor Final:</label>
+        <label class="value-label">R$ {{slider_end.value}},00</label>
+      </div>
+      <mat-slider
+          [disabled]="disabled"
+          [max]="max"
+          [min]="min"
+          [step]="step"
+          [discrete]="thumbLabel"
+          [showTickMarks]="showTicks"
+          style="display: none;">
+      </mat-slider>
+      <mat-slider 
+      class="slider"
+      [disabled]="disabled"
+      [step]="step"
+      [discrete]="thumbLabel"
+      [showTickMarks]="showTicks"
+       min="0" max="500">
+        <input value="0" matSliderStartThumb [(ngModel)]="value" #slider_start>
+        <input value="500" matSliderEndThumb [(ngModel)]="value" #slider_end>
+      </mat-slider>
+      
+    </mat-card-content>
+    <h2>Instalacao</h2>
+    <app-bar class="bar"></app-bar>
+    <mat-chip-listbox>
+      @for (installType of installTypes; track installType) {
+        <mat-chip-option class="custom-chip">{{installType}}</mat-chip-option>
+      }
+    </mat-chip-listbox>
+    <h2>Marcas</h2>
+    <app-bar class="bar"></app-bar>
+    <mat-chip-listbox>
+      @for (brand of brands; track brand) {
+        <mat-chip-option class="custom-chip">{{brand}}</mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </mat-card>
 </div>

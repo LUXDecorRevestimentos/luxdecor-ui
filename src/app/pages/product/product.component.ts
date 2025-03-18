@@ -12,7 +12,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 
 @Component({
   selector: 'app-product',
-  imports: [SubProductComponent, BtnCallComponent, FilterPriceComponent, BrandsComponent, BarComponent, SideMenuComponent],
+  imports: [SubProductComponent, BtnCallComponent, FilterPriceComponent, BrandsComponent, BarComponent, SideMenuComponent, CarouselCardsComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -22,7 +22,11 @@ export class ProductComponent implements OnInit {
   cardsProduct: GenericCard[] = [];
   
   cardsInstall: GenericCard[] = [];
+
   typeInstall = "Tipo de Instalação";
+  moreLabel = "Mais Vistos";
+  
+  scrollFactor = 0.5; // Reduz a força do scroll pela metade
 
   imageList = [
     'brands/eucaflor.png',
@@ -54,5 +58,4 @@ export class ProductComponent implements OnInit {
       this.cardsInstall = this.cardsInstall.concat(promotions);
     })
   }
-
 }

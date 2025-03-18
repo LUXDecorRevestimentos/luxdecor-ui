@@ -1,19 +1,67 @@
-.side-menu {
-    width: 250px;
+.container {
+    width: 200px;
     height: 100vh;
-    background-color: #333;
     color: #fff;
-    padding: 20px;
     display: none;
-    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); */
-    /* transform: translateX(-100%);  */
-    /* transition: transform 0.3s ease; */
+    margin-left: 20px;
 }
 
+.custom-chip {
+    background-color: #e0e0e0;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
 
+.custom-chip.mdc-evolution-chip--selected {
+    background-color: #3f51b5;
+    color: #000000;
+}
+
+.custom-chip .mdc-evolution-chip__checkmark {
+    color: #0bc38e;
+}
+
+.slider {
+    max-width: 300px;
+    width: 100%;
+    color: #000000;
+}
+
+.label-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 300px;
+    color: #000000;
+}
+  
+.result-card {
+    margin-top: 0;
+}
+
+.result-card .value-label {
+    font-weight: 600;
+    color: #000000;
+}
+
+label {
+    color: #000000;
+    font-weight: bold;
+}
+
+h2 {
+    margin-top: 10px;
+    font-size: 24px;
+    color: #000000;
+}
+
+.bar {
+    margin-bottom: 10px;
+}
 
 @media (min-width: 1000px) {
-    .side-menu{
-        display: block;
+    .container {
+        display: flex;
     }
 }
