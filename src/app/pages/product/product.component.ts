@@ -9,25 +9,37 @@ import { BtnCallComponent } from '../../shared/btn-call/btn-call.component';
 import { BrandsComponent } from '../../shared/brands/brands.component';
 import { BarComponent } from "../../shared/bar/bar.component";
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { GalleryComponent } from '../../shared/gallery/gallery.component';
 
 @Component({
   selector: 'app-product',
-  imports: [SubProductComponent, BtnCallComponent, FilterPriceComponent, BrandsComponent, BarComponent, SideMenuComponent, CarouselCardsComponent],
+  imports: [
+    SubProductComponent,
+    BtnCallComponent,
+    FilterPriceComponent,
+    BrandsComponent,
+    BarComponent,
+    SideMenuComponent,
+    CarouselCardsComponent,
+    GalleryComponent
+  ],
+ 
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
 export class ProductComponent implements OnInit {
+
   category: string | null = null;
   cardsCategory: GenericCard[] = [];
   cardsProduct: GenericCard[] = [];
   
   cardsInstall: GenericCard[] = [];
 
+  productsContent: GenericCard[] = [];
+
   typeInstall = "Tipo de Instalação";
   moreLabel = "Mais Vistos";
   
-  scrollFactor = 0.5; // Reduz a força do scroll pela metade
-
   imageList = [
     'brands/eucaflor.png',
     'brands/duraflor.png',
@@ -37,12 +49,15 @@ export class ProductComponent implements OnInit {
   constructor (private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const categoryParam = params.get('category');
-      this.category = "Piso";
-      console.log('Categoria atualizada:', this.category);
+    this.route.queryParams.subscribe(params => {
+      this.category = "Piso"
+      // this.subCategory = params['subCategory'];
+      console.log('Categoria:', this.category);
+      // console.log('Subcategoria:', this.subCategory);
+
     });
     this.populateCategory();
+    this.productsGallery();
   }
 
   populateCategory(){
@@ -56,6 +71,12 @@ export class ProductComponent implements OnInit {
     
     this.productService.getProdutctsCategoryIdInstallType().subscribe(promotions => {
       this.cardsInstall = this.cardsInstall.concat(promotions);
+    })
+  }
+
+  productsGallery() {
+    this.productService.getAllProducts().subscribe(produtcs => {
+      this.productsContent = this.productsContent.concat(produtcs)
     })
   }
 }

@@ -16,26 +16,16 @@
         <label id="name-label" class="name-label">Valor Final:</label>
         <label class="value-label">R$ {{slider_end.value}},00</label>
       </div>
-      <mat-slider
+      <mat-slider 
+          class="slider"
           [disabled]="disabled"
-          [max]="max"
-          [min]="min"
           [step]="step"
           [discrete]="thumbLabel"
           [showTickMarks]="showTicks"
-          style="display: none;">
+          min="0" max="500">
+          <input value="0" matSliderStartThumb [(ngModel)]="slider_start.value" #slider_start>
+          <input value="500" matSliderEndThumb [(ngModel)]="slider_end.value" #slider_end>
       </mat-slider>
-      <mat-slider 
-      class="slider"
-      [disabled]="disabled"
-      [step]="step"
-      [discrete]="thumbLabel"
-      [showTickMarks]="showTicks"
-       min="0" max="500">
-        <input value="0" matSliderStartThumb [(ngModel)]="value" #slider_start>
-        <input value="500" matSliderEndThumb [(ngModel)]="value" #slider_end>
-      </mat-slider>
-      
     </mat-card-content>
     <h2>Instalacao</h2>
     <app-bar class="bar"></app-bar>
