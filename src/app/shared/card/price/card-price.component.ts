@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericCard } from '../../../data/card.data';
 import { Product } from '../../../data/product.data';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card-price',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './card-price.component.html',
   styleUrl: './card-price.component.css'
 })

@@ -1,0 +1,27 @@
+.brand img {
+    width: 128px;
+    height: 128px;
+}
+
+.title {
+    font-size: 32px;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+}
+
+.image img {
+    width: 370px;
+}
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.image-gallery img {
+    width: 72px;
+}

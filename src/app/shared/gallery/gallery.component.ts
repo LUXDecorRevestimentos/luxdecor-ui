@@ -26,7 +26,6 @@ export class GalleryComponent {
 
   getSectionProduct(section: any) {
     this.cardsProduct = this.cardsContent.filter(item => item.type === 'card-product')[0].data;
-    console.log(this.cardsProduct)
   }
 
   getGenericCards(section: any) {

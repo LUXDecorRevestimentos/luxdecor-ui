@@ -10,6 +10,7 @@ import { BrandsComponent } from '../../shared/brands/brands.component';
 import { BarComponent } from "../../shared/bar/bar.component";
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { GalleryComponent } from '../../shared/gallery/gallery.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product',
@@ -21,62 +22,85 @@ import { GalleryComponent } from '../../shared/gallery/gallery.component';
     BarComponent,
     SideMenuComponent,
     CarouselCardsComponent,
-    GalleryComponent
+    GalleryComponent,
+    CommonModule
   ],
- 
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
 export class ProductComponent implements OnInit {
 
-  category: string | null = null;
+  category: GenericCard | undefined;
+  categoryTitle: string | null = null;
+  subCategory: string | null = null;
+  currentSubCategory: GenericCard[] = [];
   cardsCategory: GenericCard[] = [];
   cardsProduct: GenericCard[] = [];
-  
   cardsInstall: GenericCard[] = [];
-
   productsContent: GenericCard[] = [];
 
   typeInstall = "Tipo de Instalação";
   moreLabel = "Mais Vistos";
+  productsLabel = "Nossos Produtos";
   
+  selectedSubCategory: string | null = null;
+
   imageList = [
     'brands/eucaflor.png',
     'brands/duraflor.png',
     'brands/quick.png'
   ];
 
-  constructor (private route: ActivatedRoute, private productService: ProductService) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.category = "Piso"
-      // this.subCategory = params['subCategory'];
-      console.log('Categoria:', this.category);
-      // console.log('Subcategoria:', this.subCategory);
-
+      const categoryTitle = params['category']?.charAt(0).toUpperCase() + params['category']?.slice(1);
+      this.categoryTitle = categoryTitle; 
+      if (categoryTitle) {
+        this.category = {
+          id: 1,
+          title: categoryTitle,
+          type: 'category',
+          imageUrl: ""
+        };
+      }
     });
+    this.selectedSubCategory = this.categoryTitle
     this.populateCategory();
     this.productsGallery();
   }
 
-  populateCategory(){
+  populateCategory() {
     this.productService.getProdutctsCategoryId().subscribe(categories => {
       this.cardsCategory = this.cardsCategory.concat(categories);
-    })
+    });
 
     this.productService.getProductPromotionMainList().subscribe(promotions => {
       this.cardsProduct = this.cardsProduct.concat(promotions);
-    })
-    
+    });
+
     this.productService.getProdutctsCategoryIdInstallType().subscribe(promotions => {
       this.cardsInstall = this.cardsInstall.concat(promotions);
-    })
+    });
+    this.currentSubCategory = this.cardsCategory;
+  }
+
+  onSubProductClick(subCategoryId: string) {
+    if (this.category) {
+      this.currentSubCategory.push(this.category);
+      this.categoryTitle = subCategoryId
+    }
+    this.currentSubCategory = this.currentSubCategory.filter(item => item.title !== subCategoryId);
+    this.category = this.cardsCategory.find(item => item.title == subCategoryId)
+    
+    this.selectedSubCategory = subCategoryId;
+
   }
 
   productsGallery() {
-    this.productService.getAllProducts().subscribe(produtcs => {
-      this.productsContent = this.productsContent.concat(produtcs)
-    })
+    this.productService.getAllProducts().subscribe(products => {
+      this.productsContent = this.productsContent.concat(products);
+    });
   }
 }

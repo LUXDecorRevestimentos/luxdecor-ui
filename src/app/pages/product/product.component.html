@@ -1,23 +1,40 @@
 <div class="container">
-    
     <div class="page">
-        <app-side-menu></app-side-menu>
-       
-        <div class="content">
-            <section>
-                <p>{{ category }}</p>
-            </section>
-            <app-sub-product [cardsCategory]="cardsCategory"></app-sub-product>
-            <app-filter-price></app-filter-price>
-            <app-btn-call [title]=""></app-btn-call>
-            <app-bar [title]="typeInstall"></app-bar>
-            <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-            <app-brands [images]="imageList"></app-brands>
-            <app-bar [title]="moreLabel"></app-bar>
-            <app-sub-product [cardsCategory]="cardsInstall"></app-sub-product>
-            <app-btn-call [title]=""></app-btn-call>
-            <app-gallery [productsContent]="productsContent"></app-gallery>
-        </div>
+      <app-side-menu></app-side-menu>
+      
+      <div class="content">
+        <section>
+          <div class="section-title">
+            <p>{{ this.category?.title }}</p>
+          </div>
+          <div class="section-btns">
+            <button class="order">Ordenar</button>
+            <button class="filter">Filtrar</button>
+          </div>
+        </section>
+  
+        <app-sub-product
+          [cardsCategory]="currentSubCategory"
+          (subProductClick)="onSubProductClick($event)"
+        ></app-sub-product>
 
+        <app-filter-price *ngIf="selectedSubCategory"></app-filter-price>
+        <app-bar *ngIf="selectedSubCategory" [title]="productsLabel"></app-bar>
+
+
+
+        <div class="category" *ngIf="category?.type === 'category'">
+          <app-btn-call *ngIf="selectedSubCategory" [title]=""></app-btn-call>          
+          <app-bar *ngIf="selectedSubCategory" [title]="typeInstall"></app-bar>
+          <app-carousel-cards *ngIf="selectedSubCategory" [cardsProduct]="cardsProduct"></app-carousel-cards>
+          <app-brands *ngIf="selectedSubCategory" [images]="imageList"></app-brands>
+          <app-bar *ngIf="selectedSubCategory" [title]="moreLabel"></app-bar>
+          <app-sub-product *ngIf="selectedSubCategory" [cardsCategory]="cardsInstall"></app-sub-product>
+          <app-btn-call *ngIf="selectedSubCategory" [title]=""></app-btn-call>
+        </div>
+        <div class="sub-category" *ngIf="category?.type === 'sub-category'">          
+          <app-gallery *ngIf="selectedSubCategory" [productsContent]="productsContent"></app-gallery>
+        </div>
       </div>
-</div>
+    </div>
+  </div>

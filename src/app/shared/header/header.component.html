@@ -37,7 +37,7 @@
     </div>
     <div class="nav-container">
         <div class="nav-items">
-            <a class="nav-link" *ngFor="let item of navItems" [routerLink]="['/category', item.route]">
+            <a class="nav-link" *ngFor="let item of navItems" [routerLink]="['/category']" [queryParams]="{ category: item.route }">
                 {{ item.label }}
             </a>
         </div>

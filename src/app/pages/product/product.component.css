@@ -1,15 +1,8 @@
 section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bold;
     width: 99%;
-    height: 180px;
     background-color: bisque;
     color: white;
     background-image: url('../../../../public/promo.png');
-    border-radius: 10px;
 }
 
 .container {
@@ -38,7 +31,43 @@ section {
     overflow-y: auto;
 }
 
+.section-title {
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.section-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 20%;   
+}
+
+.section-btns button {
+    width: 100%;
+    background-color: black;
+    color: #f4f4f4;
+    font-size: 24px;
+    font-weight: bold;
+    max-width: 200px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
 @media (min-width: 1000px) {
+    section {
+        border-radius: 10px;
+    }
+    /* .section-btns {
+        display: none;
+    } */
+
     .content {
         padding-left: 20px;
     }

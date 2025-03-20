@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="product">
+        <div class="brand">
+            <img [src]="productContent.brand">
+        </div>
+        <div class="title">
+            <h2>{{ this.productContent?.title }}</h2>
+        </div>
+        <div class="image">
+            <img [src]="productContent.images[0]">
+        </div>
+        <div class="image-gallery">
+            <ng-container *ngFor="let image of productContent.images; let i = index">
+                <img [src]="image"/>
+            </ng-container>
+        </div>
+        <div class="price">
+            <h1> {{ this.productContent?.price }} </h1>
+        </div>
+        <div class="action-btns">
+
+        </div>
+        <div class="details">
+
+        </div>
+        <div class="spec">
+
+        </div>
+    </div>
+</div>

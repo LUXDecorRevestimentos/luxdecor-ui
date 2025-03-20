@@ -1,6 +1,6 @@
 <div class="container">
   <ng-container *ngFor="let card of cardsCategory">
-      <div class="card" [routerLink]="['/subCategory', card.title]">
+      <div class="card" (click)="onSubProductClick(card.title)">
         <h3>{{ card.title }}</h3>
       </div>
   </ng-container>
