@@ -3,16 +3,19 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/default/card-default.component';
 import { GenericCard } from '../../data/card.data'
 import { CardPriceComponent } from '../card/price/card-price.component';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-carousel-cards',
-  imports: [CommonModule, CardComponent, CardPriceComponent],
+  imports: [CommonModule, CardComponent, CardPriceComponent, RouterModule],
   templateUrl: './carousel-cards.component.html',
   styleUrl: './carousel-cards.component.css'
 })
 export class CarouselCardsComponent {
   @Input() cardsCategory: GenericCard[] = [];
   @Input() cardsProduct: GenericCard[] = [];
+  @Input() type: string = "";
 
   @ViewChild('categoryContainer', { static: false }) categoryContainer!: ElementRef;
   @ViewChild('productContainer', { static: false }) productContainer!: ElementRef;

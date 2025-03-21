@@ -32,8 +32,28 @@ p {
 
 
 @media (min-width: 1000px) {
+    .img-backgroud {
+        background-image: url('../../../../../public/piso.png');
+        height: 200px;
+        width: 100%;
+    }
+
     .card {
         width: 200px;
-        height: 256px;
+        height: 350px;
+    }
+
+    h3{
+        text-align: left;
+        font-size: 20px;
+        justify-content: left;
+        font-weight: 300;
+    }
+    
+    p {
+        margin-top: 5%;
+        justify-content: left;
+        font-weight: bold;
+        font-size: 28px;
     }
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselCardsComponent } from '../carousel-cards/carousel-cards.component';
+import { BarComponent } from '../bar/bar.component';
 
 @Component({
   selector: 'app-featured-promotions',
-  imports: [CommonModule, CarouselCardsComponent],
+  imports: [CommonModule, CarouselCardsComponent, BarComponent],
   templateUrl: './featured-promotions.component.html',
   styleUrl: './featured-promotions.component.css'
 })
@@ -15,10 +16,12 @@ export class FeaturedPromotionsComponent {
   @Input() cardsContent: any[] = [];
   cardsCategory: any[] = [];
   cardsProduct: any[] = [];
+  @Input() typeContainer: string = '';
 
   ngOnInit(): void {
     this.getSectionCategory()
     this.getSectionProduct()
+    console.log(this.typeContainer)
   }
 
   getSectionCategory() {

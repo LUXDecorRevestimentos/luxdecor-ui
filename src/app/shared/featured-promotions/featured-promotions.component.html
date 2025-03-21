@@ -1,7 +1,8 @@
 <div class="promotions">
   <ng-container>
-    <app-carousel-cards [cardsCategory]="cardsCategory"></app-carousel-cards>
-    <h1 *ngIf="title">{{ title }}</h1>
+    <app-carousel-cards [cardsCategory]="cardsCategory" [type]="typeContainer"></app-carousel-cards>
+    <app-bar *ngIf="title" [title]="title" [displayOp]="'none'"  [titleType]="'important'"></app-bar>
     <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
+    <app-bar [title]="'Novidades'" [displayOp]="'none'" [titleType]="'important'"></app-bar>
   </ng-container>
 </div>

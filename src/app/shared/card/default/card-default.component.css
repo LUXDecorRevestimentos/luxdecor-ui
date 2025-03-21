@@ -1,15 +1,52 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .card {
     display: grid;
     place-items: center;
     height: 140px;
-    width: 140px;
+    width: 200px;
     margin: 8px;
     border: 2px solid #010000;
     border-radius: 8px;
-    background-color: rgb(190, 82, 16);
+    /* background-color: rgb(190, 82, 16); */
+    /* background-image: url("promo.png"); */
 }
+
 
 h3{
     text-align: center;
-    justify-content: center
+    justify-content: center;
+    color: white;
+    font-size: 20px;
 }
+
+
+
+@media (min-width: 1000px) {
+    .card {
+        display: grid;
+        place-items: center;
+        height: 140px;
+        min-width: 180px;
+        width: 160%;
+        margin: 8px;
+        border: 2px solid #010000;
+        border-radius: 8px;
+        padding: 3px;
+    }
+
+    h3 {
+        font-size: 30px;
+    }
+    
+    .large {
+        width: 500px;
+    }
+
+    .large h3 {
+        font-size: 40px;
+    }
+} 

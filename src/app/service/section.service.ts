@@ -24,20 +24,20 @@ export class SectionService {
                                 id: 0,
                                 title: "Laminado",
                                 type: "category",
-                                imageUrl: "",
+                                imageUrl: "promo.png",
                             }, 
                             {
                                 id: 1,
                                 title: "Vinílicos",
                                 type: "category",
-                                imageUrl: "",
+                                imageUrl: "promo.png",
                             }
                         ]
                     },
                     {
                         id: 1,
                         type: "card-product",
-                        title: "P0Promocoes",
+                        title: "Promocoes",
                         data: [
                             { id: 0, title: "Piso Laminado Eucafloor Cappuccino", type: "product", imageUrl: "", data: { price: "49,99" } },
                             { id: 1, title: "Piso Laminado Eucafloor Prime", type: "product", imageUrl: "", data: { price: "48,99" } },
@@ -46,11 +46,8 @@ export class SectionService {
                             { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
                             { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
                             { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-                            { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-                            { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
                             { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } }
-
-                        ]
+                    ]
                     }
                 ]
             },
@@ -67,20 +64,20 @@ export class SectionService {
                                 id: 0,
                                 title: "Laminado",
                                 type: "category",
-                                imageUrl: "",
+                                imageUrl: "promo.png",
                             }, 
                             {
                                 id: 1,
                                 title: "Vinílicos",
                                 type: "category",
-                                imageUrl: "",
+                                imageUrl: "promo.png",
                             }
                         ]
                     },
                     {
                         id: 1,
                         type: "card-product",
-                        title: "R0Promocoes",
+                        title: "Promocoes",
                         data: [
                             { id: 0, title: "Piso Laminado Eucafloor Cappuccino", type: "product", imageUrl: "", data: { price: "49,99" } },
                             { id: 1, title: "Piso Laminado Eucafloor Prime", type: "product", imageUrl: "", data: { price: "48,99" } },
@@ -89,10 +86,7 @@ export class SectionService {
                             { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
                             { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
                             { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-                            { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-                            { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
                             { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } }
-
                         ]
                     }
                 ]

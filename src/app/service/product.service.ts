@@ -11,9 +11,12 @@ export class ProductService {
 
   getProductsCategories(): Observable<GenericCard[]> {
     const mockCards: GenericCard[] = [
-      { id: 0, title: "PISOS", type: "category", imageUrl: ""},
-      { id: 1, title: "RODAPES", type: "category", imageUrl: ""},
-      { id: 2, title: "OUTROS", type: "category", imageUrl: ""}
+      { id: 0, title: "Pisos", type: "category", imageUrl: "promo.png"},
+      { id: 1, title: "Rodapes", type: "category", imageUrl: "promo.png"},
+      { id: 2, title: "Paines Ripados", type: "category", imageUrl: "promo.png"},
+      { id: 2, title: "Camas e Colchoes", type: "category", imageUrl: "promo.png"},
+      { id: 2, title: "Outros Produtos", type: "category", imageUrl: "promo.png"},
+      { id: 2, title: "Servicos", type: "category", imageUrl: "promo.png"}
     ];
     return of(mockCards);
   }
@@ -28,9 +31,8 @@ export class ProductService {
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } }
-    ];
+  ];
     return of(mockCards)
   }
 
@@ -78,8 +80,6 @@ export class ProductService {
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
       { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } }
     ];
     return of(mockCards)
   }

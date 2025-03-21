@@ -1,4 +1,9 @@
-<app-carousel></app-carousel>
-<app-carousel-cards [cardsCategory]="cardsCategory"></app-carousel-cards>
-<app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-<app-topic></app-topic>
+<div class="page">
+    <div class="container">
+        <app-carousel class="banner"></app-carousel>
+        <app-carousel-cards [cardsCategory]="cardsCategory"></app-carousel-cards>
+        <app-bar [title]="'Recomendado'"></app-bar>
+        <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
+        <app-topic [type]="'large'"></app-topic>
+    </div>
+</div>

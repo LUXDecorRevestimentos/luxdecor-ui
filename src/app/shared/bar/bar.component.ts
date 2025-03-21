@@ -8,5 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class BarComponent {
   @Input() title = "";
+  @Input() displayOp = "";
   @Input() type = "";
+  @Input() titleType = "";
 }

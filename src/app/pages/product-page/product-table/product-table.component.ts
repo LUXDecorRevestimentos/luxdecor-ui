@@ -20,8 +20,6 @@ export class ProductTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.detailsData = this.detailTable
-
-    console.log(this.detailsData)
   }
 
 }

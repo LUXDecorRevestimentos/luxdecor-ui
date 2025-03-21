@@ -1,0 +1,19 @@
+
+
+
+@media (min-width: 1440px) {
+    .page {
+        display: flex;
+        justify-content: center;
+        /* align-items: center; */
+        max-width: 100%;
+    }
+    .container {
+        max-width: 1440px;
+        /* margin-left: 40%; */
+        display: block;
+        justify-content: center;
+        align-items: center;
+    }
+}
+

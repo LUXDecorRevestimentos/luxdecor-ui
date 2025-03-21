@@ -15,3 +15,16 @@ h2 {
 .long {
     margin-left: 0px;
 }
+
+.none {
+    display: none;
+}
+
+.titulo {
+    font-size: 48px;
+}
+
+.important {
+    font-size: 38px;
+    color: #943032;
+}

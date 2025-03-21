@@ -28,7 +28,8 @@ section {
 
 .content {
     flex-grow: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
+    margin-bottom: 60px;
 }
 
 .section-title {
