@@ -5,7 +5,7 @@ import { CarouselCardsComponent } from '../../shared/carousel-cards/carousel-car
 import { GenericCard } from '../../data/card.data';
 import { FilterPriceComponent } from '../../shared/card/filter-price/filter-price.component';
 import { SubProductComponent } from '../../shared/sub-product/sub-product.component';
-import { BtnCallComponent } from '../../shared/btn-call/btn-call.component';
+import { BtnCallComponent } from '../../shared/btn/btn-call/btn-call.component';
 import { BrandsComponent } from '../../shared/brands/brands.component';
 import { BarComponent } from "../../shared/bar/bar.component";
 import { SideMenuComponent } from './side-menu/side-menu.component';
@@ -28,6 +28,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
+
 export class ProductComponent implements OnInit {
 
   category: GenericCard | undefined;

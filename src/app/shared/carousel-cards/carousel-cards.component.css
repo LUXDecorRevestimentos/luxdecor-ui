@@ -43,3 +43,37 @@
   border-radius: 8px;
   text-align: center;
 }
+
+.carousel-products {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  overflow: hidden; 
+}
+
+.carousel-control {
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  display: none;
+}
+
+.carousel-control.prev {
+  left: 10px;
+}
+
+.carousel-control.next {
+  right: 10px;
+}
+
+
+@media (min-width: 1000px) {
+  .carousel-control {
+    display: block;
+  }
+} 

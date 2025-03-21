@@ -18,6 +18,8 @@ export class CarouselCardsComponent {
   @ViewChild('productContainer', { static: false }) productContainer!: ElementRef;
 
   touchStartX: number = 0;
+  currentIndex: number = 0;
+
   constructor() { }
 
   ngOnInit(): void { }
@@ -59,5 +61,13 @@ export class CarouselCardsComponent {
       const container = this.productContainer.nativeElement;
       container.scrollBy({ left: 200, behavior: 'smooth' });
     }
+  }
+
+  next(): void {
+    this.scrollRight();
+  }
+
+  prev(): void {
+    this.scrollLeft();
   }
 }

@@ -1,3 +1,6 @@
+import { ProductDetailsTable } from "./table.data";
+
+
 export interface GenericCard {
     id: number;
     title: string;
@@ -20,10 +23,14 @@ export interface ProductData {
     brand: string;
     price: string;
     box_price: string;
+    box_size: string;
     tamanho: string;
     medida: string;
     details: string;
     spec: string;
     images: string[];
+
+    productDetailsTable: ProductDetailsTable[];
+    productDimensionsTable: ProductDetailsTable[];
 
 }

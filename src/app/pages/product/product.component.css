@@ -60,13 +60,17 @@ section {
     padding: 10px;
 }
 
+
 @media (min-width: 1000px) {
+
     section {
         border-radius: 10px;
     }
-    /* .section-btns {
+    
+    .content-top-moibile {
         display: none;
-    } */
+    }
+    
 
     .content {
         padding-left: 20px;

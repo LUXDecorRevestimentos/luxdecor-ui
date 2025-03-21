@@ -1,0 +1,20 @@
+<div class="container">
+    <button class="add_cart">Adicionar
+      <mat-icon class="cart_icon">shopping_basket</mat-icon>
+    </button>
+
+    <div class="counter">
+        <button class="btn-add" (click)="increment()">
+          <mat-icon class="plus_icon">add</mat-icon>
+        </button>
+        <input
+        type="number"
+        [value]="count"
+        (input)="updateCount($event)"
+        class="count-input"
+      />
+        <button  class="btn-min" (click)="decrement()">
+          <mat-icon class="remove_icon">remove</mat-icon>
+        </button>
+    </div>
+</div>
