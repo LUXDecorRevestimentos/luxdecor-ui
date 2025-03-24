@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { BtnIconComponent } from '../btn/btn-icon/btn-icon.component';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatIconModule, RouterModule, BtnIconComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

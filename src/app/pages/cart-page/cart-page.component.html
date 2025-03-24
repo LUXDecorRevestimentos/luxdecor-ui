@@ -1,0 +1,6 @@
+<div class="container">
+    <app-bar [title]="'Endereco de Entrega'"></app-bar>
+    <ng-container *ngFor="let item of cartItems; let i = index">
+        <app-cart-card [cart]="item"></app-cart-card>
+    </ng-container>
+</div>

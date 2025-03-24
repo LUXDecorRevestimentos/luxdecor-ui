@@ -1,0 +1,17 @@
+<div class="cart-card">
+    <div class="img-backgroud"></div>
+    <div class="text">
+        <h3>{{ cart?.title }}</h3>
+        <p>{{ cart?.price }}</p>
+        <div class="counter">
+            <button class="btn-add" (click)="increment()">
+              <mat-icon class="plus_icon">add</mat-icon>
+            </button>
+            <input
+            type="number"
+            [value]="count"
+            (input)="updateCount($event)"
+            class="count-input"
+          />
+    </div>
+</div>

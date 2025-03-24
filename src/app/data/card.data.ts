@@ -34,3 +34,12 @@ export interface ProductData {
     productDimensionsTable: ProductDetailsTable[];
 
 }
+
+export interface CartCardData {
+    id: number;
+    title: string;
+    type: string;
+    imageUrl: string;
+    price: any;
+    amount: number;
+}

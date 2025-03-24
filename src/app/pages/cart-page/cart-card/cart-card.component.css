@@ -1,0 +1,96 @@
+.img-backgroud {
+    background-image: url('../../../../../public/piso.png');
+    height: 128px;
+    width: 128px;
+    margin: 10px;
+}
+
+.cart-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 160px;
+    border: 1px solid black;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.text {
+    width: 70%;
+    font-weight: bold;
+}
+
+p {
+    margin-top: 10px;
+}
+
+button { 
+    background-color: black;
+    border: none;
+    color: white;
+    height: 50px;
+}
+
+
+.counter {
+    display: flex;
+    align-items: center;
+  }
+  
+  .counter button {
+      width: 60px;
+  }
+  
+  
+  .btn-add {
+      border-radius: 8px 0 0 8px;
+      border: 2px solid black;
+      padding: auto;
+      margin: 0 auto;
+      font-size: 32px;
+  }
+  
+  .btn-min {
+      border-radius: 0 8px 8px 0;
+      border: 2px solid black;
+      font-size: 32px;
+  }
+  
+  .count-input{
+      width: auto;
+      max-width: 70px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid black; /* Borda preta */
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px;
+  }
+
+
+.add_cart {
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cart_icon {
+    font-size: 28px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.btn-add:hover,
+.btn-min:hover {
+  background-color: #ffffff; /* Cor de fundo ao passar o mouse */
+  color: black;
+}
