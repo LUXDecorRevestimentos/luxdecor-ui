@@ -1,3 +1,81 @@
 .container {
-    padding: 20px;
+    margin: 10px auto; /* Centraliza o container */
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 20px; /* Adiciona um padding lateral para telas menores */
+    box-sizing: border-box;
+}
+
+.return {
+    margin: 10px 0 0 0; /* Ajuste na margem */
+    width: 100%;
+}
+
+.value-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.value-container p {
+    font-size: 20px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha os itens verticalmente */
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0; /* Remove margem superior padrão */
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 20px;
+}
+
+/* Estilos para desktop */
+@media (min-width: 750px) {
+    .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0;
+        gap: 30px; /* Espaço entre as colunas */
+    }
+
+    .products {
+        width: 65%; /* Ajuste proporcional */
+    }
+
+    .subtotal {
+        width: 35%; /* Ajuste proporcional */
+        margin-left: 0;
+        position: sticky;
+        top: 20px; /* Fixa o resumo ao rolar */
+    }
+    
+    /* Ajuste para o checkbox de selecionar tudo */
+    .top mat-checkbox {
+        margin-left: auto; /* Alinha à direita */
+    }
+}
+
+/* Ajuste para telas muito grandes */
+@media (min-width: 1440px) {
+    .container {
+        padding: 0; /* Remove padding em telas muito grandes */
+    }
 }

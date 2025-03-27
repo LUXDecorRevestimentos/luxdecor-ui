@@ -4,8 +4,14 @@
 }
 .bar {
     height: 2px;
-    background-color: #000;
     border: none;
+    background-color: black;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 20px;
+    margin-bottom: 5px;
 }
 
 h2 {
@@ -27,4 +33,8 @@ h2 {
 .important {
     font-size: 38px;
     color: #943032;
+}
+
+.white {
+    background-color: white;
 }

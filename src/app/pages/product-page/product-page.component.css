@@ -16,8 +16,8 @@
 
 .image-container {
     display: flex;
-    flex-direction: column; /* Padrão: imagem acima, galeria abaixo */
-    align-items: center; /* Centraliza os itens */
+    flex-direction: column;
+    align-items: center;
 }
 
 .image {

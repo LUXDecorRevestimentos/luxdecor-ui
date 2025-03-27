@@ -136,7 +136,8 @@ export class ProductService {
         type: 'Piso Laminado',
         imageUrl: 'piso.png',
         price: 'R$ 192,50',
-        amount: 1
+        amount: 1,
+        select: false
       },
       {
         id: 2,
@@ -144,7 +145,17 @@ export class ProductService {
         type: 'Piso Laminado',
         imageUrl: 'piso.png',
         price: 'R$ 192,50',
-        amount: 1
+        amount: 1,
+        select: false
+      },
+      {
+        id: 3,
+        title: 'Piso Laminado Eucafloor New Evidence Click',
+        type: 'Piso Laminado',
+        imageUrl: 'piso.png',
+        price: 'R$ 192,50',
+        amount: 1,
+        select: false
       }
     ];
     return of(mockCards);

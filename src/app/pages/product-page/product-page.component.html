@@ -1,109 +1,111 @@
-<div class="container">
-    <div class="product">
-        <div class="content-top-mobile">
-            <div class="brand">
-                <img [src]="productContent.brand">
+<div class="page">
+    <div class="container">
+        <div class="product">
+            <div class="content-top-mobile">
+                <div class="brand">
+                    <img [src]="productContent.brand">
+                </div>
+                <div class="title">
+                    <h2>{{ this.productContent?.title }}</h2>
+                </div>
             </div>
-            <div class="title">
-                <h2>{{ this.productContent?.title }}</h2>
-            </div>
-        </div>
-       
-        <div class="product-data">
-            <div class="image-container">
-                <div class="image-mobile">
-                  <img [src]="productContent.images[selectedImageIndex]" />
-                </div>
-                <div class="image-gallery">
-                  <ng-container *ngFor="let image of productContent.images; let i = index">
-                    <div
-                      class="thumbnail"
-                      [class.selected]="selectedImageIndex === i"
-                      (click)="selectImage(i)"
-                    >
-                      <img [src]="image" />
+           
+            <div class="product-data">
+                <div class="image-container">
+                    <div class="image-mobile">
+                      <img [src]="productContent.images[selectedImageIndex]" />
                     </div>
-                  </ng-container>
-                </div>
-                <div class="image">
-                    <img [src]="productContent.images[selectedImageIndex]" />
-                </div>
-                <div class="content-data">
-                    <div class="brand">
-                        <img [src]="productContent.brand">
-                    </div>
-                    <div class="title">
-                        <h2>{{ this.productContent?.title }}</h2>
-                    </div>
-                    <div class="price">
-                        <div class="top">
-                            <h1>R$ {{ this.productContent?.price }} /{{ productContent?.medida }}</h1>
-                            <p> <strong>Tam:</strong> {{ productContent?.tamanho }}</p>
+                    <div class="image-gallery">
+                      <ng-container *ngFor="let image of productContent.images; let i = index">
+                        <div
+                          class="thumbnail"
+                          [class.selected]="selectedImageIndex === i"
+                          (click)="selectImage(i)"
+                        >
+                          <img [src]="image" />
                         </div>
-                        <div class="bot">
-                            <h1 class="box-price">R$ {{ this.productContent?.box_price }} / caixa ({{ productContent?.box_size }})</h1>
+                      </ng-container>
+                    </div>
+                    <div class="image">
+                        <img [src]="productContent.images[selectedImageIndex]" />
+                    </div>
+                    <div class="content-data">
+                        <div class="brand">
+                            <img [src]="productContent.brand">
                         </div>
-            
-                    </div>
-                    <div class="action-btns">
-                        <app-btn-add></app-btn-add>
-                    </div>
-                    <div class="details">
-                        <app-bar [title]="detailsLabel" type="long" class="bar"></app-bar>
-                        <p>
-                            {{ this.productContent?.details }}
-                        </p>
-                    </div>
-                   
-                </div>
+                        <div class="title">
+                            <h2>{{ this.productContent?.title }}</h2>
+                        </div>
+                        <div class="price">
+                            <div class="top">
+                                <h1>R$ {{ this.productContent?.price }} /{{ productContent?.medida }}</h1>
+                                <p> <strong>Tam:</strong> {{ productContent?.tamanho }}</p>
+                            </div>
+                            <div class="bot">
+                                <h1 class="box-price">R$ {{ this.productContent?.box_price }} / caixa ({{ productContent?.box_size }})</h1>
+                            </div>
                 
-            </div>
-            <div class="spec">
-                <app-bar [title]="specLabel" type="long" class="bar"></app-bar>
-                <div class="table-content">
-                    <app-product-table [detailTable]="detailTable" [title]="'Detalhes'" class="table" ></app-product-table>
-                    <app-product-table [detailTable]="detailTable" [title]="'Dimensões'" class="table"></app-product-table>
+                        </div>
+                        <div class="action-btns">
+                            <app-btn-add></app-btn-add>
+                        </div>
+                        <div class="details">
+                            <app-bar [title]="detailsLabel" type="long" class="bar"></app-bar>
+                            <p>
+                                {{ this.productContent?.details }}
+                            </p>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+                <div class="spec">
+                    <app-bar [title]="specLabel" type="long" class="bar"></app-bar>
+                    <div class="table-content">
+                        <app-product-table [detailTable]="detailTable" [title]="'Detalhes'" class="table" ></app-product-table>
+                        <app-product-table [detailTable]="detailTable" [title]="'Dimensões'" class="table"></app-product-table>
+                    </div>
+                </div>
+                <div class="other-products">
+                    <app-bar [title]="otherProductsLabel" type="long" class="bar"></app-bar>
+                    <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
+                    <app-btn-call></app-btn-call>
                 </div>
             </div>
-            <div class="other-products">
-                <app-bar [title]="otherProductsLabel" type="long" class="bar"></app-bar>
-                <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-                <app-btn-call></app-btn-call>
-            </div>
-        </div>
-
-
-        <div class="mobile">
-            <div class="price">
-                <div class="top">
-                    <h1>R$ {{ this.productContent?.price }} /{{ productContent?.medida }}</h1>
-                    <p> <strong>Tam:</strong> {{ productContent?.tamanho }}</p>
-                </div>
-                <div class="bot">
-                    <h1 class="box-price">R$ {{ this.productContent?.box_price }} / caixa ({{ productContent?.box_size }})</h1>
-                </div>
     
-            </div>
-            <div class="action-btns">
-                <app-btn-add></app-btn-add>
-            </div>
-            <div class="details">
-                <app-bar [title]="detailsLabel" type="long" class="bar"></app-bar>
-                <p>
-                    {{ this.productContent?.details }}
-                </p>
-            </div>
-            <div class="spec-mobile">
-                <app-bar [title]="specLabel" type="long" class="bar"></app-bar>
-                <app-product-table [detailTable]="detailTable" [title]="'Detalhes'" ></app-product-table>
-                <app-product-table [detailTable]="detailTable" [title]="'Dimensões'" ></app-product-table>
-            </div>
-            <div class="other-products">
-                <app-bar [title]="otherProductsLabel" type="long" class="bar"></app-bar>
-                <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-                <app-btn-call></app-btn-call>
-            </div>
-        </div>
+    
+            <div class="mobile">
+                <div class="price">
+                    <div class="top">
+                        <h1>R$ {{ this.productContent?.price }} /{{ productContent?.medida }}</h1>
+                        <p> <strong>Tam:</strong> {{ productContent?.tamanho }}</p>
+                    </div>
+                    <div class="bot">
+                        <h1 class="box-price">R$ {{ this.productContent?.box_price }} / caixa ({{ productContent?.box_size }})</h1>
+                    </div>
         
+                </div>
+                <div class="action-btns">
+                    <app-btn-add></app-btn-add>
+                </div>
+                <div class="details">
+                    <app-bar [title]="detailsLabel" type="long" class="bar"></app-bar>
+                    <p>
+                        {{ this.productContent?.details }}
+                    </p>
+                </div>
+                <div class="spec-mobile">
+                    <app-bar [title]="specLabel" type="long" class="bar"></app-bar>
+                    <app-product-table [detailTable]="detailTable" [title]="'Detalhes'"></app-product-table>
+                    <app-product-table [detailTable]="detailTable" [title]="'Dimensões'"></app-product-table>
+                </div>
+                <div class="other-products">
+                    <app-bar [title]="otherProductsLabel" type="long" class="bar"></app-bar>
+                    <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
+                    <app-btn-call></app-btn-call>
+                </div>
+            </div>
+            
+        </div>
     </div>
 </div>

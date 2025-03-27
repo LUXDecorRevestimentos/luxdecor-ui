@@ -1,8 +1,10 @@
 .img-backgroud {
-    background-image: url('../../../../../public/piso.png');
-    height: 128px;
+    margin-left: 10px;
+}
+
+.img-backgroud img{
     width: 128px;
-    margin: 10px;
+    height: 100%;
 }
 
 .cart-card {
@@ -17,8 +19,13 @@
 }
 
 .text {
-    width: 70%;
+    margin-left: 5px;
     font-weight: bold;
+}
+
+h3 {
+    width: 100px;
+    font-size: 14px;
 }
 
 p {
@@ -29,68 +36,74 @@ button {
     background-color: black;
     border: none;
     color: white;
-    height: 50px;
+    /* height: 50px; */
 }
 
 
 .counter {
     display: flex;
     align-items: center;
-  }
-  
-  .counter button {
-      width: 60px;
-  }
-  
-  
-  .btn-add {
-      border-radius: 8px 0 0 8px;
-      border: 2px solid black;
-      padding: auto;
-      margin: 0 auto;
-      font-size: 32px;
-  }
-  
-  .btn-min {
-      border-radius: 0 8px 8px 0;
-      border: 2px solid black;
-      font-size: 32px;
-  }
-  
-  .count-input{
-      width: auto;
-      max-width: 70px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid black; /* Borda preta */
-      font-size: 18px;
-      font-weight: bold;
-      padding: 10px;
-  }
+    margin-left: -40px;
+    position: relative;
+    margin-right: 5px;
+    top: 40px;
 
-
-.add_cart {
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 150px;
-    font-size: 20px;
-    font-weight: bold;
+}
+  
+.btn-add {
+    border-radius: 8px 0 0 8px;
+    border: 2px solid black;
+    padding: auto;
+    font-size: 0px;
 }
 
-.cart_icon {
-    font-size: 28px;
-    width: 100%;
-    height: 100%;
+.btn-min {
+    border-radius: 0 8px 8px 0;
+    border: 2px solid black;
+    font-size: 0px;
+}
+
+.count-input{
+    width: auto;
+    max-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    font-size: 21px;
+    font-weight: bold;
 }
 
 
 .btn-add:hover,
 .btn-min:hover {
-  background-color: #ffffff; /* Cor de fundo ao passar o mouse */
+  background-color: #ffffff;
   color: black;
+}
+
+.check {
+    display: flex;
+    position: relative;
+    bottom: 50px;
+    left: 30px;
+}
+
+@media (min-width: 1000px) {
+    .img-backgroud {
+        margin-left: 10px;
+    }
+
+    .text {
+        margin-left: 5px;
+        font-weight: bold;
+    }
+    
+    h3 {
+        width: 100%;
+        font-size: 20px;
+    }
+    
+    p {
+        margin-top: 10px;
+    }
 }

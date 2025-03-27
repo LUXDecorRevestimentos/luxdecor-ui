@@ -3,6 +3,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BtnIconComponent } from '../btn/btn-icon/btn-icon.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CartPageComponent } from '../../pages/cart-page/cart-page.component';
 
 @Component({
   selector: 'app-header',
@@ -19,5 +21,18 @@ export class HeaderComponent {
     { label: 'OUTROS PRODUTOS', route: 'outros-produtos' },
     { label: 'SERVICOS', route: 'servicos' }
   ];
+
+  constructor(public dialog: MatDialog) {}
+
+  openCart(): void {
+    const dialogRef = this.dialog.open(CartPageComponent, {
+      width: '500px',
+      data: { /* dados que você quer passar para o modal */ }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Modal fechado', result);
+    });
+  }
 
 }

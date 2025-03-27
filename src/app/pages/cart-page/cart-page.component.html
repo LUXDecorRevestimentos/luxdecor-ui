@@ -1,6 +1,43 @@
+
 <div class="container">
-    <app-bar [title]="'Endereco de Entrega'"></app-bar>
-    <ng-container *ngFor="let item of cartItems; let i = index">
-        <app-cart-card [cart]="item"></app-cart-card>
-    </ng-container>
+  <div class="return">
+    <app-btn-continue></app-btn-continue>
+  </div>
+
+  <div class="content">
+    <div class="products">
+      <div class="top">
+        <h1>No Carrinho (3)</h1>
+        <mat-checkbox
+            [checked]="cart().completed"
+            [indeterminate]="partiallyComplete()"
+            (change)="update($event.checked)"
+          >
+            {{cart().id}}
+          </mat-checkbox>
+      </div>
+      <app-bar [type]="'long'"></app-bar>
+      @for (item of cart().items; track item; let i = $index) {
+          <app-cart-card 
+            [cart]="item"
+            [checked]="item.select"
+            (checkChange)="update($event, i)"
+          ></app-cart-card>
+      }
+    </div>
+    <div class="subtotal">
+        <h1>Resumo do pedido</h1>
+        <app-bar [type]="'long'"></app-bar>
+        <div class="value-container">
+            <p>SubTotal</p>
+            <p><strong>R$ 385,00</strong></p>
+        </div>
+        <app-bar [type]="'long'"></app-bar>
+        <div class="btn-container">
+          <app-btn-next></app-btn-next>
+          <app-btn-clean></app-btn-clean>
+        </div>
+    </div>
+  </div>
+
 </div>

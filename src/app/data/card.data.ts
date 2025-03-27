@@ -35,6 +35,13 @@ export interface ProductData {
 
 }
 
+export interface Cart {
+    id: string,
+    completed: boolean,
+    items?: CartCardData[];
+  }
+  
+
 export interface CartCardData {
     id: number;
     title: string;
@@ -42,4 +49,5 @@ export interface CartCardData {
     imageUrl: string;
     price: any;
     amount: number;
+    select: boolean;
 }

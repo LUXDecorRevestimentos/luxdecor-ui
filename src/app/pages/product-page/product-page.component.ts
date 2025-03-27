@@ -2,18 +2,26 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../../service/product.service';
 import { ProductData } from '../../data/card.data';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table'
-import { ProductTableComponent } from './product-table/product-table.component';
+import { MatTableModule } from '@angular/material/table';
 import { ProductDetailsTable } from '../../data/table.data';
 import { BarComponent } from '../../shared/bar/bar.component';
 import { BtnAddComponent } from '../../shared/btn/btn-add/btn-add.component';
 import { CarouselCardsComponent } from '../../shared/carousel-cards/carousel-cards.component';
 import { GenericCard } from '../../data/card.data';
 import { BtnCallComponent } from '../../shared/btn/btn-call/btn-call.component';
+import { ProductTableComponent } from '../../shared/product-table/product-table.component';
 
 @Component({
   selector: 'app-product-page',
-  imports: [CommonModule, MatTableModule, ProductTableComponent, BarComponent, BtnAddComponent, CarouselCardsComponent, BtnCallComponent],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    BarComponent,
+    BtnAddComponent,
+    CarouselCardsComponent,
+    BtnCallComponent,
+    ProductTableComponent],
+
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'
 })
