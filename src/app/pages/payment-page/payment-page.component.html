@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="return">
+        <app-btn-continue></app-btn-continue>
+    </div>
+    <div class="content">
+        <div class="cart">
+            <app-bar [title]="'No Carrinho ' + amount"></app-bar>
+
+            @for (item of this.cartData.items; track item; let i = $index) {
+                <app-cart-card 
+                  [cart]="item"
+                  [checked]="item.select"
+                  [display]="true"
+                ></app-cart-card>
+            }
+        </div>
+        
+        <div class="client">
+            <app-bar class="bar" [title]="'Confirme seus dados'"></app-bar>
+            <app-client-card></app-client-card>
+        </div>
+
+        <div class="method">
+            <app-method-payment-card></app-method-payment-card>
+        </div>
+
+
+    </div>
+</div>

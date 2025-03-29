@@ -36,7 +36,6 @@ button {
     background-color: black;
     border: none;
     color: white;
-    /* height: 50px; */
 }
 
 
@@ -86,6 +85,10 @@ button {
     position: relative;
     bottom: 50px;
     left: 30px;
+}
+
+.none {
+    display: none;
 }
 
 @media (min-width: 750px) {

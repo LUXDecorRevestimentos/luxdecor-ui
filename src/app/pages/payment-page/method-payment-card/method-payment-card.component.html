@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="payment-card" 
+         [class.selected]="selectedMethod === 'pix'"
+         (click)="selectMethod('pix')">
+        <div class="card-content">
+            <img src="assets/pix.png" alt="Pix">
+            <h1>Pix</h1>
+        </div>
+        <div class="ink" #inkPix></div>
+    </div>
+
+    <div class="payment-card" 
+         [class.selected]="selectedMethod === 'credit'"
+         (click)="selectMethod('credit', $event)">
+        <div class="card-content">
+            <mat-icon class="credit-icon">credit_card</mat-icon>
+            <h1>Cartão de Crédito</h1>
+        </div>
+        <div class="ink" #inkCredit></div>
+    </div>
+</div>

@@ -22,6 +22,7 @@
             [cart]="item"
             [checked]="item.select"
             (checkChange)="update($event, i)"
+            [display]="true"
           ></app-cart-card>
       }
     </div>
@@ -34,7 +35,7 @@
         </div>
         <app-bar [type]="'long'"></app-bar>
         <div class="btn-container">
-          <app-btn-next></app-btn-next>
+          <app-btn-next (click)="navigateToPayment()"></app-btn-next>
           <app-btn-clean></app-btn-clean>
         </div>
     </div>
