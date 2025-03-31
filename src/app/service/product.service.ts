@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { GenericCard, ProductData } from '../data/card.data';
+import { GenericCard, ProductData, CartCardData } from '../data/card.data';
 import { ProductDetailsTable } from '../data/table.data';
 
 @Injectable({
@@ -126,5 +126,38 @@ export class ProductService {
 
     }
     return data;
+  }
+
+  getCartData(): Observable<CartCardData[]> {
+    const mockCards: CartCardData[] = [
+      {
+        id: 1,
+        title: 'Piso Laminado Eucafloor New Evidence Click',
+        type: 'Piso Laminado',
+        imageUrl: 'piso.png',
+        price: 'R$ 192,50',
+        amount: 1,
+        select: false
+      },
+      {
+        id: 2,
+        title: 'Piso Laminado Eucafloor New Evidence Click',
+        type: 'Piso Laminado',
+        imageUrl: 'piso.png',
+        price: 'R$ 192,50',
+        amount: 1,
+        select: false
+      },
+      {
+        id: 3,
+        title: 'Piso Laminado Eucafloor New Evidence Click',
+        type: 'Piso Laminado',
+        imageUrl: 'piso.png',
+        price: 'R$ 192,50',
+        amount: 1,
+        select: false
+      }
+    ];
+    return of(mockCards);
   }
 }

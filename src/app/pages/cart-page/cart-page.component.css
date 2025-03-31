@@ -1,0 +1,83 @@
+.container {
+    margin: 10px auto;
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.return {
+    margin: 10px 0 0 0;
+    width: 100%;
+}
+
+.value-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.value-container p {
+    font-size: 20px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+@media (min-width: 750px) {
+    .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0;
+        gap: 30px;
+    }
+
+    .products {
+        width: 65%;
+        margin-bottom: 10%;
+    }
+    .subtotal {
+        width: 35%;
+        margin-left: 0;
+        position: sticky;
+        margin-top: 10px;
+        top: 20px;
+    }
+
+    .subtotal h1 {
+        margin-bottom: 20px;
+    }
+    
+    .top mat-checkbox {
+        margin-left: auto;
+    }
+
+}
+
+@media (min-width: 1440px) {
+    .container {
+        padding: 0;
+    }
+}

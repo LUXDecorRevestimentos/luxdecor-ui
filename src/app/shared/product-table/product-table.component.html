@@ -3,16 +3,16 @@
 <mat-table [dataSource]="detailTable" class="mat-elevation-z8">
   <!-- Coluna Label -->
   <ng-container matColumnDef="label">
-    <mat-header-cell *matHeaderCellDef class="header-column"> Característica </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="header-column"> {{ headerOne }} </mat-header-cell>
     <mat-cell *matCellDef="let detail"> {{ detail.label }} </mat-cell>
   </ng-container>
 
   <!-- Coluna Value -->
   <ng-container matColumnDef="value">
-    <mat-header-cell *matHeaderCellDef class="header-column"> Valor </mat-header-cell>
-    <mat-cell *matCellDef="let detail"> {{ detail.value }} </mat-cell>
+    <mat-header-cell *matHeaderCellDef class="header-column"> {{ headerTwo }} </mat-header-cell>
+    <mat-cell *matCellDef="let detail" class="value"> {{ detail.value }} </mat-cell>
   </ng-container>
 
-  <mat-header-row *matHeaderRowDef="detailsColumns"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="detailsColumns"  class="table"></mat-header-row>
   <mat-row *matRowDef="let row; columns: detailsColumns;"></mat-row>
 </mat-table>

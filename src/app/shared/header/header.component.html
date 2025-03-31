@@ -13,8 +13,8 @@
                     <img class="logo-mobile" src="logo.png" alt="Logo">
                 </a>
                 <div class="icons-mobile">
-                    <mat-icon class="account_icon">account_circle</mat-icon>
-                    <mat-icon class="cart_icon">shopping_cart</mat-icon>
+                    <app-btn-icon [iconType]="'account_circle'" [notificationOp]="true"></app-btn-icon>
+                    <app-btn-icon [iconType]="'shopping_cart'" [routerLink]="['/cart']" ></app-btn-icon>
                 </div>
             </div>
             <div class="search-container">
@@ -26,10 +26,9 @@
                 </button>
                 <input type="text" placeholder="Pesquisar...">
                 <div class="icons">
-                    <mat-icon class="account_icon">account_circle</mat-icon>
-                    <mat-icon class="cart_icon">shopping_cart</mat-icon>
-                </div>
-               
+                    <app-btn-icon [iconType]="'account_circle'" [notificationOp]="true"></app-btn-icon>
+                    <app-btn-icon [iconType]="'shopping_cart'" [routerLink]="['/cart']" ></app-btn-icon>
+                </div>      
             </div>
             
            

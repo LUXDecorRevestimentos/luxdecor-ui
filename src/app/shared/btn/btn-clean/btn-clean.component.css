@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 10px;
+}
+
+button{
+    width: 100%;
+    background-color: #ED1D20;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    /* max-width: 180px; */
+}
+
+p {
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.arrow {
+    color: black;
+}
+

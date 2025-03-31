@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProductDetailsTable} from '../../../data/table.data';
+import { ProductDetailsTable} from '../../data/table.data';
 import {MatTableModule} from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 
@@ -13,6 +13,8 @@ export class ProductTableComponent implements OnInit {
 
   @Input() detailTable: ProductDetailsTable[]  = [];
   @Input() title: string = "";
+  @Input() headerOne: string = "";
+  @Input() headerTwo: string = "";
   
   detailsData: ProductDetailsTable[] = []; 
 

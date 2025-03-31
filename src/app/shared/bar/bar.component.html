@@ -1,4 +1,5 @@
 <div class="container {{ type }}">
     <h2 class="{{ titleType }}">{{ title }}</h2>
-    <div class="bar {{ displayOp }}"></div>
+    <h1 *ngIf="subTitle">{{ subTitle }}</h1>
+    <div class="bar {{ displayOp }} {{ color }}"></div>
 </div>

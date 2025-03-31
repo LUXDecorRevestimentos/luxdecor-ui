@@ -1,0 +1,18 @@
+.header-column {
+    font-weight: bold;
+    font-size: 16px;
+    display: none;
+}
+
+.table {
+    display: none;
+    padding: 10px;
+}
+
+.value {
+    font-weight: bold;
+}
+
+mat-cell {
+    font-size: 20px;
+}
