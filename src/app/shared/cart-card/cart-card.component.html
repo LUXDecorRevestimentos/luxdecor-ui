@@ -1,0 +1,41 @@
+<div class="cart-card">
+    <div class="img-backgroud">
+      <img src="piso.png" alt="">
+    </div>
+    <div class="text">
+      <h3>{{ cart?.title }}</h3>
+
+      <p>{{ cart?.price }}</p>
+       
+    </div>
+    <div class="check" *ngIf="display">
+        <mat-checkbox 
+        [checked]="checked" 
+        (change)="onCheckboxChange($event)"
+      ></mat-checkbox>
+      
+    </div>
+    
+    <div class="counter" *ngIf="display">
+        <button class="btn-add" (click)="increment()">
+          <mat-icon class="plus_icon">add</mat-icon>
+        </button>
+        <input
+        [value]="count"
+        (input)="updateCount($event)"
+        class="count-input"
+      />
+      <button  class="btn-min" (click)="decrement()">
+        <mat-icon class="remove_icon">remove</mat-icon>
+      </button>
+    </div>
+    <div class="counter" *ngIf="!display">
+      <input
+      class="count-input"
+      value="1"
+    /> 
+    </div>
+    
+
+</div>
+

@@ -36,7 +36,6 @@ button {
     background-color: black;
     border: none;
     color: white;
-    /* height: 50px; */
 }
 
 
@@ -88,6 +87,10 @@ button {
     left: 30px;
 }
 
+.none {
+    display: none;
+}
+
 @media (min-width: 750px) {
 
     .img-backgroud img{
@@ -112,12 +115,5 @@ button {
     
     p {
         margin-top: 10px;
-    }
-}
-
-@media (min-width: 1440px) {
-    .img-backgroud img {
-        position: relative;
-        right: 100px;
     }
 }

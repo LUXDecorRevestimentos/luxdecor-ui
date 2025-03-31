@@ -22,22 +22,23 @@
             [cart]="item"
             [checked]="item.select"
             (checkChange)="update($event, i)"
+            [display]="true"
           ></app-cart-card>
       }
     </div>
     <div class="subtotal">
-        <h1>Resumo do pedido</h1>
-        <app-bar [type]="'long'"></app-bar>
-        <div class="value-container">
-            <p>SubTotal</p>
-            <p><strong>R$ 385,00</strong></p>
-        </div>
-        <app-bar [type]="'long'"></app-bar>
-        <div class="btn-container">
-          <app-btn-next></app-btn-next>
-          <app-btn-clean></app-btn-clean>
-        </div>
-    </div>
+      <h1>Resumo do pedido</h1>
+      <app-bar [type]="'long'"></app-bar>
+      <div class="value-container">
+          <p>SubTotal</p>
+          <p><strong>R$ 385,00</strong></p>
+      </div>
+      <app-bar [type]="'long'"></app-bar>
+      <div class="btn-container">
+        <app-btn-next (click)="navigateToPayment()"></app-btn-next>
+        <app-btn-clean></app-btn-clean>
+      </div>
+  </div>
   </div>
 
 </div>

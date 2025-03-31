@@ -1,16 +1,18 @@
-import { Component, Input, OnInit, Inject, signal, computed} from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import { BarComponent } from '../../shared/bar/bar.component';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../service/product.service';
-import { CartCardData, Cart } from '../../data/card.data'
-import { CartCardComponent } from '../cart-page/cart-card/cart-card.component';
+import { CartCardData, Cart } from '../../data/card.data';
+import { CartCardComponent } from '../../shared/cart-card/cart-card.component'
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BtnNextComponent } from '../../shared/btn/btn-next/btn-next.component';
 import { BtnCleanComponent } from '../../shared/btn/btn-clean/btn-clean.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
+  standalone: true,
   imports: [
     BarComponent,
     CommonModule,
@@ -18,15 +20,14 @@ import { BtnCleanComponent } from '../../shared/btn/btn-clean/btn-clean.componen
     BtnContinueComponent,
     MatCheckboxModule,
     BtnNextComponent,
-    BtnCleanComponent
+    BtnCleanComponent,
   ],
   templateUrl: './cart-page.component.html',
-  styleUrl: './cart-page.component.css'
+  styleUrls: ['./cart-page.component.css']
 })
 export class CartPageComponent implements OnInit {
-  @Input() cartItems: CartCardData[] = [];
+  cartItems: CartCardData[] = [];
   
-  // Inicializa o cart com valores padrão
   readonly cart = signal<Cart>({
     id: 'Selecionar Tudo',
     completed: false,
@@ -35,38 +36,72 @@ export class CartPageComponent implements OnInit {
 
   readonly partiallyComplete = computed(() => {
     const cart = this.cart();
-    if (!cart.items || cart.items.length === 0) {
-      return false;
-    }
-    return cart.items.some(item => item.select) && !cart.items.every(item => item.select);
+    return cart.items?.some(item => item.select) && !cart.items?.every(item => item.select);
   });
+
+  constructor(
+    private router: Router,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     this.populateCart();
   }
 
-  constructor(private productService: ProductService) {}
-
   populateCart() {
-    this.productService.getCartData().subscribe(categories => {
-      this.cartItems = this.cartItems.concat(categories);
-      this.cart.set({
-        ...this.cart(),
-        items: [...this.cartItems]
-      });
+    this.productService.getCartData().subscribe({
+      next: (categories) => {
+        this.cartItems = [...categories];
+        this.cart.set({
+          ...this.cart(),
+          items: [...this.cartItems]
+        });
+      },
+      error: (err) => console.error('Error loading cart data:', err)
     });
   }
 
   update(completed: boolean, index?: number) {
     this.cart.update(cart => {
+      const updatedItems = [...(cart.items || [])];
+      
       if (index === undefined) {
-        cart.completed = completed;
-        cart.items?.forEach(item => (item.select = completed));
+        updatedItems.forEach(item => item.select = completed);
       } else {
-        cart.items![index].select = completed;
-        cart.completed = cart.items?.every(item => item.select) ?? true;
+        updatedItems[index].select = completed;
       }
-      return {...cart};
+
+      return {
+        ...cart,
+        items: updatedItems,
+        completed: index === undefined ? completed : updatedItems.every(item => item.select)
+      };
     });
+  }
+
+  navigateToPayment() {
+    const selectedItems = this.cart().items?.filter(item => item.select) || [];
+    if (selectedItems.length === 0) {
+      alert('Por favor, selecione pelo menos um item para prosseguir ao pagamento');
+      return;
+    }
+
+    this.router.navigate(['/payment'], {
+      state: { 
+        cart: {
+          ...this.cart(),
+          items: selectedItems
+        }
+      }
+    });
+  }
+
+  clearCart() {
+    this.cart.set({
+      id: 'Selecionar Tudo',
+      completed: false,
+      items: []
+    });
+    this.cartItems = [];
   }
 }

@@ -1,15 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CartCardData } from '../../../data/card.data'
 import { MatIcon } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CommonModule } from '@angular/common';
+import { CartCardData } from '../../data/card.data'
 
 @Component({
   selector: 'app-cart-card',
-  imports: [MatIcon, MatCheckboxModule],
+  imports: [MatIcon, MatCheckboxModule, CommonModule],
   templateUrl: './cart-card.component.html',
   styleUrl: './cart-card.component.css'
 })
 export class CartCardComponent {
+  @Input() display: boolean = true;
   @Input() cart: CartCardData | null = null;
   @Input() checked: boolean = false;
   @Output() checkChange = new EventEmitter<boolean>();

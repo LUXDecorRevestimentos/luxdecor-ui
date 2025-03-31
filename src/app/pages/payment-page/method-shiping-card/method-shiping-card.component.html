@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="shiping-card"
+        [class.selected]="selectedMethod === 'entrega'"
+        (click)="selectMethod('entrega')">
+        <div class="card-content">
+            <div class="top">
+                <h1>Frete: R$150,00</h1></div>
+            <div class="bottom">    
+                <h1>Data de Entrega: 09 - 15 de junho</h1>    
+            </div>
+        </div>
+    </div>
+    
+    <div class="shiping-card"
+        [class.selected]="selectedMethod === 'retirada'"
+        (click)="selectMethod('retirada')">
+        <div class="card-content">
+            <h1>Retirada a partir de: 09 de junho</h1>
+        </div>
+    </div>
+</div>
