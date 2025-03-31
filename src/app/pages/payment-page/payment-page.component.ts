@@ -6,6 +6,8 @@ import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue
 import { ClientCardComponent } from '../../shared/client-card/client-card.component';
 import { CartCardComponent } from '../../shared/cart-card/cart-card.component'
 import { MethodPaymentCardComponent } from './method-payment-card/method-payment-card.component'; 
+import { MethodShipingCardComponent } from './method-shiping-card/method-shiping-card.component';
+import { BtnConfirmComponent } from '../../shared/btn/btn-confirm/btn-confirm.component';
 
 @Component({
   selector: 'app-payment-page',
@@ -14,7 +16,9 @@ import { MethodPaymentCardComponent } from './method-payment-card/method-payment
     BtnContinueComponent,
     CartCardComponent,
     ClientCardComponent,
-    MethodPaymentCardComponent
+    MethodPaymentCardComponent,
+    MethodShipingCardComponent,
+    BtnConfirmComponent
   ],
   templateUrl: './payment-page.component.html',
   styleUrl: './payment-page.component.css'

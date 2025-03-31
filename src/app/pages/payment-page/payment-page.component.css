@@ -9,3 +9,51 @@
 .client {
     margin-bottom: 20px;
 }
+
+.value-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.value-container p {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+@media (min-width: 1000px) {
+    .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0;
+        gap: 30px;
+    }
+
+    .start {
+        max-width: 410px;
+    }
+    .client {
+        width: 100%;
+    }
+    
+    .subtotal h1 {
+        margin-bottom: 20px;
+    }
+    
+    .top mat-checkbox {
+        margin-left: auto;
+    }
+
+}
+
+
+@media (min-width: 1440px) {
+    
+    .start {
+        max-width: 410px;
+    }
+}

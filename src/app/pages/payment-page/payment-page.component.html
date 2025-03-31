@@ -3,27 +3,66 @@
         <app-btn-continue></app-btn-continue>
     </div>
     <div class="content">
-        <div class="cart">
-            <app-bar [title]="'No Carrinho ' + amount"></app-bar>
+        <div class="start">
+            <div class="cart">
+                <app-bar [title]="'No Carrinho ' + amount" [type]="'long'"></app-bar>
+    
+                @for (item of this.cartData.items; track item; let i = $index) {
+                    <app-cart-card 
+                      [cart]="item"
+                      [checked]="item.select"
+                      [display]="true"
+                    ></app-cart-card>
+                }
+            </div>
+        </div>
+       
+        
+       
+        <div class="mid">
+            <div class="client">
+                <app-bar class="bar" [title]="'Confirme seus dados'" [type]="'long'"></app-bar>
+                <app-client-card></app-client-card>
+            </div>
+            <div class="method">
+                <app-bar class="bar" [title]="'Método de pagamento'" [type]="'long'"></app-bar>
+                <app-method-payment-card></app-method-payment-card>
+            </div>
+        </div>
 
-            @for (item of this.cartData.items; track item; let i = $index) {
-                <app-cart-card 
-                  [cart]="item"
-                  [checked]="item.select"
-                  [display]="true"
-                ></app-cart-card>
-            }
+        <div class="end">
+           
+            <div class="shipping">
+                <app-bar [title]="'Método de entrega'" [type]="'long'"></app-bar>
+                <app-method-shiping-card></app-method-shiping-card>
+            </div>
+            <div class="subtotal">
+                <app-bar [title]="'Resumo do pedido'" [type]="'long'"></app-bar>
+                <app-bar [type]="'long'" [type]="'long'"></app-bar>
+                <div class="value-container">
+                    <p>SubTotal</p>
+                    <p><strong>R$ 385,00</strong></p>
+                </div>
+                <app-bar [type]="'long'"></app-bar>
+                <div class="value-container">
+                    <p>Frete</p>
+                    <p><strong>R$ 100,00</strong></p>
+                </div>
+                <app-bar [type]="'long'"></app-bar>
+                <div class="value-container">
+                    <h3>Total</h3>
+                    <h3><strong>R$ 485,00</strong></h3>
+                </div>
+                <app-bar [type]="'long'"></app-bar>
+            </div>
+        
+            <div class="confirm">
+                <app-bar [title]="'Confime o seu pedido'"></app-bar>
+                <app-btn-confirm></app-btn-confirm>
+            </div>
         </div>
         
-        <div class="client">
-            <app-bar class="bar" [title]="'Confirme seus dados'"></app-bar>
-            <app-client-card></app-client-card>
-        </div>
-
-        <div class="method">
-            <app-method-payment-card></app-method-payment-card>
-        </div>
-
-
     </div>
+    
+
 </div>

@@ -117,10 +117,3 @@ button {
         margin-top: 10px;
     }
 }
-
-@media (min-width: 1440px) {
-    .img-backgroud img {
-        position: relative;
-        right: 100px;
-    }
-}

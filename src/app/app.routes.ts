@@ -10,5 +10,4 @@ export const routes: Routes = [
     { path: 'category', component: ProductComponent },
     { path: 'product', component: ProductPageComponent },
     { path: 'cart', component: CartPageComponent },
-    { path: 'payment', component: PaymentPageComponent }
-];
+    { path: 'payment', component: PaymentPageComponent }];

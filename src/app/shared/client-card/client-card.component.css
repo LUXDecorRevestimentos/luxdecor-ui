@@ -21,3 +21,13 @@
 h1 {
     font-size: 18px;
 }
+
+
+@media (min-width: 1000px) {
+   
+    
+    h1 {
+        font-size: 15px;
+    }
+
+}
