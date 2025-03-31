@@ -51,3 +51,21 @@ export interface CartCardData {
     amount: number;
     select: boolean;
 }
+
+export interface OrderCardData {
+    id: number;
+    title: string;
+    type: string;
+    imageUrl: string;
+    price: any;
+    amount: number;
+    select: boolean;
+    date: string;
+    lastUpdate: string;
+    status: OrderStatus;
+}
+
+export enum OrderStatus {
+    UNDERWAY = 1,
+    FINISHED = 2
+}

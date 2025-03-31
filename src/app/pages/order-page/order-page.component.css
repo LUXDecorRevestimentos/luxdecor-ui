@@ -1,0 +1,15 @@
+.container {
+    margin: 10px auto;
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.mat-mdc-tab-group {
+    max-width: 1440px;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+}
