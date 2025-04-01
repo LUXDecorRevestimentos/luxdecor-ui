@@ -1,0 +1,47 @@
+.img-backgroud {
+    margin-left: 10px;
+}
+
+.img-backgroud img{
+    width: 128px;
+}
+
+.card-order {
+
+    width: 100%;
+    height: 190px;
+    border: 1px solid black;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.content {
+    display: flex;
+    margin: 10px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px 0 10px;
+}
+
+.top h1 {
+    font-size: 20px;
+}
+
+
+.text {
+    margin: 0 0 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+p {
+    margin-top: 10px;
+}

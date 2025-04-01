@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="top">
+    <mat-tab-group>
+      <mat-tab label="Ver Tudo">
+        <div class="content">
+          <ng-container *ngFor="let order of orders; let i = index">
+            <app-card-order [order]="order">
+            </app-card-order>
+          </ng-container>
+        </div>
+      </mat-tab>
+      <mat-tab label="A caminho">
+        <div class="content">
+          <ng-container *ngFor="let order of orderUnderway; let i = index">
+            <app-card-order [order]="order">
+            </app-card-order>
+          </ng-container>
+        </div>
+      </mat-tab>
+      <mat-tab label="Concluido">
+        <div class="content">
+          <ng-container *ngFor="let order of orderFinished; let i = index">
+            <app-card-order [order]="order">
+            </app-card-order>
+          </ng-container>
+        </div>
+      </mat-tab>
+    </mat-tab-group>  
+
+  </div>
+ 
+</div>

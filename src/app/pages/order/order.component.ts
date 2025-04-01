@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTabsModule} from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
+import { MatTabsModule } from '@angular/material/tabs';
 import { OrderService } from '../../service/order.service';
+import { CardOrderComponent } from './card-order/card-order.component';
 import { OrderCardData, OrderStatus} from "../../data/card.data";
+import { CardComponent } from "../../shared/card/default/card-default.component";
 
 @Component({
   selector: 'app-order-page',
-  imports: [MatTabsModule],
-  templateUrl: './order-page.component.html',
-  styleUrl: './order-page.component.css'
+  imports: [
+    MatTabsModule,
+    CommonModule,
+    CardOrderComponent],
+  templateUrl: './order.component.html',
+  styleUrl: './order.component.css'
 })
-export class OrderPageComponent implements OnInit {
+export class OrderComponent implements OnInit {
 
   orders: OrderCardData[] = [];
 
@@ -17,7 +23,6 @@ export class OrderPageComponent implements OnInit {
   orderFinished: OrderCardData[] = [];
 
   constructor(private orderService: OrderService) {}
-
 
   ngOnInit(): void {
     this.populateData();
