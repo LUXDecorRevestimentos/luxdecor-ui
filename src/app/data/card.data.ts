@@ -69,3 +69,9 @@ export enum OrderStatus {
     UNDERWAY = 1,
     FINISHED = 2
 }
+
+
+export const OrderStatusLabels: { [key: number]: string } = {
+    [OrderStatus.UNDERWAY]: "A caminho",
+    [OrderStatus.FINISHED]: "Concluido",
+};

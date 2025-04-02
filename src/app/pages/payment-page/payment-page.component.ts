@@ -6,7 +6,7 @@ import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue
 import { ClientCardComponent } from '../../shared/client-card/client-card.component';
 import { CartCardComponent } from '../../shared/cart-card/cart-card.component'
 import { MethodPaymentCardComponent } from './method-payment-card/method-payment-card.component'; 
-import { MethodShipingCardComponent } from './method-shiping-card/method-shiping-card.component';
+import { MethodShippingCardComponent } from './method-shipping-card/method-shipping-card.component';
 import { BtnConfirmComponent } from '../../shared/btn/btn-confirm/btn-confirm.component';
 
 @Component({
@@ -17,7 +17,7 @@ import { BtnConfirmComponent } from '../../shared/btn/btn-confirm/btn-confirm.co
     CartCardComponent,
     ClientCardComponent,
     MethodPaymentCardComponent,
-    MethodShipingCardComponent,
+    MethodShippingCardComponent,
     BtnConfirmComponent
   ],
   templateUrl: './payment-page.component.html',
