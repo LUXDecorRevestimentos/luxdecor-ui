@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-method-shiping-card',
   imports: [CommonModule],
-  templateUrl: './method-shiping-card.component.html',
-  styleUrl: './method-shiping-card.component.css'
+  templateUrl: './method-shipping-card.component.html',
+  styleUrl: './method-shipping-card.component.css'
 })
-export class MethodShipingCardComponent {
+export class MethodShippingCardComponent {
 
   selectedMethod: string | null = null;
 

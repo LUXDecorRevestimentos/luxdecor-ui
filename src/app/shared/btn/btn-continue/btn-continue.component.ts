@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { BarComponent } from '../../bar/bar.component';
 
@@ -9,5 +9,5 @@ import { BarComponent } from '../../bar/bar.component';
   styleUrl: './btn-continue.component.css'
 })
 export class BtnContinueComponent {
-
+  @Input() label: string = "Voltar";
 }
