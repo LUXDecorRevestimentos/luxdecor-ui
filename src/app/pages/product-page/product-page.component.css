@@ -162,7 +162,7 @@
 
     .image {
         display: flex;
-        margin-left: 20px; /* Espaço entre a galeria e a imagem */
+        margin-left: 20px;
         margin-right: 0;
     }
 
@@ -172,12 +172,12 @@
     }
 
     .image-gallery {
-        flex-direction: column; /* Galeria em lista vertical */
-        gap: 10px; /* Espaço entre as miniaturas */
+        flex-direction: column;
+        gap: 10px;
     }
 
     .image-gallery img {
-        width: 60px; /* Largura das miniaturas */
+        width: 60px;
     }
 
     .mobile {

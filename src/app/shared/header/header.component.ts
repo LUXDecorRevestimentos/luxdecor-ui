@@ -29,10 +29,6 @@ export class HeaderComponent {
       width: '500px',
       data: { /* dados que você quer passar para o modal */ }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Modal fechado', result);
-    });
   }
 
 }
