@@ -32,8 +32,6 @@ export class PaymentPageComponent implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     this.cartData = navigation?.extras.state?.['cart'] || { items: [] };
     
-    console.log(this.cartData)
-
     if (!this.cartData.items) {
       this.cartData = history.state?.['cart'] || { items: [] };
     }

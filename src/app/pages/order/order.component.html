@@ -1,170 +1,103 @@
 <div class="container">
-  <!-- Tela principal (lista) -->
-  <div class="start" *ngIf="!selectedOrder || isDesktopView()">
-    <mat-tab-group>
-      <mat-tab label="Ver Tudo">
-        <div class="content">
-          <ng-container *ngFor="let order of orders; let i = index">
-            <app-card-order [order]="order" (click)="selectOrder(order)" [class.selected]="order === selectedOrder">
-            </app-card-order>
-          </ng-container>
-        </div>
-      </mat-tab>
-      <mat-tab label="A caminho">
-        <div class="content">
-          <ng-container *ngFor="let order of orderUnderway; let i = index">
-            <app-card-order [order]="order" (click)="selectOrder(order)" [class.selected]="order === selectedOrder">
-            </app-card-order>
-          </ng-container>
-        </div>
-      </mat-tab>
-      <mat-tab label="Concluido">
-        <div class="content">
-          <ng-container *ngFor="let order of orderFinished; let i = index">
-            <app-card-order [order]="order" (click)="selectOrder(order)" [class.selected]="order === selectedOrder">
-            </app-card-order>
-          </ng-container>
-        </div>
-      </mat-tab>
-    </mat-tab-group>  
+  <div class="return">
+    <app-btn-continue [label]="'Continue Comprando'"></app-btn-continue>
   </div>
 
-  <!-- Tela de detalhes (mobile) -->
-  <div class="end-mobile" *ngIf="selectedOrder && isMobileView()">
-    <button mat-icon-button class="back-button" (click)="selectedOrder = null">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-    
-    <app-card-order [order]="selectedOrder" class="selected-order"></app-card-order>
-    
-    <div class="shipping_status">
-      <div class="step">
-        <h1 class="step-label">Preparação</h1>
-        <div class="box">
-          <mat-icon class="package">pallet</mat-icon>
-        </div>
-      </div>
-      <div class="step">
-        <h1 class="step-label">A caminho</h1>
-        <div class="shipping">
-          <mat-icon class="local_shipping">local_shipping</mat-icon>
-        </div>
-      </div>
-      <div class="step">
-        <h1 class="step-label">Entregue</h1>
-        <div class="finnaly">
-          <mat-icon class="home">home</mat-icon>
-        </div>
-      </div>
+  <div class="content">
+    <div class="start" *ngIf="!selectedOrder || isDesktopView()">
+      <mat-tab-group>
+        <mat-tab label="Ver Tudo">
+          <div class="items">
+            <ng-container *ngFor="let order of orders; let i = index">
+              <app-card-order [order]="order" (click)="selectOrder(order)" [class.selected]="order === selectedOrder">
+              </app-card-order>
+            </ng-container>
+          </div>
+        </mat-tab>
+        <mat-tab label="A caminho">
+          <div class="items">
+            <ng-container *ngFor="let order of orderUnderway; let i = index">
+              <app-card-order [order]="order" (click)="selectOrder(order)" [class.selected]="order === selectedOrder">
+              </app-card-order>
+            </ng-container>
+          </div>
+        </mat-tab>
+        <mat-tab label="Concluido">
+          <div class="items">
+            <ng-container *ngFor="let order of orderFinished; let i = index">
+              <app-card-order [order]="order" (click)="selectOrder(order)" [class.selected]="order === selectedOrder">
+              </app-card-order>
+            </ng-container>
+          </div>
+        </mat-tab>
+      </mat-tab-group>  
     </div>
-    
-    <div class="step-info">
-      <div class="vertical-timeline">
-        <div class="timeline-container">
-          <div class="time-column">
-            <div class="item-time">
-              <p>01 Jan '25</p>
-              <p>12:30</p>
-            </div>
-            <div class="item-time">
-              <p>02 Jan '25</p>
-              <p>20:00</p>
-            </div>
-            <div class="item-time">
-              <p>03 Jan '25</p>
-              <p>09:00</p>
-            </div>
+  
+    <div class="end-desktop" *ngIf="isDesktopView() || openItem">
+      <app-card-order [order]="orders[0]">
+      </app-card-order>
+      <div class="shipping_status">
+        <div class="step">
+          <h1 class="step-label">Preparação</h1>
+          <div class="box">
+            <mat-icon class="package">pallet</mat-icon>
           </div>
-          <div class="timeline-line"></div>
-          <div class="status-column">
-            <div class="status-item completed">
-              <div class="status-circle"></div>
-              <div class="status-label">Recolhido</div>
-            </div>
-            <div class="status-item completed">
-              <div class="status-circle"></div>
-              <div class="status-label">Em Trânsito</div>
-            </div>
-            <div class="status-item current">
-              <div class="status-circle"></div>
-              <div class="status-label">A Caminho</div>
-            </div>
-            <div class="status-item pending">
-              <div class="status-circle"></div>
-              <div class="status-label">Entregue</div>
-            </div>
+        </div>
+        <div class="step">
+          <h1 class="step-label">A caminho</h1>
+          <div class="shipping">
+            <mat-icon class="local_shipping">local_shipping</mat-icon>
+          </div>
+        </div>
+        <div class="step">
+          <h1 class="step-label">Entregue</h1>
+          <div class="finnaly">
+            <mat-icon class="home">home</mat-icon>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Sidebar (desktop) -->
-  <div class="end-desktop" *ngIf="isDesktopView()">
-    <app-card-order [order]="orders[0]">
-    </app-card-order>
-    <div class="shipping_status">
-      <div class="step">
-        <h1 class="step-label">Preparação</h1>
-        <div class="box">
-          <mat-icon class="package">pallet</mat-icon>
-        </div>
-      </div>
-      <div class="step">
-        <h1 class="step-label">A caminho</h1>
-        <div class="shipping">
-          <mat-icon class="local_shipping">local_shipping</mat-icon>
-        </div>
-      </div>
-      <div class="step">
-        <h1 class="step-label">Entregue</h1>
-        <div class="finnaly">
-          <mat-icon class="home">home</mat-icon>
-        </div>
-      </div>
-    </div>
-    <div class="step-info">
-      <div class="vertical-timeline">
-        <div class="timeline-container">
-          <!-- Coluna de tempos -->
-          <div class="time-column">
-            <div class="item-time">
-              <p>01 Jan '25</p>
-              <p>12:30</p>
+      <div class="step-info">
+        <div class="vertical-timeline">
+          <div class="timeline-container">
+            <div class="time-column">
+              <div class="item-time">
+                <p>01 Jan '25</p>
+                <p>12:30</p>
+              </div>
+              <div class="item-time">
+                <p>02 Jan '25</p>
+                <p>20:00</p>
+              </div>
+              <div class="item-time">
+                <p>03 Jan '25</p>
+                <p>09:00</p>
+              </div>
             </div>
-            <div class="item-time">
-              <p>02 Jan '25</p>
-              <p>20:00</p>
-            </div>
-            <div class="item-time">
-              <p>03 Jan '25</p>
-              <p>09:00</p>
-            </div>
-          </div>
-      
-          <div class="timeline-line"></div>
-      
-          <div class="status-column">
-            <div class="status-item completed">
-              <div class="status-circle"></div>
-              <div class="status-label">Recolhido</div>
-            </div>
-            <div class="status-item completed">
-              <div class="status-circle"></div>
-              <div class="status-label">Em Trânsito</div>
-            </div>
-            <div class="status-item current">
-              <div class="status-circle"></div>
-              <div class="status-label">A Caminho</div>
-            </div>
-            <div class="status-item pending">
-              <div class="status-circle"></div>
-              <div class="status-label">Entregue</div>
+        
+            <div class="timeline-line"></div>
+        
+            <div class="status-column">
+              <div class="status-item completed">
+                <div class="status-circle"></div>
+                <div class="status-label">Recolhido</div>
+              </div>
+              <div class="status-item completed">
+                <div class="status-circle"></div>
+                <div class="status-label">Em Trânsito</div>
+              </div>
+              <div class="status-item current">
+                <div class="status-circle"></div>
+                <div class="status-label">A Caminho</div>
+              </div>
+              <div class="status-item pending">
+                <div class="status-circle"></div>
+                <div class="status-label">Entregue</div>
+              </div>
             </div>
           </div>
         </div>
+        
       </div>
-      
     </div>
   </div>
 </div>

@@ -21,7 +21,6 @@ export class FeaturedPromotionsComponent {
   ngOnInit(): void {
     this.getSectionCategory()
     this.getSectionProduct()
-    console.log(this.typeContainer)
   }
 
   getSectionCategory() {

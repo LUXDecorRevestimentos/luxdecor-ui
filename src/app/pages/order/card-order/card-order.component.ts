@@ -15,8 +15,6 @@ export class CardOrderComponent implements OnInit {
   status: string = "";
 
   ngOnInit(): void {
-    console.log(this.order);
-    console.log("data: " + this.order?.date);
     this.getLabelStatus();
   }
 

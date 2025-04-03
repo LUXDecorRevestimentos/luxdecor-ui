@@ -6,6 +6,7 @@ import { CardOrderComponent } from './card-order/card-order.component'
 import { OrderCardData, OrderStatus} from "../../data/card.data";
 import { MatIcon } from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
+import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
 
 @Component({
   selector: 'app-order-page',
@@ -14,7 +15,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     CommonModule,
     CardOrderComponent,
     MatIcon,
-    MatStepperModule],
+    MatStepperModule,
+    BtnContinueComponent],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
@@ -23,7 +25,7 @@ export class OrderComponent implements OnInit {
   orderUnderway: OrderCardData[] = [];
   orderFinished: OrderCardData[] = [];
   selectedOrder: OrderCardData | null = null;
-
+  openItem: boolean = false;
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
@@ -42,7 +44,9 @@ export class OrderComponent implements OnInit {
 
   selectOrder(order: OrderCardData) {
     if (this.isMobileView()) {
+      console.log('click item')
       this.selectedOrder = order;
+      this.openItem = true;
     }
   }
 
@@ -54,11 +58,4 @@ export class OrderComponent implements OnInit {
     return window.innerWidth >= 1000;
   }
 
-  // Atualiza a visualização quando a janela é redimensionada
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    if (this.isDesktopView()) {
-      this.selectedOrder = null;
-    }
-  }
 }
