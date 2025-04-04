@@ -32,7 +32,7 @@
           <app-sub-product *ngIf="selectedSubCategory" [cardsCategory]="cardsInstall"></app-sub-product>
           <app-btn-call *ngIf="selectedSubCategory" [title]=""></app-btn-call>
         </div>
-        <div class="sub-category" *ngIf="category?.type === 'sub-category'">          
+        <div class="sub-category" *ngIf="category?.type === 'sub-category'">
           <app-gallery *ngIf="selectedSubCategory" [productsContent]="productsContent"></app-gallery>
         </div>
       </div>
