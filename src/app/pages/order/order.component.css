@@ -13,11 +13,12 @@
 
 .items {
     flex-grow: 1;
-    overflow-y: scroll;
-    height: 600px;
-    margin-bottom: 60px;
+    overflow-y: auto;
+    max-height: calc(100vh - 250px);
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
 }
-
 
 .mat-mdc-tab-group {
     max-width: 100%;
@@ -219,14 +220,14 @@
         padding: 0;
     }
 
-    .container {
+    /* .container {
         margin: 10px auto;
         max-width: 1440px;
         width: 100%;
         padding: 0 20px;
         box-sizing: border-box;
     }
-    
+     */
     .start {
         max-width: 60%;
         flex: 1;
