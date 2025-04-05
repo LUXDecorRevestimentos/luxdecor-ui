@@ -1,0 +1,10 @@
+<div class="container">
+    <app-sidenav (buttonClick)="handleButtonClick($event)"></app-sidenav>
+    <div class="diplay">
+        <div class="content" *ngIf="contentToDisplay === 'dashboard'">
+            <app-dashboard></app-dashboard>
+        </div>
+        <div class="content" *ngIf="contentToDisplay === 'pallet'">Dashboard for pallet</div>
+        <!-- Repeat similar blocks for other icons -->
+    </div>
+</div>

@@ -1,0 +1,46 @@
+.container {
+  max-width: 1440px;  
+  min-height: 900px;
+  display: flex;
+}
+
+.content {
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  background-color: #F5F5F5;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  margin: auto;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  font-size: 64px;
+}
+
+.menu-button {
+  background-color: #F5F5F5;
+  display: flex;
+  justify-content: center;
+  border: none;
+  margin: 10px auto 10px auto;
+  transition: background-color 0.3s ease; 
+  border-radius: 10px;
+}
+
+.menu-button:hover {
+  background-color: #E5E5E5; /* New color on hover */
+}
+
+.active-button {
+  background-color: black; /* Color when active */
+}
+
+.active-button .icon {
+  color: white;
+}
