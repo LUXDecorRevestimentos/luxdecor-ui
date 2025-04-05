@@ -1,25 +1,26 @@
 import { Component, ViewChild } from '@angular/core';
-import { SidenavComponent } from './components/sidenav-component/sidenav-component.component'; // Adjust import path accordingly
+import { SidenavComponent } from './components/sidenav-component/sidenav-component.component';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @Component({
   selector: 'app-admin',
-  imports: [SidenavComponent, CommonModule, DashboardComponent],
+  imports: [SidenavComponent, CommonModule, DashboardComponent, OrdersComponent],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
   @ViewChild(SidenavComponent) sidenav!: SidenavComponent;
-  contentToDisplay: string = '';
+  contentToDisplay: string = 'dashboard';
 
   ngOnInit(): void {
     console.log('Admin component initialized');
+    this.handleButtonClick('dashboard');
   }
 
   handleButtonClick(identifier: string) {
-    this.contentToDisplay = identifier; // Update the displayed content based on the button clicked
-    console.log('Sidenav:', identifier);
-
+    this.contentToDisplay = identifier;
+    console.log('Sidenav:', identifier)
   }
 }

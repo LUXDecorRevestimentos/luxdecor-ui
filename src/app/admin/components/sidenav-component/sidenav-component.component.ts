@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class SidenavComponent {
   @Output() buttonClick = new EventEmitter<string>();
-  activeIdentifier: string | null = null;
+  activeIdentifier: string | null = 'dashboard';
 
   showDashboard(identifier: string) {
     this.activeIdentifier = identifier;

@@ -1,6 +1,7 @@
 .container {
   max-width: 1440px;  
   min-height: 900px;
+  height: 100%;
   display: flex;
 }
 
@@ -29,16 +30,11 @@
   justify-content: center;
   border: none;
   margin: 10px auto 10px auto;
-  transition: background-color 0.3s ease; 
   border-radius: 10px;
 }
 
-.menu-button:hover {
-  background-color: #E5E5E5; /* New color on hover */
-}
-
 .active-button {
-  background-color: black; /* Color when active */
+  background-color: black;
 }
 
 .active-button .icon {
