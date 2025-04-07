@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { OrderService } from '../../service/order.service';
@@ -44,7 +44,6 @@ export class OrderComponent implements OnInit {
 
   selectOrder(order: OrderCardData) {
     if (this.isMobileView()) {
-      console.log('click item')
       this.selectedOrder = order;
       this.openItem = true;
     }

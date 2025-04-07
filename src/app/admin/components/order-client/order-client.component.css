@@ -1,0 +1,35 @@
+.container {
+    margin-top: 20px;
+}
+
+.card {
+    margin-top: 10px;
+    border: 1px solid #000000;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+}
+
+.content {
+    margin-top: 10px;
+    display: flex;
+}
+
+.content img {
+    width: 128px;
+    height: 128px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.text {
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.text p {
+    margin: 10px 0;
+}

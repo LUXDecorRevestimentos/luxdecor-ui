@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="content">
+    <!-- Dashboard Button -->
+    <button (click)="showDashboard('dashboard')" [ngClass]="{'active-button': isActive('dashboard')}" class="menu-button">
+      <mat-icon class="icon">bar_chart</mat-icon>
+    </button>
+    <app-bar [type]="'long'"></app-bar>
+      
+    <!-- Orders Button -->
+    <button (click)="showDashboard('orders')" [ngClass]="{'active-button': isActive('orders')}" class="menu-button">
+      <mat-icon class="icon">pallet</mat-icon>
+    </button>
+    <app-bar [type]="'long'"></app-bar>
+
+    <!-- Products Button -->
+    <button (click)="showDashboard('products')" [ngClass]="{'active-button': isActive('products')}" class="menu-button">
+      <mat-icon class="icon">receipt_long</mat-icon>
+    </button>
+    <app-bar [type]="'long'"></app-bar>
+
+    <!-- Clients Button -->
+    <button (click)="showDashboard('clients')" [ngClass]="{'active-button': isActive('clients')}" class="menu-button">
+      <mat-icon class="icon">group</mat-icon>
+    </button>
+    <app-bar [type]="'long'"></app-bar>
+
+    <!-- Sales Button -->
+    <button (click)="showDashboard('sales')" [ngClass]="{'active-button': isActive('sales')}" class="menu-button">
+      <mat-icon class="icon">payments</mat-icon>
+    </button>
+    <app-bar [type]="'long'"></app-bar>
+
+    <!-- Admin Button -->
+    <button (click)="showDashboard('admin')" [ngClass]="{'active-button': isActive('admin')}" class="menu-button">
+      <mat-icon class="icon">admin_panel_settings</mat-icon>
+    </button>
+    <app-bar [type]="'long'"></app-bar>
+  </div>
+</div>

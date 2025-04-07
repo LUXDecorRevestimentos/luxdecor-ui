@@ -1,0 +1,29 @@
+<div class="container">
+    <app-bar [type]="'long'" [title]='"Produto: #" + productData.productId' ></app-bar>
+   <div class="card">
+    <div class="header">
+        <h2>{{ getLabelStatus(productData.status) }}</h2>
+        <h2>{{ productData.date }}</h2>
+    </div>
+    <app-bar [type]="'long'"></app-bar>
+    <div class="content">
+        <div class="top"> 
+            <img src="{{productData.imageUrl}}" alt="">
+            <div class="info">
+                <h1>{{ productData.title }}</h1>
+                <h2>Preco: R$ {{ productData.price }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="text">
+            <h2>Categoria: {{ productData.type }}</h2>
+            <h2>SubCategoria: {{ productData.subType }}</h2>
+            <h2>Quantidade: {{ productData.amount }}</h2>
+            <h2>Total: R$ {{ productData.price }}</h2>
+        </div>
+        <app-btn [title]="'Veja Mais'"></app-btn>
+    </div>
+   </div>
+    
+</div>

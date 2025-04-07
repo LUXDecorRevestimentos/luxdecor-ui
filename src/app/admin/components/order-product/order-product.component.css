@@ -1,0 +1,55 @@
+.container {
+    margin-top: 20px;
+    width: 500px;
+}
+
+.top {
+    display: flex;
+}
+
+.top h1 {
+    margin-top: 10px;
+    font-size: 26px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    margin-top: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+}
+
+.content {
+    margin-top: 10px;
+    display: flex;
+}
+
+.content img {
+    width: 128px;
+    height: 128px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between
+}
+
+.text {
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.text h2 {
+    margin: 10px 0;
+    font-size: 20px;
+}

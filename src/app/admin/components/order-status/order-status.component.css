@@ -1,0 +1,10 @@
+h2 {
+    font-size: 12px;
+}
+
+.container {
+    background-color: aquamarine;
+    padding: 8px;
+    border-radius: 8px;
+    width: 80px;
+}

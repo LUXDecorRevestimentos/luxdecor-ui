@@ -1,0 +1,29 @@
+.container {
+    max-width: 1200px;
+    width: 80vw;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+    font-weight: bold;
+    padding: 5px;
+}
+
+h1 {
+    margin: 20px 0 30px 0;
+    font-size: 30px;
+}
+
+th {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+td {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.selected-row {
+    background-color: #000000;
+    color: white;
+}

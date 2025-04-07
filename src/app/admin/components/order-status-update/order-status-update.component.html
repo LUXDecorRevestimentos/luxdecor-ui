@@ -1,0 +1,38 @@
+<div class="container">
+    <h1 style="text-align: center;">Atualizar Status</h1>
+    <div class="card">
+        <div class="top">
+            <h1>Status Atual:                 
+            </h1>
+            <app-order-status [orderStatus]=order.status></app-order-status>
+        </div>
+        <div class="content">
+            <h1>Selecione o novo status:</h1>
+            <mat-form-field>
+                <mat-label>Novo Status</mat-label>
+                <mat-select [(ngModel)]="order.status" panelClass="custom-panel-class">
+                    @for (status of getOrderStatusOptions(); track status) {
+                        <mat-option [value]="status">
+                            <app-order-status [orderStatus]=status></app-order-status>
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="fast_update">
+            
+            <button class="btn-update">Atualizar Para:
+                <app-order-status [orderStatus]='order.status'></app-order-status>
+            </button>
+          
+        </div>
+        <div class="bottom">
+            <button class="btn-save">
+                Salvar <mat-icon class="icon">save</mat-icon>
+            </button>
+            <button class="btn-cancel">
+                Cancelar <mat-icon class="icon">cleaning_services</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

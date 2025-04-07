@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="header">
+        <h1>Pedidos</h1>
+        <mat-icon class="icon">pallet</mat-icon>
+    </div>
+    <div class="cards-data">
+        <app-card-data icon="hourglass_full" title="Pendentes" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+        <app-card-data icon="sync" title="Processando" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+        <app-card-data icon="person" title="Entregues" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+        <app-card-data icon="person" title="Cancelados" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+    </div>
+    <div class="top">
+        <app-order-chart></app-order-chart>
+        <app-order-table-resume [detailTable]="detailTable" title="Resumo de Pedidos" headerOne="PedidoId" headerTwo="Status" headerThree="Data"></app-order-table-resume>
+    </div>
+    <div class="product-search">
+        <div class="centered-table">
+            <app-order-table [detailTable]="orders" (rowSelected)="onRowSelectedOrder($event)"></app-order-table>
+            <app-order-product-table *ngIf="detailProducts.length > 0" [detailProducts]="detailProducts" 
+                (rowSelected)="onRowSelectedProduct($event)"></app-order-product-table>
+            <div class="details" >
+                <app-order-product *ngIf="product" [productData]="product"></app-order-product>
+                <app-order-client *ngIf="client" [client]="client"></app-order-client>
+            </div>
+            <h1 *ngIf="detailProducts.length > 0">Status do Pedido</h1>
+            <div class="order-status" *ngIf="detailProducts.length > 0">
+
+                <div class="history">
+                    <h1>Historico</h1>
+                    <app-order-table-resume [detailTable]="detailTable" headerOne="PedidoId" headerTwo="Status" headerThree="Data"></app-order-table-resume>
+                </div>
+                <app-order-status-update [order]="order"></app-order-status-update>
+            </div>        
+        </div>
+       
+    </div>
+   
+</div>

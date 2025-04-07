@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="top">
+    <h1>{{ title }}</h1>
+    <div class="btns">
+      <button (click)="updateChartData('dia')" [ngClass]="{'active-button': isActive('dia')}" class="menu-button">1 dia</button>
+      <button (click)="updateChartData('semana')" [ngClass]="{'active-button': isActive('semana')}" class="menu-button">semana</button>
+      <button (click)="updateChartData('mes')" [ngClass]="{'active-button': isActive('mes')}" class="menu-button">mês</button>
+      <button (click)="updateChartData('ano')" [ngClass]="{'active-button': isActive('ano')}" >ano</button>
+    </div>
+  </div>
+  <div class="chart-container">
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="data"
+      [scheme]="colorScheme"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      (select)="onSelect($event)"
+      class="chart">
+    </ngx-charts-bar-vertical>
+  </div>
+  <app-btn [title]="title"></app-btn>
+</div>
