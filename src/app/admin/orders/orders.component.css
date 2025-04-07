@@ -1,15 +1,14 @@
 .container {
-    margin-left: 20px;
+    margin: 20px;
 }
 
 .header{
-    /* margin: 20px; */
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    margin-top: 30px;
 }
-
 
 .icon { 
     width: 100%;
@@ -17,9 +16,63 @@
     font-size: 48px;
     margin: 0 0 10px 10px;
 }
+
 .cards-data {
     display: flex;
-    padding: 20px;
     gap: 18px;
     width: 100%;
+    margin-top: 14px;
+}
+
+.top {
+    width: 100%;
+    
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 2%;
+
+
+}
+
+.product-search {
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    margin: auto;
+
+}
+
+.centered-table {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+}
+
+.details {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+
+.order-status {
+    gap: 100px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.history h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
 }

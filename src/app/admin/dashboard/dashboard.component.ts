@@ -28,7 +28,6 @@ export class DashboardComponent implements OnInit {
   constructor(private orderService: OrderAuthService) {}
 
   ngOnInit(): void {
-    console.log('Dashboard component initialized');
     this.populateDashboardData();
   }
 
@@ -36,7 +35,6 @@ export class DashboardComponent implements OnInit {
     this.orderService.getOrderData().subscribe((data) => {
       this.detailTable = data;
     });
-    console.log(this.detailTable);
   }
   
 }

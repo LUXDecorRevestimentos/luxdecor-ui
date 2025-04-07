@@ -1,0 +1,17 @@
+<div class="container">
+    <app-bar [type]="'long'" [title]='"Comprador: #" + client.clientId' ></app-bar>
+   <div class="card">
+    <h2>Nome: {{ client.name }}</h2>
+    <app-bar [type]="'long'"></app-bar>
+    <div class="content">
+        <img src="{{client.imageUrl}}" alt="">
+        <div class="text">
+            <p>Email: {{ client.email }}</p>
+            <p>Endereco: {{ client.address }}</p>
+            <p>Contato: {{ client.phoneNumber }}</p>
+            <p>Total de Pedidos: {{ client.amount }}</p>
+        </div>
+    </div>
+   </div>
+    
+</div>

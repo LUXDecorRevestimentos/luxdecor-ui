@@ -15,12 +15,10 @@ export class AdminComponent {
   contentToDisplay: string = 'dashboard';
 
   ngOnInit(): void {
-    console.log('Admin component initialized');
     this.handleButtonClick('dashboard');
   }
 
   handleButtonClick(identifier: string) {
     this.contentToDisplay = identifier;
-    console.log('Sidenav:', identifier)
   }
 }

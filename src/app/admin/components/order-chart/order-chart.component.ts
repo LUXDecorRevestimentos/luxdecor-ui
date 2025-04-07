@@ -14,7 +14,7 @@ export class OrderChartComponent {
   @Input() title: string | null = "Pedidos";
   @Output() buttonClick = new EventEmitter<string>();
 
-  view: [number, number] = [440, 300];
+  view: [number, number] = [500, 400];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
