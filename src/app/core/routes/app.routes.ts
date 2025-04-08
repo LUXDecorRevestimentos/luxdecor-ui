@@ -5,8 +5,10 @@ import { ProductPageComponent } from '../../pages/product-page/product-page.comp
 import { CartPageComponent } from '../../pages/cart-page/cart-page.component';
 import { PaymentPageComponent } from '../../pages/payment-page/payment-page.component';
 import { OrderComponent } from '../../pages/order/order.component';
+import { DashboardComponent } from '../../admin/dashboard/dashboard.component'; // Ensure this is correct
+import { AdminComponent } from '../../admin/admin.component'; // Import the admin components
+import { ADMIN_ROUTES } from './admin.routes'; // Import the admin routes
 import { adminGuard } from '../guards/admin.guard';
-import { AdminComponent } from '../../admin/admin.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,8 +17,9 @@ export const routes: Routes = [
   { path: 'cart', component: CartPageComponent },
   { path: 'payment', component: PaymentPageComponent },
   { path: 'order', component: OrderComponent },
-
   {
-    path: 'admin', component: AdminComponent
+    path: 'admin',
+    loadChildren: () => import('../routes/admin.routes').then(m => m.ADMIN_ROUTES),
+    canMatch: [adminGuard]
   },
 ];
