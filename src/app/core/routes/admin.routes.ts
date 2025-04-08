@@ -6,5 +6,8 @@ export const ADMIN_ROUTES: Routes = [
   {
     path: '',
     component: AdminComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+    ]
   }
 ];
