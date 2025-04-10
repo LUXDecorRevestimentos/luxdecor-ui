@@ -1,0 +1,41 @@
+<div class="container">
+    <h1 class="title">{{ detailTable.title }}</h1>
+    <mat-list role="list">
+        <ng-container *ngFor="let detail of detailTable.data; let i = index">
+            <mat-list-item 
+                [class.hovered]="isHovered(i)" 
+                role="listitem" 
+                class="detail-item"
+                (mouseenter)="onMouseEnter(i)" 
+                (mouseleave)="onMouseLeave()">
+                <div class="item">
+                    <h1>{{ detail.label }}</h1>
+                    <div class="btns-detail">
+                        <button mat-icon-button (click)="moveItemUp(i)" aria-label="Move item up" class="btn-move">
+                            <mat-icon>arrow_upward</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="moveItemDown(i)" aria-label="Move item down" class="btn-move">
+                            <mat-icon>arrow_downward</mat-icon>
+                        </button>
+                    </div>
+                </div>
+               
+            </mat-list-item>
+            <app-bar [type]="'long'" *ngIf="isHovered(i)"></app-bar>
+        </ng-container>
+    </mat-list> 
+    <div class="detail-input">
+        <button class="btn-input" >
+            <h1>{{ detailTable.title }}</h1>
+            <mat-icon class="icon icon-add">add</mat-icon>
+        </button>
+        <input  class="input-text" type="text" placeholder="Adicionar Topico" value="{{ detailTable.data[1].label }}" />
+        <button class="btn-save">
+            <mat-icon class="icon option">save</mat-icon>
+        </button>
+        <button class="btn-cancel">
+            <mat-icon class="icon option">cleaning_services</mat-icon>
+        </button>
+    </div>
+    
+</div>

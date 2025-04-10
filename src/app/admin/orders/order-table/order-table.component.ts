@@ -8,7 +8,12 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-order-table',
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatIcon, CommonModule],
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule, 
+    MatIcon, 
+    CommonModule],
   templateUrl: './order-table.component.html',
   styleUrl: './order-table.component.css'
 })

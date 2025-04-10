@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="topic-table">
+        <app-topic-table [topics]="topics"></app-topic-table>
+    </div>
+    <div class="topic">
+        <button>
+            <h1>Topico</h1>
+            <mat-icon class="icon">add</mat-icon> 
+        </button>
+        <input  class="input-text" type="text" placeholder="Adicionar Topico" value="{{ topics[0].topicName }}" />
+    </div>
+    <div class="category">
+        <h1>Tipo: </h1>
+        <div class="select-wrapper"  style="background-color: white;">
+            <mat-select [(ngModel)]="selectedOption" (selectionChange)="onSelectChange($event.value)" panelClass="custom-panel-class"  style="background-color: white !important;">
+                <mat-option value="Produtos"  style="background-color: white;">Carrousel</mat-option>
+                <mat-option value="Servicos"  style="background-color: white;">Galeria</mat-option>
+            </mat-select>
+        </div>
+    </div>
+</div>

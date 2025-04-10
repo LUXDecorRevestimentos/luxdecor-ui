@@ -6,7 +6,7 @@ import { OrderStatus } from '../../data/table.data';
 @Injectable({
   providedIn: 'root' 
 })
-export class ProductService {
+export class ProductAuthService {
   constructor() { }
   getProductId(): Observable<ProductData> {
     const product: ProductData = {

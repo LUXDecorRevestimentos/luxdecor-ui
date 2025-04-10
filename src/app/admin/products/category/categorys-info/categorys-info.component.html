@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="top">
+        <div class="title">
+            <h1>Titulo:</h1>
+            <input  class="input-text" type="text" placeholder="Titulo da Categoria" value="{{ categoryInfo.categoryName }}" />
+        </div>
+        <div class="category">
+            <h1>Categoria: </h1>
+            <div class="select-wrapper"  style="background-color: white;">
+                <mat-select [(ngModel)]="selectedOption" (selectionChange)="onSelectChange($event.value)" panelClass="custom-panel-class"  style="background-color: white !important;">
+                    <mat-option value="Produtos"  style="background-color: white;">Produtos</mat-option>
+                    <mat-option value="Servicos"  style="background-color: white;">Serviços</mat-option>
+                </mat-select>
+            </div>
+        </div>
+    </div>
+    
+    <div class="img-banner"><img [src]="categoryInfo.imgBanner" alt="{{ categoryInfo.categoryName }}" /></div>
+    <app-subcategory [subCategories]="categoryInfo.subCategories"></app-subcategory>
+    <app-brand [brands]="categoryInfo.brands"></app-brand>
+    <app-topic [topics]="categoryInfo.topics"></app-topic>
+    <app-details-table [detailTable]="categoryInfo.details"></app-details-table>
+    <app-details-table [detailTable]="categoryInfo.dimensions"></app-details-table>
+
+    <div class="bottom">
+        <button class="btn-save">
+            Salvar <mat-icon class="icon">save</mat-icon>
+        </button>
+        <button class="btn-cancel">
+            Cancelar <mat-icon class="icon">cleaning_services</mat-icon>
+        </button>
+    </div>
+</div>

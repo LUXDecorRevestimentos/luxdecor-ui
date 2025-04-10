@@ -1,0 +1,26 @@
+<h1>SubCategorias</h1>
+<div class="container">    
+    <table mat-table [dataSource]="subCategories">
+        <ng-container matColumnDef="subCategoryId">
+            <th mat-header-cell *matHeaderCellDef> SubCategoriaId </th>
+            <td mat-cell *matCellDef="let subCategory"> {{subCategory.subCategoryId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="subCategoryName">
+            <th mat-header-cell *matHeaderCellDef> Titulo </th>
+            <td mat-cell *matCellDef="let subCategory"> {{subCategory.subCategoryName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="items">
+            <th mat-header-cell *matHeaderCellDef> Items </th>
+            <td mat-cell *matCellDef="let subCategory"> {{subCategory.items}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let subCategory; columns: displayedColumns;" 
+            (click)="onRowClicked(subCategory)" 
+            [ngClass]="{'custom-row': true, 'selected-row': 
+            selectedRow?.subCategoryId === subCategory.subCategoryId}"
+        ></tr>
+    </table>
+</div>

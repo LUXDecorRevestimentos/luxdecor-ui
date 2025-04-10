@@ -3,10 +3,11 @@ import { SidenavComponent } from './components/sidenav-component/sidenav-compone
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ProductsComponent } from './products/products.component';
 
 @Component({
   selector: 'app-admin',
-  imports: [SidenavComponent, CommonModule, DashboardComponent, OrdersComponent],
+  imports: [SidenavComponent, CommonModule, DashboardComponent, OrdersComponent, ProductsComponent],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })

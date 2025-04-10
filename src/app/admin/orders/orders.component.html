@@ -24,7 +24,6 @@
             </div>
             <h1 *ngIf="detailProducts.length > 0">Status do Pedido</h1>
             <div class="order-status" *ngIf="detailProducts.length > 0">
-
                 <div class="history">
                     <h1>Historico</h1>
                     <app-order-table-resume [detailTable]="detailTable" headerOne="PedidoId" headerTwo="Status" headerThree="Data"></app-order-table-resume>
