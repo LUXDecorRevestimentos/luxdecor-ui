@@ -81,8 +81,16 @@ export interface CategoryInfo {
 
 export interface ProductInfo {
     productId: string;
+    productName: string;
     categoryId: string;
-    categoryInfo: CategoryInfo;
+    categoryName: string;
+    imgs: string[];
+    price: number;
+    brandId: string;
+    brandName: string;
+    categoryType: CategoryType;
+    dimensions: DetailsData;
+    details: DetailsData;
 }
 
 export interface DetailsData {

@@ -18,6 +18,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class DetailsTableComponent {
   @Input() detailTable!: DetailsData;
+  @Input() editable: boolean = false;
   private hoveredIndex: number | null = null;
 
   onMouseEnter(index: number): void {

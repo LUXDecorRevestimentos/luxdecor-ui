@@ -4,7 +4,7 @@ import { ProductAuthService } from '../service/product.auth.service';
 import { CategoryTable } from '../data/category.data';
 import { CategorysContentComponent } from './category/categorys-content/categorys-content.component';
 import { CommonModule } from '@angular/common';
-import { ProductsContentComponent } from './produtct/products-content/products-content.component';
+import { ProductsContentComponent } from './product/products-content/products-content.component';
 
 @Component({
   selector: 'app-products',
@@ -28,8 +28,10 @@ export class ProductsComponent implements OnInit {
   handleButtonClick(identifier: string) {
     if(identifier === 'category') {
       this.categoryOp = !this.categoryOp;
+      this.productOp = false;
     } else if(identifier === 'product') {
       this.productOp = !this.productOp;
+      this.categoryOp = false;
     }
   }
 

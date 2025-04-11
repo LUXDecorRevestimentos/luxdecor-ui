@@ -19,8 +19,8 @@
     <app-subcategory [subCategories]="categoryInfo.subCategories"></app-subcategory>
     <app-brand [brands]="categoryInfo.brands"></app-brand>
     <app-topic [topics]="categoryInfo.topics"></app-topic>
-    <app-details-table [detailTable]="categoryInfo.details"></app-details-table>
-    <app-details-table [detailTable]="categoryInfo.dimensions"></app-details-table>
+    <app-details-table [detailTable]="categoryInfo.details" [editable]="false"></app-details-table>
+    <app-details-table [detailTable]="categoryInfo.dimensions" [editable]="false"></app-details-table>
 
     <div class="bottom">
         <button class="btn-save">

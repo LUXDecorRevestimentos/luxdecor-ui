@@ -40,7 +40,6 @@ export class CategorysInfoComponent implements OnInit{
     this.subCategories = this.categoryInfo.subCategories;
     this.brands = this.categoryInfo.brands;
     this.topic = this.categoryInfo.topics;
-    console.log(this.subCategories)
   }
 
   onSelectChange(event: any) {

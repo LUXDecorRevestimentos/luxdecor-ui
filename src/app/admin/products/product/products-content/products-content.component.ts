@@ -3,12 +3,12 @@ import { ProductTableComponent } from '../product-table/product-table.component'
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ProductTable, ProductInfo } from '../../../data/category.data';
-import { CategoryAuthService } from '../../../service/category.auth.service';
 import { ProductAuthService } from '../../../service/product.auth.service';
+import { ProductsInfoComponent } from '../products-info/products-info.component';
 
 @Component({
   selector: 'app-products-content',
-  imports: [ProductTableComponent],
+  imports: [ProductTableComponent, MatIcon, CommonModule, ProductsInfoComponent],
   templateUrl: './products-content.component.html',
   styleUrl: './products-content.component.css'
 })
@@ -23,34 +23,32 @@ export class ProductsContentComponent {
 
   productInfo!: ProductInfo;
 
-  constructor(private categoryService: CategoryAuthService) {}
-  
-   ngOnInit(): void {
-      // this.populateData()
+  constructor(private productService: ProductAuthService) {}
+
+  ngOnInit(): void {
+    this.populateData()
+  }
+
+  populateData() {
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
+    });
+    this.productService.getProductInfo().subscribe((data) => {
+      this.productInfo = data;
+    });
+  }
+
+  handleButtonClick(identifier: string) {
+    if(identifier === 'add') {
+      this.addOp = !this.addOp;
+    } else if(identifier === 'edit') {
+      this.editOp = !this.editOp;
     }
-  
-    // populateData() {
-    //   this.categoryService.getCategoryData().subscribe((data) => {
-    //     this.categorys = data;
-    //   });
-    // }
-  
-    handleButtonClick(identifier: string) {
-      if(identifier === 'add') {
-        this.addOp = !this.addOp;
-      } else if(identifier === 'edit') {
-        this.editOp = !this.editOp;
-      }
-    }
-  
-    onRowSelectedProduct(row: ProductTable) {
-      // this.categoryService.getCategoryData().subscribe((category) => {
-      //   this.products = category;
-      // });
-      // this.details = true;
-      // this.categoryService.getCategoryInfo().subscribe((data) => {
-      //   this.products = data;
-      // });
-    }
+  }
+
+  onRowSelectedProduct(row: ProductTable) {
+    console.log('Row selected:', row); 
+    this.details = true;
+  }
   
 }

@@ -1,17 +1,16 @@
 .container {
     width: 100%;
-    border: 1px ;
 }
 
 .title {
     margin-bottom: 20px;
 }
 
-
 mat-list {
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 1px solid #000000;
+    /* box-shadow: 0 2px 4px rgb(0, 0, 0); */
     padding: 0;
     overflow: hidden;
 }
@@ -92,6 +91,18 @@ mat-icon {
     margin-left: 30px;
     padding: 5px;
     color: rgb(0, 0, 0);
+}
+
+.input-detail {
+    width: 100%;
+    max-width: 150px;
+    display: flex;
+    justify-content: space-between;
+    /* margin: 20px; */
+    /* margin-bottom: 30px; */
+    margin-left: 20px;
+    font-size: 18px;
+    padding: 10px;
 }
 
 .btn-move {

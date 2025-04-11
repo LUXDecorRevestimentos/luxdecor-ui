@@ -1,0 +1,59 @@
+
+<div class="container">
+    <div class="top">
+        <h1>Titulo: </h1>
+        <input class="input-text" type="text" placeholder="Titulo da Categoria" value="{{ productInfo.productName }}" />
+    </div>
+    <div class="product-item">
+        <h1>Categoria: </h1>
+        <div class="select-wrapper"  style="background-color: white;">
+            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
+                <mat-option value="Produtos"  style="background-color: white;">Produtos</mat-option>
+                <mat-option value="Servicos"  style="background-color: white;">Serviços</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div class="product-item">
+        <h1>SubCategoria: </h1>
+        <div class="select-wrapper"  style="background-color: white;">
+            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
+                <mat-option value="Produtos"  style="background-color: white;">Produtos</mat-option>
+                <mat-option value="Servicos"  style="background-color: white;">Serviços</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div class="product-item">
+        <h1>Marca: </h1>
+        <div class="select-wrapper"  style="background-color: white;">
+            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
+                <mat-option value="Produtos"  style="background-color: white;">Produtos</mat-option>
+                <mat-option value="Servicos"  style="background-color: white;">Serviços</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div class="product-item">
+        <h1>Selecionar Imagem: </h1>
+        
+    </div>
+    <app-products-img></app-products-img>
+    <div class="product-item">
+        <app-products-price></app-products-price>
+    </div>
+    <div class="tables">
+        <div class="details">
+            <app-details-table [detailTable]="productInfo.details" [editable]="true"></app-details-table>
+        </div>
+        <div class="dimensions">
+            <app-details-table [detailTable]="productInfo.dimensions" [editable]="true"></app-details-table>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <button class="btn-save">
+            Salvar <mat-icon class="icon">save</mat-icon>
+        </button>
+        <button class="btn-cancel">
+            Cancelar <mat-icon class="icon">cleaning_services</mat-icon>
+        </button>
+    </div>
+</div>
