@@ -19,6 +19,5 @@ export class ProductsPriceComponent {
 
   onSelectChange(event: any) {
     this.selectedOption = event;
-    console.log(event);
   }
 }

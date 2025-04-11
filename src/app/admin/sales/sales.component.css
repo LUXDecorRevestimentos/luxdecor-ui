@@ -1,0 +1,57 @@
+.container {
+    width: 100%;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 26px;
+}
+
+.icon { 
+    width: 100%;
+    height: 100%;
+    font-size: 48px;
+    margin: 0 0 10px 10px;
+}
+
+.top {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: auto;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.cards-data {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    width: 100%;
+    margin: auto;
+    margin-left: 20px;
+}
+
+.charts {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin: auto;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.central-content {
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    margin-top: 20px;
+    margin-left: 20px;
+}
+

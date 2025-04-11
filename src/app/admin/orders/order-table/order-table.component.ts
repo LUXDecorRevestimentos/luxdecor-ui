@@ -18,7 +18,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './order-table.component.css'
 })
 export class OrderTableComponent implements OnInit{
-
   @Input() detailTable!: OrderTable[];
   @Output() rowSelected: EventEmitter<OrderTable> = new EventEmitter();
 

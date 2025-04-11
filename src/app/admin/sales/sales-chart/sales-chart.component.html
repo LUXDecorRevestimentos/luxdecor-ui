@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="top">
+      <h1>{{ title }}</h1>
+      <div class="btns">
+        <button (click)="updateChartData('dia')" [ngClass]="{'active-button': isActive('dia')}" class="menu-button">1 dia</button>
+        <button (click)="updateChartData('semana')" [ngClass]="{'active-button': isActive('semana')}" class="menu-button">semana</button>
+        <button (click)="updateChartData('mes')" [ngClass]="{'active-button': isActive('mes')}" class="menu-button">mês</button>
+        <button (click)="updateChartData('ano')" [ngClass]="{'active-button': isActive('ano')}" >ano</button>
+      </div>
+    </div>
+    <div class="chart-container">
+      <ngx-charts-bar-horizontal 
+      [view]="view"
+      [results]="data"
+      [scheme]="colorScheme"
+      [gradient]="false"
+      [legend]="false"
+      [showGridLines]="true"
+      [xAxisLabel]="'Meses'"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showDataLabel]="true"
+      [yAxisLabel]="'Vendas'"
+      class="order_chart">
+    </ngx-charts-bar-horizontal>
+    </div>
+    <app-btn [title]="'Vendas'"></app-btn>
+  
+  </div>

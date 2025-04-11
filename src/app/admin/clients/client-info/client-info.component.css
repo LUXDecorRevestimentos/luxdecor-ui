@@ -1,0 +1,18 @@
+.container {
+    max-width: 1000px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+    font-weight: bold;
+    padding: 20px;
+    margin: 20px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+.history {
+    margin-top: 50px;
+}

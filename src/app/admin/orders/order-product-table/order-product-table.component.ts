@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ProductTable, OrderStatus, OrderStatusLabels } from '../../../data/table.data';
 import { CommonModule } from '@angular/common';

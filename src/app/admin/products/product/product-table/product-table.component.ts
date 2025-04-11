@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ProductTable } from '../../../data/category.data';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
@@ -8,13 +8,17 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-table',
-  imports: [ MatIcon, CommonModule, MatInputModule, MatFormFieldModule, MatTableModule ],
+  imports: [ 
+    MatIcon, 
+    CommonModule, 
+    MatInputModule, 
+    MatFormFieldModule, 
+    MatTableModule],
   templateUrl: './product-table.component.html',
   styleUrl: './product-table.component.css'
 })
-export class ProductTableComponent {
+export class ProductTableComponent implements OnInit{
   @Input() products!: ProductTable[];
-
   @Output() rowSelected: EventEmitter<ProductTable> = new EventEmitter();
 
   displayedColumns: string[] = ['productId', 'productName', 'categoryName', 'subCategoryName'];

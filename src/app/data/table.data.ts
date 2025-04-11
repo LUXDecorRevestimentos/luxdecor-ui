@@ -26,6 +26,31 @@ export interface ProductTable {
   category: string;
 }
 
+export interface ClientTable {
+  clientId: string;
+  name: string;
+  email: string;
+  phone: string;
+  date: string;
+}
+
+export interface SalesTable {
+  saleId: string;
+  orderId: string;
+  clientId: string;
+  value: string;
+  date: string;
+}
+
+export interface ManagerTable {
+  adminId: string;
+  name: string;
+  email: string;
+  phone: string;
+  date: string;
+  lastAccess: string;
+}
+
 
 export enum OrderStatus {
   PENDING = 1,

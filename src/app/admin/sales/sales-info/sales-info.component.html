@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="table">
+        <app-sales-table [detailTable]="salesTable" (rowSelected)="onRowSelectedSale($event)"></app-sales-table>
+    </div>
+    <div class="content">
+        <app-order-client *ngIf="client" [client]="client"></app-order-client>
+        <div class="history" *ngIf="client">
+            <app-order-table-resume [detailTable]="detailTable"  [title]="'Pedidos'" headerOne="PedidoId" headerTwo="Status" headerThree="Data"></app-order-table-resume>
+        </div>
+    </div>
+</div>

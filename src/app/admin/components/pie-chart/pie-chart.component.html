@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="select-wrapper"  style="background-color: white;">
+    <mat-select [(ngModel)]="selectedOption" (selectionChange)="onSelectChange($event.value)" panelClass="custom-panel-class"  style="background-color: white !important;">
+        <mat-option value="Produtos"  style="background-color: white;">Mais Vendidos (Categorias)</mat-option>
+        <mat-option value="Servicos"  style="background-color: white;">Mais Vendidos (Produtos)</mat-option>
+    </mat-select>
+  </div>
+
+  <ngx-charts-pie-chart
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="data"
+    [gradient]="gradient"
+    [legend]="showLegend"
+    [labels]="true"
+    [doughnut]="false"
+    [trimLabels]="false">
+  </ngx-charts-pie-chart>
+</div>

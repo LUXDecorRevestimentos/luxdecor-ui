@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="header">
+        <h1>Clientes</h1>
+        <mat-icon class="icon">group</mat-icon>
+    </div>
+    <div class="cards-data">
+        <app-card-data icon="home" title="Total de Vendas" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+        <app-card-data icon="person" title="Total de Pedidos" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+        <app-card-data icon="person" title="Total de Pedidos" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+    </div>
+    <div class="top">
+        <app-bar-chart [width]="950" [height]="400" widthContainer="1000" title="Clientes"></app-bar-chart>
+    </div>
+
+    <div class="central-content">
+        <app-client-info [client]="client" [clientTable]="clientTable" [detailTable]="detailTable"></app-client-info>
+    </div>
+
+
+</div>
