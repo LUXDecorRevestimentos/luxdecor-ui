@@ -68,9 +68,7 @@ export class OrdersComponent implements OnInit {
     });
     this.clientService.getClientData().subscribe((client) => {
       this.client = client;
-    });
-    
-    console.log('Order selected:', this.detailProducts);
+    });    
   }
 
   onRowSelectedProduct(row: ProductTable) {

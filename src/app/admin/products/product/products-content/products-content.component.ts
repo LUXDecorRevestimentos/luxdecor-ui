@@ -47,7 +47,6 @@ export class ProductsContentComponent {
   }
 
   onRowSelectedProduct(row: ProductTable) {
-    console.log('Row selected:', row); 
     this.details = true;
   }
   

@@ -14,9 +14,14 @@ export class BarChartComponent {
   @Input() title: string | null = "";
   @Input() color: string | null = "#3941e093";
   @Input() data: any[] = [];
+
+  @Input() width: number = 440;
+  @Input() widthContainer: string = '';
+  @Input() height: number = 300;
+  
   @Output() buttonClick = new EventEmitter<string>();
 
-  view: [number, number] = [440, 300];
+  view: [number, number] = [this.width, this.height];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -51,6 +56,9 @@ export class BarChartComponent {
       { "name": "11/25", "value": Math.floor(Math.random() * 100000) },
       { "name": "12/25", "value": Math.floor(Math.random() * 100000) }
     ];
+    this.view[0] = this.width;
+    this.view[1] = this.height;
+    this.widthContainer = this.widthContainer;
   }
     
 

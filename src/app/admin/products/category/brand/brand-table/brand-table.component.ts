@@ -22,7 +22,6 @@ export class BrandTableComponent implements OnInit{
 
   ngOnInit(): void {
     this.dataSource.data = this.brands;
-    console.log(this.brands)
   } 
   onRowClicked(row: Brand): void {
     this.selectedRow = row;

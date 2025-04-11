@@ -5,7 +5,7 @@
 </div>
 <h1>Categorias</h1>
 <div class="container">
-    <table mat-table [dataSource]="categorys">
+    <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="categoryId">
             <th mat-header-cell *matHeaderCellDef> CategoriaId </th>
             <td mat-cell *matCellDef="let category"> {{category.categoryId}} </td>
