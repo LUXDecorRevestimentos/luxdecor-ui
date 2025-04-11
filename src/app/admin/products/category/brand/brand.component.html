@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="brands-table">
+        <app-brand-table [brands]="brands"></app-brand-table>
+    </div>
+    <div class="brands">
+        <button>
+            <h1>Marca</h1>
+            <mat-icon class="icon">add</mat-icon> 
+        </button>
+        <input  class="input-text" type="text" placeholder="Adicionar Marca" value="{{ brands[0].brandName }}" />
+    </div>  
+    
+    <div class="imgSub">
+        <input class="input-image-brands" type="image" placeholder="Adicionar URL da Imagem" value="{{ brands[0].imgBrand }}"/>
+    </div>
+</div>

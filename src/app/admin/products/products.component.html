@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="header">
+        <h1>Produtos</h1>
+        <mat-icon class="icon">receipt_long</mat-icon>
+    </div>
+    <div class="btn-choice">
+        <button (click)="handleButtonClick('category')">
+            Categoria
+        </button>
+        <button (click)="handleButtonClick('product')">
+            Produtos
+        </button>
+    </div>
+    <div class="category">
+        
+    </div>
+    <div class="centered-content">
+        <div class="centered-table">
+            <app-categorys-content *ngIf="categoryOp" [categorys]="categorys"></app-categorys-content>
+            <app-products-content *ngIf="productOp"></app-products-content>
+    </div>
+</div>

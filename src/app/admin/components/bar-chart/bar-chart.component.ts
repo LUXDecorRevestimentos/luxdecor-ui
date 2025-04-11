@@ -55,7 +55,6 @@ export class BarChartComponent {
     
 
   onSelect(event: any) {
-    console.log('Item selecionado:', event);
 
     this.customColors = [
       {

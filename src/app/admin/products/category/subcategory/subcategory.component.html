@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="subCategory-table">
+        <app-subcategory-table [subCategories]="subCategories"></app-subcategory-table>
+    </div>
+    <div class="subCategory">
+        <button>
+            <h1>SubCategoria</h1>
+            <mat-icon class="icon">add</mat-icon> 
+        </button>
+        <input  class="input-text" type="text" placeholder="Adicionar SubCategoria" value="{{ subCategories[1].subCategoryName }}" />
+    </div>  
+    
+    <div class="imgSub">
+        <input class="input-image-subcategory" type="image" placeholder="Adicionar URL da Imagem" value="{{ subCategories[1].imgBannerSub }}"/>
+    </div>
+</div>

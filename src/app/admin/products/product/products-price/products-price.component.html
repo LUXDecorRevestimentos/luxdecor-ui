@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="product-item">
+        <h1>Precificacao: </h1>
+        <div class="select-wrapper"  style="background-color: white;">
+            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
+                <mat-option value="Produtos"  style="background-color: white;">Unitario</mat-option>
+                <mat-option value="Servicos"  style="background-color: white;">Caixa</mat-option>
+            </mat-select>
+        </div>
+        
+    </div>
+    <div class="input-metrics">
+        <h1>Medidas: </h1>
+        <input class="input-value" style="max-width: 100px;" type="text" placeholder="m\m2" value="" />
+    </div>
+    
+    <div class="input-prices">
+        <div>
+            <h1>Valor do Produto: </h1>
+            <h1>R$<input class="input-value" type="text" placeholder="Valor do Produto"  value="45.00" />
+                
+            </h1>
+        </div>
+        <div>
+            <h1>Valor do Conjunto: </h1>
+            <h1>R$<input class="input-value" type="text" placeholder="Valor do Conjunto"  value="45.00" />
+                
+            </h1>
+        </div>    
+    
+    </div>
+    
+   
+
+</div>

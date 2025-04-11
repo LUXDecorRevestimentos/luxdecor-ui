@@ -1,0 +1,27 @@
+.img-solo {
+    background-color: grey;
+    width: 500px;
+    height: 500px;
+}
+
+.group {
+    margin: 20px;
+    margin-top: 0px;
+}
+
+.img-group {
+    background-color: grey;
+    width: 200px;
+    height: 200px;
+}
+
+.top, .bottom {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}

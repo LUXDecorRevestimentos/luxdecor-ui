@@ -1,7 +1,7 @@
 import { Component, Input, Inject} from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { OrderDetailsTable } from '../../../data/table.data';
-import { BtnComponent } from '../btn/btn.component';
+import { BtnComponent } from '../../components/btn/btn.component';
 import { OrderStatusComponent } from '../order-status/order-status.component';
 
 @Component({

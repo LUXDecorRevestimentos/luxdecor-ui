@@ -1,0 +1,18 @@
+<app-product-table [products]="products" (rowSelected)="onRowSelectedProduct($event)"></app-product-table>
+<div class="optional-content" *ngIf="details">
+    <div class="btn-options">
+        <button (click)="handleButtonClick('add')">
+            <h1>Adicionar</h1>
+            <mat-icon class="icon">add</mat-icon> 
+        </button>
+        <button (click)="handleButtonClick('edit')">
+            <h1>Editar</h1>
+            <mat-icon class="icon">edit</mat-icon>
+        </button>
+    </div>
+    <div class="content">
+        <ng-container *ngIf="details">
+            <app-products-info [productInfo]="productInfo"></app-products-info>
+        </ng-container>
+    </div>
+</div>

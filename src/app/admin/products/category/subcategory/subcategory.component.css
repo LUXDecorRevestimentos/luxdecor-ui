@@ -1,0 +1,76 @@
+.btn-options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.icon { 
+    width: 100%;
+    height: 100%;
+    font-size: 48px;
+    margin: auto;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    background-color: #ffffff;
+    border: none;
+    padding: 8px;
+    width: 300px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+}
+
+button:hover {
+    background-color: #000000;
+    color: white;
+}
+
+.subCategory {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    margin-bottom: 30px;
+}
+
+.subCategory-table {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+}
+
+.input-text {
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.146);
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 32px;
+    font-weight: bold;
+    margin-left: 20px;
+    color: rgb(0, 0, 0);
+}
+
+.input-image-subcategory{
+    width: 512px;
+    height: 512px;
+
+    background-color: gray;
+}
+
+.imgSub {
+   width: 100%;
+   display: block;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+}
