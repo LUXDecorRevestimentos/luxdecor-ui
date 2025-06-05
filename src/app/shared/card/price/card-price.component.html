@@ -1,5 +1,9 @@
 <div class="card" [routerLink]="['/product']" [queryParams]="{ category: product?.id}">
-    <div class="img-backgroud"></div>
+    <img [src]="product?.imageUrl || 'assets/images/placeholder.png'" 
+         [alt]="product?.title || 'Produto sem nome'"
+         loading="lazy"
+         [ngClass]="{'hidden': product?.imageUrl}"
+         class="img-backgroud">
     <div class="text">
         <h3>{{ product?.title }}</h3>
         <p>R$ {{ product?.data?.price }}</p>

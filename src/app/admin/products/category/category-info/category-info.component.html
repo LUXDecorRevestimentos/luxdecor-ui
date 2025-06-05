@@ -1,0 +1,46 @@
+<div class="container">    
+    <div class="top">
+        <div class="title">
+            <h1>Titulo:</h1>
+            <input  
+            [(ngModel)]="categoryTitle"
+            class="input-text" type="text" placeholder="Titulo da Categoria" value="{{ categoryInfo.title }}" />
+        </div>
+        <div class="category">
+            <h1>Categoria: </h1>
+            <div class="select-wrapper"  style="background-color: white;">
+                <mat-select
+                [(ngModel)]="selectedOption" 
+                (selectionChange)="onSelectChange($event.value)" panelClass="custom-panel-class"  style="background-color: white !important;">
+                    <mat-option value=1  style="background-color: white;">Produtos</mat-option>
+                    <mat-option value=2 style="background-color: white;">Serviços</mat-option>
+                </mat-select>
+            </div>
+        </div>
+    </div>
+    
+    <div class="imgCategory" *ngIf="this.categoryBanner">
+        <app-banner-img
+            [inputWidth]="1200"
+            [inputHeight]="240"
+            [bannerTitle]="this.categoryInfo.title" 
+            [initialImage]="this.categoryBanner"
+            (imageChanged)="handleBannerChange($event)">
+        </app-banner-img>
+    </div>
+    <app-subcategory [subCategories]="categoryInfo.subcategory" (subCategoryEvent)="onSubCategoryEvent($event)"></app-subcategory>
+    <app-brand [brands]="categoryInfo.brand" (brandEvent)="onBrandEvent($event)"></app-brand>
+    <app-topic [topics]="categoryInfo.topic" (topicEvent)="onTopicEvent($event)"></app-topic>
+    <app-details-table [detailInput]="details" [editable]="false" (saveRequested)="onDetailEvent($event)"></app-details-table>
+    <app-details-table [detailInput]="dimensions" [editable]="false" (saveRequested)="onDetailEvent($event)"></app-details-table>
+
+    <div class="bottom">
+        <button class="btn-save"
+            (click)="onSaveCategory()">
+            Salvar <mat-icon class="icon">save</mat-icon>
+        </button>
+        <button class="btn-cancel">
+            Cancelar <mat-icon class="icon">cleaning_services</mat-icon>
+        </button>
+    </div>
+</div>

@@ -2,54 +2,129 @@
 <div class="container">
     <div class="top">
         <h1>Titulo: </h1>
-        <input class="input-text" type="text" placeholder="Titulo da Categoria" value="{{ productInfo.productName }}" />
+        <input #productNameInput class="input-text" type="text" placeholder="Nome do produto" value="{{ productInfo.title }}" />
     </div>
+    
     <div class="product-item">
         <h1>Categoria: </h1>
         <div class="select-wrapper"  style="background-color: white;">
-            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
-                <mat-option value="Produtos"  style="background-color: white;">Produtos</mat-option>
-                <mat-option value="Servicos"  style="background-color: white;">Serviços</mat-option>
+            <mat-select [(ngModel)]="selectedCategory"
+                (selectionChange)="onSelectionChange()"
+                panelClass="custom-panel-class"  style="background-color: white !important;">
+                <mat-option *ngFor="let category of categoryList" [value]="category[0]" style="background-color: white">
+                    {{ category[1] }}
+                </mat-option>
             </mat-select>
         </div>
     </div>
-    <div class="product-item">
-        <h1>SubCategoria: </h1>
-        <div class="select-wrapper"  style="background-color: white;">
-            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
-                <mat-option value="Produtos"  style="background-color: white;">Produtos</mat-option>
-                <mat-option value="Servicos"  style="background-color: white;">Serviços</mat-option>
+
+    <div class="product-item" *ngIf="subcategoryList">
+        <h1>Subcategoria: </h1>
+        <div class="select-wrapper" style="background-color: white;">
+            <mat-select [(ngModel)]="selectedSubcategory"
+                       (selectionChange)="onSubcategoryChange()"
+                       panelClass="custom-panel-class" 
+                       style="background-color: white !important;"
+                       [disabled]="!subcategoryList">
+                <mat-option *ngFor="let subcategory of subcategoryList" 
+                           [value]="subcategory[0]" 
+                           style="background-color: white">
+                    {{ subcategory[1] }}
+                </mat-option>
             </mat-select>
         </div>
     </div>
-    <div class="product-item">
-        <h1>Marca: </h1>
-        <div class="select-wrapper"  style="background-color: white;">
-            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
-                <mat-option value="Produtos"  style="background-color: white;">Produtos</mat-option>
-                <mat-option value="Servicos"  style="background-color: white;">Serviços</mat-option>
+    <div class="product-item" *ngIf="brandList">
+        <h1>Marcas: </h1>
+        <div class="select-wrapper" style="background-color: white;">
+            <mat-select [(ngModel)]="selectedBrand"
+                       (selectionChange)="onBrandChange()"
+                       panelClass="custom-panel-class" 
+                       style="background-color: white !important;"
+                       [disabled]="!brandList">
+                <mat-option *ngFor="let brand of brandList" 
+                           [value]="brand[0]" 
+                           style="background-color: white">
+                    {{ brand[1] }}
+                </mat-option>
             </mat-select>
         </div>
     </div>
+
     <div class="product-item">
         <h1>Selecionar Imagem: </h1>
     </div>
-    <app-products-img></app-products-img>
+    <app-products-img (imagesChanged)="handleImagesChanged($event)"
+        [productImgs]="productImgs">
+    </app-products-img>
 
     <div class="product-item">
-        <app-products-price></app-products-price>
+        <app-products-price 
+        [price]="productInfo.price" 
+        [price_type]="selectedPriceType" 
+        [measures]="measureType"   
+        (priceTypeChange)="onPriceTypeChange($event)"
+        (measuresChange)="onMeasuresChange($event)"
+        (pricesUpdated)="onPricesUpdated($event)">
+    </app-products-price>
     </div>
     <div class="tables">
-        <div class="details">
-            <app-details-table [detailTable]="productInfo.details" [editable]="true"></app-details-table>
+        <div *ngIf="detailData">
+            <app-details-table [detailInput]="detailData" [editable]="true" (saveRequested)="onSaveDetails($event)"></app-details-table>
         </div>
-        <div class="dimensions">
-            <app-details-table [detailTable]="productInfo.dimensions" [editable]="true"></app-details-table>
+        <div *ngIf="dimensionsData">
+            <app-details-table [detailInput]="dimensionsData" [editable]="true" (saveRequested)="onSaveDetails($event)"></app-details-table>
+        </div>
+    </div>
+    <div class="checklist-container" *ngIf="topicList">
+        <div class="topic">
+            <h2>Selecione os topicos:</h2>
+            <div class="topics-container">
+                <div class="topic-option" *ngFor="let topic of topicList">
+                    <label>
+                    <input #checkbox
+                            type="checkbox"
+                            class="topic-checkbox"
+                            [checked]="selectedOptions.includes(topic[0])"
+                            (change)="updateSelection(topic[0], checkbox.checked)" />
+                    <span class="checkmark"></span>
+                    <span class="option-text">{{topic[1]}}</span>
+                    </label>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="selection-count">
+                    Selecionadas: {{selectedOptions.length}}/{{topicList.length}}
+                </div>
+            </div>
+        </div>
+        <div class="options">
+            <h2>Opcoes:</h2>
+            <div class="options-container">
+                <div class="option">
+                    <label>
+                        <input type="checkbox" 
+                        [(ngModel)]="isAvailableSelected"
+                        class="topic-checkbox"/>         
+                        <span class="checkmark"></span>
+                        <span class="option-text">Disponivel</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" 
+                        [(ngModel)]="isInstallationSelected"
+                        class="topic-checkbox"/>         
+                        <span class="checkmark"></span>
+                        <span class="option-text">Instalacao</span>
+                    </label>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="bottom">
-        <button class="btn-save">
+        <button class="btn-save" (click)="onSaveProduct()">
             Salvar <mat-icon class="icon">save</mat-icon>
         </button>
         <button class="btn-cancel">

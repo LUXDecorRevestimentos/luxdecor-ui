@@ -25,7 +25,6 @@ p {
 }
 
 .img-backgroud {
-    background-image: url('../../../../../public/piso.png');
     height: 150px;
     width: 100%;
 }
@@ -33,7 +32,6 @@ p {
 
 @media (min-width: 1000px) {
     .img-backgroud {
-        background-image: url('../../../../../public/piso.png');
         height: 200px;
         width: 100%;
     }

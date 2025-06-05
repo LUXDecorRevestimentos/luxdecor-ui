@@ -1,16 +1,31 @@
 <div class="container">
     <div class="subCategory-table">
-        <app-subcategory-table [subCategories]="subCategories"></app-subcategory-table>
+        <app-subcategory-table [subCategories]="subCategories" (rowSelected)="handleSubCategorySelection($event)"  [resetSelection]="resetTableSelectionFlag"></app-subcategory-table>
     </div>
     <div class="subCategory">
-        <button>
+        <button (click)="newSubCategory()">
             <h1>SubCategoria</h1>
-            <mat-icon class="icon">add</mat-icon> 
+            <mat-icon class="icon" style="margin-top: 5px;">add</mat-icon> 
         </button>
-        <input  class="input-text" type="text" placeholder="Adicionar SubCategoria" value="{{ subCategories[1].subCategoryName }}" />
+        <input [(ngModel)]="title" class="input-text" type="text" placeholder="Adicionar SubCategoria" value="{{ title }}" 
+        [ngClass]="title"/>
+        <button class="btn-save"
+            (click)="saveSubCategory()">
+            <mat-icon class="icon option">save</mat-icon>
+        </button>
+        <button class="btn-cancel"
+            (click)="deleteSubCategory()">
+            <mat-icon class="icon option">cleaning_services</mat-icon>
+        </button>
     </div>  
-    
-    <div class="imgSub">
-        <input class="input-image-subcategory" type="image" placeholder="Adicionar URL da Imagem" value="{{ subCategories[1].imgBannerSub }}"/>
+    <div class="imgSub" *ngIf="this.selectedSubCategory">
+        <app-banner-img 
+            [inputWidth]="1200"
+            [inputHeight]="240"
+            [bannerTitle]="this.selectedSubCategory.title"
+            [initialImage]="this.subCategoryBanner"
+            (imageChanged)="handleBannerChange($event)">
+        </app-banner-img>
     </div>
+
 </div>

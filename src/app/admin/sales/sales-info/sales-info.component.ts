@@ -35,6 +35,5 @@ export class SalesInfoComponent {
     this.orderService.getOrderData().subscribe((data) => {
       this.detailTable = data;
     });
-    console.log(this.client, this.detailTable);
   }
 }

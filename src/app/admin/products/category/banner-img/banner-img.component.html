@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="img">
+    <div class="image-preview">
+      <img [src]="currentImage.src || 'assets/placeholder.jpg'" [alt]="currentImage.caption">
+    </div>
+    <div class="caption">{{ currentImage.caption }}</div>
+    <div *ngIf="currentImage.src" class="dimensions-info">
+      Dimensões: {{ currentImage.width }} × {{ currentImage.height }}px
+    </div>
+    <button (click)="triggerFileInput()">
+      {{ currentImage.src ? 'Alterar' : 'Selecionar' }} Imagem
+    </button>
+    <input 
+      #fileInput
+      type="file" 
+      [id]="'banner-file-input-' + instanceId"
+      accept="image/*" 
+      (change)="onFileChange($event)"
+      style="display: none">
+
+    <button *ngIf="currentImage.src" class="crop-btn" (click)="openCropper()">
+      Ajustar Corte
+    </button>
+    <button *ngIf="currentImage.src" class="reset-btn" (click)="resetImage()">
+      Remover Imagem
+    </button>
+  </div>
+
+  <div *ngIf="showCropper" class="cropper-modal">
+    <div class="cropper-container">
+      <div class="crop-controls">
+        <button class="toggle-crop-mode" (click)="toggleCropMode()">
+          {{ cropConfig.freeCrop ? 'Proporção Fixa' : 'Seleção Livre' }}
+        </button>
+      </div>
+
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="cropConfig.maintainAspectRatio"
+        [aspectRatio]="cropConfig.aspectRatio"
+        [resizeToWidth]="cropConfig.width"
+        format="png"
+        (imageCropped)="imageCropped($event)">
+      </image-cropper>
+      
+      <div class="cropper-actions">
+        <button (click)="cancelCrop()">Cancelar</button>
+        <button class="save-btn" (click)="saveCrop()">Salvar Corte</button>
+      </div>
+    </div>
+  </div>
+</div>

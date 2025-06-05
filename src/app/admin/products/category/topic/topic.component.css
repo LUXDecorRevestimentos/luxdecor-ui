@@ -73,13 +73,6 @@ button:hover {
     color: rgb(0, 0, 0);
 }
 
-.input-image-subcategory{
-    width: 512px;
-    height: 512px;
-
-    background-color: gray;
-}
-
 .imgSub {
    width: 100%;
    display: block;
@@ -99,4 +92,27 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 5px;
     font-size: 32px;
+}
+
+.btn-save {
+    background-color: #30de449e !important;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+    margin: 5px;
+    border-radius: 10px;
+    width: 90px;
+    height: auto;
+}
+
+.btn-cancel {
+    background-color: #de30309e !important;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+    margin: 5px;
+    border-radius: 10px;
+    width: 90px;
+    height: auto;
+}
+
+.btn-save:hover {
+    background-color: #00000037;
+    color: white;
 }

@@ -1,0 +1,26 @@
+<div class="btn-options">
+    <button 
+        (click)="handleButtonClick('add')" 
+        [ngClass]="{'active-button': addOp}">
+        <h1>Adicionar</h1>
+        <mat-icon class="icon">add</mat-icon> 
+    </button>
+    <button 
+        (click)="handleButtonClick('edit')" 
+        [ngClass]="{'active-button': editOp}">
+    <h1>Editar</h1>
+    <mat-icon class="icon">edit</mat-icon>
+  </button>
+</div>
+<app-category-table *ngIf="categories.length != 0" [categories]="categories" (rowSelected)="onRowSelectedProduct($event)" [editable]="editOp"></app-category-table>
+<div class="optional-content" *ngIf="details">
+    <div class="content"  *ngIf="categoryInfo">
+        <ng-container>
+            <app-category-info
+            [categoryInfo]="categoryInfo"
+            (categoryUpdate)="onCategoryUpdate($event)">
+        </app-category-info>
+        </ng-container>
+    </div>
+    
+</div>

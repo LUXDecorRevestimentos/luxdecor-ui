@@ -3,8 +3,7 @@
       <app-side-menu></app-side-menu>
       
       <div class="content">
-        <section>
-          <div class="section-title">
+        <section [style.background-image]="'url(' + category?.imageUrl + ')'">          <div class="section-title">
             <p>{{ this.category?.title }}</p>
           </div>
           <div class="section-btns">
@@ -19,12 +18,8 @@
         ></app-sub-product>
 
         <app-filter-price *ngIf="selectedSubCategory"></app-filter-price>
-        <app-bar *ngIf="selectedSubCategory" [title]="productsLabel"></app-bar>
-
-
 
         <div class="category" *ngIf="category?.type === 'category'">
-          <app-btn-call *ngIf="selectedSubCategory" [title]=""></app-btn-call>          
           <app-bar *ngIf="selectedSubCategory" [title]="typeInstall"></app-bar>
           <app-carousel-cards *ngIf="selectedSubCategory" [cardsProduct]="cardsProduct"></app-carousel-cards>
           <app-brands *ngIf="selectedSubCategory" [images]="imageList"></app-brands>

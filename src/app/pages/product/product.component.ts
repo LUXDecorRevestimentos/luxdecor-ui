@@ -11,6 +11,7 @@ import { BarComponent } from "../../shared/bar/bar.component";
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { GalleryComponent } from '../../shared/gallery/gallery.component';
 import { CommonModule } from '@angular/common';
+import { forkJoin, Observable, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -46,6 +47,8 @@ export class ProductComponent implements OnInit {
   
   selectedSubCategory: string | null = null;
 
+  categories: GenericCard[] = [];
+
   imageList = [
     'brands/eucaflor.png',
     'brands/duraflor.png',
@@ -55,21 +58,41 @@ export class ProductComponent implements OnInit {
   constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const categoryTitle = params['category']?.charAt(0).toUpperCase() + params['category']?.slice(1);
-      this.categoryTitle = categoryTitle; 
-      if (categoryTitle) {
-        this.category = {
-          id: 1,
-          title: categoryTitle,
-          type: 'category',
-          imageUrl: ""
-        };
-      }
-    });
-    this.selectedSubCategory = this.categoryTitle
-    this.populateCategory();
-    this.productsGallery();
+    this.loadAllData().pipe(
+      switchMap(() => this.route.queryParams),
+      tap(params => {
+        const categoryTitle = params['category']?.charAt(0).toUpperCase() + params['category']?.slice(1);
+        this.categoryTitle = categoryTitle;
+        
+        if (categoryTitle && this.categories.length > 0) {
+          const foundCategory = this.categories.find(cat => 
+            cat.title.toLowerCase() === categoryTitle.toLowerCase()
+          );
+          
+          if (foundCategory) {
+            this.category = {
+              id: foundCategory.id,
+              title: foundCategory.title,
+              type: 'category',
+              imageUrl: foundCategory.imageUrl
+            };
+          }
+        }
+        
+        this.selectedSubCategory = this.categoryTitle;
+        this.populateCategory();
+        this.productsGallery();
+      })
+    ).subscribe();
+  }
+  
+  private loadAllData(): Observable<any> {
+    return this.productService.getProductsCategories().pipe(
+      tap(categories => {
+        this.categories = categories;
+        console.log('Categories loaded:', this.categories);
+      })
+    );
   }
 
   populateCategory() {

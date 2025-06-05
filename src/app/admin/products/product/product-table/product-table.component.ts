@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, HostListener, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ProductTable } from '../../../data/category.data';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
@@ -17,16 +17,34 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './product-table.component.html',
   styleUrl: './product-table.component.css'
 })
-export class ProductTableComponent implements OnInit{
+export class ProductTableComponent implements OnChanges{
   @Input() products!: ProductTable[];
+  @Input() editable!: boolean;
   @Output() rowSelected: EventEmitter<ProductTable> = new EventEmitter();
 
   displayedColumns: string[] = ['productId', 'productName', 'categoryName', 'subCategoryName'];
   dataSource = new MatTableDataSource<ProductTable>();
   selectedRow: ProductTable | null = null;
 
-  ngOnInit(): void {
+  constructor(private elementRef: ElementRef){}
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.dataSource.data = this.products;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target) && !this.editable) {
+      this.clearSelection();
+    }
+  }
+
+  // Limpa a seleção
+  clearSelection() {
+    if (this.selectedRow != null ){
+      this.selectedRow = null;
+      this.rowSelected.emit();
+    }
   }
 
   applyFilter(event: Event) {

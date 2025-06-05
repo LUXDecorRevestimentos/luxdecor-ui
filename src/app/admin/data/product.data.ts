@@ -12,3 +12,14 @@ export interface ProductData {
     status: OrderStatus;
     date: string;
 }
+
+
+
+export interface ProductImage {
+  id: number;
+  src: string;
+  thumb?: string;
+  caption: string;
+  file?: File | null;
+  product_img_id?: string;
+}

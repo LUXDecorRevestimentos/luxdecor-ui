@@ -1,39 +1,56 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { catchError, distinctUntilChanged, map, Observable, of, shareReplay, throwError, timeout } from 'rxjs';
 import { GenericCard, ProductData, CartCardData } from '../data/card.data';
 import { ProductDetailsTable } from '../data/table.data';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root' 
 })
 export class ProductService {
-  constructor() { }
+  private apiUrl = 'http://localhost:5050/section/'; // Ajuste para sua URL real
+
+  constructor(private http: HttpClient) {}
 
   getProductsCategories(): Observable<GenericCard[]> {
-    const mockCards: GenericCard[] = [
-      { id: 0, title: "Pisos", type: "category", imageUrl: "promo.png"},
-      { id: 1, title: "Rodapes", type: "category", imageUrl: "promo.png"},
-      { id: 2, title: "Paines Ripados", type: "category", imageUrl: "promo.png"},
-      { id: 2, title: "Camas e Colchoes", type: "category", imageUrl: "promo.png"},
-      { id: 2, title: "Outros Produtos", type: "category", imageUrl: "promo.png"},
-      { id: 2, title: "Servicos", type: "category", imageUrl: "promo.png"}
-    ];
-    return of(mockCards);
+    return this.http.get<GenericCard[]>(`${this.apiUrl}/header`).pipe(
+      distinctUntilChanged(),
+      shareReplay(1),
+      map(apiProducts => this.transformApiDataCategories(apiProducts)),
+      timeout(5000),
+      catchError(error => throwError(() => error))
+    );
   }
 
   getProductPromotionMainList(): Observable<GenericCard[]> {
-    const mockCards: GenericCard[] = [
-      { id: 0, title: "Piso Laminado Eucafloor Cappuccino", type: "product", imageUrl: "", data: { price: "49,99" } },
-      { id: 1, title: "Piso Laminado Eucafloor Prime", type: "product", imageUrl: "", data: { price: "48,99" } },
-      { id: 2, title: "Piso Laminado Eucafloor Colado", type: "product", imageUrl: "", data: { price: "47,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } }
-  ];
-    return of(mockCards)
+    return this.http.get<GenericCard[]>(`${this.apiUrl}/promotions`).pipe(
+      distinctUntilChanged(),
+      shareReplay(1),
+      map(apiProducts => this.transformApiDataPromotions(apiProducts)),
+      timeout(5000),
+      catchError(error => throwError(() => error))
+    );
+  }
+
+  private transformApiDataCategories(apiCategories: any[]): GenericCard[] {
+    return apiCategories.map(category => ({
+      id: category.id,
+      title: category.title,
+      type: category.type,
+      imageUrl: category.imageUrl
+    }))
+  }
+
+  private transformApiDataPromotions(apiProducts: any[]): GenericCard[] {
+    return apiProducts.map(product => ({
+      id: product.id,
+      title: product.title,
+      type: product.type,
+      imageUrl: product.imageUrl,
+      data: {
+        price: product.data.price
+      }
+    }));
   }
 
   getProdutctsCategoryId(): Observable<GenericCard[]> {

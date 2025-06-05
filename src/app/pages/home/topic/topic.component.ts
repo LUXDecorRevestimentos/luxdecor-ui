@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeaturedPromotionsComponent } from '../../../shared/featured-promotions/featured-promotions.component'
 import { SectionService } from '../../../service/section.service';

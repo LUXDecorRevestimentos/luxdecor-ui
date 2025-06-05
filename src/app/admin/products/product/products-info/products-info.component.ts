@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ProductInfo } from '../../../data/category.data';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { CategoryData, Data, DetailsData, PriceType, ProductInfo } from '../../../data/category.data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,12 +22,164 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './products-info.component.html',
   styleUrl: './products-info.component.css'
 })
-export class ProductsInfoComponent implements OnInit {
+export class ProductsInfoComponent implements OnInit, OnChanges {
+
+  @ViewChild('productNameInput') productNameInput!: ElementRef<HTMLInputElement>;
 
   @Input() productInfo!: ProductInfo;
+  @Input() productImgs!: any[];
+  @Input() categoryList!: any[];
+  @Input() subcategoryList!: any[];
+  @Input() brandList!: any[];
+  @Input() detailData!: DetailsData;
+  @Input() dimensionsData!: DetailsData;
+  @Input() topicList: any[] = [];
 
-  selectedOption: string = 'Produtos';
+  @Output() categorySelected = new EventEmitter<string>();  
+  @Output() subcategorySelected = new EventEmitter<string>();
+  @Output() brandSelected = new EventEmitter<string>();
+  @Output() newProduct = new EventEmitter<ProductInfo>();
+  @Output() imgs = new EventEmitter<any>();
 
-  ngOnInit(): void {}
+  selectedBrand!: string;
+  selectedCategory!: string;
+  selectedSubcategory!: string;
+  selectedPriceType!: any;
+  detailProduct!: DetailsData;
+  dimensionsProduct!: DetailsData;
+  priceType!: PriceType;
+  priceInput!: string[];
+  measureType!: number;
+  selectedOptions: string[] = [];
+  onSave: boolean = false;
 
+  isAvailableSelected: boolean = false;
+  isInstallationSelected: boolean = false;
+
+  constructor(private cdRef: ChangeDetectorRef) {}
+
+  ngOnInit(): void  {
+    this.selectedCategory = this.productInfo.category_data.category_id
+    this.selectedSubcategory = this.productInfo.category_data.subcategory_id
+    this.selectedBrand = this.productInfo.category_data.brand_id
+    this.selectedPriceType = this.productInfo.price_type
+    this.measureType = this.productInfo.measures
+    this.priceInput = this.productInfo.price
+    this.productInfo.topics.map(topic => this.updateSelection(topic.topic_id, true))
+    this.isAvailableSelected = this.productInfo.available
+    this.isInstallationSelected = this.productInfo.installation
+    this.cdRef.detectChanges();
+  }
+
+  ngOnChanges(changes: any): void {}
+
+  onSubcategoryChange() {
+    this.subcategorySelected.emit(this.selectedSubcategory);
+  }
+
+  onBrandChange() {
+    this.brandSelected.emit(this.selectedBrand);
+  }
+
+  onSelectionChange() {
+    this.categorySelected.emit(this.selectedCategory);
+  }
+
+  updateSelection(value: string, isChecked: boolean) {
+    if (isChecked) {
+      this.selectedOptions = [...this.selectedOptions, value];
+    } else {
+      this.selectedOptions = this.selectedOptions.filter(item => item !== value);
+    }
+  }
+
+  getSelectedOptionsObject() {
+    return {
+      available: this.isAvailableSelected,
+      installation: this.isInstallationSelected
+    };
+  }
+
+  receivedImages: any[] = [];
+
+  handleImagesChanged(images: any[]) {
+    this.receivedImages = images;
+  }
+
+  onSaveDetails(updatedData: [Data, String, String]) {
+    const [detail, action, listName] = updatedData;
+    if (listName.toLowerCase() == "detalhes"){
+      this.detailData = {
+        title: 'Detalhes',
+        data: updatedData.map( item => ({
+          key: item.toString(),
+          value: item.toString(),
+          data_id: item.toString()
+        })
+        )
+      }
+    } else if(listName.toLocaleLowerCase() == "dimensões"){
+      this.dimensionsData ={
+        title: 'Dimensions',
+        data: updatedData.map( item => ({
+          key: item.toString(),
+          value: item.toString(),
+          data_id: item.toString()
+        })
+        )
+      }
+    }
+  }
+
+  onPriceTypeChange(newPriceType: string) {
+    if (newPriceType == PriceType.BOX){
+      this.priceType = PriceType.BOX;
+    }
+    else {
+      this.priceType = PriceType.UNITARY;
+    }
+  }
+  
+  onPricesUpdated(prices: string[]) {
+    this.priceInput = prices
+  }
+
+  onMeasuresChange(newMeasures: number) {
+    this.measureType= newMeasures;
+  }
+
+  onSaveProduct(){
+    let category_data: CategoryData ={
+      category_id: this.selectedCategory,
+      category_title: "",
+      brand_id: this.selectedBrand,
+      brand_title: "",
+      subcategory_id: this.selectedSubcategory,
+      subcategory_title: ""
+    }
+
+    try {
+      this.newProduct.emit(
+        {
+          product_id: this.productInfo.product_id,
+          title: this.productNameInput.nativeElement.value,
+          price_type: this.priceType,
+          measures: this.measureType ? JSON.parse(this.measureType.toString()) : [],
+          imgs: this.receivedImages,
+          price: this.priceInput,
+          details: this.detailData.data,
+          dimensions: this.dimensionsData.data,
+          category_data: category_data,
+          available: this.isAvailableSelected,
+          installation: this.isInstallationSelected,
+          topics: this.selectedOptions
+        }
+      )
+      this.imgs.emit(
+        this.receivedImages
+      )
+    } catch {
+      alert('Campos incompletos');
+    }
+  }
 }

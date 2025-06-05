@@ -1,14 +1,45 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable, ɵIS_INCREMENTAL_HYDRATION_ENABLED } from '@angular/core';
+import { Observable, of, map } from 'rxjs';
 import { ProductData } from '../data/product.data';
 import { OrderStatus } from '../../data/table.data';
-import { ProductTable, ProductInfo, CategoryType, DetailsData } from '../data/category.data';
+import { ProductTable, ProductInfo, PriceType, CategoryData } from '../data/category.data';
+import { environment } from '../../../enviroments/enviroment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root' 
 })
 export class ProductAuthService {
-  constructor() { }
+  private apiUrl = environment.apiUrl;
+  constructor(private http: HttpClient) {}
+
+  mapToProductInfo(product: any): ProductInfo {
+    let category_data: CategoryData = {
+      category_id: product.category_data.category_id,
+      category_title: product.category_data.category_title,
+      subcategory_id: product.category_data.subcategory_id,
+      subcategory_title: product.category_data.subcategory_title,
+      brand_id: product.category_data.brand_id,
+      brand_title: product.category_data.brand_title,
+    }
+
+    return {
+      product_id: product.product_id,
+      title: product.title,
+      dimensions: product.dimensions,
+      details: product.details,
+      measures: product.measures,
+      imgs: [],
+      price: product.price,
+      price_type: product.price_type,
+      category_data: category_data,
+      installation: product.installation,
+      available: product.available,
+      topics: product.topics
+    }
+  }
+
   getProductId(): Observable<ProductData> {
     const product: ProductData = {
       productId: '1',
@@ -26,60 +57,100 @@ export class ProductAuthService {
   }
 
   getProducts(): Observable<ProductTable[]> {
-    const products: ProductTable[] = [
-      {
-        productId: '1',
-        productName: 'Piso Laminado Eucafloor New Evidence Click',
-        categoryName: 'Piso',
-        subCategoryName: 'Laminado'
-      },
-      {
-        productId: '2',
-        productName: 'Piso Vinílico Cromo Elegance',
-        categoryName: 'Piso',
-        subCategoryName: 'Vinílico'
-      },
-    ];
-    return of(products);
+    return this.http.get<any[]>(`${this.apiUrl}/product/table`).pipe(
+      map(apiResponse => apiResponse.map(item => ({
+        productId: item["product_id"],
+        productName: item["title"],
+        categoryName: item["category_title"],
+        subCategoryName: item["subcategory_title"]
+      } as ProductTable)))
+    );
   }
 
-  getProductInfo(): Observable<ProductInfo> {
-    const detailsData: DetailsData = {
-      title: "Detalhes",
-      data: [
-          { label: "Marca", value: "Eucafloor" },
-          { label: "Linha", value: "New Evidence" },
-          { label: "Cor", value: "Veneto" },
-          { label: "Tipo de Instalação", value: "Click" },
-          { label: "Garantia da Fábrica", value: "14 anos" }
-      ]
-    };
+  getProduct(productId: string): Observable<ProductInfo> {
+    let params = new HttpParams();
+    if (productId) {
+        params = params.append('product_id', productId);
+    }
+    return this.http.get<any>(`${this.apiUrl}/product`, { params }).pipe(
+      map(apiResponse =>
+        {
+        return {
+          product_id: apiResponse.product_id,
+          title: apiResponse.title,
+          price_type: apiResponse.price_type,
+          price: apiResponse.price_input,
+          category_data: apiResponse.category_data,
+          details: apiResponse.category_data.details_id,
+          dimensions: apiResponse.category_data.dimensions_id,
+          topics: apiResponse.topics,
+          imgs: apiResponse.imgs,
+          measures: apiResponse.measures,
+          installation: apiResponse.installation,
+          available: apiResponse.available
+        }
+      })
+    )
+  }
 
-    const dimensionsData: DetailsData = {
-      title: "Dimensoes",
-      data: [
-          { label: "Rendimento(m²/caixa)", value: "2,77m²" },
-          { label: "Réguas", value: "1.357 x 292 mm" },
-          { label: "Espessura", value: "7 mm" },
-          { label: "Quantidade de réguas", value: "7" },
-          { label: "Combinação Rodapés e Perfis Tecno", value: "Acessórios N° 9 e N° 22" }
-      ]
-    };
+  cleanProduct():Observable<ProductInfo> {
+    let categoryData: CategoryData = {
+      category_id: "",
+      brand_id: "",
+      subcategory_id: "",
+      brand_title: "",
+      subcategory_title: "",
+      category_title: ""
+    }
 
-    const productInfo: ProductInfo = {
-      productId: '1',
-      productName: 'Piso Laminado Eucafloor New Evidence Click',
-      categoryId: '1',
-      categoryName: 'Piso',
-      imgs: ['piso.png'],
-      price: 10.00,
-      brandId: '1',
-      brandName: 'Eucafloor',
-      categoryType: CategoryType.PRODUCT,
-      dimensions: dimensionsData,
-      details: detailsData
-    };
-    return of(productInfo);
+    return of({
+      product_id: "",
+      title: "",
+      imgs: [],
+      price_type: PriceType.BOX,
+      price: [""],
+      details: [],
+      dimensions: [],
+      topics: [],
+      measures:0,
+      category_data: categoryData,
+      available: false,
+      installation: false
+    })
+  }
+
+  postProduct(product: any){
+    return this.http.post<any>(`${this.apiUrl}/product/create`, product);
+  }
+
+  updateProduct(product: any){
+    return this.http.post<any>(`${this.apiUrl}/product/update`, product);
+  }
+
+  uploadImgs(imgs: any, productId: string){
+    let params = new HttpParams().set('product_id', productId);
+    return this.http.post<any>(`${this.apiUrl}/product/upload`, imgs, { params })
+  }
+
+  getImgs(productId: string){
+    let params = new HttpParams().set('product_id', productId);
+    return this.http.get<any>(`${this.apiUrl}/product/img`, { params })
+  }
+
+  getDetails(categoryId: string, productId?: string): Observable<any[]>{
+    let params = new HttpParams().set('category_id', categoryId);
+    if (productId) {
+      params = params.append('product_id', productId);
+    }
+    return this.http.get<any[]>(`${this.apiUrl}/details/list`, { params })
+  }
+
+  getDimensions(categoryId: string, productId?: string): Observable<any[]> {
+    let params = new HttpParams().set('category_id', categoryId);
+    if (productId) {
+      params = params.append('product_id', productId);
+    }
+    return this.http.get<any[]>(`${this.apiUrl}/dimension/list`, { params });
   }
 
 }

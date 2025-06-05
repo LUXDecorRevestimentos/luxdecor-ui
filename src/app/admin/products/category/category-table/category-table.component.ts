@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -8,27 +8,44 @@ import { CategoryTable, CategoryStatusLabels, CategoryType } from '../../../data
 
 
 @Component({
-  selector: 'app-categorys-table',
+  selector: 'app-category-table',
   imports: [  
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
     MatIcon,
     CommonModule],
-  templateUrl: './categorys-table.component.html',
-  styleUrl: './categorys-table.component.css'
+  templateUrl: './category-table.component.html',
+  styleUrl: './category-table.component.css'
 })
-export class CategorysTableComponent {
+export class CategoryTableComponent {
 
-  @Input() categorys!: CategoryTable[];
+  @Input() categories!: CategoryTable[];
+  @Input() editable!: boolean;
   @Output() rowSelected: EventEmitter<CategoryTable> = new EventEmitter();
 
-  displayedColumns: string[] = ['categoryId', 'categoryName', 'subCategory', 'topic', 'items', 'type'];
+  displayedColumns: string[] = ['category_id', 'category_title', 'subcategory', 'topic', 'items', 'type'];
   dataSource = new MatTableDataSource<CategoryTable>();
   selectedRow: CategoryTable | null = null;
 
+  constructor(private elementRef: ElementRef){}
+
   ngOnInit(): void {
-    this.dataSource.data = this.categorys;
+    this.dataSource.data = this.categories;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target) && !this.editable) {
+      this.clearSelection();
+    }
+  }
+
+  clearSelection(){
+    if (this.selectedRow != null) {
+      this.selectedRow = null;
+      this.rowSelected.emit();
+    }
   }
 
   applyFilter(event: Event) {
@@ -41,7 +58,7 @@ export class CategorysTableComponent {
     this.rowSelected.emit(row);
   }
 
-  getLabelStatus(categoryType: CategoryType): string {
+  getLabelStatus(categoryType: any): string {
     let categoryTypeLabel: string = "";
     if ( categoryType && categoryType !== undefined) {
       categoryTypeLabel = CategoryStatusLabels[categoryType] || 'Unknown Status';

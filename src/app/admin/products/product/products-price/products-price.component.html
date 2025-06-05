@@ -1,30 +1,51 @@
 <div class="container">
+    <div class="input-metrics">
+        <h1>Medidas: </h1>
+        <div class="select-wrapper"  style="background-color: white;">
+            <mat-select [(ngModel)]="selectedMeasures"
+            (selectionChange)="onSelectMesures($event.value)" 
+            panelClass="custom-panel-class"  style="background-color: white !important;">
+                <mat-option value=0  style="background-color: white;">m</mat-option>
+                <mat-option value=1 style="background-color: white;">m²</mat-option>
+                <mat-option value=2  style="background-color: white;">Não Presente</mat-option>
+            </mat-select>
+        </div>
+    </div>
     <div class="product-item">
         <h1>Precificacao: </h1>
         <div class="select-wrapper"  style="background-color: white;">
-            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
-                <mat-option value="Produtos"  style="background-color: white;">Unitario</mat-option>
-                <mat-option value="Servicos"  style="background-color: white;">Caixa</mat-option>
+            <mat-select [(ngModel)]="selectPriceType"
+            (selectionChange)="onSelectChange($event.value)" 
+            panelClass="custom-panel-class"  style="background-color: white !important;">
+                <mat-option value="SINGLE"  style="background-color: white;">Unitario</mat-option>
+                <mat-option value="DUAL"  style="background-color: white;">Caixa</mat-option>
             </mat-select>
         </div>
         
     </div>
-    <div class="input-metrics">
-        <h1>Medidas: </h1>
-        <input class="input-value" style="max-width: 100px;" type="text" placeholder="m\m2" value="" />
-    </div>
+
     
     <div class="input-prices">
         <div>
             <h1>Valor do Produto: </h1>
-            <h1>R$<input class="input-value" type="text" placeholder="Valor do Produto"  value="45.00" />
-                
-            </h1>
+            <h1>R$
+                <input class="input-value" 
+                    type="text"
+                    (input)="onInputChange($event, 'unitary')"
+                    placeholder="0.00"  
+                    [(ngModel)]="unitaryValue" 
+                    (blur)="emitPrices()"/>
+                </h1>
         </div>
-        <div>
+        <div *ngIf="generatePrices()">
             <h1>Valor do Conjunto: </h1>
-            <h1>R$<input class="input-value" type="text" placeholder="Valor do Conjunto"  value="45.00" />
-                
+            <h1>R$
+                <input class="input-value"
+                    type="text" 
+                    placeholder="0.00"  
+                    [(ngModel)]="boxValue" 
+                    (blur)="emitPrices()"
+                    (input)="onInputChange($event, 'box')"/>
             </h1>
         </div>    
     

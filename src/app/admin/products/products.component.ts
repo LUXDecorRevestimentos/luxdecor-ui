@@ -2,20 +2,20 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { ProductAuthService } from '../service/product.auth.service';
 import { CategoryTable } from '../data/category.data';
-import { CategorysContentComponent } from './category/categorys-content/categorys-content.component';
+import { CategoriesContentComponent } from './category/categories-content/categories-content.component'
 import { CommonModule } from '@angular/common';
 import { ProductsContentComponent } from './product/products-content/products-content.component';
 
 @Component({
   selector: 'app-products',
-  imports: [MatIcon, CategorysContentComponent,ProductsContentComponent, CommonModule],
+  imports: [MatIcon, CategoriesContentComponent,ProductsContentComponent, CommonModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
   @Output() rowSelected: EventEmitter<CategoryTable> = new EventEmitter();
 
-  categorys: CategoryTable[]  = [];
+  categories: CategoryTable[]  = [];
   selected!: CategoryTable;
 
   categoryOp: boolean = false;

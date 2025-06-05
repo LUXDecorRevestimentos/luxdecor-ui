@@ -1,24 +1,76 @@
 <div class="container">
-    <div class="first img-solo">
-        <img src="" alt="">
+  <div class="first img-solo">
+    <img [src]="selectedImage.src || 'assets/placeholder.jpg'" [alt]="selectedImage.caption">
+    <div class="caption">{{ selectedImage.caption }}</div>
+    <button (click)="triggerFileInput(selectedImage.id)">
+      {{ selectedImage.src ? 'Alterar' : 'Selecionar' }} Imagem
+    </button>
+    <input 
+      type="file" 
+      [id]="'file-input-' + selectedImage.id"
+      accept="image/*" 
+      (change)="onFileChange($event, selectedImage.id)" 
+      style="display: none">
+  </div>
+
+  <div class="group">
+    <div class="main">
+      <div *ngFor="let img of images.slice(0, 1)" 
+           class="img-group" 
+           (click)="selectImage(img)"
+           [class.selected]="img.id === selectedImage.id">
+        <span class="img-number">{{ img.id }}</span>
+        <img [src]="img.src || 'assets/placeholder-thumb.jpg'" [alt]="img.caption">
+        <button class="refresh-btn" (click)="triggerRemoveFile(img.id); $event.stopPropagation()">
+          {{ img.src ? '🗑' : '+' }}
+        </button>
+        <input 
+          type="file" 
+          [id]="'file-input-' + img.id"
+          accept="image/*" 
+          (change)="onFileChange($event, img.id)" 
+          style="display: none">
+      </div>
     </div>
-    <div class="group">
-        <div class="top">
-            <div class="second img-group">
-                <img src="" alt="">
-            </div>
-            <div class="three img-group">
-                <img src="" alt="">
-            </div>
-        </div>
-        <div class="bottom">
-            <div class="four img-group">
-                <img src="" alt="">
-            </div>
-            <div class="five img-group">
-                <img src="" alt="">
-            </div>
-        </div>
+    <div class="top">
+      <div *ngFor="let img of images.slice(1, 3)" 
+           class="img-group" 
+           (click)="selectImage(img)"
+           [class.selected]="img.id === selectedImage.id">
+        <span class="img-number">{{ img.id }}</span>
+        <img [src]="img.src || 'assets/placeholder-thumb.jpg'" [alt]="img.caption">
+        <button class="refresh-btn" (click)="triggerRemoveFile(img.id); $event.stopPropagation()">
+          {{ img.src ? '🗑' : '+' }}
+        </button>
+        <input 
+          type="file" 
+          [id]="'file-input-' + img.id"
+          accept="image/*" 
+          (change)="onFileChange($event, img.id)" 
+          style="display: none">
+      </div>
     </div>
 
+    <div class="bottom">
+      <div *ngFor="let img of images.slice(3, 5)" 
+           class="img-group" 
+           (click)="selectImage(img)"
+           [class.selected]="img.id === selectedImage.id">
+        <span class="img-number">{{ img.id }}</span>
+        <img [src]="img.src || 'assets/placeholder-thumb.jpg'" [alt]="img.caption">
+        <button class="refresh-btn" (click)="triggerRemoveFile(img.id); $event.stopPropagation()">
+          {{ img.src ? '↻' : '+' }}
+        </button>
+        <input 
+          type="file" 
+          [id]="'file-input-' + img.id"
+          accept="image/*" 
+          (change)="onFileChange($event, img.id)" 
+          style="display: none">
+      </div>
+    </div>
+    <button class="btn-cancel" (click)="changeAllImages()">
+      Limpar <mat-icon class="icon">cleaning_services</mat-icon>
+    </button>
+  </div>
 </div>

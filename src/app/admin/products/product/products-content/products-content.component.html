@@ -1,18 +1,34 @@
-<app-product-table [products]="products" (rowSelected)="onRowSelectedProduct($event)"></app-product-table>
+<div class="btn-options">
+    <button 
+        (click)="handleButtonClick('add')" 
+        [ngClass]="{'active-button': addOp}">
+        <h1>Adicionar</h1>
+        <mat-icon class="icon">add</mat-icon> 
+    </button>
+    <button 
+        (click)="handleButtonClick('edit')" 
+        [ngClass]="{'active-button': editOp}">
+    <h1>Editar</h1>
+    <mat-icon class="icon">edit</mat-icon>
+  </button>
+</div>
+<app-product-table *ngIf="products.length != 0" [products]="products" (rowSelected)="onRowSelectedProduct($event)" [editable]="editOp"></app-product-table>
 <div class="optional-content" *ngIf="details">
-    <div class="btn-options">
-        <button (click)="handleButtonClick('add')">
-            <h1>Adicionar</h1>
-            <mat-icon class="icon">add</mat-icon> 
-        </button>
-        <button (click)="handleButtonClick('edit')">
-            <h1>Editar</h1>
-            <mat-icon class="icon">edit</mat-icon>
-        </button>
-    </div>
-    <div class="content">
-        <ng-container *ngIf="details">
-            <app-products-info [productInfo]="productInfo"></app-products-info>
+    <div class="content" *ngIf="productInfo">
+        <ng-container>
+            <app-products-info
+            [productInfo]="productInfo"
+            [productImgs]="productImgs"
+            [categoryList]="categoryData"
+            [topicList]="topics"
+            [subcategoryList]="subcategoryData" 
+            [brandList]="brandData"
+            [detailData]="detailData"
+            [dimensionsData]="dimensionsData"
+            (categorySelected)="onCategorySelected($event, this.addOp)"
+            (newProduct)="onProductUpdate($event)"
+            (imgs)="onUploadImgs($event)"
+            ></app-products-info>
         </ng-container>
     </div>
 </div>

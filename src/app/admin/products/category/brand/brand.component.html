@@ -1,16 +1,32 @@
 <div class="container">
     <div class="brands-table">
-        <app-brand-table [brands]="brands"></app-brand-table>
+        <app-brand-table [brands]="brands" (rowSelected)="handleBrandSelection($event)" [resetSelection]="resetTableSelectionFlag">
+</app-brand-table>
     </div>
     <div class="brands">
-        <button>
+        <button (click)="newBrand()">
             <h1>Marca</h1>
-            <mat-icon class="icon">add</mat-icon> 
+            <mat-icon class="icon" style="margin-top: 5px;">add</mat-icon> 
         </button>
-        <input  class="input-text" type="text" placeholder="Adicionar Marca" value="{{ brands[0].brandName }}" />
+        <input [(ngModel)]="title"  
+        class="input-text" type="text" placeholder="Adicionar Marca" value="{{ title }}" />
+        <button class="btn-save"
+            (click)="saveBrand()">
+            <mat-icon class="icon option">save</mat-icon>
+        </button>
+        <button class="btn-cancel"
+            (click)="deleteBrand()">
+            <mat-icon class="icon option">cleaning_services</mat-icon>
+        </button>
     </div>  
     
-    <div class="imgSub">
-        <input class="input-image-brands" type="image" placeholder="Adicionar URL da Imagem" value="{{ brands[0].imgBrand }}"/>
+    <div class="imgSub" *ngIf="this.selectedBrand">
+        <app-banner-img 
+        [inputWidth]="250"
+        [inputHeight]="250"
+        [bannerTitle]="this.selectedBrand.title"
+        [initialImage]="this.brandBanner"
+        (imageChanged)="handleBannerChange($event)">
+    </app-banner-img>
     </div>
 </div>
