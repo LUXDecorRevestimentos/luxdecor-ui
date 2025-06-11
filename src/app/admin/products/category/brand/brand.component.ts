@@ -36,7 +36,6 @@ export class BrandComponent {
     this.currentBrands = [...this.brands];
   }
 
-
   handleBrandSelection(brand: Brand) {
     this.selectedBrand = brand;
     this.title = brand.title;

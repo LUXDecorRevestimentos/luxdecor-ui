@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="installations-table">
+        <app-installation-table [installations]="installations" (rowSelected)="handleInstallationSelection($event)" [resetSelection]="resetTableSelectionFlag"></app-installation-table>
+    </div>
+    <div class="installations">
+        <button (click)="newInstallation()">
+            <h1>Instalacao</h1>
+            <mat-icon class="icon" style="margin-top: 5px;">add</mat-icon> 
+        </button>
+        <input [(ngModel)]="title"  
+        class="input-text" type="text" placeholder="Adicionar Marca" value="{{ title }}" />
+        <button class="btn-save"
+            (click)="saveInstallation()">
+            <mat-icon class="icon option">save</mat-icon>
+        </button>
+        <button class="btn-cancel"
+            (click)="deleteInstallation()">
+            <mat-icon class="icon option">cleaning_services</mat-icon>
+        </button>
+    </div>  
+    
+    <div class="imgSub" *ngIf="this.selectedInstallation">
+        <app-banner-img 
+        [inputWidth]="250"
+        [inputHeight]="250"
+        [bannerTitle]="this.selectedInstallation.title"
+        [initialImage]="this.installationBanner"
+        (imageChanged)="handleInstallationChange($event)">
+        </app-banner-img>
+    </div>
+</div>

@@ -2,7 +2,7 @@ import { ProductDetailsTable } from "./table.data";
 
 
 export interface GenericCard {
-    id: number;
+    id: string;
     title: string;
     type: string;
     imageUrl: string

@@ -21,7 +21,7 @@ export class BannerImgComponent implements OnChanges, OnInit {
   @Input() inputWidth: number = 1200;
   @Input() inputHeight: number = 240;
   @Input() bannerTitle: string = "";
-  @Input() initialImage: any = null;
+  @Input() initialImage!: string;
   
   @Output() imageChanged = new EventEmitter<BannerImage>();
 
@@ -43,12 +43,15 @@ export class BannerImgComponent implements OnChanges, OnInit {
   croppedImage: Blob | string | null = null;
   instanceId = Math.random().toString(36).substring(2, 9);
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadInitialImage(this.initialImage);
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.initialImage){
       this.loadInitialImage(this.initialImage);
     }
+    this.currentImage.src = this.initialImage
   }
 
   private createDefaultImage(): BannerImage {
@@ -65,11 +68,10 @@ export class BannerImgComponent implements OnChanges, OnInit {
       const img = new Image();
       img.onload = () => {
         this.currentImage = {
-          src: imageSrc.src,
+          src: imageSrc,
           width: img.width,
           height: img.height
         };
-        
         this.emitImage();
       };
       img.onerror = () => console.warn('Failed to load initial image');

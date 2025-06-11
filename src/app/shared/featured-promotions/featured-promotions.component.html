@@ -1,8 +1,9 @@
 <div class="promotions">
   <ng-container>
     <app-carousel-cards [cardsCategory]="cardsCategory" [type]="typeContainer"></app-carousel-cards>
-    <app-bar *ngIf="title" [title]="title" [displayOp]="'none'"  [titleType]="'important'"></app-bar>
-    <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-    <app-bar [title]="'Novidades'" [displayOp]="'none'" [titleType]="'important'"></app-bar>
+    <ng-container *ngFor="let topic of this.cardsProduct">
+      <app-bar [title]="topic.title" [displayOp]="'none'"  [titleType]="'important'"></app-bar>
+      <app-carousel-cards [cardsProduct]="topic.data"></app-carousel-cards>
+    </ng-container>
   </ng-container>
 </div>

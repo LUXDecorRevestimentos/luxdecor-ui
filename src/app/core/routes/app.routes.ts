@@ -24,4 +24,8 @@ export const routes: Routes = [
     loadChildren: () => import('../routes/admin.routes').then(m => m.ADMIN_ROUTES),
     canMatch: [adminGuard]
   },
+  {
+    path: "**",
+    redirectTo: '/'
+  }
 ];

@@ -9,11 +9,12 @@ import { BarComponent } from '../bar/bar.component';
   styleUrl: './brands.component.css'
 })
 export class BrandsComponent {
-  @Input() images: string[] = [];
+  @Input() images: any[] = [];
   title = "Marcas";
 
   ngOnInit() {
     // this.validateImageList();
+    // console.log(this.images)
   }
 
   validateImageList() {

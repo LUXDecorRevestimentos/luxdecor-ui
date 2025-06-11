@@ -1,6 +1,6 @@
 <div class="container">
   <ng-container *ngFor="let card of cardsCategory">
-      <div class="card" (click)="onSubProductClick(card.title)">
+      <div class="card" (click)="onSubProductClick(card.title)"  [style.background-image]="'url(' + card?.imageUrl + ')'">
         <h3>{{ card.title }}</h3>
       </div>
   </ng-container>

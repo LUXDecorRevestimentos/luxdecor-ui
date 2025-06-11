@@ -31,9 +31,10 @@
     <app-subcategory [subCategories]="categoryInfo.subcategory" (subCategoryEvent)="onSubCategoryEvent($event)"></app-subcategory>
     <app-brand [brands]="categoryInfo.brand" (brandEvent)="onBrandEvent($event)"></app-brand>
     <app-topic [topics]="categoryInfo.topic" (topicEvent)="onTopicEvent($event)"></app-topic>
+    <app-installation [installations]="categoryInfo.installations" (installationEvent)="onInstallationEvent($event)"></app-installation>
     <app-details-table [detailInput]="details" [editable]="false" (saveRequested)="onDetailEvent($event)"></app-details-table>
     <app-details-table [detailInput]="dimensions" [editable]="false" (saveRequested)="onDetailEvent($event)"></app-details-table>
-
+    
     <div class="bottom">
         <button class="btn-save"
             (click)="onSaveCategory()">

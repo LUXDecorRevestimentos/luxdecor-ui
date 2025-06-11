@@ -24,14 +24,12 @@ export class FeaturedPromotionsComponent {
   }
 
   getSectionCategory() {
-    const cardsCategory = this.cardsContent.filter(item => item.type === 'card-category');
+    const cardsCategory = this.cardsContent.filter(item => item.type === 'card-category' && item.format == 3);
     this.cardsCategory = [...this.cardsCategory, ...cardsCategory.flatMap(category => category.data)];
   }
   
   getSectionProduct(){
-    const cardsProduct = this.cardsContent.filter(item => item.type === 'card-product');
-    this.title = cardsProduct[0]?.title
-    this.cardsProduct = [...this.cardsProduct, ...cardsProduct.flatMap(product => product.data)];
+    this.cardsProduct = this.cardsContent.filter(item => item.type === 'card-product' && item.format == 2);
   }
 
 }

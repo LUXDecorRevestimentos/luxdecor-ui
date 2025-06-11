@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Brand, CategoryInfo, DetailsData, Topic, Data, CategoryStatusLabels, CategoryType } from '../../../data/category.data';
+import { Brand, CategoryInfo, DetailsData, Topic, Data, CategoryStatusLabels, CategoryType, Installation } from '../../../data/category.data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -11,6 +11,8 @@ import { MatIcon } from '@angular/material/icon';
 import { DetailsTableComponent } from '../../details-table/details-table.component';
 import { BannerImgComponent } from '../banner-img/banner-img.component';
 import { BannerService } from '../../../service/banner.auth.service';
+import { InstallationComponent } from '../installation/installation.component';
+import { colorSets } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-category-info',
@@ -23,7 +25,8 @@ import { BannerService } from '../../../service/banner.auth.service';
     TopicComponent,
     MatIcon,
     DetailsTableComponent,
-    BannerImgComponent
+    BannerImgComponent,
+    InstallationComponent
 ],
   templateUrl: './category-info.component.html',
   styleUrl: './category-info.component.css'
@@ -53,6 +56,7 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
 
   ngOnInit(): void {
     this.categoryTitle = this.categoryInfo.title
+    this.handleGetCategoryBanner(this.categoryInfo)
     this.subCategories = this.categoryInfo.subcategory;
     this.selectedOption = this.categoryInfo.category_type.toString()
     this.brands = this.categoryInfo.brand;
@@ -74,7 +78,6 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
         data_id: detail.data_id
       })) as Data[]
     };
-    this.handleGetCategoryBanner(this.categoryInfo)
   }
 
   handleBannerChange(img: any){
@@ -285,6 +288,56 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
         : tp
     );
   }
+
+  onInstallationEvent(newInstallation: [Installation, String]) {
+    const [installation, action] = newInstallation;
+    switch(action) {
+      case 'add':
+        this.handleAddInstallation(installation);
+        break;
+        
+      case 'remove':
+        this.handleRemoveInstallation(installation);
+        break;
+        
+      case 'update':
+        this.handleUpdateInstallation(installation);
+        break;
+        
+      default:
+        console.warn(`Ação desconhecida: ${action}`);
+    }
+  }
+
+  private handleAddInstallation(installation: Installation) {
+    const exists = this.categoryInfo.installations.some(
+      install => install.installation_id === installation.installation_id
+    );
+    
+    if (!exists) {
+      this.categoryInfo.installations = [
+        ...this.categoryInfo.installations, 
+        installation
+      ];
+    } else {
+      console.warn('Instalacao já existe:', installation);
+    }
+  }
+
+  private handleRemoveInstallation(installation: Installation) {
+    this.categoryInfo.installations = this.categoryInfo.installations.filter(
+      install => install.installation_id !== installation.installation_id
+    );
+  }
+
+  private handleUpdateInstallation(installation: Installation) {
+    this.categoryInfo.topic = this.categoryInfo.installations.map(installation => 
+      installation.installation_id === installation.installation_id
+        ? installation
+        : installation
+    );
+  }
+
 
   // Detail
   onDetailEvent(newDetail: [Data, String, String]) {

@@ -2,31 +2,22 @@ import { Injectable } from '@angular/core';
 import { catchError, distinctUntilChanged, map, Observable, of, shareReplay, throwError, timeout } from 'rxjs';
 import { GenericCard, ProductData, CartCardData } from '../data/card.data';
 import { ProductDetailsTable } from '../data/table.data';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ProductInfo } from '../admin/data/category.data';
 
 @Injectable({
   providedIn: 'root' 
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:5050/section/'; // Ajuste para sua URL real
+  private apiUrl = 'http://127.0.0.1:5050/'; 
 
   constructor(private http: HttpClient) {}
 
   getProductsCategories(): Observable<GenericCard[]> {
-    return this.http.get<GenericCard[]>(`${this.apiUrl}/header`).pipe(
+    return this.http.get<GenericCard[]>(`${this.apiUrl}section/header`).pipe(
       distinctUntilChanged(),
       shareReplay(1),
       map(apiProducts => this.transformApiDataCategories(apiProducts)),
-      timeout(5000),
-      catchError(error => throwError(() => error))
-    );
-  }
-
-  getProductPromotionMainList(): Observable<GenericCard[]> {
-    return this.http.get<GenericCard[]>(`${this.apiUrl}/promotions`).pipe(
-      distinctUntilChanged(),
-      shareReplay(1),
-      map(apiProducts => this.transformApiDataPromotions(apiProducts)),
       timeout(5000),
       catchError(error => throwError(() => error))
     );
@@ -37,8 +28,19 @@ export class ProductService {
       id: category.id,
       title: category.title,
       type: category.type,
-      imageUrl: category.imageUrl
+      imageUrl: category.imageUrl,
+      data: category.data
     }))
+  }
+
+  getProductPromotionMainList(): Observable<GenericCard[]> {
+    return this.http.get<GenericCard[]>(`${this.apiUrl}section/promotions`).pipe(
+      distinctUntilChanged(),
+      shareReplay(1),
+      map(apiProducts => this.transformApiDataPromotions(apiProducts)),
+      timeout(5000),
+      catchError(error => throwError(() => error))
+    );
   }
 
   private transformApiDataPromotions(apiProducts: any[]): GenericCard[] {
@@ -53,96 +55,90 @@ export class ProductService {
     }));
   }
 
-  getProdutctsCategoryId(): Observable<GenericCard[]> {
-    const mockCards: GenericCard[] = [
-      { id: 0, title: "Vinílicos", type: "sub-category", imageUrl: ""},
-      { id: 1, title: "Laminados", type: "sub-category", imageUrl: ""},
-    ];
-    return of(mockCards);
+  getInstallationsByCategory(categoryId: string): Observable<GenericCard[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/installation`, {
+      params: { category_id: categoryId }
+    }).pipe(
+      distinctUntilChanged(),
+      shareReplay(1),
+      map(apiInstallations => this.transformApiDataInstallations(apiInstallations)),
+      timeout(5000),
+      catchError(error => throwError(() => error))
+    );
+  }
+  
+  getBrandsByCategory(categoryId: string): Observable<GenericCard[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/brand/list`, {
+      params: { category_id: categoryId }
+    }).pipe(
+      distinctUntilChanged(),
+      shareReplay(1),
+      map(apiInstallations => this.transformApiDataInstallations(apiInstallations)),
+      timeout(5000),
+      catchError(error => throwError(() => error))
+    );
   }
 
-  getProdutctsCategoryIdInstallType(): Observable<GenericCard[]> {
-    const mockCards: GenericCard[] = [
-      { id: 0, title: "Cola", type: "category", imageUrl: ""},
-      { id: 1, title: "Click", type: "category", imageUrl: ""},
-    ];
-    return of(mockCards);
+  private transformApiDataInstallations(apiInstallations: any[]): GenericCard[] {
+    return apiInstallations.map(installation => ({
+      id: installation.installation_id,
+      title: installation.title,
+      type: '',
+      imageUrl: installation.banner_id, 
+      data: installation
+    }));
   }
 
   getAllProducts(): Observable<GenericCard[]> {
-    const mockCards: GenericCard[] = [
-      { id: 0, title: "Piso Laminado Eucafloor Cappuccino", type: "product", imageUrl: "", data: { price: "49,99" } },
-      { id: 1, title: "Piso Laminado Eucafloor Prime", type: "product", imageUrl: "", data: { price: "48,99" } },
-      { id: 2, title: "Piso Laminado Eucafloor Colado", type: "product", imageUrl: "", data: { price: "47,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 0, title: "Piso Laminado Eucafloor Cappuccino", type: "product", imageUrl: "", data: { price: "49,99" } },
-      { id: 1, title: "Piso Laminado Eucafloor Prime", type: "product", imageUrl: "", data: { price: "48,99" } },
-      { id: 2, title: "Piso Laminado Eucafloor Colado", type: "product", imageUrl: "", data: { price: "47,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 0, title: "Piso Laminado Eucafloor Cappuccino", type: "product", imageUrl: "", data: { price: "49,99" } },
-      { id: 1, title: "Piso Laminado Eucafloor Prime", type: "product", imageUrl: "", data: { price: "48,99" } },
-      { id: 2, title: "Piso Laminado Eucafloor Colado", type: "product", imageUrl: "", data: { price: "47,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-      { id: 3, title: "Piso Laminado Eucafloor", type: "product", imageUrl: "", data: { price: "46,99" } },
-    ];
+    const mockCards: GenericCard[] = [];
     return of(mockCards)
   }
 
-  getProductId(): ProductData {
+  getProductsFiltered(params: {
+    category_id?: string;
+    brand_id?: string;
+    subcategory_id?: string;
+    product_id?: string;
+  }): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/product/list`, {
+      params: {
+        ...(params.category_id && { category_id: params.category_id }),
+        ...(params.brand_id && { brand_id: params.brand_id }),
+        ...(params.subcategory_id && { subcategory_id: params.subcategory_id }),
+        ...(params.product_id && { product_id: params.product_id })
+      }
+    }).pipe(
+      timeout(5000),
+      catchError(error => throwError(() => error))
+    );
+  }
+  
 
-    const productDetails: ProductDetailsTable[] =  [
-        { label: 'Marca', value: 'Eucafloor' },
-        { label: 'Linha', value: 'New Evidence' },
-        { label: 'Cor',  value: 'Veneto'},
-        { label: 'Tipo de instalação', value: 'Click' },
-        { label: 'Garantia Fábrica ', value: '14 anos' },
-        { label: 'Garantia Comercial ', value: '5 anos' }
-      ]
+  getProductId(productId: string): Observable<ProductInfo> {
 
-    const productDimensions: ProductDetailsTable[] = [
-        { label: 'Rendimento (m²/caixa)', value: '2,77 m²' },
-        { label: 'Réguas', value: '1.357 x 292 mm' },
-        { label: 'Espessura', value: '7 mm' },
-        { label: 'Quantidade de réguas', value: '7' },
-        { label: 'Combinação Rodapés e Perfis Tecno', value: 'Acessórios N° 9 e N° 22' },
-      ]
-
-    const data: ProductData = {
-      id: 101,
-      title: 'Piso Laminado Eucafloor Click New Evidence Veneto',
-      brand: 'brands/eucaflor.png',
-      price: '69,50',       
-      box_price: '192,50',
-      box_size: '2,77mm²',
-      tamanho: '7x190x1200',
-      medida: 'm²',
-      details: 'O Piso Laminado Eucafloor New Evidence Click é indHicado para uso em ambientes Residenciais e Comerciais: Quartos e Salas, Quarto de Hotel e pequenas Salas comerciais. Possui conforto térmico e aplicação do tipo click, o que garante maior agilidade na aplicação e a liberação do ambiente de imediato. Agora em novas dimensões e novos padrões.',
-      spec: 'Ideal para ambientes internos e externos, resistente à água.',
-      images: [
-        'piso.png',
-        'piso.png',
-        'piso.png',
-        'piso.png',
-        'piso.png'
-      ],
-      productDetailsTable: productDetails,
-      productDimensionsTable: productDimensions
-
+    let params = new HttpParams();
+    if (productId) {
+        params = params.append('product_id', productId);
     }
-    return data;
+    return this.http.get<any>(`${this.apiUrl}/product`, { params }).pipe(
+      map(apiResponse =>
+        {
+        return {
+          product_id: apiResponse.product_id,
+          title: apiResponse.title,
+          price_type: apiResponse.price_type,
+          price: apiResponse.price_input,
+          category_data: apiResponse.category_data,
+          details: apiResponse.category_data.details_id,
+          dimensions: apiResponse.category_data.dimensions_id,
+          topics: apiResponse.topics,
+          imgs: apiResponse.imgs,
+          measures: apiResponse.measures,
+          installation: apiResponse.installation,
+          available: apiResponse.available
+        }
+      })
+    )
   }
 
   getCartData(): Observable<CartCardData[]> {

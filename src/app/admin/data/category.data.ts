@@ -52,6 +52,12 @@ export interface Brand {
     items: number;
 }
 
+export interface Installation {
+    installation_id: string;
+    title: string;
+    banner_id: string;
+}
+
 export interface Topic {  
     topic_id: string;
     title: string;
@@ -87,6 +93,7 @@ export interface CategoryInfo {
     category_type: CategoryType;
     dimensions: any[];
     details: any[];
+    installations: any[];
 }
 
 export interface ProductInfo {

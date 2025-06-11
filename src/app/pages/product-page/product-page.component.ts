@@ -44,7 +44,7 @@ export class ProductPageComponent implements OnInit{
   }
 
   populateData() {
-    this.productContent = this.productService.getProductId();
+    this.productContent = this.productService.getProductId("#sVeqI6A5LBR3");
 
     this.detailTable = this.productContent.productDetailsTable;
 

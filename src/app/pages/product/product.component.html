@@ -3,7 +3,8 @@
       <app-side-menu></app-side-menu>
       
       <div class="content">
-        <section [style.background-image]="'url(' + category?.imageUrl + ')'">          <div class="section-title">
+        <section [style.background-image]="'url(' + category?.imageUrl + ')'">
+          <div class="section-title">
             <p>{{ this.category?.title }}</p>
           </div>
           <div class="section-btns">
@@ -17,14 +18,14 @@
           (subProductClick)="onSubProductClick($event)"
         ></app-sub-product>
 
-        <app-filter-price *ngIf="selectedSubCategory"></app-filter-price>
+        <!-- <app-filter-price *ngIf="selectedSubCategory"></app-filter-price> -->
 
         <div class="category" *ngIf="category?.type === 'category'">
-          <app-bar *ngIf="selectedSubCategory" [title]="typeInstall"></app-bar>
-          <app-carousel-cards *ngIf="selectedSubCategory" [cardsProduct]="cardsProduct"></app-carousel-cards>
-          <app-brands *ngIf="selectedSubCategory" [images]="imageList"></app-brands>
           <app-bar *ngIf="selectedSubCategory" [title]="moreLabel"></app-bar>
+          <app-carousel-cards *ngIf="selectedSubCategory" [cardsProduct]="cardsProduct"></app-carousel-cards>
+          <app-bar *ngIf="selectedSubCategory" [title]="''"></app-bar>
           <app-sub-product *ngIf="selectedSubCategory" [cardsCategory]="cardsInstall"></app-sub-product>
+          <app-brands *ngIf="selectedSubCategory" [images]="imageList"></app-brands>
           <app-btn-call *ngIf="selectedSubCategory" [title]=""></app-btn-call>
         </div>
         <div class="sub-category" *ngIf="category?.type === 'sub-category'">

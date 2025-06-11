@@ -12,6 +12,8 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { GalleryComponent } from '../../shared/gallery/gallery.component';
 import { CommonModule } from '@angular/common';
 import { forkJoin, Observable, switchMap, tap } from 'rxjs';
+import { BannerService } from '../../admin/service/banner.auth.service';
+import { CartCardComponent } from '../../shared/cart-card/cart-card.component';
 
 @Component({
   selector: 'app-product',
@@ -40,6 +42,7 @@ export class ProductComponent implements OnInit {
   cardsProduct: GenericCard[] = [];
   cardsInstall: GenericCard[] = [];
   productsContent: GenericCard[] = [];
+  subCategoryId: string = "";
 
   typeInstall = "Tipo de Instalação";
   moreLabel = "Mais Vistos";
@@ -49,13 +52,11 @@ export class ProductComponent implements OnInit {
 
   categories: GenericCard[] = [];
 
-  imageList = [
-    'brands/eucaflor.png',
-    'brands/duraflor.png',
-    'brands/quick.png'
-  ];
+  brands: GenericCard[] = []
 
-  constructor(private route: ActivatedRoute, private productService: ProductService) {}
+  imageList: string[] = [];
+
+  constructor(private route: ActivatedRoute, private productService: ProductService, private bannerService: BannerService) {}
 
   ngOnInit(): void {
     this.loadAllData().pipe(
@@ -74,13 +75,20 @@ export class ProductComponent implements OnInit {
               id: foundCategory.id,
               title: foundCategory.title,
               type: 'category',
-              imageUrl: foundCategory.imageUrl
+              imageUrl: foundCategory.imageUrl,
+              data: foundCategory.data
             };
           }
         }
         
         this.selectedSubCategory = this.categoryTitle;
-        this.populateCategory();
+        
+        if (this.category?.data) {
+          this.populateCategory(this.category.data);
+        } else {
+          console.error('No category data available');
+        }
+        
         this.productsGallery();
       })
     ).subscribe();
@@ -90,23 +98,36 @@ export class ProductComponent implements OnInit {
     return this.productService.getProductsCategories().pipe(
       tap(categories => {
         this.categories = categories;
-        console.log('Categories loaded:', this.categories);
       })
     );
   }
 
-  populateCategory() {
-    this.productService.getProdutctsCategoryId().subscribe(categories => {
-      this.cardsCategory = this.cardsCategory.concat(categories);
-    });
-
-    this.productService.getProductPromotionMainList().subscribe(promotions => {
-      this.cardsProduct = this.cardsProduct.concat(promotions);
-    });
-
-    this.productService.getProdutctsCategoryIdInstallType().subscribe(promotions => {
-      this.cardsInstall = this.cardsInstall.concat(promotions);
-    });
+  populateCategory(categoryData: GenericCard) {
+    this.cardsCategory = this.cardsCategory.concat(categoryData.data);
+    if (this.category?.id){
+      this.productService.getProductPromotionMainList().subscribe(promotions => {
+        this.cardsProduct = this.cardsProduct.concat(promotions);
+      });
+      
+      this.productService.getBrandsByCategory(this.category.id).subscribe(brands => {
+        this.brands = this.brands.concat(brands)
+      })
+      this.brands.forEach(card => {
+        this.bannerService.getImgs(card.imageUrl).subscribe(url => {
+          this.imageList.push(url)
+          card.imageUrl = url;
+        });
+      });
+      
+      this.productService.getInstallationsByCategory(this.category?.id).subscribe(promotions => {
+        this.cardsInstall = this.cardsInstall.concat(promotions);
+      });
+      this.cardsInstall.forEach(card => {
+        this.bannerService.getImgs(card.imageUrl).subscribe(url => {
+          card.imageUrl = url;
+        });
+      });
+    }
     this.currentSubCategory = this.cardsCategory;
   }
 
@@ -115,16 +136,22 @@ export class ProductComponent implements OnInit {
       this.currentSubCategory.push(this.category);
       this.categoryTitle = subCategoryId
     }
+
+    this.subCategoryId = this.currentSubCategory.filter(item => item.title === subCategoryId)[0].id
+
     this.currentSubCategory = this.currentSubCategory.filter(item => item.title !== subCategoryId);
     this.category = this.cardsCategory.find(item => item.title == subCategoryId)
     
     this.selectedSubCategory = subCategoryId;
-
-  }
+    this.productsGallery()
+  } 
 
   productsGallery() {
-    this.productService.getAllProducts().subscribe(products => {
-      this.productsContent = this.productsContent.concat(products);
+    if (this.subCategoryId)
+    this.productService.getProductsFiltered({
+      subcategory_id: this.subCategoryId
+    }).subscribe(products => {
+      this.productsContent = products;
     });
   }
 }

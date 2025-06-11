@@ -22,7 +22,8 @@ export class CategoryAuthService {
             topic: category.topic || [],
             category_type: category.category_type,
             dimensions: category.dimensions || [],
-            details: category.details || []
+            details: category.details || [],
+            installations: category.installations || []
         };
     }
 
@@ -57,7 +58,8 @@ export class CategoryAuthService {
                 topic: apiResponse.topic,
                 category_type: apiResponse.category_type,
                 dimensions: apiResponse.dimensions,
-                details: apiResponse.details
+                details: apiResponse.details,
+                installations: apiResponse.installations
             }))
         );
     }
@@ -113,7 +115,8 @@ export class CategoryAuthService {
             topic: [],
             category_type: CategoryType.PRODUCT,
             dimensions: [],
-            details: []
+            details: [],
+            installations: []
         })
     }
 

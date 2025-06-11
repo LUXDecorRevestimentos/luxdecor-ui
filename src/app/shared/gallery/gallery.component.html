@@ -1,5 +1,11 @@
-<div class="gallery">
-  <ng-container *ngFor="let card of cardsProduct">
-      <app-card-price [card]="card"></app-card-price>
-    </ng-container>
-</div>  
+<div class="container">
+  <ng-container *ngFor="let content of cardsContent">
+    <app-bar [title]='content.title' [displayOp]="'none'" [titleType]="'important'" *ngIf="optinalTitle"></app-bar>
+
+    <div class="gallery">
+    <ng-container *ngFor="let card of content.data">
+        <app-card-price [card]="card"></app-card-price>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

@@ -17,7 +17,7 @@ export class HeaderComponent {
     { label: 'PISO', route: 'piso' },
     { label: 'RODAPE', route: 'rodape' },
     { label: 'PAINEIS RIPADOS', route: 'paineis-ripados' },
-    { label: 'CAMAS E COLCHOES', route: 'camas-e-colchoes' },
+    { label: 'PROMOCAO', route: 'camas-e-colchoes' },
     { label: 'OUTROS PRODUTOS', route: 'outros-produtos' },
     { label: 'SERVICOS', route: 'servicos' }
   ];

@@ -8,7 +8,7 @@ import { HttpClient } from "@angular/common/http";
     providedIn: 'root'
 })
 export class SectionService {
-    private apiUrl = 'http://localhost:5050/section';
+    private apiUrl = 'http://127.0.0.1:5050/section';
 
     constructor(private http: HttpClient) {}
   
@@ -27,12 +27,13 @@ export class SectionService {
         id: section.id,
         title: section.title,
         type: section.type,
-        data: section.data.map((item: { type: string; id: any; title: any; data: any[]; }) => {
+        data: section.data.map((item: { type: string; id: any; title: any; format: any; data: any[]; }) => {
           if (item.type === 'card-product') {
             return {
               id: item.id,
               type: item.type,
               title: item.title,
+              format: item.format,
               data: item.data.map((product: { id: any; title: any; type: any; imageUrl: any; data: { price: any; }; }) => ({
                 id: product.id,
                 title: product.title,

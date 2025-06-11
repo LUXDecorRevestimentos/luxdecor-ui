@@ -1,23 +1,9 @@
-<div class="page" *ngIf="isLoading; else loading">
-      @defer (on viewport) {
-        <div class="container">
-            <app-carousel class="banner"></app-carousel>
-            <app-carousel-cards [cardsCategory]="cardsCategory"></app-carousel-cards>
-            <app-bar *ngIf="cardsCategory.length > 0" [title]="'Recomendado'"></app-bar>
-            <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-            <app-topic [type]="'large'"></app-topic>
-        </div>
-      }
-      @placeholder {
-        <div class="skeleton-loader">
-          <div class="skeleton-wave"></div>
-        </div>
-      }
-</div>
-    
-    <ng-template #loading>
-      <div class="skeleton-loader">
-        <div class="skeleton-wave"></div>
+<div class="page" *ngIf="isLoading">
+      <div class="container">
+          <app-carousel class="banner"></app-carousel>
+          <app-carousel-cards [cardsCategory]="cardsCategory"></app-carousel-cards>
+          <app-bar *ngIf="cardsCategory.length > 0" [title]="'Recomendado'"></app-bar>
+          <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
+          <app-topic [type]="'large'"></app-topic>
       </div>
-    </ng-template>
-  
+</div>
