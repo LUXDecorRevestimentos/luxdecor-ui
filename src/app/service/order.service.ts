@@ -1,186 +1,83 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
-import { OrderCardData, OrderStatus } from "../data/card.data";
+import { catchError, forkJoin, map, Observable, switchMap, tap, throwError } from "rxjs";
+import { CartCardItemData, OrderCardData, OrderCardInfo, OrderCardResponse, OrderStatus } from "../data/card.data";
+import { ClientService } from "./client.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../enviroments/enviroment";
+import { ProductService } from "./product.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class OrderService {
-    constructor() {}
+    private apiUrl = environment.apiUrl;
 
-    getOrderData(): Observable<OrderCardData[]> {
-        const currentDate = new Date().toISOString();
-        const mockCards: OrderCardData[] = [
-            {
-                id: 1,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.UNDERWAY
-            },
-            {
-                id: 2,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.UNDERWAY
-            },
-            {
-                id: 3,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.FINISHED
-            },
-            {
-                id: 4,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.FINISHED
-            },
-            {
-                id: 5,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.UNDERWAY
-            },
-            {
-                id: 6,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.FINISHED
-            },
-            {
-                id: 7,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.UNDERWAY
-            },
-            {
-                id: 8,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.FINISHED
-            },
-            {
-                id: 9,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.UNDERWAY
-            },
-            {
-                id: 10,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.FINISHED
-            },
-            {
-                id: 11,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.FINISHED
-            },
-            {
-                id: 12,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.UNDERWAY
-            },
-            {
-                id: 13,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.FINISHED
-            },
-            {
-                id: 14,
-                title: 'Piso Laminado Eucafloor New Evidence Click',
-                type: 'Piso Laminado',
-                imageUrl: 'piso.png',
-                price: 'R$ 192,50',
-                amount: 1,
-                select: false,
-                date: currentDate,
-                lastUpdate: currentDate,
-                status: OrderStatus.UNDERWAY
-            }
-        ];
+    cartData: any;
+    cartItems: CartCardItemData[] = [];
 
-        return of(mockCards);
+    constructor(private http: HttpClient,
+        private clientService: ClientService,
+        private productService: ProductService) {}
+
+    loadOrder(): Observable<OrderCardData[]> {
+        return this.getOrders().pipe(
+            switchMap(orders => {
+                const transformedOrders$ = orders.map(order => 
+                    this.transformOrderItem(order)
+                );
+                return forkJoin(transformedOrders$);
+            }),
+            tap(transformedOrders => {
+                this.cartData = transformedOrders;
+            })
+        );
     }
+
+    findOrder(order_id: string): Observable<OrderCardInfo> {
+        const token = this.clientService.getCurrentUser()?.idToken;
+        if (!token) {
+            return throwError(() => new Error('No authentication token available'));
+        }
+    
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        });
+    
+        return this.http.post<OrderCardInfo>(
+            `${this.apiUrl}/order/find`,
+            { order_id },
+            { headers }
+        ).pipe(
+            catchError(error => {
+                console.error('Error finding order:', error);
+                return throwError(() => new Error('Failed to fetch order details'));
+            })
+        );
+    }
+    getOrders(): Observable<OrderCardResponse[]> {
+        let token = this.clientService.getCurrentUser()?.idToken;
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+        return this.http.get<OrderCardResponse[]>(`${this.apiUrl}/order/list`, { headers });
+    }
+
+    private transformOrderItem(order: OrderCardResponse): Observable<OrderCardData> {
+        return this.productService.getImgs(order.product_id).pipe(
+        map(imageUrl => ({
+            id: order.order_id,
+            title: order.product_title,
+            type: 'product',
+            imageUrl: imageUrl[0].src,
+            price: order.product_price,
+            amount: order.amount,
+            select: true,
+            status: OrderStatus.UNDERWAY,
+            date: order.date,
+            lastUpdate: order.date
+        }))
+        );
+    }
+
 }

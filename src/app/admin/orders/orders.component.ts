@@ -4,9 +4,9 @@ import { CardDataComponent } from '../components/card-data/card-data.component';
 import { OrderChartComponent } from '../components/order-chart/order-chart.component';
 import { OrderTableResumeComponent } from './order-table-resume/order-table-resume.component';
 import { OrderAuthService } from '../service/order.auth.service';
-import { OrderDetailsTable } from '../../data/table.data';
+import { OrderDetailsTable, OrderStatus, OrderUpdateStatus } from '../../data/table.data';
 import { OrderTable, ProductTable } from '../../data/table.data';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { ClientAuthService } from '../service/client.auth.service';
 import { ClientData } from '../data/client.data';
 import { OrderClientComponent } from './order-client/order-client.component';
@@ -35,13 +35,18 @@ import { ProductData } from '../data/product.data';
   styleUrl: './orders.component.css'
 })
 export class OrdersComponent implements OnInit {
+  orderTable: OrderDetailsTable[] = [];
   detailTable: OrderDetailsTable[]  = [];
+  historyTable: OrderDetailsTable[]  = [];
   detailProducts: ProductTable[] = [];
   orders: OrderTable[]  = [];
   client!: ClientData;
   product!: ProductData;
   order!: OrderDetailsTable;
-
+  orderStatus!: OrderUpdateStatus;
+  selectedRowOrderTable!: OrderTable;
+  orderChart: any;
+  timeUpdate: string = "";
 
   constructor(private orderService: OrderAuthService, 
               private clientService: ClientAuthService,
@@ -52,28 +57,65 @@ export class OrdersComponent implements OnInit {
   }
 
   populateDashboardData() {
-    this.orderService.getOrderData().subscribe((data) => {
-      this.detailTable = data;
+    this.orderService.getOrderTable().subscribe((data) => {
+      this.orders = data;      
       this.order = data[Math.random() * data.length | 0];
     });
-
-    this.orderService.getOrderTable().subscribe((orders) => {
-      this.orders = orders;
-    });
+    this.orderService.getOrders().subscribe((orders) => {
+      this.detailTable = orders;
+    })
+    this.orderService.getOrderChart("dia").subscribe((chart) => {
+      this.orderChart = chart;
+      const now = new Date();
+      this.timeUpdate = formatDate(now, 'HH:mm dd/MM/yyyy', 'pt-BR');
+    })
   }
 
   onRowSelectedOrder(row: OrderTable) {
-    this.orderService.getProductTable().subscribe((products) => {
+    this.orderService.getCartTable(row.cartId).subscribe((products) => {
       this.detailProducts = products;
     });
-    this.clientService.getClientData().subscribe((client) => {
+    this.orderService.getClientData(row.cartId).subscribe((client) => {
       this.client = client;
-    });    
+    })
+    this.selectedRowOrderTable = row;
   }
 
   onRowSelectedProduct(row: ProductTable) {
-    this.productService.getProductId().subscribe((product) => {
+    this.productService.getProductId(row.orderId, row.productId).subscribe((product) => {
       this.product = product;
+      this.orderStatus = {...{
+        order_id: row.orderId,
+        status: row.status,
+      }};
+    })
+    this.orderService.getOrderHistory(row.orderId).subscribe((orderHistory) => {
+      this.historyTable = orderHistory;
+    })
+
+  }
+
+  onUpdateOrderStatus($event: OrderUpdateStatus) {
+    this.orderService.updateOrderStatus($event).subscribe({
+      next: () => {
+        this.detailProducts = [];
+        this.populateDashboardData();
+        this.onRowSelectedOrder(this.selectedRowOrderTable)
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar o status do pedido', err);
+      }
     });
   }
+
+  onChangeChart($event: string){
+    console.log($event)
+    this.orderService.getOrderChart($event).subscribe((chart) => {
+      this.orderChart = chart;
+      const now = new Date();
+      this.timeUpdate = formatDate(now, 'HH:mm dd/MM/yyyy', 'pt-BR');
+    })
+  }
+  
+
 }

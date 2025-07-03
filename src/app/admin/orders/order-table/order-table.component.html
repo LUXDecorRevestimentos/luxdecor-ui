@@ -3,39 +3,51 @@
     <mat-icon class="search-icon">search</mat-icon>
     <input (keyup)="applyFilter($event)" />
 </div>
-<h1>Pedidos</h1>
-<div class="container">    
+<h1>Compras</h1>
+<div class="container" *ngIf="dataSource">    
     <table mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="orderId">
-            <th mat-header-cell *matHeaderCellDef> PedidoId </th>
-            <td mat-cell *matCellDef="let order"> {{order.orderId}} </td>
+        <!-- Cart ID Column -->
+        <ng-container matColumnDef="cartId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Carrinho ID </th>
+            <td mat-cell *matCellDef="let order"> {{order.cartId }} </td>
         </ng-container>
 
+        <!-- Customer Name Column -->
         <ng-container matColumnDef="customerName">
-            <th mat-header-cell *matHeaderCellDef> Comprador </th>
-            <td mat-cell *matCellDef="let order"> {{order.customerName}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Comprador </th>
+            <td mat-cell *matCellDef="let order"> {{order.customerName }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="totalAmount">
-            <th mat-header-cell *matHeaderCellDef> Total </th>
-            <td mat-cell *matCellDef="let order"> R$ {{order.totalAmount}},00 </td>
+        <!-- Total Price Column -->
+        <ng-container matColumnDef="totalPrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+            <td mat-cell *matCellDef="let order"> R$
+                {{order.totalPrice}} 
+            </td>
         </ng-container>
 
+        <!-- Status Column -->
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Status </th>
             <td mat-cell *matCellDef="let order"> 
-                {{ getLabelStatus(order.status) }}
+                <app-order-status [orderStatus]="order.status"></app-order-status>
             </td>
         </ng-container>
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef> Atualizado em </th>
-            <td mat-cell *matCellDef="let order"> {{order.date}} </td>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Atualizado em </th>
+            <td mat-cell *matCellDef="let order">
+                {{ (order.data | date:'dd/MM/yyyy') }}  
+            </td>
         </ng-container>
 
+        <!-- Header and Row Definitions -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let order; columns: displayedColumns;" 
-            (click)="onRowClicked(order)" 
-            [ngClass]="{'custom-row': true, 'selected-row': selectedRow === order}"
-        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="onRowClicked(row)"
+            [ngClass]="{'custom-row': true, 'selected-row': selectedRow === row}"
+        >
+        </tr>
     </table>
 </div>

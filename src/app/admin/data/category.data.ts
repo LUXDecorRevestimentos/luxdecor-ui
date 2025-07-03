@@ -106,9 +106,12 @@ export interface ProductInfo {
     details: any[];
     dimensions: any[];
     topics: any[];
-    measures: MeasureType;
+    measure: MeasureType;
+    measures: string[];
     installation: boolean;
+    installations: any[];
     available: boolean;
+    about: string;
 }
 
 export interface DetailsData {

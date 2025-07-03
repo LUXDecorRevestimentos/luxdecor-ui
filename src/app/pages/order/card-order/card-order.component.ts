@@ -2,10 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OrderCardData } from '../../../data/card.data';
 import { BarComponent } from '../../../shared/bar/bar.component';
 import { OrderStatusLabels } from '../../../data/card.data';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card-order',
-  imports: [BarComponent],
+  imports: [BarComponent, CommonModule],
   templateUrl: './card-order.component.html',
   styleUrl: './card-order.component.css'
 })

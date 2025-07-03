@@ -34,6 +34,8 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
   @Input() detailData!: DetailsData;
   @Input() dimensionsData!: DetailsData;
   @Input() topicList: any[] = [];
+  @Input() installationList: any[] = [];
+  @Input() measuresList: any[] = [];
 
   @Output() categorySelected = new EventEmitter<string>();  
   @Output() subcategorySelected = new EventEmitter<string>();
@@ -49,9 +51,14 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
   dimensionsProduct!: DetailsData;
   priceType!: PriceType;
   priceInput!: string[];
+  measuresInput!: string[];
   measureType!: number;
+  installOption: string | null = null;
+  installOptionList: string[] = [];
   selectedOptions: string[] = [];
   onSave: boolean = false;
+
+  aboutText!: string;
 
   isAvailableSelected: boolean = false;
   isInstallationSelected: boolean = false;
@@ -63,12 +70,15 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
     this.selectedSubcategory = this.productInfo.category_data.subcategory_id
     this.selectedBrand = this.productInfo.category_data.brand_id
     this.selectedPriceType = this.productInfo.price_type
-    this.measureType = this.productInfo.measures
+    this.measureType = this.productInfo.measure
     this.priceInput = this.productInfo.price
+    this.measuresInput = this.productInfo.measures
     this.productInfo.topics.map(topic => this.updateSelection(topic.topic_id, true))
     this.isAvailableSelected = this.productInfo.available
     this.isInstallationSelected = this.productInfo.installation
+    this.aboutText = this.productInfo.about
     this.cdRef.detectChanges();
+    this.installOption = this.productInfo.installations[0]?.installation_id
   }
 
   ngOnChanges(changes: any): void {}
@@ -83,6 +93,12 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
 
   onSelectionChange() {
     this.categorySelected.emit(this.selectedCategory);
+  }
+
+
+  toggleInstallation(installId: string, isChecked: boolean) {
+    this.installOption = isChecked ? installId : null;
+    console.log('Instalação selecionada:', this.installOption); // Aqui você tem o ID
   }
 
   updateSelection(value: string, isChecked: boolean) {
@@ -144,11 +160,16 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
     this.priceInput = prices
   }
 
-  onMeasuresChange(newMeasures: number) {
-    this.measureType= newMeasures;
+  onMeasureChange(newMeasure: number) {
+    this.measureType = newMeasure;
+  }
+
+  onMeasuresChange(newMeasures: string[]) {
+    this.measuresInput = newMeasures;
   }
 
   onSaveProduct(){
+
     let category_data: CategoryData ={
       category_id: this.selectedCategory,
       category_title: "",
@@ -159,12 +180,17 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
     }
 
     try {
+      if(this.installOption != undefined){
+        this.isInstallationSelected == false;
+        this.installOptionList.push(this.installOption)
+      }
       this.newProduct.emit(
         {
           product_id: this.productInfo.product_id,
           title: this.productNameInput.nativeElement.value,
           price_type: this.priceType,
-          measures: this.measureType ? JSON.parse(this.measureType.toString()) : [],
+          measures: this.measuresInput,
+          measure: this.measureType,
           imgs: this.receivedImages,
           price: this.priceInput,
           details: this.detailData.data,
@@ -172,7 +198,9 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
           category_data: category_data,
           available: this.isAvailableSelected,
           installation: this.isInstallationSelected,
-          topics: this.selectedOptions
+          installations: this.installOptionList,
+          topics: this.selectedOptions,
+          about: this.aboutText
         }
       )
       this.imgs.emit(

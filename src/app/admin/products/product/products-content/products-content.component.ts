@@ -29,6 +29,7 @@ export class ProductsContentComponent {
   dimensionsData!: any;
   productImgs!: any[];
   topics!: any[];
+  installations!: any[];
 
   details: boolean = false;
   addOp: boolean = false;
@@ -159,6 +160,11 @@ export class ProductsContentComponent {
     //topics
     this.categoryService.getCategoryTopic(this.selectedCategory).subscribe(data => {
       this.topics = data.map(item => [item.category_id, item.title])
+    })
+
+    //installations
+    this.categoryService.getInstallations(this.selectedCategory).subscribe(data => {
+      this.installations = data.map(item => [item.installation_id, item.title])
     })
   
     // details

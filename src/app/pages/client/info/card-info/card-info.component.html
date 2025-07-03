@@ -1,0 +1,30 @@
+<div class="cart-card" *ngIf="clientData">
+  <div class="field">
+      <span class="label">Nome:</span>
+      <span class="value">{{ clientData.name }} {{ clientData.surname }}</span>
+  </div>
+  <div class="field">
+      <span class="label">Email:</span>
+      <span class="value">{{ clientData.contact.email }}</span>
+  </div>
+  <div class="field">
+      <span class="label">CPF:</span>
+      <span class="value">{{ clientData.document.cpf }}</span>
+  </div>
+  <div class="field">
+      <span class="label">RG:</span>
+      <span class="value">{{ clientData.document.rg }}</span>
+  </div>
+  <div class="field">
+      <span class="label">Cel:</span>
+      <span class="value">{{ clientData.contact.phone }}</span>
+  </div>
+  <div class="btns">
+    <button class="btn" (click)="openModal()">
+        Editar
+      </button>
+    <button class="btn" (click)="signOut()">
+      Sair
+    </button>
+  </div>
+</div>

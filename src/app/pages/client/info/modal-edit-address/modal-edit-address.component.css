@@ -1,0 +1,108 @@
+.card {
+    padding: 20px;
+    width: 600px;
+    max-width: 100%;
+}
+  
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}  
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+}
+
+.close {
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.name-fields, .doc-fields, .address-fields {
+    display: flex;
+    gap: 15px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.name-fields {
+    display: flex;
+    gap: 15px;
+}
+
+.name-fields .form-group {
+    flex: 1;
+}
+
+.doc-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.address-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.name-fields .form-group, 
+.doc-fields .form-group, 
+.address-fields .form-group {
+    flex: 1;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+    font-weight: bold;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+
+    cursor: pointer;
+    margin: auto;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #000000;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .name-fields, .doc-fields, .address-fields {
+    flex-direction: column;
+    gap: 0;
+    }
+}

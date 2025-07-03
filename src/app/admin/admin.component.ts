@@ -7,6 +7,9 @@ import { ProductsComponent } from './products/products.component';
 import { ClientsComponent } from "./clients/clients.component";
 import { SalesComponent } from './sales/sales.component';
 import { ManagerComponent } from './manager/manager.component';
+import { AuthService } from './service/auth.service';
+import { Router } from '@angular/router';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 
 @Component({
   selector: 'app-admin',
@@ -16,7 +19,8 @@ import { ManagerComponent } from './manager/manager.component';
     ProductsComponent,
     ClientsComponent,
     SalesComponent,
-    ManagerComponent],
+    ManagerComponent,
+    LoginAdminComponent],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
@@ -24,11 +28,35 @@ export class AdminComponent {
   @ViewChild(SidenavComponent) sidenav!: SidenavComponent;
   contentToDisplay: string = 'dashboard';
 
+  authenticated: boolean = false;
+
+  constructor(private authService: AuthService,
+    private router: Router
+){}
+
   ngOnInit(): void {
-    this.handleButtonClick('dashboard');
+    // this.router.navigate(['/admin/login']);
+
+    // this.authService.getClient().subscribe({
+    //   next: (isAuthenticated) => {
+    //     this.authenticated = isAuthenticated;
+    //     if (!isAuthenticated) {
+    //       this.router.navigate(['/admin/login']);
+    //     }
+    //   },
+    //   error: (err) => {
+    //     console.error('Auth check failed:', err);
+    //   }
+    // });
+    // this.handleButtonClick('dashboard');
   }
 
   handleButtonClick(identifier: string) {
     this.contentToDisplay = identifier;
+  }
+
+  isAuthenticated($event: boolean){
+    console.log($event)
+    this.authenticated = $event
   }
 }

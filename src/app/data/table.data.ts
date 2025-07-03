@@ -4,20 +4,26 @@ export interface ProductDetailsTable {
 }
 
 export interface OrderDetailsTable {
-  orderId: string;
+  cartId: string;
   status: OrderStatus;
   date: string;
 }
 
 export interface OrderTable {
-  orderId: string;
+  cartId: string;
   customerName: string;
-  totalAmount: number;
+  totalPrice: string;
   status: OrderStatus;
   date: string;
 }
 
+export interface OrderUpdateStatus {
+  order_id: string;
+  status: number;
+}
+
 export interface ProductTable {
+  orderId: string;
   productId: string;
   productName: string;
   price: number;
@@ -36,7 +42,7 @@ export interface ClientTable {
 
 export interface SalesTable {
   saleId: string;
-  orderId: string;
+  cartId: string;
   clientId: string;
   value: string;
   date: string;
@@ -53,17 +59,19 @@ export interface ManagerTable {
 
 
 export enum OrderStatus {
+  PAYMENT = 0,
   PENDING = 1,
-  SENT = 2,
-  UNDERWAY = 3,
+  UNDERWAY = 2,
+  INSTALLATION = 3,
   FINISHED = 4,
   CANCELLED = 5
 }
 
 export const OrderStatusLabels: { [key: number]: string } = {
-  [OrderStatus.PENDING]: "Pendente",
-  [OrderStatus.SENT]: "Enviado",
-  [OrderStatus.UNDERWAY]: "A caminho",
-  [OrderStatus.FINISHED]: "Concluido",
-  [OrderStatus.CANCELLED]: "Cancelado"
+  [OrderStatus.PAYMENT]: "Em Aberto", // Pendente
+  [OrderStatus.PENDING]: "Pendente", // Pendente
+  [OrderStatus.UNDERWAY]: "A caminho", // Processando
+  [OrderStatus.INSTALLATION]: "Instalando", // Processando
+  [OrderStatus.FINISHED]: "Concluido", // Concluido
+  [OrderStatus.CANCELLED]: "Cancelado" // Cancelado
 };

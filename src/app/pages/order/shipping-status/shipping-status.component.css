@@ -1,0 +1,135 @@
+.shipping-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .shipping_status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .step-label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+    color: #333;
+  }
+  
+  .box, .shipping, .finnaly {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+  }
+  
+  mat-icon {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .vertical-timeline {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .timeline-container {
+    display: flex;
+    position: relative;
+  }
+  
+  .time-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-right: 1rem;
+    text-align: right;
+  }
+  
+  .item-time p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .timeline-line {
+    width: 2px;
+    background-color: #e0e0e0;
+    position: absolute;
+    left: 120px;
+    top: 0;
+    bottom: 0;
+  }
+  
+  .status-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-left: 2rem;
+    margin-left: 1rem;
+  }
+  
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .status-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;
+  }
+  
+  .status-label {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  /* Status colors */
+  .completed .status-circle {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+  }
+  
+  .current .status-circle {
+    background-color: #2196F3;
+    border-color: #2196F3;
+  }
+  
+  .pending .status-circle {
+    background-color: #FFC107;
+    border-color: #FFC107;
+  }
+  
+  .completed .status-label {
+    color: #4CAF50;
+    font-weight: 500;
+  }
+  
+  .current .status-label {
+    color: #2196F3;
+    font-weight: 500;
+  }
+  
+  .pending .status-label {
+    color: #FFC107;
+    font-weight: 500;
+  }

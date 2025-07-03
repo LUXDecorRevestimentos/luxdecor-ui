@@ -3,17 +3,19 @@ import { Observable } from "rxjs";
 import { catchError, map } from 'rxjs/operators';
 import { GenericSection } from "../data/card.data";
 import { HttpClient } from "@angular/common/http";
+import { environment } from "../../enviroments/enviroment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SectionService {
-    private apiUrl = 'http://127.0.0.1:5050/section';
+      private apiUrl = environment.apiUrl;
+    
 
     constructor(private http: HttpClient) {}
   
     getSections(): Observable<GenericSection[]> {
-      return this.http.get<GenericSection[]>(this.apiUrl + "/home").pipe(
+      return this.http.get<GenericSection[]>(this.apiUrl + "/section/home").pipe(
         map(apiSections => this.transformApiData(apiSections)),
         catchError(error => {
           console.error('Error fetching sections, using mock data', error);

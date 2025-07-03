@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SalesTable, OrderDetailsTable } from '../../../data/table.data';
 import { SalesTableComponent } from '../sales-table/sales-table.component';
@@ -7,6 +7,8 @@ import { OrderClientComponent } from '../../orders/order-client/order-client.com
 import { OrderTableResumeComponent } from '../../orders/order-table-resume/order-table-resume.component';
 import { ClientAuthService } from '../../service/client.auth.service';
 import { OrderAuthService } from '../../service/order.auth.service';
+import { ProductTable } from '../../data/category.data';
+import { SalesAuthService } from '../../service/sales.auth.service';
 
 @Component({
   selector: 'app-sales-info',
@@ -18,22 +20,26 @@ import { OrderAuthService } from '../../service/order.auth.service';
   templateUrl: './sales-info.component.html',
   styleUrl: './sales-info.component.css'
 })
-export class SalesInfoComponent {
+export class SalesInfoComponent implements OnInit{
 
   @Input() salesTable!: SalesTable[];
   @Input() client!: ClientData;
   @Input() detailTable: OrderDetailsTable[]  = [];
+  historyTable: OrderDetailsTable[]  = [];
 
+  @Output() rowSelected: EventEmitter<ProductTable> = new EventEmitter();
 
-  constructor (private clientService: ClientAuthService,
-              private orderService: OrderAuthService){}
+  constructor(private orderService: OrderAuthService){}
+
+  ngOnInit(): void {}
 
   onRowSelectedSale(row: SalesTable) {
-    this.clientService.getClientData().subscribe((client) => {
+    this.orderService.getCartHistory(row.cartId).subscribe((orderHistory) => {
+      console.log(orderHistory)
+      this.historyTable = orderHistory;
+    })
+    this.orderService.getClientData(row.cartId).subscribe((client) => {
       this.client = client;
-    });    
-    this.orderService.getOrderData().subscribe((data) => {
-      this.detailTable = data;
-    });
+    })
   }
 }

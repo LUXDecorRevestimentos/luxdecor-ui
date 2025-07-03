@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CommonModule } from '@angular/common';
 import { BtnComponent } from '../../components/btn/btn.component';
@@ -9,9 +9,10 @@ import { BtnComponent } from '../../components/btn/btn.component';
   templateUrl: './sales-chart.component.html',
   styleUrl: './sales-chart.component.css'
 })
-export class SalesChartComponent {
+export class SalesChartComponent implements OnInit, OnChanges{
   @Input() color: string | null = "#3e74e0";
   @Input() title: string | null = "Pedidos";
+  @Input() chartData: any;
   @Output() buttonClick = new EventEmitter<string>();
 
   view: [number, number] = [350, 200];
@@ -22,15 +23,15 @@ export class SalesChartComponent {
   showXAxisLabel = false;
   xAxisLabel = 'Meses';
   showYAxisLabel = false;
-  yAxisLabel = 'Clientes';
+  yAxisLabel = 'Pedidos';
 
   activeIdentifier: string | null = null;
 
   data = [
-    { name: 'Pendentes', value: 862 },
-    { name: 'Processando', value: 789 },
-    { name: 'Entregues', value: 450 },
-    { name: 'Cancelados', value: 380 }
+    { name: 'Pendentes', value: 0 },
+    { name: 'Processando', value: 0 },
+    { name: 'Entregues', value: 0 },
+    { name: 'Cancelados', value: 0 }
   ];
 
   colorScheme: any = {
@@ -42,6 +43,12 @@ export class SalesChartComponent {
   ngOnInit(): void {
     this.colorScheme = { domain: [this.color] };
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.chartData)
+      this.data = this.chartData
+  }
+
 
   getRandomDataForPeriod(period: string): any[] {
     switch (period) {

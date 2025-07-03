@@ -4,7 +4,9 @@ import { ProductData } from '../data/product.data';
 import { OrderStatus } from '../../data/table.data';
 import { ProductTable, ProductInfo, PriceType, CategoryData } from '../data/category.data';
 import { environment } from '../../../enviroments/enviroment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { application } from 'express';
+import { ClientService } from '../../service/client.service';
 
 
 @Injectable({
@@ -12,7 +14,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class ProductAuthService {
   private apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private clientService: ClientService) {}
 
   mapToProductInfo(product: any): ProductInfo {
     let category_data: CategoryData = {
@@ -35,26 +38,42 @@ export class ProductAuthService {
       price_type: product.price_type,
       category_data: category_data,
       installation: product.installation,
+      installations: product.installations,
       available: product.available,
-      topics: product.topics
+      topics: product.topics,
+      about: product.about,
+      measure: product.measure
     }
   }
 
-  getProductId(): Observable<ProductData> {
-    const product: ProductData = {
-      productId: '1',
-      title: 'Piso Laminado Eucafloor New Evidence Click',
-      type: 'Piso',
-      subType: 'Laminado',
-      imageUrl: 'piso.png',
-      price: '10.00',
-      boxPrice: '50.00',
-      amount: 10,
-      status: OrderStatus.PENDING,
-      date: "07:00 - 01/01/2023"
-    };
-    return of(product);
+  getProductId(order_id: string, product_id: string): Observable<ProductData> {
+    let token = this.clientService.getCurrentUser()?.idToken
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });  
+    const body = { order_id: order_id,
+                  product_id: product_id}
+
+    return this.http.post<ProductData>(`${this.apiUrl}/admin/product/info`, 
+      body,
+      { headers });
   }
+
+  // getProductId(): Observable<ProductData> {
+  //   const product: ProductData = {
+  //     productId: '1',
+  //     title: 'Piso Laminado Eucafloor New Evidence Click',
+  //     type: 'Piso',
+  //     subType: 'Laminado',
+  //     imageUrl: 'piso.png',
+  //     price: '10.00',
+  //     boxPrice: '50.00',
+  //     amount: 10,
+  //     status: OrderStatus.PENDING,
+  //     date: "07:00 - 01/01/2023"
+  //   };
+  //   return of(product);
+  // }
 
   getProducts(): Observable<ProductTable[]> {
     return this.http.get<any[]>(`${this.apiUrl}/product/table`).pipe(
@@ -87,7 +106,10 @@ export class ProductAuthService {
           imgs: apiResponse.imgs,
           measures: apiResponse.measures,
           installation: apiResponse.installation,
-          available: apiResponse.available
+          installations: apiResponse.installations,
+          available: apiResponse.available,
+          about: apiResponse.about,
+          measure: apiResponse.measure
         }
       })
     )
@@ -112,10 +134,13 @@ export class ProductAuthService {
       details: [],
       dimensions: [],
       topics: [],
-      measures:0,
+      measures:[],
       category_data: categoryData,
       available: false,
-      installation: false
+      installation: false,
+      installations: [],
+      about: "",
+      measure: 0
     })
   }
 

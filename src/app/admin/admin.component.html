@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container"  *ngIf="authenticated">
     <app-sidenav (buttonClick)="handleButtonClick($event)"></app-sidenav>
     <div class="diplay">
         <div class="content" *ngIf="contentToDisplay === 'dashboard'">
@@ -20,4 +20,7 @@
             <app-manager></app-manager>
         </div>
     </div>
+</div>
+<div class="container-login" *ngIf="!authenticated">
+    <app-login-admin (authenticated)="isAuthenticated($event)"></app-login-admin>
 </div>

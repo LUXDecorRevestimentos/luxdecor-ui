@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 
@@ -9,6 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './btn-add.component.css'
 })
 export class BtnAddComponent {
+
+  @Input() productId!: string;
+  @Output() order: EventEmitter<[string, number]> = new EventEmitter();
+
   count: number = 1;
 
   increment() {
@@ -30,5 +34,9 @@ export class BtnAddComponent {
     } else {
       this.count = 1;
     }
+  }
+
+  onClick(){
+    this.order.emit([this.productId, this.count])
   }
 }

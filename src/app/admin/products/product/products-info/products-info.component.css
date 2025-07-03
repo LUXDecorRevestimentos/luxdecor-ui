@@ -358,3 +358,14 @@ label {
   color: #6c757d;
   font-size: 14px;
 }
+
+.fixed-textarea {
+  font-size: 24px;
+  width: 600px;   /* Largura fixa */
+  height: 300px;  /* Altura fixa */
+  resize: none;   /* Impede o redimensionamento pelo usuário */
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+}

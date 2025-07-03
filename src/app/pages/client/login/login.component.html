@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="card">
+        <div class="header">
+            <h2>Login</h2>
+            <mat-icon class="close" [routerLink]="['/home']">close</mat-icon>
+        </div>
+        <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" formControlName="email" placeholder="seu@email.com">
+                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="error-message">
+                    <div *ngIf="email?.errors?.['required']">Email é obrigatório</div>
+                    <div *ngIf="email?.errors?.['email']">Email inválido</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <input type="password" formControlName="password" placeholder="Sua senha">
+                <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error-message">
+                    <div *ngIf="password?.errors?.['required']">Senha é obrigatória</div>
+                </div>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>

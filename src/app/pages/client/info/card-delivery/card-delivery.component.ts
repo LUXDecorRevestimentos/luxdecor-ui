@@ -1,0 +1,33 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { ClientInfoResponse } from '../../../../data/client.data';
+import { CommonModule } from '@angular/common';
+import { ModalEditAddressComponent } from '../modal-edit-address/modal-edit-address.component';
+import { MatDialog } from '@angular/material/dialog';
+
+@Component({
+  selector: 'app-card-delivery',
+  imports: [CommonModule],
+  templateUrl: './card-delivery.component.html',
+  styleUrl: './card-delivery.component.css'
+})
+export class CardDeliveryComponent implements OnInit {
+
+  @Input() clientData: ClientInfoResponse | undefined;
+
+  constructor(public dialog: MatDialog){}
+
+  ngOnInit(): void {
+    if(this.clientData){}
+  }
+
+  openModal(){
+      this.dialog.open(ModalEditAddressComponent, {
+        width: '400px',
+        data: {
+          clientInfo: this.clientData
+        }
+      })
+    }
+  
+
+}

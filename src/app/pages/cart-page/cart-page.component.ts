@@ -1,14 +1,17 @@
-import { Component, OnInit, computed, signal } from '@angular/core';
+import { CSP_NONCE, Component, OnInit, computed, signal } from '@angular/core';
 import { BarComponent } from '../../shared/bar/bar.component';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../service/product.service';
-import { CartCardData, Cart } from '../../data/card.data';
+import { CartCardItemData, Cart, CartData } from '../../data/card.data';
 import { CartCardComponent } from '../../shared/cart-card/cart-card.component'
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BtnNextComponent } from '../../shared/btn/btn-next/btn-next.component';
 import { BtnCleanComponent } from '../../shared/btn/btn-clean/btn-clean.component';
 import { Router } from '@angular/router';
+import { CartService } from '../../service/cart.service';
+import { ClientService } from '../../service/client.service';
+import { Observable, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-cart-page',
@@ -26,8 +29,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart-page.component.css']
 })
 export class CartPageComponent implements OnInit {
-  cartItems: CartCardData[] = [];
-  
+
+  cartData: any;
+  cartItems: CartCardItemData[] = [];
+
+  product_total: number = 0;
+  installation_total: string = "0,00";
+  delivery_total: string = "0,00";
+
+  error: string | null = null;
+  isLoading = false;
+
   readonly cart = signal<Cart>({
     id: 'Selecionar Tudo',
     completed: false,
@@ -41,23 +53,29 @@ export class CartPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private productService: ProductService
+    private cartService: CartService,
   ) {}
 
   ngOnInit(): void {
-    this.populateCart();
+    this.loadCart();
   }
 
-  populateCart() {
-    this.productService.getCartData().subscribe({
-      next: (categories) => {
-        this.cartItems = [...categories];
+  loadCart(): void {
+    this.cartService.getCart().pipe(
+      tap(cartData => this.cartData = cartData),
+      switchMap(cartData => this.cartService.transformToCardItems(cartData))
+    ).subscribe({
+      next: (items) => {
+        this.cartItems = [...items];
         this.cart.set({
           ...this.cart(),
           items: [...this.cartItems]
         });
+        this.product_total = this.cartData.product_total
+        this.installation_total = this.cartData.installation_total
+        this.delivery_total = this.cartData.delivery_total
       },
-      error: (err) => console.error('Error loading cart data:', err)
+      error: (err) => console.error('Error loading cart:', err)
     });
   }
 
@@ -70,7 +88,32 @@ export class CartPageComponent implements OnInit {
       } else {
         updatedItems[index].select = completed;
       }
-
+  
+      if (index === undefined) {
+        updatedItems.forEach(item => {
+          this.cartService.updateOrder(item.id, item.product_id, parseInt(item.amount))
+            .subscribe({
+              next: () => this.loadCart(),
+              error: (err) => console.error('Bulk update failed:', err)
+            });
+        });
+      } else {
+        const item = updatedItems[index];
+        if (!completed) {
+          this.cartService.removeOrder(item.id)
+            .subscribe({
+              next: () => this.loadCart(),
+              error: (err) => console.error('Remove failed:', err)
+            });
+        } else {
+          this.cartService.updateOrder(item.id, item.product_id, parseInt(item.amount))
+            .subscribe({
+              next: () => this.loadCart(),
+              error: (err) => console.error('Update failed:', err)
+            });
+        }
+      }
+  
       return {
         ...cart,
         items: updatedItems,
@@ -94,6 +137,19 @@ export class CartPageComponent implements OnInit {
         }
       }
     });
+  }
+
+  onOrderUpdate($event: [string, string, number]) {
+    console.log($event)
+    this.cartService.updateOrder($event[0], $event[1], $event[2]).subscribe((response) => {
+      this.loadCart();
+    })
+  }
+
+  onOrderRemove($event: string) {
+    this.cartService.removeOrder($event).subscribe((response) => {
+      this.loadCart();
+    })
   }
 
   clearCart() {

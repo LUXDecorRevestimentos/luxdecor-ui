@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { OrderService } from '../../service/order.service';
 import { CardOrderComponent } from './card-order/card-order.component'
-import { OrderCardData, OrderStatus} from "../../data/card.data";
+import { OrderCardData, OrderCardInfo, OrderStatus} from "../../data/card.data";
 import { MatIcon } from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
@@ -25,7 +25,9 @@ export class OrderComponent implements OnInit {
   orderUnderway: OrderCardData[] = [];
   orderFinished: OrderCardData[] = [];
   selectedOrder: OrderCardData | null = null;
+  orderInfoRespone: OrderCardInfo | null = null;
   openItem: boolean = false;
+
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
@@ -33,10 +35,10 @@ export class OrderComponent implements OnInit {
   }
 
   populateData() {
-    this.orderService.getOrderData().subscribe(
+    this.orderService.loadOrder().subscribe(
       (data: OrderCardData[]) => {
         this.orders = data;
-        this.orderUnderway = this.orders.filter(item => item.status === OrderStatus.UNDERWAY);
+        this.orderUnderway = this.orders;
         this.orderFinished = this.orders.filter(item => item.status === OrderStatus.FINISHED);
       }
     );
@@ -47,6 +49,14 @@ export class OrderComponent implements OnInit {
       this.selectedOrder = order;
       this.openItem = true;
     }
+    this.selectedOrder = this.orders.filter(item => item.id === order.id)[0];
+    this.orderService.findOrder(order.id).subscribe({
+      next: order => {
+        this.orderInfoRespone = order
+      },
+      error: err => {}
+    });
+
   }
 
   isMobileView(): boolean {
@@ -57,4 +67,12 @@ export class OrderComponent implements OnInit {
     return window.innerWidth >= 1000;
   }
 
+  isStatusActive(status: string): boolean {
+    if (!this.orderInfoRespone?.status_list) return false;
+    
+    const statusList = this.orderInfoRespone.status_list;
+    const currentStatus = this.orderInfoRespone.current_status;
+    
+    return statusList.some(s => s.status === status) || currentStatus === status;
+  }
 }

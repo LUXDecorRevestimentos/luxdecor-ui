@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 export const adminGuard: CanMatchFn = () => {
 //   const authService = inject(AuthService);
-  const router = inject(Router);
+  // const router = inject(Router);
 
 //   if (authService.isAdmin()) {
 //     return true;

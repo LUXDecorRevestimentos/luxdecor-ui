@@ -22,7 +22,8 @@ export class ClientInfoComponent {
   constructor (private clientService: ClientAuthService){}
 
   onRowSelectedClient(row: ClientTable) {
-    this.clientService.getClientData().subscribe((client) => {
+    console.log(row)
+    this.clientService.getClientData(row.clientId).subscribe((client) => {
       this.client = client;
     });    
   }

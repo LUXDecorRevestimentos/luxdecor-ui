@@ -15,14 +15,13 @@ export class SalesTableComponent {
   @Input() detailTable!: SalesTable[];
   @Output() rowSelected: EventEmitter<SalesTable> = new EventEmitter();
 
-  displayedColumns: string[] = ['saleId', 'orderId', 'clientId', 'value', 'date'];
+  displayedColumns: string[] = ['saleId', 'cartId', 'clientId', 'value', 'date'];
   dataSource = new MatTableDataSource<SalesTable>();
   selectedRow: SalesTable | null = null;
 
   ngOnInit(): void {
     this.dataSource.data = this.detailTable;
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

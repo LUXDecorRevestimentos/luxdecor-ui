@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { catchError, distinctUntilChanged, map, Observable, of, shareReplay, throwError, timeout } from 'rxjs';
-import { GenericCard, ProductData, CartCardData } from '../data/card.data';
+import { catchError, distinctUntilChanged, map, Observable, of, shareReplay, switchMap, throwError, timeout } from 'rxjs';
+import { GenericCard, ProductData, CartCardItemData, CartData } from '../data/card.data';
 import { ProductDetailsTable } from '../data/table.data';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ProductInfo } from '../admin/data/category.data';
+import { environment } from '../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root' 
 })
 export class ProductService {
-  private apiUrl = 'http://127.0.0.1:5050/'; 
-
+  private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
   getProductsCategories(): Observable<GenericCard[]> {
-    return this.http.get<GenericCard[]>(`${this.apiUrl}section/header`).pipe(
+    return this.http.get<GenericCard[]>(`${this.apiUrl}/section/header`).pipe(
       distinctUntilChanged(),
       shareReplay(1),
       map(apiProducts => this.transformApiDataCategories(apiProducts)),
@@ -34,7 +34,7 @@ export class ProductService {
   }
 
   getProductPromotionMainList(): Observable<GenericCard[]> {
-    return this.http.get<GenericCard[]>(`${this.apiUrl}section/promotions`).pipe(
+    return this.http.get<GenericCard[]>(`${this.apiUrl}/section/promotions`).pipe(
       distinctUntilChanged(),
       shareReplay(1),
       map(apiProducts => this.transformApiDataPromotions(apiProducts)),
@@ -56,7 +56,7 @@ export class ProductService {
   }
 
   getInstallationsByCategory(categoryId: string): Observable<GenericCard[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/installation`, {
+    return this.http.get<any[]>(`${this.apiUrl}/installations/list`, {
       params: { category_id: categoryId }
     }).pipe(
       distinctUntilChanged(),
@@ -133,41 +133,96 @@ export class ProductService {
           dimensions: apiResponse.category_data.dimensions_id,
           topics: apiResponse.topics,
           imgs: apiResponse.imgs,
+          measure: apiResponse.measure,
           measures: apiResponse.measures,
           installation: apiResponse.installation,
-          available: apiResponse.available
+          installations: apiResponse.installations,
+          available: apiResponse.available,
+          about: apiResponse.about
         }
       })
     )
   }
 
-  getCartData(): Observable<CartCardData[]> {
-    const mockCards: CartCardData[] = [
+  getDetails(categoryId: string, productId?: string): Observable<any[]>{
+    let params = new HttpParams().set('category_id', categoryId);
+    if (productId) {
+      params = params.append('product_id', productId);
+    }
+    return this.http.get<any[]>(`${this.apiUrl}/details/list`, { params })
+  }
+
+  getDimensions(categoryId: string, productId?: string): Observable<any[]> {
+    let params = new HttpParams().set('category_id', categoryId);
+    if (productId) {
+      params = params.append('product_id', productId);
+    }
+    return this.http.get<any[]>(`${this.apiUrl}/dimension/list`, { params });
+  }
+
+  getImgs(productId: string){
+    let params = new HttpParams().set('product_id', productId);
+    return this.http.get<any>(`${this.apiUrl}/product/img`, { params })
+  }
+
+  getBrandAndThenBanner(brand_id: string) {
+    return this.getBrand(brand_id).pipe(
+      switchMap((brandResponse) => {
+        const newBrandId = brandResponse.banner_id;
+        return this.getBanner(newBrandId);
+      })
+    );
+  }
+
+  getBrand(brand_id: string){
+    let params = new HttpParams().set('brand_id', brand_id);
+    return this.http.get<any>(`${this.apiUrl}/brand`, { params })
+  }
+
+  getBanner(banner_id: string){
+    let params = new HttpParams().set('path_id', banner_id);
+    return this.http.get<any>(`${this.apiUrl}/banner/upload`, { params })
+  }
+
+
+  getCart(token: string): Observable<CartData> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<CartData>(this.apiUrl, { headers });
+  }
+
+  getCartData(): Observable<CartCardItemData[]> {
+    const mockCards: CartCardItemData[] = [
       {
-        id: 1,
+        id: "1",
         title: 'Piso Laminado Eucafloor New Evidence Click',
         type: 'Piso Laminado',
         imageUrl: 'piso.png',
         price: 'R$ 192,50',
-        amount: 1,
+        product_id: "%1231",
+        amount: "1",
         select: false
       },
       {
-        id: 2,
+        id: "2",
         title: 'Piso Laminado Eucafloor New Evidence Click',
         type: 'Piso Laminado',
         imageUrl: 'piso.png',
         price: 'R$ 192,50',
-        amount: 1,
+        amount: "1",
+        product_id: "%1231",
         select: false
       },
       {
-        id: 3,
+        id: "3",
         title: 'Piso Laminado Eucafloor New Evidence Click',
         type: 'Piso Laminado',
         imageUrl: 'piso.png',
         price: 'R$ 192,50',
-        amount: 1,
+        amount: "1",
+        product_id: "%1231",
         select: false
       }
     ];

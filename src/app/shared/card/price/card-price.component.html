@@ -1,4 +1,4 @@
-<div class="card" [routerLink]="['/product']" [queryParams]="{ category: product?.id}">
+<div class="card" [routerLink]="['/product']" [queryParams]="{ product: product?.id}">
     <img [src]="product?.imageUrl || 'assets/images/placeholder.png'" 
          [alt]="product?.title || 'Produto sem nome'"
          loading="lazy"

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductService } from '../../../service/product.service';
 import { ProductData } from '../../data/product.data';
 import { BarComponent } from '../../../shared/bar/bar.component';
@@ -11,9 +11,12 @@ import { BtnComponent } from '../../components/btn/btn.component';
   templateUrl: './order-product.component.html',
   styleUrl: './order-product.component.css'
 })
-export class OrderProductComponent  {
+export class OrderProductComponent  implements OnInit {
 
   @Input() productData!: ProductData;
+
+  ngOnInit(): void {
+  }
 
   getLabelStatus(orderStatus: OrderStatus): string {
     let orderStatusLabel: string = "";

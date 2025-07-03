@@ -7,6 +7,12 @@ import { PaymentPageComponent } from '../../pages/payment-page/payment-page.comp
 import { OrderComponent } from '../../pages/order/order.component';
 import { adminGuard } from '../guards/admin.guard';
 import { ProductService } from '../../service/product.service';
+import { ClientComponent } from '../../pages/client/client.component';
+import { LoginComponent } from '../../pages/client/login/login.component';
+import { RegisterComponent } from '../../pages/client/register/register.component';
+import { InfoComponent } from '../../pages/client/info/info.component';
+import { AuthGuard } from '../guards/auth.guard';
+import { AdminComponent } from '../../admin/admin.component';
 
 export const routes: Routes = [
   { 
@@ -16,13 +22,23 @@ export const routes: Routes = [
   },
   { path: 'category', component: ProductComponent },
   { path: 'product', component: ProductPageComponent },
-  { path: 'cart', component: CartPageComponent },
-  { path: 'payment', component: PaymentPageComponent },
-  { path: 'order', component: OrderComponent },
+  { path: 'cart', component: CartPageComponent, canActivate: [AuthGuard] },
+  { path: 'payment', component: PaymentPageComponent, canActivate: [AuthGuard] },
+  { path: 'order', component: OrderComponent, canActivate: [AuthGuard] },
+  { path: 'client', component: ClientComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'info', component: InfoComponent },
+  { path: 'orders', component: OrderComponent, canActivate: [AuthGuard] },
+  // {
+  //   path: 'admin',
+  //   loadChildren: () => import('../routes/admin.routes').then(m => m.ADMIN_ROUTES),
+  //   providers: [AdminComponent],
+  //   canMatch: [adminGuard]
+  // },
   {
-    path: 'admin',
-    loadChildren: () => import('../routes/admin.routes').then(m => m.ADMIN_ROUTES),
-    canMatch: [adminGuard]
+    path: "admin",
+    component: AdminComponent
   },
   {
     path: "**",

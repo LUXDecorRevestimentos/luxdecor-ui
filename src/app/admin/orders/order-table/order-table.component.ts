@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { OrderTable, OrderStatus, OrderStatusLabels } from '../../../data/table.data';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { OrderStatusComponent } from '../order-status/order-status.component';
 
 @Component({
   selector: 'app-order-table',
@@ -13,7 +14,9 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatTableModule, 
     MatIcon, 
-    CommonModule],
+    CommonModule,
+    OrderStatusComponent
+  ],
   templateUrl: './order-table.component.html',
   styleUrl: './order-table.component.css'
 })
@@ -21,7 +24,7 @@ export class OrderTableComponent implements OnInit{
   @Input() detailTable!: OrderTable[];
   @Output() rowSelected: EventEmitter<OrderTable> = new EventEmitter();
 
-  displayedColumns: string[] = ['orderId', 'customerName', 'totalAmount', 'status', 'date'];
+  displayedColumns: string[] = ['cartId', 'customerName', 'totalPrice', 'status', 'data'];
   dataSource = new MatTableDataSource<OrderTable>();
   selectedRow: OrderTable | null = null;
 

@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    justify-content: center;
+    min-height: 90vh;
+    box-sizing: border-box;
+}
+
+.modules {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    min-width: 300px;
+    max-width: 400px;
+    flex: 1;              
+}
+
+.bar {
+    width: 100%;
+}
+
+app-card-info {
+    padding: 15px;
+    flex-grow: 2;
+}

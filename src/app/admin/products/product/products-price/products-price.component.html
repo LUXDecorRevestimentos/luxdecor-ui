@@ -36,7 +36,16 @@
                     [(ngModel)]="unitaryValue" 
                     (blur)="emitPrices()"/>
                 </h1>
+            <h1>Tamanho: </h1>
+            <h1>
+                <input class="input-value" 
+                    type="text"
+                    placeholder="7x190x1200"  
+                    [(ngModel)]="unitaryValueMeasure" 
+                    (blur)="emitMeasures()"/>
+            </h1>
         </div>
+        
         <div *ngIf="generatePrices()">
             <h1>Valor do Conjunto: </h1>
             <h1>R$
@@ -46,6 +55,15 @@
                     [(ngModel)]="boxValue" 
                     (blur)="emitPrices()"
                     (input)="onInputChange($event, 'box')"/>
+            </h1>
+            <h1>Tamanho: </h1>
+            <h1>
+                <input class="input-value" 
+                    type="text"
+                    placeholder="2,77mm²"
+                    [(ngModel)]="boxValueMeasure" 
+                    (blur)="emitMeasures()"
+                    />
             </h1>
         </div>    
     

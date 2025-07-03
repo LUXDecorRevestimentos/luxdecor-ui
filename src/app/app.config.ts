@@ -1,11 +1,18 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withDebugTracing } from '@angular/router';
+import { ApplicationConfig, provideZoneChangeDetection, LOCALE_ID } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { routes } from './core/routes/app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ADMIN_ROUTES } from './core/routes/admin.routes';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
+import { provideNgxMask } from 'ngx-mask';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt-BR');
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,8 +21,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(ADMIN_ROUTES),
     provideAnimations(),
     provideAnimationsAsync(),
-    // provideHttpClient()
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    provideClientHydration()
+    provideClientHydration(),
+    provideNgxMask(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 };

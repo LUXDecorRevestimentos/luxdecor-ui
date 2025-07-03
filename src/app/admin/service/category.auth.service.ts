@@ -104,6 +104,13 @@ export class CategoryAuthService {
         return this.http.get<any[]>(`${this.apiUrl}/dimension/list`, { params })
     }
 
+    getInstallations(categoryId?: string): Observable<any[]>{
+        let params = new HttpParams();
+        if (categoryId) {
+          params = params.append('category_id', categoryId);
+        }
+        return this.http.get<any[]>(`${this.apiUrl}/installations/list`, { params })
+    }
     cleanCategory(): Observable<CategoryInfo> {
 
         return of({

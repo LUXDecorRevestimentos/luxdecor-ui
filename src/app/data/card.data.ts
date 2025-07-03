@@ -18,7 +18,7 @@ export interface GenericSection {
 
 export interface ProductData {
 
-    id: number;
+    id: string;
     title: string;
     brand: string;
     price: string;
@@ -38,27 +38,77 @@ export interface ProductData {
 export interface Cart {
     id: string,
     completed: boolean,
-    items?: CartCardData[];
-  }
-  
+    items?: CartCardItemData[];
+}
 
-export interface CartCardData {
-    id: number;
+export interface CartData {
+    cart_id: string,
+    delivery_total: string,
+    installation_total: string,
+    orders?: CartResponseItem[],
+    product_total: string
+}
+
+export interface CartResponseItem {
+    cart_id: string,
+    date: string,
+    delivery: string,
+    installation_id: string,
+    installation_title: string,
+    installation_total: string,
+    order_id: string,
+    product_id: string,
+    product_price: string,
+    product_title: string,
+    amount: string;
+    status: string
+}
+
+export interface CartCardItemData {
+    id: string;
+    product_id: string;
     title: string;
     type: string;
     imageUrl: string;
     price: any;
-    amount: number;
+    amount: string;
     select: boolean;
 }
 
+export interface OrderCardResponse {
+    order_id: string;
+    product_id: string;
+    cart_id: string;
+    client_id: string;
+    date: string;
+    delivery: string;
+    installation_titla: string;
+    installation_total: string;
+    product_price: string;
+    amount: string;
+    product_title: string;
+    status: string;
+}
+
+export interface OrderCardStatus {
+    order_id: string;
+    order_status_id: string;
+    status: string;
+    created: string;
+}
+
+export interface OrderCardInfo {
+    current_status: string;
+    order_id: string;
+    status_list: OrderCardStatus[];
+}
+
 export interface OrderCardData {
-    id: number;
+    id: string;
     title: string;
-    type: string;
     imageUrl: string;
     price: any;
-    amount: number;
+    amount: string;
     select: boolean;
     date: string;
     lastUpdate: string;
@@ -66,7 +116,7 @@ export interface OrderCardData {
 }
 
 export enum OrderStatus {
-    UNDERWAY = 1,
+    UNDERWAY = 0,
     FINISHED = 2
 }
 

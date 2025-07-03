@@ -1,0 +1,49 @@
+<div class="card">
+  <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div class="name-fields">
+      <div class="form-group">
+        <label>Rua</label>
+        <input 
+          type="text"
+          [value]="streetControl"
+          formControlName="street" 
+          placeholder="R. Exemplo Exemplo"
+          [class.invalid]="streetControl?.invalid && streetControl?.touched"
+        >
+        <small *ngIf="streetControl?.invalid && streetControl?.touched">
+          Insira um nome de rua válido.
+        </small>
+      </div>
+      <div class="form-group">
+        <label>Número</label>
+        <input 
+          type="text" 
+          formControlName="number" 
+          placeholder="12345"
+          [value]="numberControl"
+          [class.invalid]="numberControl?.invalid && numberControl?.touched"
+        >
+        <small *ngIf="numberControl?.invalid && numberControl?.touched">
+          Apenas números são permitidos.
+        </small>
+      </div>
+    </div>
+    <div class="doc-fields">
+      <div class="form-group">
+        <label>CEP</label>
+        <input 
+          type="text" 
+          formControlName="postal_code" 
+          mask="00000-000" 
+          placeholder="12345-678"
+          [value]="postalCodeControl"
+          [class.invalid]="postalCodeControl?.invalid && postalCodeControl?.touched"
+        >
+        <small *ngIf="postalCodeControl?.invalid && postalCodeControl?.touched">
+          CEP inválido.
+        </small>
+      </div>
+    </div>
+    <button type="submit" [disabled]="formGroup.invalid">Salvar</button>
+  </form>
+</div>

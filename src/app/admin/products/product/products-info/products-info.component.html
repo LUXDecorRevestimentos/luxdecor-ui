@@ -50,6 +50,13 @@
             </mat-select>
         </div>
     </div>
+    <div class="product-item">
+        <h1>Sobre: </h1>
+        <textarea class="fixed-textarea" 
+                 rows="3"
+                 maxlength="350"
+                 [(ngModel)]="aboutText"></textarea>
+      </div>
 
     <div class="product-item">
         <h1>Selecionar Imagem: </h1>
@@ -62,10 +69,13 @@
         <app-products-price 
         [price]="productInfo.price" 
         [price_type]="selectedPriceType" 
-        [measures]="measureType"   
+        [measureType]="measureType"
+        [measures]="measuresInput"
         (priceTypeChange)="onPriceTypeChange($event)"
-        (measuresChange)="onMeasuresChange($event)"
-        (pricesUpdated)="onPricesUpdated($event)">
+        (measureChange)="onMeasureChange($event)"
+        (pricesUpdated)="onPricesUpdated($event)"
+        (measuresUpdate)="onMeasuresChange($event)"
+        >
     </app-products-price>
     </div>
     <div class="tables">
@@ -113,12 +123,29 @@
                 <div class="option">
                     <label>
                         <input type="checkbox" 
-                        [(ngModel)]="isInstallationSelected"
-                        class="topic-checkbox"/>         
+                            [(ngModel)]="isInstallationSelected"
+                            class="topic-checkbox"/>         
                         <span class="checkmark"></span>
-                        <span class="option-text">Instalacao</span>
+                        <span class="option-text">Instalação</span>
                     </label>
-                </div>
+                    </div>
+
+                    <div class="options-container">
+                        <div class="installation-options">
+                            <h3>Selecione uma opção de instalação:</h3>
+                            <div class="topic-option" *ngFor="let install of installationList">
+                              <label>
+                                <input #checkbox
+                                       type="checkbox"
+                                       class="topic-checkbox"
+                                       [checked]="installOption === install[0]"
+                                       (change)="toggleInstallation(install[0], checkbox.checked)" />
+                                <span class="checkmark"></span>
+                                <span class="option-text">{{install[1]}}</span>
+                              </label>
+                            </div>
+                          </div>
+                    </div>
             </div>
         </div>
     </div>

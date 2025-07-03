@@ -7,7 +7,7 @@
   <div class="content">
     <div class="products">
       <div class="top">
-        <h1>No Carrinho (3)</h1>
+        <h1>No Carrinho ({{ cart().items?.length }})</h1>
         <mat-checkbox
             [checked]="cart().completed"
             [indeterminate]="partiallyComplete()"
@@ -22,6 +22,8 @@
             [cart]="item"
             [checked]="item.select"
             (checkChange)="update($event, i)"
+            (orderUpdate)="onOrderUpdate($event)"
+            (orderRemove)="onOrderRemove($event)"
             [display]="true"
           ></app-cart-card>
       }
@@ -30,8 +32,18 @@
       <h1>Resumo do pedido</h1>
       <app-bar [type]="'long'"></app-bar>
       <div class="value-container">
-          <p>SubTotal</p>
-          <p><strong>R$ 385,00</strong></p>
+          <p>Produtos</p>
+          <p><strong>R$ {{ product_total }}</strong></p>
+      </div>
+      <app-bar [type]="'long'"></app-bar>
+      <div class="value-container">
+        <p>Instalacao</p>
+        <p><strong>R$ {{ installation_total }}</strong></p>
+      </div>
+      <app-bar [type]="'long'"></app-bar>
+      <div class="value-container">
+        <p>Entrega</p>
+        <p><strong>R$ {{ delivery_total }}</strong></p>
       </div>
       <app-bar [type]="'long'"></app-bar>
       <div class="btn-container">

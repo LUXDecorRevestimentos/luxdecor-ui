@@ -13,8 +13,6 @@ export interface ProductData {
     date: string;
 }
 
-
-
 export interface ProductImage {
   id: number;
   src: string;

@@ -8,6 +8,7 @@ import { CartCardComponent } from '../../shared/cart-card/cart-card.component'
 import { MethodPaymentCardComponent } from './method-payment-card/method-payment-card.component'; 
 import { MethodShippingCardComponent } from './method-shipping-card/method-shipping-card.component';
 import { BtnConfirmComponent } from '../../shared/btn/btn-confirm/btn-confirm.component';
+import { SalesAuthService } from '../../admin/service/sales.auth.service';
 
 @Component({
   selector: 'app-payment-page',
@@ -28,7 +29,9 @@ export class PaymentPageComponent implements OnInit {
 
   amount: string = "0";
 
-  constructor(private router: Router) {
+  constructor(
+    private saleService: SalesAuthService,
+    private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     this.cartData = navigation?.extras.state?.['cart'] || { items: [] };
     
@@ -39,5 +42,10 @@ export class PaymentPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.amount = this.cartData.items?.length.toString() || '0';
+  }
+
+  onConfirmCart(){
+    console.log("Cofirmar")
+    this.saleService.postPayment("#lP70TIV65PXk").subscribe({})
   }
 }

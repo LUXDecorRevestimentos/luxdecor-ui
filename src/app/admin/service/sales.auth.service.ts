@@ -1,19 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { SalesTable } from '../../data/table.data';
+import { OrderDetailsTable, SalesTable } from '../../data/table.data';
+import { ClientService } from '../../service/client.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root' 
 })
 export class SalesAuthService {
-  constructor() { }
+  private apiUrl = environment.apiUrl;
+  constructor(private http: HttpClient,
+    private clientService: ClientService) { }
 
   getSalesTable(): Observable<SalesTable[]> {
-    const salesTable: SalesTable[] = [
-      { saleId: '0001', orderId: 'P001', clientId: 'C001', value: '50.00', date: '2023-01-01' },
-      { saleId: '0002', orderId: 'P002', clientId: 'C002', value: '60.00', date: '2023-01-02' },
-    ];
-    return of(salesTable);
+    let token = this.clientService.getCurrentUser()?.idToken
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });  
+
+    return this.http.get<SalesTable[]>(`${this.apiUrl}/admin/sales/table`, 
+      { headers });
   }
 
+  getPieChart(select: string): Observable<any[]> {
+    let token = this.clientService.getCurrentUser()?.idToken
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const body = { select: select };
+
+    return this.http.post<any>(
+      `${this.apiUrl}/admin/sales/chart`,
+      body,
+      { headers });
+  }
+
+  getSalesChart(time: string): Observable<any>{
+    let token = this.clientService.getCurrentUser()?.idToken
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const body = { time: time };
+
+    return this.http.post<any>(
+      `${this.apiUrl}/admin/sales/chart`,
+      body,
+      { headers });
+  }
+ 
+  postPayment(cart_id: string): Observable<any> {
+    let token = this.clientService.getCurrentUser()?.idToken
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });  
+    const body = { cart_id: cart_id}
+
+    return this.http.post<any>(`${this.apiUrl}/sale/finalization`, 
+      body,
+      { headers });
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { OrderStatus, OrderStatusLabels } from '../../../data/table.data';
 import { CommonModule } from '@angular/common';
 
@@ -8,35 +8,46 @@ import { CommonModule } from '@angular/common';
   templateUrl: './order-status.component.html',
   styleUrl: './order-status.component.css'
 })
-export class OrderStatusComponent {
+export class OrderStatusComponent implements OnInit {
 
-  @Input() orderStatus!: OrderStatus;
-  @Input() ostatus!: OrderStatus;
+  @Input() orderStatus!: OrderStatus | number;
+
+  orderStatusLabel: string = 'Unknown Status';
+  orderColor: string = 'white';
 
 
-  getLabelStatus(orderStatus: OrderStatus): string {
-    let orderStatusLabel: string = "";
-    if ( orderStatus && orderStatus !== undefined) {
-      orderStatusLabel = OrderStatusLabels[orderStatus] || 'Unknown Status';
-    }
-    return orderStatusLabel;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['orderStatus']) {}
+  }
+  ngOnInit(): void {
+    this.updateStatusDisplay();
   }
 
-  getBackgroundColor(orderStatus: OrderStatus): string {
-    switch (orderStatus) {
-      case OrderStatus.PENDING:
-        return '#ffcc00'; // Amarelo claro
-      case OrderStatus.SENT:
-        return '#00cc44'; // Verde escuro com transparência
-      case OrderStatus.UNDERWAY:
-        return 'rgba(255, 51, 0, 0.7)'; // Vermelho com 70% de transparência
-      case OrderStatus.FINISHED:
-        return 'rgba(30, 214, 68, 0.7)'; // Verde lima com 70% de transparência
-      case OrderStatus.CANCELLED:
-        return '#ff3300'; // Vermelho sem transparência
+  private updateStatusDisplay(): void {
+    const statusCode = typeof this.orderStatus === 'number' 
+      ? this.orderStatus 
+      : this.orderStatus as number;
+    
+    this.orderStatusLabel = OrderStatusLabels[statusCode] || 'Unknown Status';
+    this.orderColor = this.getBackgroundColor(statusCode);
+  }
+
+  private getBackgroundColor(statusCode: number): string {
+    switch (statusCode) {
+      case OrderStatus.PAYMENT: // 0
+        return '#ffcc00';
+      case OrderStatus.PENDING: // 1
+        return '#ffcc00';
+      case OrderStatus.INSTALLATION: // 2
+        return '#00cc44';
+      case OrderStatus.UNDERWAY: // 3
+        return 'rgba(255, 51, 0, 0.7)';
+      case OrderStatus.FINISHED: // 4
+        return 'rgba(30, 214, 68, 0.7)';
+      case OrderStatus.CANCELLED: // 5
+        return '#ff3300';
       default:
         return 'white';
     }
   }
-        
 }

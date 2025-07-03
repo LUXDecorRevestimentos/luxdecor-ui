@@ -1,1 +1,8 @@
-<p>client works!</p>
+<div class="container">
+    <button class="card" [routerLink]="['/login']" *ngIf="!authenticated">
+        <h1>Login</h1>
+    </button>
+    <button class="card" [routerLink]="['/register']" *ngIf="!authenticated">
+        <h1>Registrar</h1>
+    </button>
+</div>

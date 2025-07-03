@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -13,6 +13,7 @@ import { CartPageComponent } from '../../pages/cart-page/cart-page.component';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
   navItems = [
     { label: 'PISO', route: 'piso' },
     { label: 'RODAPE', route: 'rodape' },

@@ -1,0 +1,36 @@
+<div class="shipping-container">
+    <div class="shipping_status">
+      <div class="step" *ngFor="let step of statusSteps">
+        <h1 class="step-label">{{ step.label }}</h1>
+        <div class="box">
+          <mat-icon [class]="step.icon">{{ step.icon }}</mat-icon>
+        </div>
+      </div>
+    </div>
+  
+    <div class="step-info">
+      <div class="vertical-timeline">
+        <div class="timeline-container">
+          <div class="time-column">
+            <div class="item-time" *ngFor="let status of orderStatus.status_list">
+              <p>{{ getFormattedDate(status.created).date }}</p>
+              <p>{{ getFormattedDate(status.created).time }}</p>
+            </div>
+          </div>
+  
+          <div class="timeline-line"></div>
+  
+          <div class="status-column">
+            <div class="status-item" 
+                 *ngFor="let status of orderStatus.status_list"
+                 [class.completed]="status.status === 'Pendente'"
+                 [class.current]="status.status === 'Em Trânsito'"
+                 [class.pending]="status.status === 'Entregue'">
+              <div class="status-circle"></div>
+              <div class="status-label">{{ status.status }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

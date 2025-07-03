@@ -7,6 +7,9 @@ import { SalesAuthService } from '../service/sales.auth.service';
 import { BarChartComponent } from '../components/bar-chart/bar-chart.component';
 import { PieChartComponent } from '../components/pie-chart/pie-chart.component';
 import { SalesChartComponent } from '../sales/sales-chart/sales-chart.component';
+import { CommonModule, formatDate } from '@angular/common';
+import { OrderChartComponent } from '../components/order-chart/order-chart.component';
+import { OrderAuthService } from '../service/order.auth.service';
 
 
 @Component({
@@ -17,7 +20,8 @@ import { SalesChartComponent } from '../sales/sales-chart/sales-chart.component'
     SalesInfoComponent,
     BarChartComponent,
     PieChartComponent,
-    SalesChartComponent
+    OrderChartComponent,
+    CommonModule
   ],
   templateUrl: './sales.component.html',
   styleUrl: './sales.component.css'
@@ -25,17 +29,55 @@ import { SalesChartComponent } from '../sales/sales-chart/sales-chart.component'
 export class SalesComponent implements OnInit{
 
   salesTable: SalesTable[] = [];
-  
-  constructor(private salesService: SalesAuthService) {}
+  chartData!: any;
+  pieChartData!: any[];
+  orderChart: any;
+  timeUpdate: string = "";
+
+  constructor(private salesService: SalesAuthService,
+    private orderService: OrderAuthService) {}
 
   ngOnInit(): void {
     this.loadSales();
+    this.salesService.getSalesChart("dia").subscribe((chart) => {
+      this.chartData = chart
+    })
+    this.salesService.getPieChart("category").subscribe((data) => {
+      this.pieChartData = data;
+    })
+    this.orderService.getOrderChart("mes").subscribe((chart) => {
+      this.orderChart = chart;
+      const now = new Date();
+      this.timeUpdate = formatDate(now, 'HH:mm dd/MM/yyyy', 'pt-BR');
+    })
   }
 
   loadSales() {
     this.salesService.getSalesTable().subscribe((data: any) => {
       this.salesTable = data;
     });
+  }
+
+  updateChart(time: string){
+    this.salesService.getSalesChart(time).subscribe((data) => {
+      this.chartData = data;
+    })
+  }
+
+  onChangeOrderChart($event: string){
+    console.log($event)
+    this.orderService.getOrderChart($event).subscribe((chart) => {
+      this.orderChart = chart;
+      const now = new Date();
+      this.timeUpdate = formatDate(now, 'HH:mm dd/MM/yyyy', 'pt-BR');
+    })
+  }
+
+  updatePieChart(select: string) {
+    this.salesService.getPieChart(select).subscribe((data) => {
+      console.log(data)
+      this.pieChartData = data;
+    })
   }
 
 }

@@ -1,6 +1,6 @@
-<div class="card-order">
+<div class="card-order" *ngIf="order">
     <div class="top">
-        <h1>ID: #{{ order?.id }}</h1>
+        <h1>ID: {{ order.id }}</h1>
         <h1>{{ status }}</h1>
         <h1>6, fev, 2025</h1>
     </div>
@@ -8,12 +8,12 @@
 
     <div class="content">
       <div class="img-backgroud">
-        <img src="piso.png" alt="">
+        <img src="{{ order.imageUrl }}" alt="">
       </div>
       <div class="text">
-          <h3>{{ order?.title }}</h3>
-          <p>{{ order?.price }}</p> 
-          <h3>x{{ order?.amount }}</h3>    
+          <h3>{{ order.title }}</h3>
+          <p>{{ order.price }}</p> 
+          <h3>x{{ order.amount }}</h3>    
       </div>
     </div>
     

@@ -1,43 +1,68 @@
-import { Component, Input } from '@angular/core';
-import { OrderDetailsTable } from '../../../data/table.data';
-import { OrderStatusComponent } from '../order-status/order-status.component';
-import { FormsModule } from '@angular/forms'; // Importe o FormsModule
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { OrderDetailsTable, OrderUpdateStatus } from '../../../data/table.data';
 import { OrderStatusLabels, OrderStatus } from '../../../data/table.data';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-
+import { OrderStatusComponent } from '../order-status/order-status.component';
 
 @Component({
   selector: 'app-order-status-update',
+  standalone: true,
   imports: [
-    OrderStatusComponent,
+    CommonModule,
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatIcon],
+    MatIcon,
+    OrderStatusComponent
+  ],
   templateUrl: './order-status-update.component.html',
-  styleUrl: './order-status-update.component.css'
+  styleUrls: ['./order-status-update.component.css']
 })
-export class OrderStatusUpdateComponent {
+export class OrderStatusUpdateComponent implements OnChanges, OnInit {
   
-  @Input() order!: OrderDetailsTable;  
+  @Input() order!: OrderUpdateStatus;
+  
+  @Output() savedOrder = new EventEmitter<OrderUpdateStatus>();
 
-  OrderStatusLabels = OrderStatusLabels;
+  protected lastOrder!: OrderUpdateStatus;
+  protected currentOrder: OrderUpdateStatus | undefined;
+  protected nextStatus!: OrderStatus;
+  readonly OrderStatusLabels = OrderStatusLabels;
 
+  ngOnInit(): void {}
 
-  getOrderStatusOptions(): number[] {
-    return Object.keys(OrderStatus).map(key => +key);
-  }
-
-  getLabelStatus(orderStatus: OrderStatus): string {
-    let orderStatusLabel: string = "";
-    if ( orderStatus && orderStatus !== undefined) {
-      orderStatusLabel = OrderStatusLabels[orderStatus] || 'Unknown Status';
+  ngOnChanges(changes: SimpleChanges): void {
+    this.currentOrder = undefined;
+    if (changes['order'] && this.order) {
+      setTimeout(() => this.currentOrder = { ...this.order }, 0);
+      this.lastOrder = { ...this.order };
+      this.nextStatus = this.getNextStatus(this.order.status);      
     }
-    return orderStatusLabel;
   }
 
+  onStatusChange(selected: MatSelectChange){
+    if(this.currentOrder)
+      this.currentOrder.status = selected.value
+  }
+
+  protected getOrderStatusOptions(): OrderStatus[] {
+    return Object.values(OrderStatus)
+      .filter((value): value is OrderStatus => typeof value === 'number');
+  }
+
+  protected getNextStatus(currentStatus: OrderStatus): OrderStatus {
+    const next = currentStatus + 1;
+    return next in OrderStatus ? next : currentStatus;
+  }
+
+  protected onSaveOrder(): void {
+    if (this.currentOrder)
+      this.savedOrder.emit({...this.currentOrder});
+  }
 }

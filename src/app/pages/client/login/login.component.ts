@@ -1,0 +1,66 @@
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { Router, RouterModule } from '@angular/router';
+import { NgxMaskDirective } from 'ngx-mask';
+import { ClientService } from '../../../service/client.service';
+import { ClientLoginRequest } from '../../../data/client.data';
+
+@Component({
+  standalone: true,
+  selector: 'app-login',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatIcon,
+    RouterModule],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
+})
+export class LoginComponent implements OnInit {
+
+  formGroup!: FormGroup;
+  isLoading = false;
+
+  constructor(private formBuilder: FormBuilder,
+    private clientService: ClientService, private router: Router) {}
+  
+  ngOnInit(): void {
+    this.formGroup = this.createLoginForm()
+  }
+
+  createLoginForm(): FormGroup {
+    return this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    })
+  }
+  get email() { return this.formGroup.get('email'); }
+  get password() { return this.formGroup.get('password');}
+
+  onSubmit() {
+    if (this.formGroup.invalid || this.isLoading) return;
+  
+    this.isLoading = true;
+    const formData = this.formGroup.value;
+    const requestData: ClientLoginRequest = {
+      email: formData.email,
+      password: formData.password
+    };
+  
+    this.clientService.loginClient(requestData).subscribe({
+      next: () => {
+        this.router.navigate(['/home']);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        this.isLoading = false;
+      }
+    });
+  }
+}

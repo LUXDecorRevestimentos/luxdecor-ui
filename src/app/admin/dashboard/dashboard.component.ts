@@ -7,6 +7,9 @@ import { OrderChartComponent } from '../components/order-chart/order-chart.compo
 import { OrderTableResumeComponent } from '../orders/order-table-resume/order-table-resume.component';
 import { OrderAuthService } from '../service/order.auth.service';
 import { OrderDetailsTable } from '../../data/table.data';
+import { ClientService } from '../../service/client.service';
+import { ClientAuthService } from '../service/client.auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +19,8 @@ import { OrderDetailsTable } from '../../data/table.data';
     MatIcon,
     CardDataComponent,
     OrderChartComponent,
-    OrderTableResumeComponent
+    OrderTableResumeComponent,
+    CommonModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -24,17 +28,29 @@ import { OrderDetailsTable } from '../../data/table.data';
 export class DashboardComponent implements OnInit {
 
   detailTable: OrderDetailsTable[]  = [];
+  clientChartData: any;
 
-  constructor(private orderService: OrderAuthService) {}
+  constructor(private orderService: OrderAuthService,
+    private clientService: ClientAuthService) {}
 
   ngOnInit(): void {
     this.populateDashboardData();
+  }
+
+  updateClientChart(time: string){
+    this.clientService.getClientChart(time).subscribe((data) => {
+      this.clientChartData = data;
+    })
   }
 
   populateDashboardData() {
     this.orderService.getOrderData().subscribe((data) => {
       this.detailTable = data;
     });
+    this.clientService.getClientChart("dia").subscribe((chart) => {
+      this.clientChartData = chart;
+      console.log(this.clientChartData)
+    })
   }
   
 }
