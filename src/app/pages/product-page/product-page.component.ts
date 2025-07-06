@@ -91,6 +91,7 @@ export class ProductPageComponent implements OnInit{
       ),
       tap(({ imgs, promotions, details, dimensions, banner }) => {
         this.productImgs = imgs;
+        this.cardsProduct = [];
         this.cardsProduct = [...this.cardsProduct, ...promotions];
         this.brandImg = banner;
   

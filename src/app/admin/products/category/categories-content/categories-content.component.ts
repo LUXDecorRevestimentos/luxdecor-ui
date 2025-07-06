@@ -81,6 +81,7 @@ export class CategoriesContentComponent  implements OnInit{
   }
 
   private handleAddOperation(category: CategoryInfo): void {
+    console.log(category)
     this.categoryService.postCategory(this.categoryInfo).pipe(
       switchMap((response) => {
           this.categoryInfo = this.categoryService.mapToCategoryInfo(response);
