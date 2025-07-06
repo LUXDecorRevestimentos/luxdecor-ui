@@ -4,20 +4,25 @@
         <mat-icon class="icon">bar_chart</mat-icon>
     </div>
     <div class="cards-data">
-        <app-card-data icon="home" title="Total de Vendas" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
-        <app-card-data icon="person" title="Total de Clientes" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
-        <app-card-data icon="person" title="Total de Pedidos" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+        <app-card-data *ngIf="saleCardData" icon="home" title="Total de Vendas" data="{{ saleCardData[0].value }}" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
+        <app-card-data *ngIf="clientCardData" icon="person" title="Total de Clientes" data="{{ clientCardData[0].value }}" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
+        <app-card-data *ngIf="orderChartData" icon="person" title="Total de Pedidos" data="{{ orderChartData[0].value }}" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
     </div>
 
     <div class="top">
         <app-bar-chart *ngIf='clientChartData' 
         (buttonClick)="updateClientChart($event)" 
         title="Clientes" [data]="clientChartData"></app-bar-chart>
-        <app-bar-chart title="Vendas" color="#30de44b8"></app-bar-chart>
+        <app-bar-chart title="Vendas" 
+        color="#30de44b8"
+        (buttonClick)="updateSaleChart($event)"
+        [data]="saleChartData"></app-bar-chart>
     </div>
 
     <div class="bottom">
-        <app-order-chart></app-order-chart>
+        <app-order-chart [chartData]="orderChartData"
+        (buttonClick)="updateOrderChart($event)"
+        ></app-order-chart>
         <app-order-table-resume [detailTable]="detailTable" title="Resumo de Pedidos" headerOne="ID do Pedido" headerTwo="Status" headerThree="Data"></app-order-table-resume>
     </div>
 

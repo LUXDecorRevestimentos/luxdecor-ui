@@ -5,6 +5,7 @@ import { environment } from "../../../enviroments/enviroment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { ClientService } from "../../service/client.service";
+import { AdminData } from "../data/admin.data";
 
 @Injectable({
     providedIn: 'root'
@@ -28,35 +29,60 @@ export class AuthService {
     return of({ isAdmin: false });
   }
 
-  getManagerTable(): Observable<ManagerTable[]> {
-    const clientTable: ManagerTable[] = [
-      {
-        adminId: '00001',
-        name: 'Calzoni Pepperoni',
-        email: 'cliente@um.com',
-        phone: '1234567890',
-        date: '12/07/2025',
-        lastAccess: '12/07/2025'
-      },
-      {
-        adminId: '00001',
-        name: 'Calzoni Pepperoni',
-        email: 'cliente@um.com',
-        phone: '1234567890',
-        date: '12/07/2025',
-        lastAccess: '12/07/2025'
-      },
-      {
-        adminId: '00001',
-        name: 'Calzoni Pepperoni',
-        email: 'cliente@um.com',
-        phone: '1234567890',
-        date: '12/07/2025',
-        lastAccess: '12/07/2025'
-      }
-    ];
-    return of(clientTable);
-  }
-  
+  getAdmin(adminId: string): Observable<AdminData>{
+    const token = this.clientService.getCurrentUser()?.idToken;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });  
+    const body = { admin_id: adminId }
 
+    return this.http.post<AdminData>(
+      `${this.apiUrl}/admin/find`, 
+      body, 
+      { headers });
+  }
+
+  getAdminTable(): Observable<AdminData[]> {
+    const token = this.clientService.getCurrentUser()?.idToken;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });  
+    return this.http.get<AdminData[]>(`${this.apiUrl}/admin/table`, { headers });
+  }
+
+  updateAdmin(newAdminData: AdminData): Observable<AdminData> {
+    const token = this.clientService.getCurrentUser()?.idToken;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });  
+    return this.http.post<AdminData>(
+      `${this.apiUrl}/admin/update`, 
+      newAdminData, 
+      { headers });
+  }
+
+  removeAdmin(adminId: string){
+    const token = this.clientService.getCurrentUser()?.idToken;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });  
+    const body = { admin_id: adminId }
+
+    this.http.post<AdminData>(
+      `${this.apiUrl}/admin/remove`, 
+      body, 
+      { headers });
+  }
+
+  cleanAdmin(): Observable<AdminData> {
+    return of({
+        adminId: "",
+        name: "",
+        surname: "",
+        email: "",
+        phoneNumber: "",
+        created_at: ""
+    });
 }
+
+} 

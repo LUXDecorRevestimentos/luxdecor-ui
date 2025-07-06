@@ -15,10 +15,9 @@ export class OrderChartComponent implements OnInit, OnChanges{
   @Input() title: string | null = "Pedidos";
   @Input() width!: number | 500;
   @Input() height!: number | 400;
-  @Input() chartData: any;
+  @Input() chartData: any[] = [];
   @Output() buttonClick = new EventEmitter<string>();
 
-  view: [number, number] = [this.width, this.height];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -27,6 +26,7 @@ export class OrderChartComponent implements OnInit, OnChanges{
   xAxisLabel = 'Meses';
   showYAxisLabel = false;
   yAxisLabel = 'Pedidos';
+  view!: [number, number];
 
   activeIdentifier: string | null = null;
 
@@ -45,6 +45,7 @@ export class OrderChartComponent implements OnInit, OnChanges{
 
   ngOnInit(): void {
     this.colorScheme = { domain: [this.color] };
+    this.view = [this.width, this.height];
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -52,27 +53,10 @@ export class OrderChartComponent implements OnInit, OnChanges{
       this.data = this.chartData
   }
 
-  getRandomDataForPeriod(period: string): any[] {
-    switch (period) {
-      default:
-        return this.getOrderData();
-    } 
-  }
-
-
-  getOrderData(): any[] {
-    return [
-      { name: 'Pendentes', value: Math.random() * 2000},
-      { name: 'Processando', value: Math.random() * 2000 },
-      { name: 'Entregues', value: Math.random() * 2000 },
-      { name: 'Cancelados', value: Math.random() * 2000 }
-    ];
-  }
-
   updateChartData(timePeriod: string) {
-    const newData = this.getRandomDataForPeriod(timePeriod);
     this.buttonClick.emit(timePeriod);
     this.activeIdentifier = timePeriod;
+    let newData = this.data;
     this.data = newData;
   }
 

@@ -32,7 +32,8 @@ export class ClientComponent implements OnInit{
       if (this.authenticated && !this.isAdmim) {
         this.router.navigate(['/info']);
       } else if (this.authenticated && this.isAdmim){
-        this.router.navigate(['/admin']);
+        // this.router.navigate(['/admin']);
+        this.clientService.clientSignOut()
       } else {
         this.clientService.clientSignOut()
         this.router.navigate(['/client']);

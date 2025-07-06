@@ -65,7 +65,6 @@ export class SalesComponent implements OnInit{
   }
 
   onChangeOrderChart($event: string){
-    console.log($event)
     this.orderService.getOrderChart($event).subscribe((chart) => {
       this.orderChart = chart;
       const now = new Date();
@@ -75,7 +74,6 @@ export class SalesComponent implements OnInit{
 
   updatePieChart(select: string) {
     this.salesService.getPieChart(select).subscribe((data) => {
-      console.log(data)
       this.pieChartData = data;
     })
   }

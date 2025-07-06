@@ -56,7 +56,7 @@ export class SalesAuthService {
     });  
     const body = { cart_id: cart_id}
 
-    return this.http.post<any>(`${this.apiUrl}/sale/finalization`, 
+    return this.http.post<any>(`${this.apiUrl}/sales/finalization`, 
       body,
       { headers });
   }

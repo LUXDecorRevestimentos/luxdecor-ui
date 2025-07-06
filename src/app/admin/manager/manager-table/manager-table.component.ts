@@ -3,6 +3,7 @@ import { ManagerTable } from '../../../data/table.data';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { AdminData } from '../../data/admin.data';
 
 @Component({
   selector: 'app-manager-table',
@@ -12,15 +13,16 @@ import { CommonModule } from '@angular/common';
 })
 export class ManagerTableComponent {
 
-  @Input() detailTable!: ManagerTable[];
-  @Output() rowSelected: EventEmitter<ManagerTable> = new EventEmitter();
+  @Input() detailTable!: AdminData[];
+  @Output() rowSelected: EventEmitter<AdminData> = new EventEmitter();
 
-  displayedColumns: string[] = ['adminId', 'name', 'email', 'phone', 'date', 'lastAccess'];
-  dataSource = new MatTableDataSource<ManagerTable>();
-  selectedRow: ManagerTable | null = null;
+  displayedColumns: string[] = ['adminId', 'name', 'email', 'phone', 'date'];
+  dataSource = new MatTableDataSource<AdminData>();
+  selectedRow: AdminData | null = null;
 
   ngOnInit(): void {
     this.dataSource.data = this.detailTable;
+    console.log(this.detailTable)
   }
 
   applyFilter(event: Event) {
@@ -28,7 +30,7 @@ export class ManagerTableComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onRowClicked(row: ManagerTable): void {
+  onRowClicked(row: AdminData): void {
     this.selectedRow = row;
     this.rowSelected.emit(row);
   }

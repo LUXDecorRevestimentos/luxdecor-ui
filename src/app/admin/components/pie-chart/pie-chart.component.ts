@@ -28,7 +28,7 @@ export class PieChartComponent implements OnInit {
     domain: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
   };
   
-  selectedOption: string = 'products';
+  selectedOption: string = 'product';
 
   ngOnInit() {}
 

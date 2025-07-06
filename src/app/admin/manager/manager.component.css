@@ -29,3 +29,38 @@
     margin: auto;
     margin-left: 20px;
 }
+
+
+.btn-options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    background-color: #ffffff;
+    border: none;
+    padding: 30px;
+    width: 300px;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+}
+
+button:hover {
+    background-color: #000000;
+    color: white;
+}
+
+
+.active-button {
+    background-color: black !important;
+    color: white !important;
+}

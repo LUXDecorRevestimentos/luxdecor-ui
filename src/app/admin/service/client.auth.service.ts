@@ -44,8 +44,6 @@ export class ClientAuthService {
       { headers });
   }
 
-  
-
   getClientTable(): Observable<ClientTable[]> {
     let token = this.clientService.getCurrentUser()?.idToken
     const headers = new HttpHeaders({

@@ -60,6 +60,7 @@ export class BarChartComponent implements OnInit, OnChanges{
 
   updateChartData(timePeriod: string) {
     this.buttonClick.emit(timePeriod);
+    this.activeIdentifier = timePeriod;
     let newData = this.data;
     this.data = newData;
   }

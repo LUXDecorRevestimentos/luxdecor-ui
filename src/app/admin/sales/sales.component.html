@@ -3,17 +3,17 @@
         <h1>Vendas</h1>
         <mat-icon class="icon">payments</mat-icon>
     </div>
-    <div class="cards-data">
-        <app-card-data icon="calendar_month" title="Total de Vendas" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
-        <app-card-data icon="calendar_month" title="Total de Pedidos" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
-        <app-card-data icon="calendar_month" title="Total de Pedidos" data="2.456" update="Atualizado em (07:00 10/02/2025)"></app-card-data>
+    <div class="cards-data" *ngIf="orderChart">
+        <app-card-data icon="calendar_month" title="Total de Pendente" data="{{ orderChart[0].value }}" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
+        <app-card-data icon="calendar_month" title="Total de Processando" data="{{ orderChart[1].value }}" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
+        <app-card-data icon="calendar_month" title="Total de Concluidos" data="{{ orderChart[2].value }}" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
     </div>
     <div class="top">
         <app-bar-chart (buttonClick)="updateChart($event)" [data]="chartData" [width]="950" [height]="400" widthContainer="1000" title="Vendas" color="#30de44b8"></app-bar-chart>
     </div>
     <div class="charts">
         <app-pie-chart [data]="pieChartData" (select)="updatePieChart($event)"></app-pie-chart>
-        <app-order-chart [chartData]="chartData" (buttonClick)="onChangeOrderChart($event)" [width]="250" [height]="200"></app-order-chart>
+        <app-order-chart [chartData]="orderChart" (buttonClick)="onChangeOrderChart($event)" [width]="250" [height]="200"></app-order-chart>
     </div>
 
     <div class="central-content" *ngIf="salesTable">

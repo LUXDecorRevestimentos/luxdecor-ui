@@ -1,26 +1,32 @@
-<div class="container">
-    <div class="input-content">
-        <h1>Titulo: </h1>
-        <input class="input-text" type="text" placeholder="Titulo da Categoria" value=" Calabreso " />
-    </div>
-    <div class="input-select">
-        <h1>Categoria: </h1>
-        <div class="select-wrapper"  style="background-color: white;">
-            <mat-select [(ngModel)]="selectedOption" panelClass="custom-panel-class"  style="background-color: white !important;">
-                <mat-option value="Produtos"  style="background-color: white;">Gerente</mat-option>
-                <mat-option value="Servicos"  style="background-color: white;">Funcionario</mat-option>
-            </mat-select>
+<div class="container" *ngIf="adminInfo">
+    <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" formControlName="name" placeholder="Nome">
+            <small *ngIf="name?.invalid && name?.touched">
+              Nome inválido (apenas letras)
+            </small>
+        </div>      
+        <div class="form-group">
+            <label>Sobrenome</label>
+            <input type="text" formControlName="surname" placeholder="Sobrenome">
+            <small *ngIf="surname?.invalid && surname?.touched">
+              Sobrenome inválido (apenas letras)
+            </small>
         </div>
-    </div>
-    <div class="input-content">
-        <h1>Email: </h1>
-        <input class="input-text" type="text" placeholder="teste@email.com" value=" Calabreso " />
-    </div>
-    <div class="input-content">
-        <h1>Contato: </h1>
-        <input class="input-text" type="text" placeholder="(11) 0000-0000" value=" Calabreso " />
-    </div>
-    <div class="input-img">
-        
-    </div>
+      
+        <div class="form-group">
+            <label>Telefone</label>
+            <input type="text" formControlName="phone" mask="(00) 00000-0000" placeholder="(99) 99999-9999">
+            <small *ngIf="phone?.invalid && phone?.touched">
+              Telefone obrigatório
+            </small>
+          </div>
+        <div class="input-content">
+            <h1>Criado em: </h1>
+            <input [disabled]="true" type="text" placeholder="(11) 0000-0000" value="{{adminInfo.created_at}}" />
+        </div>
+        <button type="submit" [disabled]="formGroup.invalid">Salvar</button>
+    </form>
 </div>

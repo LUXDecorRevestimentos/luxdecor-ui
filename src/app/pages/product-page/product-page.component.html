@@ -57,6 +57,12 @@
                                 {{ this.productContent?.about }}
                             </p>
                         </div>
+                        <div class="price">
+                            <div class="bot" >
+                                <h1 class="box-price">Taxa de Entrega: </h1>
+                                <h1 class="box-price">R$ 100,00</h1>
+                            </div>
+                        </div>
                     </div>
                     
                 </div>
@@ -83,6 +89,10 @@
                     </div>
                     <div class="bot" *ngIf="this.productContent?.price?.box">
                         <h1 class="box-price">R$ {{ this.productContent?.price?.box }}  / caixa ({{ this.productContent?.measures?.box }})</h1>
+                    </div>
+                    <div class="bot" >
+                        <h1 class="box-price">Taxa de Entrega: </h1>
+                        <h1 class="box-price">R$ 100,00</h1>
                     </div>
         
                 </div>
