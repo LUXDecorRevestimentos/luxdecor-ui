@@ -12,7 +12,6 @@ import { DetailsTableComponent } from '../../details-table/details-table.compone
 import { BannerImgComponent } from '../banner-img/banner-img.component';
 import { BannerService } from '../../../service/banner.auth.service';
 import { InstallationComponent } from '../installation/installation.component';
-import { colorSets } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-category-info',

@@ -56,6 +56,7 @@ export interface Installation {
     installation_id: string;
     title: string;
     banner_id: string;
+    price: string;
 }
 
 export interface Topic {  

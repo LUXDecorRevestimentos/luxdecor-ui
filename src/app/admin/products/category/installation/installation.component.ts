@@ -31,6 +31,7 @@ export class InstallationComponent {
   currentInstallation: Installation[] = [];
   installationBanner: any;
   resetTableSelectionFlag = false;
+  installationValue: string = "";
 
   ngOnInit(){
     this.currentInstallation = [...this.installations];
@@ -52,12 +53,31 @@ export class InstallationComponent {
     })
   }
 
+  onInputChange(event: any) {
+    this.formatCurrency(event.target.value);
+  }
+  
+    private formatCurrency(value: string) {
+    let cleanedValue = value.replace(/[^\d]/g, '');
+    
+    if (cleanedValue === '') cleanedValue = '0';
+    
+    const real = parseFloat(cleanedValue) / 100;
+    
+    const formattedValue = new Intl.NumberFormat('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(real);
+    this.installationValue = formattedValue;
+  }
+
   saveInstallation(){
     if (this.title.trim() && this.selectedInstallation == null){
       let temporaryInstallation: Installation = {
         installation_id: `#${Math.random().toString(36).substring(2, 10).padStart(8, '0')}`,
         title: this.title,
-        banner_id: ""
+        banner_id: "",
+        price: this.installationValue
     }
       this.installationEvent.emit([temporaryInstallation, "add"]);
       this.clearInput()
@@ -80,6 +100,10 @@ export class InstallationComponent {
     this.selectedInstallation = null;
     this.resetTableSelectionFlag = true;
     setTimeout(() => this.resetTableSelectionFlag = false, 0);
+  }
+
+  emitPrices() {
+    // this..emit(pricesArray);
   }
 
   onUploadImgs(imgs: any): void {

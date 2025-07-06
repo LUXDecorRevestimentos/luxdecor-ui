@@ -35,6 +35,17 @@ button:hover {
     margin-bottom: 30px;
 }
 
+.input-value{
+    width: 50%;
+    background-color: rgba(128, 128, 128, 0.146);
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 32px;
+    font-weight: bold;
+    margin-left: 20px;
+    color: rgb(0, 0, 0);
+}
+
 .installation-table {
     display: flex;
     justify-content: start;
