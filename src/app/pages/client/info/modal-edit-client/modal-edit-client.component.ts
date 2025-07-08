@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxMaskDirective } from 'ngx-mask';
@@ -12,6 +12,8 @@ import { NgxMaskDirective } from 'ngx-mask';
 })
 export class ModalEditClientComponent implements OnInit {
   formGroup!: FormGroup;
+
+  @Output() clientInfoUpdate: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -59,6 +61,7 @@ export class ModalEditClientComponent implements OnInit {
   onSubmit() {
     if (this.formGroup.valid) {
       this.dialogRef.close(this.formGroup.value);
+      this.clientInfoUpdate.emit(this.formGroup.value)
     }
   }
 

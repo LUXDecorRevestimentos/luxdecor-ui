@@ -84,6 +84,7 @@ export class InstallationComponent {
     }
     else if(this.title.trim() && this.selectedInstallation != null){
       this.selectedInstallation.title = this.title;
+      this.selectedInstallation.price = this.installationValue;
       this.installationEvent.emit([this.selectedInstallation, "update"]);
     }
   }

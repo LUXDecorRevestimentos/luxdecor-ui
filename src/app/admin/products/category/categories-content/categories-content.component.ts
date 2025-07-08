@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { CategoryInfoComponent } from '../category-info/category-info.component';
 import { catchError, finalize, switchMap } from 'rxjs';
+import { BannerService } from '../../../service/banner.auth.service';
 
 @Component({
   selector: 'app-categorys-content',
@@ -26,7 +27,8 @@ export class CategoriesContentComponent  implements OnInit{
   categoryInfoUpdate: CategoryInfo | undefined;
   loading = false;
 
-  constructor(private categoryService: CategoryAuthService) {}
+  constructor(private categoryService: CategoryAuthService,
+    private bannerService: BannerService) {}
 
   ngOnInit(): void {
     this.loadCategories();
@@ -52,6 +54,7 @@ export class CategoriesContentComponent  implements OnInit{
       this.categoryInfo = undefined;
     } else {
       this.details = true;
+      this.categoryInfo = undefined
       this.categoryService.getCategoryInfo(row.category_id).subscribe((data) => {
         this.categoryInfo = data;
       });

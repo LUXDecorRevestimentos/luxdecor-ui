@@ -99,13 +99,24 @@ export class ProductService {
     brand_id?: string;
     subcategory_id?: string;
     product_id?: string;
+    installation_id?: string;
+    price_min?: number;
+    price_max?: number;
   }): Observable<any[]> {
+    
+    const formatToBRL = (value: number): string => {
+      return value.toString().replace('.', ',');
+    };
+  
     return this.http.get<any[]>(`${this.apiUrl}/product/list`, {
       params: {
         ...(params.category_id && { category_id: params.category_id }),
         ...(params.brand_id && { brand_id: params.brand_id }),
         ...(params.subcategory_id && { subcategory_id: params.subcategory_id }),
-        ...(params.product_id && { product_id: params.product_id })
+        ...(params.product_id && { product_id: params.product_id }),
+        ...(params.installation_id && { installation_id: params.installation_id }),
+        ...(params.price_min && { price_min: formatToBRL(params.price_min) }),
+        ...(params.price_max && { price_max: formatToBRL(params.price_max) })
       }
     }).pipe(
       timeout(5000),

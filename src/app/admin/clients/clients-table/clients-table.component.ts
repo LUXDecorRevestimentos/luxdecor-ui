@@ -32,7 +32,6 @@ export class ClientsTableComponent implements OnInit {
     this.dataSource.data = this.detailTable;
   }
 
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

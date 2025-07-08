@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericCard } from '../../data/card.data';
 import { RouterModule } from '@angular/router';
@@ -10,9 +10,11 @@ import { RouterModule } from '@angular/router';
   templateUrl: './sub-product.component.html',
   styleUrl: './sub-product.component.css'
 })
-export class SubProductComponent {
+export class SubProductComponent implements OnInit, OnChanges{
   @Input() cardsCategory: GenericCard [] = [];
   @Output() subProductClick = new EventEmitter<string>();
+
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {}
   

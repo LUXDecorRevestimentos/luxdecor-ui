@@ -1,25 +1,27 @@
-<div class="container">
+<h2 mat-dialog-title>Filtros</h2>
+<mat-dialog-content>
   <mat-card class="result-card">
     <h2>Sub Categorias</h2>
     <app-bar></app-bar>
     <mat-chip-listbox aria-label="Subcategorias">
-      @for (subCategory of subCategorys; track subCategory) {
+      @for (subCategory of data.modalInfo.subCategorys; track subCategory) {
         <mat-chip-option 
           class="custom-chip"
+          [selected]="selectedSubCategories.includes(subCategory)"
           (selectionChange)="onSubCategoryChange(subCategory, $event)">
           {{subCategory}}
         </mat-chip-option>
       }
     </mat-chip-listbox>
     
-    <h2>Faixa de Preco</h2>
+    <h2>Faixa de Preço</h2>
     <app-bar class="bar"></app-bar>
     <mat-card-content>    
       <div class="label-container">
         <label id="name-label" class="name-label">Valor Inicial:</label>
-        <label class="value-label">R$ {{priceRange.start}}</label>
+        <label class="value-label">R$ {{priceRange?.start}}</label>
         <label id="name-label" class="name-label">Valor Final:</label>
-        <label class="value-label">R$ {{priceRange.end}}</label>
+        <label class="value-label">R$ {{priceRange?.end}}</label>
       </div>
       <mat-slider 
           class="slider"
@@ -30,17 +32,18 @@
           [min]="min" 
           [max]="max"
           (change)="onPriceRangeChange()">
-          <input [value]="priceRange.start" matSliderStartThumb [(ngModel)]="priceRange.start" #slider_start>
-          <input [value]="priceRange.end" matSliderEndThumb [(ngModel)]="priceRange.end" #slider_end>
+          <input [value]="priceRange?.start" matSliderStartThumb [(ngModel)]="priceRange.start" #slider_start>
+          <input [value]="priceRange?.end" matSliderEndThumb [(ngModel)]="priceRange.end" #slider_end>
       </mat-slider>
     </mat-card-content>
     
-    <h2>Instalacao</h2>
+    <h2>Instalação</h2>
     <app-bar class="bar"></app-bar>
     <mat-chip-listbox aria-label="Tipos de instalação">
-      @for (installType of installTypes; track installType) {
+      @for (installType of data.modalInfo.installTypes; track installType) {
         <mat-chip-option 
           class="custom-chip"
+          [selected]="selectedInstallTypes.includes(installType)"
           (selectionChange)="onInstallTypeChange(installType, $event)">
           {{installType}}
         </mat-chip-option>
@@ -50,13 +53,18 @@
     <h2>Marcas</h2>
     <app-bar class="bar"></app-bar>
     <mat-chip-listbox aria-label="Marcas">
-      @for (brand of brands; track brand) {
+      @for (brand of data.modalInfo.brands; track brand) {
         <mat-chip-option 
           class="custom-chip"
+          [selected]="selectedBrands.includes(brand)"
           (selectionChange)="onBrandChange(brand, $event)">
           {{brand}}
         </mat-chip-option>
       }
     </mat-chip-listbox>
   </mat-card>
-</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="applyFilters()" cdkFocusInitial>Aplicar</button>
+</mat-dialog-actions>

@@ -60,7 +60,7 @@
   border: none;
   padding: 10px;
   cursor: pointer;
-  display: none;
+  display: block;
 }
 
 .carousel-control.prev {
@@ -70,12 +70,3 @@
 .carousel-control.next {
   right: 10px;
 }
-
-
-@media (min-width: 1000px) {
-  .carousel-control {
-    display: block;
-  }
-
-
-} 

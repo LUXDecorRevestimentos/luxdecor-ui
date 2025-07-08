@@ -18,8 +18,8 @@ interface BannerImage {
   styleUrls: ['./banner-img.component.css']
 })
 export class BannerImgComponent implements OnChanges, OnInit {
-  @Input() inputWidth: number = 1200;
-  @Input() inputHeight: number = 240;
+  @Input() inputWidth!: number;
+  @Input() inputHeight!: number;
   @Input() bannerTitle: string = "";
   @Input() initialImage!: string;
   
@@ -64,7 +64,7 @@ export class BannerImgComponent implements OnChanges, OnInit {
   }
 
   private loadInitialImage(imageSrc: any) {
-    if (imageSrc.src){
+    if (imageSrc){
       const img = new Image();
       img.onload = () => {
         this.currentImage = {

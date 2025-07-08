@@ -32,6 +32,7 @@ export class SubCategoryComponent {
   subCategoryBanner: any;
   resetTableSelectionFlag = false;
 
+
   ngOnInit() {
     this.currentSubCategories = [...this.subCategories];
   }

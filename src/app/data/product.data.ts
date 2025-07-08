@@ -9,3 +9,15 @@ export interface Product {
   imageUrl: string;
   data: ProductData;
 }
+
+
+export interface ModalFilter{
+  subCategorys: string[];
+  installTypes: string[];
+  brands: string[];
+  priceRange: string[];
+
+  selectedSubCategories: string;
+  selectedInstallTypes: string;
+  selectedBrands: string;
+}

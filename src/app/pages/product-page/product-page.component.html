@@ -1,6 +1,11 @@
 <div class="page">
     <div class="container">
         <div class="product">
+            <!-- Mobile Top Content Skeleton -->
+            <div class="content-top-mobile" *ngIf="!productContent">
+                <div class="skeleton-brand"></div>
+                <div class="skeleton-title"></div>
+            </div>
             <div class="content-top-mobile" *ngIf="productContent">
                 <div class="brand" *ngIf="brandImg">
                     <img [src]="brandImg">
@@ -10,7 +15,50 @@
                 </div>
             </div>
            
+            <div class="product-data" *ngIf="!productImgs">
+                <!-- Main Product Skeleton -->
+                <div class="image-container">
+                    <div class="image-mobile">
+                        <div class="skeleton-main-image"></div>
+                    </div>
+                    <div class="image-gallery">
+                        <div class="skeleton-thumbnail" *ngFor="let item of [1,2,3,4]"></div>
+                    </div>
+                    <div class="image">
+                        <div class="skeleton-main-image"></div>
+                    </div>
+                    <div class="content-data">
+                        <div class="skeleton-brand"></div>
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-price"></div>
+                        <div class="skeleton-price short"></div>
+                        <div class="skeleton-btn"></div>
+                        <div class="skeleton-bar"></div>
+                        <div class="skeleton-text"></div>
+                        <div class="skeleton-text"></div>
+                        <div class="skeleton-text short"></div>
+                    </div>
+                </div>
+                <!-- Specifications Skeleton -->
+                <div class="spec">
+                    <div class="skeleton-bar"></div>
+                    <div class="table-content">
+                        <div class="skeleton-table"></div>
+                        <div class="skeleton-table"></div>
+                    </div>
+                </div>
+                <!-- Other Products Skeleton -->
+                <div class="other-products">
+                    <div class="skeleton-bar"></div>
+                    <div class="skeleton-carousel">
+                        <div class="skeleton-card" *ngFor="let item of [1,2,3,4]"></div>
+                    </div>
+                    <div class="skeleton-btn-call"></div>
+                </div>
+            </div>
+
             <div class="product-data" *ngIf="productImgs">
+                <!-- Actual Content (unchanged) -->
                 <div class="image-container">
                     <div class="image-mobile">
                       <img [src]="productImgs[selectedImageIndex].src" />
@@ -44,7 +92,6 @@
                             <div class="bot" *ngIf="this.productContent?.price?.box">
                                 <h1 class="box-price">R$ {{ this.productContent?.price?.box }} / caixa ({{ productContent?.measures?.box }})</h1>
                             </div>
-                
                         </div>
                         <div class="action-btns">
                             <app-btn-add (order)="addOrder($event)"
@@ -64,9 +111,8 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
-                <div class="spec">
+                <div class="spec" *ngIf="dimensionsTable">
                     <app-bar [title]="specLabel" type="long" class="bar"></app-bar>
                     <div class="table-content">
                         <app-product-table [detailTable]="dimensionsTable" [title]="'Detalhes'" class="table" ></app-product-table>
@@ -80,8 +126,26 @@
                 </div>
             </div>
     
-    
-            <div class="mobile">
+            <!-- Mobile Skeleton -->
+            <div class="mobile" *ngIf="!productContent">
+                <div class="skeleton-price"></div>
+                <div class="skeleton-price short"></div>
+                <div class="skeleton-btn"></div>
+                <div class="skeleton-bar"></div>
+                <div class="skeleton-text"></div>
+                <div class="skeleton-text"></div>
+                <div class="skeleton-text short"></div>
+                <div class="skeleton-bar"></div>
+                <div class="skeleton-table"></div>
+                <div class="skeleton-table"></div>
+                <div class="skeleton-bar"></div>
+                <div class="skeleton-carousel">
+                    <div class="skeleton-card" *ngFor="let item of [1,2,3,4]"></div>
+                </div>
+            </div>
+
+            <div class="mobile" *ngIf="productContent">
+                <!-- Actual Mobile Content (unchanged) -->
                 <div class="price">
                     <div class="top">
                         <h1>R$ {{ this.productContent?.price?.unitary }}  /{{ this.productContent?.measures?.unitary }}</h1>
@@ -94,7 +158,6 @@
                         <h1 class="box-price">Taxa de Entrega: </h1>
                         <h1 class="box-price">R$ 100,00</h1>
                     </div>
-        
                 </div>
                 <div class="action-btns">
                     <app-btn-add (order)="addOrder($event)"
@@ -106,7 +169,7 @@
                         {{ this.productContent?.details }}
                     </p>
                 </div>
-                <div class="spec-mobile">
+                <div class="spec-mobile" *ngIf="detailTable">
                     <app-bar [title]="specLabel" type="long" class="bar"></app-bar>
                     <app-product-table [detailTable]="detailTable" [title]="'Detalhes'"></app-product-table>
                     <app-product-table [detailTable]="detailTable" [title]="'Dimensões'"></app-product-table>
@@ -116,7 +179,6 @@
                     <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>

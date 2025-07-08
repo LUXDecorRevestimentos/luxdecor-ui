@@ -22,8 +22,8 @@
     
     <div class="imgSub" *ngIf="this.selectedBrand">
         <app-banner-img 
-        [inputWidth]="1200"
-        [inputHeight]="240"
+        [inputWidth]="250"
+        [inputHeight]="250"
         [bannerTitle]="this.selectedBrand.title"
         [initialImage]="this.brandBanner"
         (imageChanged)="handleBannerChange($event)">

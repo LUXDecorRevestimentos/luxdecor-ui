@@ -1,36 +1,102 @@
 <div class="container">
     <div class="page">
-      <app-side-menu></app-side-menu>
+      <app-side-menu
+      [brands]="brandListString"
+      [installTypes]="installTypes"
+      [subCategorys]="subCategoryListString"
+      [priceRange]="priceRange"
+      (filtersChanged)="onFiltersChanged($event)"
+      (subCategoriesChanged)="onSubCategoriesChanged($event)"
+      (installTypesChanged)="onInstallTypesChanged($event)"
+      (brandsChanged)="onBrandsChanged($event)"
+      (priceRangeChanged)="onPriceRangeChanged($event)"></app-side-menu>
       
       <div class="content">
-        <section [style.background-image]="'url(' + category?.imageUrl + ')'">
+        <!-- Header Section with Skeleton -->
+        <section [style.background-image]="'url(' + category?.imageUrl + ')'" class="section-header">
           <div class="section-title">
-            <p>{{ this.category?.title }}</p>
+            <p *ngIf="category?.title; else titleSkeleton">{{ this.category?.title }}</p>
+            <ng-template #titleSkeleton>
+              <div class="skeleton-title"></div>
+            </ng-template>
           </div>
           <div class="section-btns">
-            <button class="order">Ordenar</button>
-            <button class="filter">Filtrar</button>
+            <button class="filter" [disabled]="!category" (click)="openFiltersModal()">Filtrar</button>
           </div>
         </section>
   
-        <app-sub-product
-          [cardsCategory]="currentSubCategory"
-          (subProductClick)="onSubProductClick($event)"
-        ></app-sub-product>
+        <!-- Sub-Products with Skeleton -->
+        <ng-container *ngIf="currentSubCategory; else subProductSkeleton">
+          <app-sub-product
+            [cardsCategory]="currentSubCategory"
+            (subProductClick)="onSubProductClick($event)"
+          ></app-sub-product>
+        </ng-container>
+        <ng-template #subProductSkeleton>
+          <div class="sub-product-skeleton">
+            <div class="skeleton-item" *ngFor="let item of [1,2,3,4]"></div>
+          </div>
+        </ng-template>
 
-        <!-- <app-filter-price *ngIf="selectedSubCategory"></app-filter-price> -->
-
+        <!-- Main Content Area -->
         <div class="category" *ngIf="category?.type === 'category'">
+          <!-- More Viewed Section -->
           <app-bar *ngIf="selectedSubCategory" [title]="moreLabel"></app-bar>
-          <app-carousel-cards *ngIf="selectedSubCategory" [cardsProduct]="cardsProduct"></app-carousel-cards>
+          
+          <!-- Products Carousel with Skeleton -->
+          <ng-container *ngIf="!isLoadingProduct && cardsProduct.length > 0; else productSkeleton">
+            <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
+          </ng-container>
+          <ng-template #productSkeleton>
+            <div class="carousel-skeleton">
+              <div class="skeleton-card" *ngFor="let item of [1,2,3,4]">
+                <div class="skeleton-image"></div>
+                <div class="skeleton-text"></div>
+                <div class="skeleton-text short"></div>
+              </div>
+            </div>
+          </ng-template>
+          
           <app-bar *ngIf="selectedSubCategory" [title]="''"></app-bar>
-          <app-sub-product *ngIf="selectedSubCategory" [cardsCategory]="cardsInstall"></app-sub-product>
-          <app-brands *ngIf="selectedSubCategory" [images]="imageList"></app-brands>
+          
+          <!-- Installations with Skeleton -->
+          <ng-container *ngIf="!isLoadingInstallations && cardsInstall.length > 0; else installSkeleton">
+            <app-sub-product [cardsCategory]="cardsInstall" (subProductClick)="onInstallTypesChanged([$event])"></app-sub-product>
+          </ng-container>
+          <ng-template #installSkeleton>
+            <div class="install-skeleton">
+              <div class="skeleton-item" *ngFor="let item of [1,2,3]"></div>
+            </div>
+          </ng-template>
+          
+          <!-- Brands with Skeleton -->
+          <ng-container *ngIf="!isLoadingBrands && brands.length > 0; else brandSkeleton">
+            <app-brands [images]="imageList" (brandClick)="onBrandsChanged([$event])"></app-brands>
+          </ng-container>
+          <ng-template #brandSkeleton>
+            <div class="brand-skeleton">
+              <div class="skeleton-brand" *ngFor="let item of [1,2,3,4]"></div>
+            </div>
+          </ng-template>
+          
           <app-btn-call *ngIf="selectedSubCategory" [title]=""></app-btn-call>
         </div>
-        <div class="sub-category" *ngIf="category?.type === 'sub-category'">
-          <app-gallery *ngIf="selectedSubCategory" [productsContent]="productsContent"></app-gallery>
+        
+        <!-- Sub-Category Gallery with Skeleton -->
+        <div class="sub-category" *ngIf="category?.type === 'sub-category' || category?.type =='filter'">
+          <ng-container *ngIf="!isLoadingProductsContent && productsContent.length > 0; else gallerySkeleton">
+            <app-gallery [productsContent]="productsContent"></app-gallery>
+          </ng-container>
+          <ng-template #gallerySkeleton>
+            <div class="gallery-skeleton">
+              <div class="skeleton-gallery-item" *ngFor="let item of [1,2,3,4,5,6]">
+                <div class="skeleton-image"></div>
+                <div class="skeleton-text"></div>
+                <div class="skeleton-text short"></div>
+              </div>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>
-  </div>
+</div>

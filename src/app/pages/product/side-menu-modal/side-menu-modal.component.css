@@ -1,0 +1,68 @@
+.container {
+  padding: 16px;
+}
+
+.result-card {
+  margin: 8px;
+  padding: 16px;
+}
+
+.custom-chip {
+  background-color: #e0e0e0;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+.custom-chip.mdc-evolution-chip--selected {
+  background-color: #3f51b5;
+  color: #000000;
+}
+
+.custom-chip .mdc-evolution-chip__checkmark {
+  color: #0bc38e;
+}
+.slider {
+  max-width: 300px;
+  width: 100%;
+  color: #000000;
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.name-label {
+  font-weight: bold;
+}
+
+.value-label {
+  margin-left: 4px;
+}
+
+label {
+  color: #000000;
+  font-weight: bold;
+}
+
+h2 {
+  margin-top: 10px;
+  font-size: 24px;
+  color: #000000;
+}
+
+.bar {
+  margin-bottom: 10px;
+}
+
+
+/* Dialog specific styles */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.mat-mdc-dialog-content {
+  max-height: 80vh;
+  padding: 0 !important;
+}

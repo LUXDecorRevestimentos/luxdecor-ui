@@ -41,7 +41,7 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
 
   @Output() categoryUpdate = new EventEmitter<CategoryInfo>(); 
   @Output() categoryImgUpdate = new EventEmitter<any>();
-
+  
   constructor (private bannerService: BannerService){}
 
   categoryTitle: string = "";
@@ -128,6 +128,7 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
     this.categoryInfo.title = this.categoryTitle
     this.categoryInfo.details = this.details.data
     this.categoryInfo.dimensions = this.dimensions.data
+    this.categoryInfo.installations = this.categoryInfo.installations
     this.categoryUpdate.emit(this.categoryInfo)
     this.categoryImgUpdate.emit(this.categoryImg)
   }
