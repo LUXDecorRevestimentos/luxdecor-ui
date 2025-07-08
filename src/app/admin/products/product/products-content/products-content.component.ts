@@ -31,6 +31,8 @@ export class ProductsContentComponent {
   topics!: any[];
   installations!: any[];
 
+  imgsToUpload: any[] = [];
+
   details: boolean = false;
   addOp: boolean = false;
   editOp: boolean = false;
@@ -112,10 +114,14 @@ export class ProductsContentComponent {
   }
 
   onUploadImgs(imgs: any): void {
+    console.log(imgs)
+    console.log(this.productInfo)
     let productId = this.productInfo?.product_id
     if (productId) {
-      this.productService.uploadImgs(imgs, productId).subscribe({
-        next: response => {},
+      this.productService.uploadImgs(this.productInfo?.imgs, productId).subscribe({
+        next: response => {
+          console.log("Successo no envio das imagens")
+        },
         error: error => console.error('Error updating category:', error)
       });
     }
@@ -124,8 +130,12 @@ export class ProductsContentComponent {
   private handleAddOperation(product: ProductInfo): void {
     this.productService.postProduct(product).subscribe({
       next: response => {
-        this.loadProduct();
-        this.resetOperations();
+        if(this.productInfo)
+          this.productInfo.product_id = response.product_id
+          console.log(this.imgsToUpload)
+          this.onUploadImgs(this.imgsToUpload)
+          this.loadProduct();
+          this.resetOperations();
       },
       error: error => console.error('Error updating category:', error)
     });

@@ -206,6 +206,7 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
       this.imgs.emit(
         this.receivedImages
       )
+      console.log(this.imgs)
     } catch {
       alert('Campos incompletos');
     }
