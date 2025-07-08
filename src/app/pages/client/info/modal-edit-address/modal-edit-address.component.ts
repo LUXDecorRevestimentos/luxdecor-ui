@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClientInfoResponse } from '../../../../data/client.data';
@@ -13,6 +13,9 @@ import { NgxMaskDirective } from 'ngx-mask';
 })
 export class ModalEditAddressComponent implements OnInit {
   formGroup!: FormGroup;
+
+  @Output() clientAddressUpdate: EventEmitter<any> = new EventEmitter();
+
 
   constructor(
     public dialogRef: MatDialogRef<ModalEditAddressComponent>,
@@ -50,6 +53,7 @@ export class ModalEditAddressComponent implements OnInit {
   onSubmit() {
     if (this.formGroup.valid) {
       this.dialogRef.close(this.formGroup.value);
+      this.clientAddressUpdate.emit(this.formGroup.value)
     }
   }
 

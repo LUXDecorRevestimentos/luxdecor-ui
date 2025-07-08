@@ -16,7 +16,7 @@ export class CardInfoComponent implements OnInit{
 
   @Input() clientData: ClientInfoResponse | undefined;
 
-  @Output() buttonClick = new EventEmitter();
+  @Output() clientDataUpdate = new EventEmitter();
 
   constructor(public dialog: MatDialog){}
 
@@ -25,16 +25,20 @@ export class CardInfoComponent implements OnInit{
   }
 
   openModal(){
-    this.dialog.open(ModalEditClientComponent, {
+    const dialogRef = this.dialog.open(ModalEditClientComponent, {
       width: '400px',
       data: {
         clientInfo: this.clientData
       }
     })
+    dialogRef.componentInstance.clientInfoUpdate.subscribe(event => {
+      this.clientDataUpdate.emit(event)
+    })
   }
 
+  
+
   signOut(){
-    this.buttonClick.emit();
     location.reload();
   }
 }

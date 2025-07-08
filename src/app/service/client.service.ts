@@ -137,4 +137,27 @@ export class ClientService {
     });
     return this.http.get<ClientInfoResponse>(`${this.apiUrl}/client/find`, { headers });
   }
+
+  updateClient(clientDataUpdate: any): Observable<void> {
+    const token = this.auth;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<any>(
+      `${this.apiUrl}/client/update`,
+      clientDataUpdate,
+      { headers });
+  }
+
+  updateAddress(addressUpdate: any): Observable<void> {
+    const token = this.auth;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<any>(
+      `${this.apiUrl}/client/update/address`,
+      addressUpdate,
+      { headers });
+  }
+
 }

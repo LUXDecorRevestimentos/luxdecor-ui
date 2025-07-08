@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ClientInfoResponse } from '../../../../data/client.data';
 import { CommonModule } from '@angular/common';
 import { ModalEditAddressComponent } from '../modal-edit-address/modal-edit-address.component';
@@ -14,6 +14,8 @@ export class CardDeliveryComponent implements OnInit {
 
   @Input() clientData: ClientInfoResponse | undefined;
 
+  @Output() clientAddressUpdate = new EventEmitter();
+
   constructor(public dialog: MatDialog){}
 
   ngOnInit(): void {
@@ -21,11 +23,14 @@ export class CardDeliveryComponent implements OnInit {
   }
 
   openModal(){
-      this.dialog.open(ModalEditAddressComponent, {
+      const dialogRef = this.dialog.open(ModalEditAddressComponent, {
         width: '400px',
         data: {
           clientInfo: this.clientData
         }
+      })
+      dialogRef.componentInstance.clientAddressUpdate.subscribe(event => {
+        this.clientAddressUpdate.emit(event)
       })
     }
   

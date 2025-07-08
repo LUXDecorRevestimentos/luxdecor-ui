@@ -56,6 +56,7 @@
       </small>
     </div>
 
-    <button type="submit" [disabled]="formGroup.invalid">Salvar</button>
+    <button type="submit" 
+    (click)="onSubmit()">Salvar</button>
   </form>
 </div>

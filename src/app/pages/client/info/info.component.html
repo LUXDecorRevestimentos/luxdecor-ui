@@ -1,11 +1,15 @@
 <div class="container">
     <div class="modules">
         <app-bar class="bar" [title]="'Dados'" [type]="'long'"></app-bar>
-        <app-card-info (buttonClick)="signOut()" [clientData]="clientData"></app-card-info>
+        <app-card-info (buttonClick)="signOut()"
+        [clientData]="clientData"
+        (clientDataUpdate)="onUpdateInfo($event)"></app-card-info>
     </div>
     <div class="modules">
         <app-bar class="bar" [title]="'Endereco de Entrega'" [type]="'long'"></app-bar>
-        <app-card-delivery [clientData]="clientData"></app-card-delivery>
+        <app-card-delivery [clientData]="clientData"
+        (clientAddressUpdate)="onUpdateAddress($event)"
+        ></app-card-delivery>
     </div>
     <div class="modules">
         <app-bar class="bar" [title]="'Pedidos'" [type]="'long'"></app-bar>

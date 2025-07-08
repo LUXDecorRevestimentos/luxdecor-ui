@@ -7,7 +7,9 @@ import { NgxMaskDirective } from 'ngx-mask';
 @Component({
   selector: 'app-modal-edit-client',
   templateUrl: './modal-edit-client.component.html',
-  imports: [CommonModule, NgxMaskDirective, ReactiveFormsModule],
+  imports: [CommonModule,
+    NgxMaskDirective,
+    ReactiveFormsModule],
   styleUrls: ['./modal-edit-client.component.css']
 })
 export class ModalEditClientComponent implements OnInit {

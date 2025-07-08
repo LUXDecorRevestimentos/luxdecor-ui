@@ -23,7 +23,7 @@ import { ClientInfoResponse } from '../../../data/client.data';
 })
 export class InfoComponent implements OnInit, OnDestroy  {
 
-  clientData!: ClientInfoResponse;
+  clientData!: ClientInfoResponse | undefined;
 
   private authSub: Subscription = Subscription.EMPTY;
 
@@ -40,7 +40,6 @@ export class InfoComponent implements OnInit, OnDestroy  {
         this.router.navigate(['/']);
       }
     });
-
     if (!this.clientService.clientStatus()) {
       this.router.navigate(['/']);
     }
@@ -55,13 +54,27 @@ export class InfoComponent implements OnInit, OnDestroy  {
     this.clientService.clientSignOut()
   }
 
+  onUpdateInfo($event: any){
+    this.clientService.updateClient($event).subscribe(() => {
+      this.clientData = undefined
+      this.fetchClient()
+    })
+  }
+
+  onUpdateAddress($event: any){
+    this.clientService.updateAddress($event).subscribe(() => {
+      this.clientData = undefined
+      this.fetchClient()
+    })
+  }
+
   fetchClient() {
     this.clientService.getClient().subscribe(
       (response) => {
         this.clientData = response;
       },
       (error) => {
-        console.error('Error fetching client:', error);
+        this.router.navigate(['/client']);
       }
     );
   }
