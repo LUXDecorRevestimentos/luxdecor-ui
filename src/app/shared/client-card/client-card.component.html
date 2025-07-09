@@ -1,11 +1,10 @@
-<div class="container">
+<div class="container" *ngIf="clientData">
     <div class="top">
-        <h1>Nome Sobrenome</h1>
-        <h1>(11) 99999-9999</h1>
-    </div>
+        <h1>{{ clientData.name }} {{ clientData.surname }}</h1>
+        <h1>{{ clientData.contact.phone | phoneFormat }}</h1>    </div>
     <div class="bottom">
-        <p>Rua Vasconcelos Drummond, 119</p>
-        <p>Sao Paulo - SP</p>
-        <p>05364-000</p>
+        <p>{{ clientData.address.street }}, {{ clientData.address.number }}</p>
+        <p>{{ clientData.address.city }} - {{ clientData.address.state }}</p>
+        <p>{{ clientData.address.postal_code | cepFormat}}</p>
     </div>
 </div>

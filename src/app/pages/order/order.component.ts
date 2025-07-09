@@ -7,6 +7,7 @@ import { OrderCardData, OrderCardInfo, OrderStatus} from "../../data/card.data";
 import { MatIcon } from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
+import { ClientService } from '../../service/client.service';
 
 @Component({
   selector: 'app-order-page',

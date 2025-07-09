@@ -330,14 +330,14 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
     );
   }
 
-  private handleUpdateInstallation(installation: Installation) {
-    this.categoryInfo.topic = this.categoryInfo.installations.map(installation => 
-      installation.installation_id === installation.installation_id
-        ? installation
-        : installation
+  private handleUpdateInstallation(updatedInstallation: Installation) {
+    this.categoryInfo.installations = this.categoryInfo.installations.map(inst =>
+      inst.installation_id === updatedInstallation.installation_id
+        ? { ...inst, ...updatedInstallation }
+        : inst
     );
+    console.log(this.categoryInfo)
   }
-
 
   // Detail
   onDetailEvent(newDetail: [Data, String, String]) {

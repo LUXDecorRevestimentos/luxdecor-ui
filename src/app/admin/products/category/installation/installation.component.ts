@@ -27,6 +27,7 @@ export class InstallationComponent {
   constructor (private bannerService: BannerService) {}
 
   title!: string;
+  value!: string;
   selectedInstallation!: Installation | null;
   currentInstallation: Installation[] = [];
   installationBanner: any;
@@ -35,11 +36,13 @@ export class InstallationComponent {
 
   ngOnInit(){
     this.currentInstallation = [...this.installations];
+    console.log(this.installations)
   }
 
   handleInstallationSelection(installation: Installation){
     this.selectedInstallation = installation;
     this.title = installation.title;
+    this.value = installation.price;
     this.handleGetInstallationBanner(this.selectedInstallation)
   }
 
@@ -57,7 +60,7 @@ export class InstallationComponent {
     this.formatCurrency(event.target.value);
   }
   
-    private formatCurrency(value: string) {
+  private formatCurrency(value: string) {
     let cleanedValue = value.replace(/[^\d]/g, '');
     
     if (cleanedValue === '') cleanedValue = '0';
@@ -72,6 +75,7 @@ export class InstallationComponent {
   }
 
   saveInstallation(){
+    console.log(this.installationValue)
     if (this.title.trim() && this.selectedInstallation == null){
       let temporaryInstallation: Installation = {
         installation_id: `#${Math.random().toString(36).substring(2, 10).padStart(8, '0')}`,

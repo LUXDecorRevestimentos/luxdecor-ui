@@ -9,15 +9,15 @@
   </div>
   <div class="field">
       <span class="label">CPF:</span>
-      <span class="value">{{ clientData.document.cpf }}</span>
+      <span class="value">{{ clientData.document.cpf | cpfFormat}}</span>
   </div>
   <div class="field">
       <span class="label">RG:</span>
-      <span class="value">{{ clientData.document.rg }}</span>
+      <span class="value">{{ clientData.document.rg | rgFormat }}</span>
   </div>
   <div class="field">
       <span class="label">Cel:</span>
-      <span class="value">{{ clientData.contact.phone }}</span>
+      <span>{{ clientData.contact.phone | phoneFormat }}</span>  
   </div>
   <div class="btns">
     <button class="btn" (click)="openModal()">

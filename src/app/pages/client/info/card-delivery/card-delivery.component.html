@@ -4,7 +4,7 @@
     </div>
     <div class="field">
         <span class="label">São Paulo - SP</span>
-        <span class="value">CEP: {{ clientData.address.postal_code }}</span>
+        <span class="value">CEP: {{ clientData.address.postal_code | cepFormat }}</span>
     </div>
     <div class="btns">
         <button class="btn" (click)="openModal()">

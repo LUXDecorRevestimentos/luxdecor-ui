@@ -5,10 +5,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { ModalEditClientComponent } from '../modal-edit-client/modal-edit-client.component';
 import { ClientInfoResponse } from '../../../../data/client.data';
+import { PhoneFormatPipe } from '../../../../shared/pipe/phone-format.pipe';
+import { CpfFormatPipe } from "../../../../shared/pipe/cpf-format.pipe";
+import { RgFormatPipe } from "../../../../shared/pipe/rg-format.pipe";
 
 @Component({
   selector: 'app-card-info',
-  imports: [MatCheckboxModule, CommonModule],
+  imports: [MatCheckboxModule, CommonModule, PhoneFormatPipe, CpfFormatPipe, RgFormatPipe],
   templateUrl: './card-info.component.html',
   styleUrl: './card-info.component.css'
 })

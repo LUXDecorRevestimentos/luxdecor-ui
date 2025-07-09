@@ -22,7 +22,11 @@
         <div class="mid">
             <div class="client">
                 <app-bar class="bar" [title]="'Confirme seus dados'" [type]="'long'"></app-bar>
-                <app-client-card></app-client-card>
+                <app-client-card [clientData]="clientData"></app-client-card>
+            </div>
+            <div class="method">
+                <app-bar class="bar" [title]="'Método de pagamento'" [type]="'long'"></app-bar>
+                <app-method-payment-card></app-method-payment-card>
             </div>
             <div class="method">
                 <app-bar class="bar" [title]="'Método de pagamento'" [type]="'long'"></app-bar>

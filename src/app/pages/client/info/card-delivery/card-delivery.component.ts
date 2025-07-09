@@ -3,10 +3,11 @@ import { ClientInfoResponse } from '../../../../data/client.data';
 import { CommonModule } from '@angular/common';
 import { ModalEditAddressComponent } from '../modal-edit-address/modal-edit-address.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CepFormatPipe } from "../../../../shared/pipe/cep-format.pipe";
 
 @Component({
   selector: 'app-card-delivery',
-  imports: [CommonModule],
+  imports: [CommonModule, CepFormatPipe],
   templateUrl: './card-delivery.component.html',
   styleUrl: './card-delivery.component.css'
 })

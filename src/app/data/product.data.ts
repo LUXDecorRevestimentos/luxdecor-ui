@@ -10,7 +10,6 @@ export interface Product {
   data: ProductData;
 }
 
-
 export interface ModalFilter{
   subCategorys: string[];
   installTypes: string[];
@@ -20,4 +19,10 @@ export interface ModalFilter{
   selectedSubCategories: string;
   selectedInstallTypes: string;
   selectedBrands: string;
+}
+
+export interface InstallationOptions{
+  installation_id: string
+  price: string;
+  title: string;
 }

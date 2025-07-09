@@ -9,6 +9,9 @@ import { MethodPaymentCardComponent } from './method-payment-card/method-payment
 import { MethodShippingCardComponent } from './method-shipping-card/method-shipping-card.component';
 import { BtnConfirmComponent } from '../../shared/btn/btn-confirm/btn-confirm.component';
 import { SalesAuthService } from '../../admin/service/sales.auth.service';
+import { ClientService } from '../../service/client.service';
+import { ClientInfoResponse } from '../../data/client.data';
+import { CartService } from '../../service/cart.service';
 
 @Component({
   selector: 'app-payment-page',
@@ -27,14 +30,19 @@ import { SalesAuthService } from '../../admin/service/sales.auth.service';
 export class PaymentPageComponent implements OnInit {
   cartData: Cart;
 
+  cartInfo: any;
+
+  clientData!: ClientInfoResponse;
   amount: string = "0";
 
   constructor(
     private saleService: SalesAuthService,
+    private clientService: ClientService,
+    private cartService: CartService,
     private router: Router) {
     const navigation = this.router.getCurrentNavigation();
+    console.log(navigation?.extras)
     this.cartData = navigation?.extras.state?.['cart'] || { items: [] };
-    
     if (!this.cartData.items) {
       this.cartData = history.state?.['cart'] || { items: [] };
     }
@@ -42,6 +50,29 @@ export class PaymentPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.amount = this.cartData.items?.length.toString() || '0';
+    this.fetchClient()
+    this.fetchCartItems()
+  }
+
+  fetchClient() {
+    this.clientService.getClient().subscribe(
+      (response) => {
+        this.clientData = response;
+      },
+      (error) => {
+        this.router.navigate(['/client']);
+      }
+    );
+  }
+
+  fetchCartItems(){
+    this.cartService.getCart().subscribe(
+      (response) => {
+        this.cartInfo = response;
+        console.log(this.cartInfo)
+      },
+      (error) => {}
+    )
   }
 
   onConfirmCart(){

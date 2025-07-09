@@ -8,7 +8,8 @@
                 (input)="onInputChange($event)"
                 placeholder="0.00"  
                 [(ngModel)]="installationValue" 
-                (blur)="emitPrices()"/>
+                (blur)="emitPrices()"
+                value="{{ value }}"/>
         </h1>
     </div>
     <div class="installations">
