@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { forkJoin, switchMap, tap } from 'rxjs';
 import { ClientService } from '../../service/client.service';
 import { CartService } from '../../service/cart.service';
+import { NotificationService } from '../../service/notification.service';
 
 @Component({
   selector: 'app-product-page',
@@ -55,7 +56,8 @@ export class ProductPageComponent implements OnInit{
 
   constructor (private productService: ProductService,
     private cartService: CartService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private notificationService: NotificationService) {}
   
 
   ngOnInit(): void {
@@ -118,8 +120,10 @@ export class ProductPageComponent implements OnInit{
 
   addOrder(newOrder: [string, number]){
     this.cartService.addOrder(newOrder[0], newOrder[1]).subscribe({
-      next: (res) => console.log("Success!", res),
-      error: (err) => console.error("Error:", err)
+      next: () => {
+        this.notificationService.show("Adicinado ao carrinho!", "success")
+      },
+      error: (err) => this.notificationService.show("Erro ao adicionar no carrinho", "error")
     });
   }
 }

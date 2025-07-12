@@ -5,5 +5,11 @@
     font-family: "Arimo", "Helvetica Neue", sans-serif;
   }
 
+
+body {
+  background-color: white;
+  color: black;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: "Arimo", "Helvetica Neue", sans-serif; }

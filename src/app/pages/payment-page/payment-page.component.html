@@ -16,9 +16,6 @@
                 }
             </div>
         </div>
-       
-        
-       
         <div class="mid">
             <div class="client">
                 <app-bar class="bar" [title]="'Confirme seus dados'" [type]="'long'"></app-bar>
@@ -29,8 +26,14 @@
                 <app-method-payment-card></app-method-payment-card>
             </div>
             <div class="method">
-                <app-bar class="bar" [title]="'Método de pagamento'" [type]="'long'"></app-bar>
-                <app-method-payment-card></app-method-payment-card>
+                <app-bar class="bar" [title]="'Instalações'" [type]="'long'"></app-bar>
+                <input #checkbox
+                        type="checkbox"
+                        class="topic-checkbox"
+                        [checked]="installOption === install[0]"
+                        (change)="toggleInstallation(install[0], checkbox.checked)" />
+                <span class="checkmark"></span>
+                <span class="option-text">{{install[1]}}</span>            
             </div>
         </div>
 
@@ -46,11 +49,6 @@
                 <div class="value-container">
                     <p>SubTotal</p>
                     <p><strong>R$ 385,00</strong></p>
-                </div>
-                <app-bar [type]="'long'"></app-bar>
-                <div class="value-container">
-                    <p>Frete</p>
-                    <p><strong>R$ 100,00</strong></p>
                 </div>
                 <app-bar [type]="'long'"></app-bar>
                 <div class="value-container">

@@ -114,8 +114,6 @@ export class ProductsContentComponent {
   }
 
   onUploadImgs(imgs: any): void {
-    console.log(imgs)
-    console.log(this.productInfo)
     let productId = this.productInfo?.product_id
     if (productId) {
       this.productService.uploadImgs(this.productInfo?.imgs, productId).subscribe({

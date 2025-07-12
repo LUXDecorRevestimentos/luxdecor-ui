@@ -1,14 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
-import { NgxMaskDirective } from 'ngx-mask';
 import { ClientService } from '../../../service/client.service';
 import { ClientLoginRequest } from '../../../data/client.data';
+import { NotificationService } from '../../../service/notification.service';
 
 @Component({
   standalone: true,
@@ -27,7 +24,8 @@ export class LoginComponent implements OnInit {
   isLoading = false;
 
   constructor(private formBuilder: FormBuilder,
-    private clientService: ClientService, private router: Router) {}
+    private clientService: ClientService, private router: Router,
+    private notificationService: NotificationService) {}
   
   ngOnInit(): void {
     this.formGroup = this.createLoginForm()
@@ -54,11 +52,12 @@ export class LoginComponent implements OnInit {
   
     this.clientService.loginClient(requestData).subscribe({
       next: () => {
+        this.notificationService.show('Seja bem-vindo!', 'success');
         this.router.navigate(['/home']);
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Login failed:', err);
+        this.notificationService.show('Ocorreu um erro durante o login!', 'error');
         this.isLoading = false;
       }
     });

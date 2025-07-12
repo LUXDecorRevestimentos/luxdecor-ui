@@ -15,10 +15,9 @@ export class ProductService {
 
   getProductsCategories(): Observable<GenericCard[]> {
     return this.http.get<GenericCard[]>(`${this.apiUrl}/section/header`).pipe(
-      distinctUntilChanged(),
-      shareReplay(1),
-      map(apiProducts => this.transformApiDataCategories(apiProducts)),
       timeout(5000),
+      map(this.transformApiDataCategories),
+      shareReplay(1),
       catchError(error => throwError(() => error))
     );
   }
@@ -34,26 +33,25 @@ export class ProductService {
   }
 
   getProductPromotionMainList(): Observable<GenericCard[]> {
-    return this.http.get<GenericCard[]>(`${this.apiUrl}/section/promotions`).pipe(
-      distinctUntilChanged(),
-      shareReplay(1),
-      map(apiProducts => this.transformApiDataPromotions(apiProducts)),
+    return this.http.get<any[]>(`${this.apiUrl}/section/promotions`).pipe(
       timeout(5000),
+      map(this.transformApiDataPromotions),
+      shareReplay(1),
       catchError(error => throwError(() => error))
     );
   }
 
-  private transformApiDataPromotions(apiProducts: any[]): GenericCard[] {
-    return apiProducts.map(product => ({
-      id: product.id,
-      title: product.title,
-      type: product.type,
-      imageUrl: product.imageUrl,
+  private transformApiDataPromotions = (apiProducts: any[]): GenericCard[] => 
+    apiProducts?.map(({ id, title, type, imageUrl, data }) => ({
+      id,
+      title,
+      type,
+      imageUrl,
       data: {
-        price: product.data.price
+        price: data?.price ?? null
       }
-    }));
-  }
+    })) ?? [];
+
 
   getInstallationsByCategory(categoryId: string): Observable<GenericCard[]> {
     return this.http.get<any[]>(`${this.apiUrl}/installations/list`, {

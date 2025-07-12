@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,4 +12,5 @@ export class CardComponent {
   @Input() imageUrl: string = '';
   @Input() type: string = '';
   @Input() data?: any;
+
 }

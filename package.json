@@ -10,8 +10,8 @@
     "serve:ssr:luxdecor": "node dist/luxdecor/server/server.mjs",
     "prerender": "http-server -c-1 dist/angular-ssr-course/browser",
     "dev:ssr": "ng serve",
-    "build:ssr": "ng build --configuration=production",
-    "serve:ssr": "node dist/angular-ssr-course/server/server.mjs"
+    "build:ssr": "ng build --configuration production",
+    "serve:ssr": "node dist/luxdecor-server/main.js"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +34,7 @@
     "ng": "^0.0.0",
     "ngx-image-cropper": "^9.1.5",
     "ngx-mask": "^19.0.7",
+    "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

@@ -6,6 +6,10 @@ import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { ClientRegisterRequest } from '../../../data/client.data';
 import { ClientService } from '../../../service/client.service';
+import { NotificationService } from '../../../service/notification.service';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   standalone: true,
@@ -25,8 +29,14 @@ export class RegisterComponent implements OnInit {
   formGroup!: FormGroup;
   maxDate!: string|number|Date;
 
+  isLoading = false;
+  message = "";
+  isSuccess = false;
+
   constructor(private formBuilder: FormBuilder,
-    private clientService: ClientService) {}
+    private clientService: ClientService,
+    private notificationService: NotificationService,
+    private router: Router ) {}
 
   ngOnInit(){
     this.formGroup = this.createRegisterForm()
@@ -88,7 +98,6 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-
   onSubmit() {
     const formData = this.formGroup.value;
    
@@ -116,11 +125,21 @@ export class RegisterComponent implements OnInit {
           postal_code: formData.postal_code,
         }
       };
-      this.clientService.registerClient(requestData).subscribe(response => {
-      })
-    } else {
-      this.formGroup.markAllAsTouched();
-    }
+      this.clientService.registerClient(requestData).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.formGroup.reset();
+        this.notificationService.show('Registrado com sucesso!', 'success');
+        this.router.navigate(['/client']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.notificationService.show('Ocorreu um erro durante seu cadastro!', 'error');
+      }
+    });
+  } else {
+    this.formGroup.markAllAsTouched();
+  }
   }
 
   get name() { return this.formGroup.get('name'); }
