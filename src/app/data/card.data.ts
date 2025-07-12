@@ -44,9 +44,14 @@ export interface Cart {
 export interface CartData {
     cart_id: string,
     delivery_total: string,
-    installation_total: string,
+    install_list: InstallOption[],
     orders?: CartResponseItem[],
     product_total: string
+}
+
+export interface InstallOption {
+    installation_id: string,
+    title: string
 }
 
 export interface CartResponseItem {

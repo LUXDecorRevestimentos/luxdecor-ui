@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../../service/product.service';
-import { ProductData } from '../../data/card.data';
+import { InstallOption, ProductData } from '../../data/card.data';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ProductDetailsTable } from '../../data/table.data';
@@ -42,15 +42,17 @@ export class ProductPageComponent implements OnInit{
   detailsLabel: string = "Sobre";
   specLabel: string = "Especificações";
   otherProductsLabel: string = "Outros Produtos"
+  selectedInstallations: string | undefined;
+  opInstall: InstallOption | undefined;
 
   selectedImageIndex: number = 0;
   cardsProduct: GenericCard[] = [];
 
   measureUnits = [
-    { value: 0, label: 'm' },
-    { value: 1, label: 'm²' },
-    { value: 2, label: 'Não Presente' },
-    { value: 3, label: 'Outro' }
+    { value: 0, label: '/ m' },
+    { value: 1, label: '/ m²' },
+    { value: 2, label: '' },
+    { value: 3, label: '' }
   ];
   
 
@@ -81,6 +83,8 @@ export class ProductPageComponent implements OnInit{
       tap(product => {
         this.productContent = product;
         this.measureLabel = this.getMeasureUnitLabel(product.measure);
+        this.opInstall = this.productContent.installations[0]
+        console.log(this.opInstall?.title)
       }),
       switchMap(product => 
         forkJoin({
@@ -118,7 +122,17 @@ export class ProductPageComponent implements OnInit{
     this.selectedImageIndex = index
   }
 
+  onCheckboxChange(event: any) {
+    const value = event.target.value;
+    if (event.target.checked) {
+      this.selectedInstallations = value;
+    } else {
+      this.selectedInstallations = undefined;
+    }
+  }
+
   addOrder(newOrder: [string, number]){
+    console.log(newOrder)
     this.cartService.addOrder(newOrder[0], newOrder[1]).subscribe({
       next: () => {
         this.notificationService.show("Adicinado ao carrinho!", "success")

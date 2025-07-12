@@ -86,7 +86,7 @@
                         </div>
                         <div class="price">
                             <div class="top">
-                                <h1>R$ {{ this.productContent?.price?.unitary }} /{{ measureLabel }}</h1>
+                                <h1>R$ {{ this.productContent?.price.unitary }} {{ measureLabel }}</h1>
                                 <p> <strong>Tam:</strong> {{ this.productContent?.measures?.unitary }}</p>
                             </div>
                             <div class="bot" *ngIf="this.productContent?.price?.box">
@@ -104,11 +104,18 @@
                                 {{ this.productContent?.about }}
                             </p>
                         </div>
-                        <div class="price">
-                            <div class="bot" >
-                                <h1 class="box-price">Taxa de Entrega: </h1>
-                                <h1 class="box-price">R$ 100,00</h1>
-                            </div>
+                        <div class="bot" *ngIf="opInstall">
+                            <h1 class="box-price">Instalação: </h1>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    class="topic-checkbox"
+                                    [value]="opInstall"
+                                    (change)="onCheckboxChange($event)"
+                                />
+                                <span class="checkmark"></span>
+                                <span class="option-text">{{ this.opInstall.title }}</span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -154,9 +161,18 @@
                     <div class="bot" *ngIf="this.productContent?.price?.box">
                         <h1 class="box-price">R$ {{ this.productContent?.price?.box }}  / caixa ({{ this.productContent?.measures?.box }})</h1>
                     </div>
-                    <div class="bot" >
-                        <h1 class="box-price">Taxa de Entrega: </h1>
-                        <h1 class="box-price">R$ 100,00</h1>
+                    <div class="bot" *ngIf="this.productContent?.installations[0]">
+                        <h1 class="box-price">Instalação: </h1>
+                        <label>
+                            <input
+                                type="checkbox"
+                                class="topic-checkbox"
+                                [value]="this.productContent?.installations[0].title"
+                                (change)="onCheckboxChange($event)"
+                            />
+                            <span class="checkmark"></span>
+                            <span class="option-text">{{ this.productContent }}</span>
+                        </label>
                     </div>
                 </div>
                 <div class="action-btns">

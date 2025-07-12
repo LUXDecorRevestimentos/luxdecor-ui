@@ -25,16 +25,22 @@
                 <app-bar class="bar" [title]="'Método de pagamento'" [type]="'long'"></app-bar>
                 <app-method-payment-card></app-method-payment-card>
             </div>
-            <div class="method">
+           <div class="method">
                 <app-bar class="bar" [title]="'Instalações'" [type]="'long'"></app-bar>
-                <input #checkbox
-                        type="checkbox"
-                        class="topic-checkbox"
-                        [checked]="installOption === install[0]"
-                        (change)="toggleInstallation(install[0], checkbox.checked)" />
-                <span class="checkmark"></span>
-                <span class="option-text">{{install[1]}}</span>            
+                <div class="topic-option" *ngFor="let install of opInstallations">
+                    <label>
+                        <input
+                            type="checkbox"
+                            class="topic-checkbox"
+                            [value]="install"
+                            (change)="onCheckboxChange($event)"
+                        />
+                        <span class="checkmark"></span>
+                        <span class="option-text">{{ install }}</span>
+                    </label>
+                </div>
             </div>
+
         </div>
 
         <div class="end">

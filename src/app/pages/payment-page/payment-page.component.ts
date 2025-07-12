@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BarComponent } from '../../shared/bar/bar.component';
-import { Cart } from '../../data/card.data'
+import { Cart, CartData } from '../../data/card.data'
 import { Router } from '@angular/router';
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
 import { ClientCardComponent } from '../../shared/client-card/client-card.component';
@@ -12,6 +12,7 @@ import { SalesAuthService } from '../../admin/service/sales.auth.service';
 import { ClientService } from '../../service/client.service';
 import { ClientInfoResponse } from '../../data/client.data';
 import { CartService } from '../../service/cart.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-payment-page',
@@ -22,7 +23,8 @@ import { CartService } from '../../service/cart.service';
     ClientCardComponent,
     MethodPaymentCardComponent,
     MethodShippingCardComponent,
-    BtnConfirmComponent
+    BtnConfirmComponent,
+    CommonModule
   ],
   templateUrl: './payment-page.component.html',
   styleUrl: './payment-page.component.css'
@@ -30,7 +32,10 @@ import { CartService } from '../../service/cart.service';
 export class PaymentPageComponent implements OnInit {
   cartData: Cart;
 
-  cartInfo: any;
+  cartInfo: CartData | undefined;
+
+  opInstallations: string[] = [];
+  selectedInstallations: string[] = [];
 
   clientData!: ClientInfoResponse;
   amount: string = "0";
@@ -69,11 +74,21 @@ export class PaymentPageComponent implements OnInit {
     this.cartService.getCart().subscribe(
       (response) => {
         this.cartInfo = response;
-        console.log(this.cartInfo)
+        this.opInstallations = this.cartInfo.install_list.map(item => item.title)
       },
       (error) => {}
     )
   }
+
+  onCheckboxChange(event: any) {
+    const value = event.target.value;
+    if (event.target.checked) {
+      this.selectedInstallations.push(value);
+    } else {
+      this.selectedInstallations = this.selectedInstallations.filter(v => v !== value);
+    }
+  }
+
 
   onConfirmCart(){
     console.log("Cofirmar")
