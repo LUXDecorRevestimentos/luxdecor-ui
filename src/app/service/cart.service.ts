@@ -28,7 +28,7 @@ import { environment } from "../../enviroments/enviroment";
       if (!cartData.orders || cartData.orders.length === 0) {
         return of([]);
       }
-  
+      console.log(cartData)
       return from(cartData.orders).pipe(
         mergeMap(order => this.transformOrderItem(order)),
         toArray()

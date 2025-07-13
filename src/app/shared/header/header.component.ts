@@ -13,7 +13,7 @@ import { CartPageComponent } from '../../pages/cart-page/cart-page.component';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  //  
   navItems = [
     { label: 'PISO', route: 'piso' },
     { label: 'RODAPE', route: 'rodape' },
