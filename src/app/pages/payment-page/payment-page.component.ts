@@ -36,6 +36,7 @@ export class PaymentPageComponent implements OnInit {
 
   opInstallations: InstallOption[] = [];
   selectedInstallations:InstallOption[] = [];
+  deliveryPrice: string | undefined;
 
   clientData!: ClientInfoResponse;
   amount: string = "0";
@@ -74,6 +75,10 @@ export class PaymentPageComponent implements OnInit {
     this.cartService.getCart().subscribe(
       (response) => {
         this.cartInfo = response;
+        this.deliveryPrice = this.cartInfo.delivery_total
+        if (this.deliveryPrice == "0"){
+          this.deliveryPrice = undefined
+        }
         this.opInstallations = this.cartInfo.install_list.map(item => item)
       },
       (error) => {}
@@ -90,8 +95,11 @@ export class PaymentPageComponent implements OnInit {
   }
 
 
+  onDeliveryMethod(event: any) {
+    console.log(event)
+  }
+
   onConfirmCart(){
-    console.log(this.cartInfo)
     if(this.cartInfo)
       this.saleService.postPayment(this.cartInfo?.cart_id, this.selectedInstallations).subscribe({})
   }

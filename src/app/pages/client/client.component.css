@@ -2,11 +2,13 @@
     display: flex;
     justify-content: center;
     gap: 30px;
-    padding: 20px;
+    padding: 40px;
     max-width: 1200px;
     width: 100%;
     margin: auto;
-    padding: 400px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    height: 80vh;
 }
 
 .card {
@@ -17,10 +19,19 @@
     width: 100%;
     max-width: 400px;
     background-color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    cursor: pointer;
 }
+
 .card:hover {
     background-color: #000000;
     color: white;
+}
+
+.card h1 {
+    margin: 0;
+    font-size: 1.5rem;
 }
 
 @media (max-width: 768px) {
@@ -28,8 +39,11 @@
         flex-direction: column;
         align-items: center;
     }
-    
+
     .card {
-        max-width: 100%;
+        width: 90%;
+        height: 100px;
+        margin: 0 auto;
+        padding: 0;
     }
 }

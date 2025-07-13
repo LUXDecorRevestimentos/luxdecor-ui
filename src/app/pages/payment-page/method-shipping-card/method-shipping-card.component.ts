@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,9 +9,10 @@ import { CommonModule } from '@angular/common';
 })
 export class MethodShippingCardComponent {
 
-  selectedMethod: string | null = null;
+  @Input() deliveryPrice: string | undefined;
+  @Output() selectedMethod: EventEmitter<string> = new EventEmitter();
 
   selectMethod(method: string) {
-    this.selectedMethod = method;
+    this.selectedMethod.emit(method)
   }
 }

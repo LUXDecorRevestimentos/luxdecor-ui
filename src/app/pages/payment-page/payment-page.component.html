@@ -47,7 +47,7 @@
            
             <div class="shipping">
                 <app-bar [title]="'Método de entrega'" [type]="'long'"></app-bar>
-                <app-method-shiping-card></app-method-shiping-card>
+                <app-method-shiping-card [deliveryPrice]="deliveryPrice" (selectedMethod)="onDeliveryMethod($event)" ></app-method-shiping-card>
             </div>
             <div class="subtotal">
                 <app-bar [title]="'Resumo do pedido'" [type]="'long'"></app-bar>
