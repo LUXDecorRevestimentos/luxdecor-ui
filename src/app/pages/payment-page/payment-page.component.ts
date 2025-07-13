@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BarComponent } from '../../shared/bar/bar.component';
-import { Cart, CartData } from '../../data/card.data'
+import { Cart, CartData, InstallOption } from '../../data/card.data'
 import { Router } from '@angular/router';
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
 import { ClientCardComponent } from '../../shared/client-card/client-card.component';
@@ -34,8 +34,8 @@ export class PaymentPageComponent implements OnInit {
 
   cartInfo: CartData | undefined;
 
-  opInstallations: string[] = [];
-  selectedInstallations: string[] = [];
+  opInstallations: InstallOption[] = [];
+  selectedInstallations:InstallOption[] = [];
 
   clientData!: ClientInfoResponse;
   amount: string = "0";
@@ -74,24 +74,25 @@ export class PaymentPageComponent implements OnInit {
     this.cartService.getCart().subscribe(
       (response) => {
         this.cartInfo = response;
-        this.opInstallations = this.cartInfo.install_list.map(item => item.title)
+        this.opInstallations = this.cartInfo.install_list.map(item => item)
       },
       (error) => {}
     )
   }
 
-  onCheckboxChange(event: any) {
-    const value = event.target.value;
-    if (event.target.checked) {
-      this.selectedInstallations.push(value);
+  onCheckboxChange(event: InstallOption) {
+    console.log(event);
+    if (event) {
+      this.selectedInstallations.push(event);
     } else {
-      this.selectedInstallations = this.selectedInstallations.filter(v => v !== value);
+      this.selectedInstallations = this.selectedInstallations.filter(v => v !== event);
     }
   }
 
 
   onConfirmCart(){
-    console.log("Cofirmar")
-    this.saleService.postPayment("#lP70TIV65PXk").subscribe({})
+    console.log(this.cartInfo)
+    if(this.cartInfo)
+      this.saleService.postPayment(this.cartInfo?.cart_id, this.selectedInstallations).subscribe({})
   }
 }

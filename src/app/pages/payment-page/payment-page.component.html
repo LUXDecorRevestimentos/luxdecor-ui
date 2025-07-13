@@ -33,10 +33,10 @@
                             type="checkbox"
                             class="topic-checkbox"
                             [value]="install"
-                            (change)="onCheckboxChange($event)"
+                            (change)="onCheckboxChange(install)"
                         />
                         <span class="checkmark"></span>
-                        <span class="option-text">{{ install }}</span>
+                        <span class="option-text">{{ install.title }}</span>
                     </label>
                 </div>
             </div>
