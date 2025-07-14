@@ -1,9 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
-import { CartCardItemData } from '../../data/card.data'
-import { mergeWith } from 'rxjs';
+import { CartCardItemData } from '../../data/card.data';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-cart-card',
@@ -11,53 +11,62 @@ import { mergeWith } from 'rxjs';
   templateUrl: './cart-card.component.html',
   styleUrl: './cart-card.component.css'
 })
-export class CartCardComponent implements OnInit{
+export class CartCardComponent {
   @Input() display: boolean = true;
   @Input() cart: CartCardItemData | null = null;
   @Input() checked: boolean = false;
+  @Input() config: boolean = true;
   @Output() checkChange = new EventEmitter<boolean>();
-  @Output() orderUpdate:  EventEmitter<[string, string, number]> = new EventEmitter();
+  @Output() orderUpdate = new EventEmitter<[string, string, number]>();
   @Output() orderRemove = new EventEmitter<string>();
+  @Output() countChange = new EventEmitter<number>();
 
   count: number = 1;
-
+  priceLabel: string = "";
 
   ngOnInit(): void {
-    if (this.cart){
-      this.count = parseInt(this.cart.amount)
+    if (this.cart) {
+      this.count = parseInt(this.cart.amount) || 1;
     }
+    console.log(this.cart)
   }
 
-  onCheckboxChange(event: any) {
+  onCheckboxChange(event: any): void {
     this.checkChange.emit(event.checked);
   }
 
-  increment() {
+  increment(): void {
     this.count++;
-    if(this.cart)
-      this.orderUpdate.emit([this.cart.id, this.cart.product_id, this.count])
-
+    this.countChange.emit(this.count);
+    this.emitOrderUpdate();
   }
 
-  decrement() {
+  decrement(): void {
     this.count--;
-    if (this.cart)
     if (this.count <= 0) {
-      this.orderRemove.emit(this.cart.id)
+      this.orderRemove.emit(this.cart?.id);
     } else {
-      this.orderUpdate.emit([this.cart.id, this.cart.product_id, this.count])
+      this.countChange.emit(this.count);
+      this.emitOrderUpdate();
     }
   }
 
-  updateCount(event: Event) {
-
+  updateCount(event: Event): void {
     const input = event.target as HTMLInputElement;
     const newValue = parseInt(input.value, 10);
+    this.count = isNaN(newValue) ? 1 : newValue;
+    this.countChange.emit(this.count);
+    this.emitOrderUpdate();
+  }
 
-    if (!isNaN(newValue)){
-      this.count = newValue;
-    } else {
-      this.count = 1;
+  productPrice(): string{
+    this.cart?.price 
+    return ""
+  }
+
+  private emitOrderUpdate(): void {
+    if (this.cart) {
+      this.orderUpdate.emit([this.cart.id, this.cart.product_id, this.count]);
     }
   }
 }

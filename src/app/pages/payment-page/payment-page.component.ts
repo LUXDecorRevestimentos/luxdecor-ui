@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { BarComponent } from '../../shared/bar/bar.component';
-import { Cart, CartData, InstallOption } from '../../data/card.data'
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { BarComponent } from '../../shared/bar/bar.component';
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
 import { ClientCardComponent } from '../../shared/client-card/client-card.component';
-import { CartCardComponent } from '../../shared/cart-card/cart-card.component'
+import { CartCardComponent } from '../../shared/cart-card/cart-card.component';
 import { MethodPaymentCardComponent } from './method-payment-card/method-payment-card.component'; 
 import { MethodShippingCardComponent } from './method-shipping-card/method-shipping-card.component';
 import { BtnConfirmComponent } from '../../shared/btn/btn-confirm/btn-confirm.component';
 import { SalesAuthService } from '../../admin/service/sales.auth.service';
 import { ClientService } from '../../service/client.service';
-import { ClientInfoResponse } from '../../data/client.data';
 import { CartService } from '../../service/cart.service';
-import { CommonModule } from '@angular/common';
+import { Cart, CartCardItemData, CartData, InstallOption } from '../../data/card.data';
+import { ClientInfoResponse } from '../../data/client.data';
 
 @Component({
   selector: 'app-payment-page',
@@ -30,77 +30,75 @@ import { CommonModule } from '@angular/common';
   styleUrl: './payment-page.component.css'
 })
 export class PaymentPageComponent implements OnInit {
-  cartData: Cart;
-
-  cartInfo: CartData | undefined;
-
+  cartData: Cart = { id: 'Selecionar Tudo', completed: false, items: [] };
+  cartInfo?: CartData;
   opInstallations: InstallOption[] = [];
-  selectedInstallations:InstallOption[] = [];
-  deliveryPrice: string | undefined;
-
-  clientData!: ClientInfoResponse;
+  selectedInstallations: InstallOption[] = [];
+  deliveryPrice?: string;
+  clientData?: ClientInfoResponse;
   amount: string = "0";
 
   constructor(
     private saleService: SalesAuthService,
     private clientService: ClientService,
     private cartService: CartService,
-    private router: Router) {
-    const navigation = this.router.getCurrentNavigation();
-    console.log(navigation?.extras)
-    this.cartData = navigation?.extras.state?.['cart'] || { items: [] };
-    if (!this.cartData.items) {
-      this.cartData = history.state?.['cart'] || { items: [] };
-    }
+    private router: Router
+  ) {
+    this.initializeCartData();
   }
 
   ngOnInit(): void {
     this.amount = this.cartData.items?.length.toString() || '0';
-    this.fetchClient()
-    this.fetchCartItems()
+    this.fetchClient();
+    this.fetchCartItems();
   }
 
-  fetchClient() {
-    this.clientService.getClient().subscribe(
-      (response) => {
-        this.clientData = response;
-      },
-      (error) => {
-        this.router.navigate(['/client']);
-      }
-    );
-  }
-
-  fetchCartItems(){
-    this.cartService.getCart().subscribe(
-      (response) => {
-        this.cartInfo = response;
-        this.deliveryPrice = this.cartInfo.delivery_total
-        if (this.deliveryPrice == "0"){
-          this.deliveryPrice = undefined
-        }
-        this.opInstallations = this.cartInfo.install_list.map(item => item)
-      },
-      (error) => {}
-    )
-  }
-
-  onCheckboxChange(event: InstallOption) {
-    console.log(event);
-    if (event) {
-      this.selectedInstallations.push(event);
-    } else {
-      this.selectedInstallations = this.selectedInstallations.filter(v => v !== event);
+  private initializeCartData(): void {
+    const navigation = this.router.getCurrentNavigation();
+    const stateCart = navigation?.extras.state?.['cart'] || history.state?.['cart'];
+    
+    if (stateCart?.items) {
+      this.cartData = { ...this.cartData, ...stateCart };
     }
   }
 
-
-  onDeliveryMethod(event: any) {
-    console.log(event)
+  fetchClient(): void {
+    this.clientService.getClient().subscribe({
+      next: (response) => this.clientData = response,
+      error: () => this.router.navigate(['/client'])
+    });
   }
 
-  onConfirmCart(){
-    if(this.cartInfo)
-      this.saleService.postPayment(this.cartInfo?.cart_id, this.selectedInstallations).subscribe({})
+  fetchCartItems(): void {
+    this.cartService.getCart().subscribe({
+      next: (response) => {
+        this.cartInfo = response;
+        this.deliveryPrice = response.delivery_total === "0" ? undefined : response.delivery_total;
+        this.opInstallations = [...response.install_list];
+        console.log(response)
+      },
+      error: () => {}
+    });
+  }
+
+  onCheckboxChange(installation: InstallOption): void {
+    this.selectedInstallations = installation 
+      ? [...this.selectedInstallations, installation] 
+      : this.selectedInstallations.filter(v => v !== installation);
+  }
+
+  onDeliveryMethod(event: any): void {
+    console.log(event);
+  }
+
+  onConfirmCart(): void {
+    if (this.cartInfo?.cart_id) {
+      this.saleService.postPayment(this.cartInfo.cart_id, this.selectedInstallations).subscribe({});
+    }
+  }
+
+  clearCart(): void {
+    this.cartData = { id: 'Selecionar Tudo', completed: false, items: [] };
+    this.fetchCartItems();
   }
 }

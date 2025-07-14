@@ -1,39 +1,39 @@
-<div class="cart-card">
+<div class="cart-card"  *ngIf="display && cart" >
     <div class="img-backgroud">
-      <img src={{cart?.imageUrl}} alt="">
+      <img src={{cart.imageUrl}} alt="">
     </div>
     <div class="text">
-      <h3>{{ cart?.title }}</h3>
+      <h3>{{ cart.title }}</h3>
 
-      <p>{{ cart?.price }}</p>
+      <p>{{ cart.price }}</p>
        
     </div>
-    <div class="check" *ngIf="display">
+    <div class="config" *ngIf="config">
+      <div class="check" *ngIf="display">
         <mat-checkbox 
         [checked]="checked" 
         (change)="onCheckboxChange($event)"
       ></mat-checkbox>
-      
-    </div>
-    
-    <div class="counter" *ngIf="display">
-        <button class="btn-add" (click)="increment()">
-          <mat-icon class="plus_icon">add</mat-icon>
+      </div>
+      <div class="counter" *ngIf="display">
+          <button class="btn-add" (click)="increment()">
+            <mat-icon class="plus_icon">add</mat-icon>
+          </button>
+          <input
+          [value]="count"
+          (input)="updateCount($event)"
+          class="count-input"
+        />
+        <button  class="btn-min" (click)="decrement()">
+          <mat-icon class="remove_icon">remove</mat-icon>
         </button>
+      </div>
+      <div class="counter" *ngIf="!display">
         <input
-        [value]="count"
-        (input)="updateCount($event)"
         class="count-input"
-      />
-      <button  class="btn-min" (click)="decrement()">
-        <mat-icon class="remove_icon">remove</mat-icon>
-      </button>
-    </div>
-    <div class="counter" *ngIf="!display">
-      <input
-      class="count-input"
-      value="1"
-    /> 
+        value="1"
+      /> 
+      </div>
     </div>
     
 

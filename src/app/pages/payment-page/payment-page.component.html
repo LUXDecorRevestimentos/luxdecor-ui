@@ -12,12 +12,13 @@
                       [cart]="item"
                       [checked]="item.select"
                       [display]="true"
+                      [config]="false"
                     ></app-cart-card>
                 }
             </div>
         </div>
         <div class="mid">
-            <div class="client">
+            <div class="client" *ngIf="clientData">
                 <app-bar class="bar" [title]="'Confirme seus dados'" [type]="'long'"></app-bar>
                 <app-client-card [clientData]="clientData"></app-client-card>
             </div>
@@ -51,7 +52,6 @@
             </div>
             <div class="subtotal">
                 <app-bar [title]="'Resumo do pedido'" [type]="'long'"></app-bar>
-                <app-bar [type]="'long'" [type]="'long'"></app-bar>
                 <div class="value-container">
                     <p>SubTotal</p>
                     <p><strong>R$ 385,00</strong></p>
