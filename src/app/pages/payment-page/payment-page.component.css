@@ -132,8 +132,11 @@ label {
     }
 
     .start {
-        max-width: 410px;
+        min-width: 400px;
+        height: 80vh;
+        overflow-y: auto;
     }
+  
     .client {
         width: 100%;
     }
@@ -146,14 +149,4 @@ label {
         margin-left: auto;
     }
 
-}
-
-
-@media (min-width: 1000px) {
-    
-    .start {
-        max-width: 410px;
-        height: 80vh;
-        overflow-y: auto;
-    }
 }

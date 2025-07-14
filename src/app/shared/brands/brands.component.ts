@@ -16,9 +16,7 @@ export class BrandsComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.images)
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   validateImageList() {
     if (this.images.length < 2 || this.images.length > 3) {

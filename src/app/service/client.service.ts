@@ -53,7 +53,6 @@ export class ClientService {
             idToken,
             expiresIn: '3600'
           };
-          console.log(userData)
           this.saveUserData(userData);
           return userData;
         })

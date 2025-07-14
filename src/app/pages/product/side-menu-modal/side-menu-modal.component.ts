@@ -56,8 +56,7 @@ export class SideMenuModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<SideMenuModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { modalInfo: ModalFilter }
-  ) {console.log(data)
-
+  ) {
     this.selectedSubCategories.push(data.modalInfo.selectedSubCategories)
     this.selectedBrands.push(data.modalInfo.selectedBrands)
     this.selectedInstallTypes.push(data.modalInfo.selectedInstallTypes)

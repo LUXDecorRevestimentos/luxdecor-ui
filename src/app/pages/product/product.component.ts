@@ -248,7 +248,6 @@ export class ProductComponent implements OnInit {
     price_min?: number;
     price_max?: number;
   } = {}) {
-    console.log(filters)
     const params = {
       ...filters,
     };
@@ -385,7 +384,6 @@ export class ProductComponent implements OnInit {
   }
 
   onPriceRangeChanged(priceRange: {start: number, end: number}) {
-    console.log(priceRange)
     this.isLoadingProductsContent = true;
     
     if (priceRange && priceRange.start !== undefined && priceRange.end !== undefined) {

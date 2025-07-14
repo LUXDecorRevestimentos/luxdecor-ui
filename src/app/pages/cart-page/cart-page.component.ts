@@ -10,8 +10,7 @@ import { BtnNextComponent } from '../../shared/btn/btn-next/btn-next.component';
 import { BtnCleanComponent } from '../../shared/btn/btn-clean/btn-clean.component';
 import { Router } from '@angular/router';
 import { CartService } from '../../service/cart.service';
-import { ClientService } from '../../service/client.service';
-import { Observable, of, switchMap, tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-cart-page',
@@ -140,7 +139,6 @@ export class CartPageComponent implements OnInit {
   }
 
   onOrderUpdate($event: [string, string, number]) {
-    console.log($event)
     this.cartService.updateOrder($event[0], $event[1], $event[2]).subscribe((response) => {
       this.loadCart();
     })

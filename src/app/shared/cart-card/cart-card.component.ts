@@ -3,7 +3,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { CartCardItemData } from '../../data/card.data';
-import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-cart-card',
@@ -22,17 +21,41 @@ export class CartCardComponent {
   @Output() countChange = new EventEmitter<number>();
 
   count: number = 1;
-  priceLabel: string = "";
+  priceLabel: string = "0,00 x (1)";
 
   ngOnInit(): void {
     if (this.cart) {
       this.count = parseInt(this.cart.amount) || 1;
-    }
-    console.log(this.cart)
+      this.priceLabel = this.getPriceLabel(this.cart.price, parseInt(this.cart.amount))
+   }
   }
 
   onCheckboxChange(event: any): void {
     this.checkChange.emit(event.checked);
+  }
+
+  getPriceLabel(totalPrice: string, amount: number): string {
+    if (this.config){
+      return ` R$${totalPrice}`; 
+    }
+    const numericTotal = this.parseCurrency(totalPrice);
+    const unitPrice = amount > 0 ? numericTotal / amount : 0;
+    const formattedUnitPrice = this.formatCurrency(unitPrice);
+    return `${formattedUnitPrice} x (${amount})`;
+  }
+
+  private parseCurrency(value: string): number {
+    return parseFloat(
+      value.replace(/\./g, '')
+          .replace(',', '.')
+    );
+  }
+
+  private formatCurrency(value: number): string {
+    return value.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   }
 
   increment(): void {
@@ -47,8 +70,8 @@ export class CartCardComponent {
       this.orderRemove.emit(this.cart?.id);
     } else {
       this.countChange.emit(this.count);
-      this.emitOrderUpdate();
     }
+    this.emitOrderUpdate();
   }
 
   updateCount(event: Event): void {
