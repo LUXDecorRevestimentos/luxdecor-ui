@@ -130,6 +130,7 @@ export class ProductComponent implements OnInit {
   }
 
   openFiltersModal() {
+    this.populateCategory(this.category?.data);
     const dialogRef = this.dialog.open(SideMenuModalComponent, {
       width: '450px',
       data: {
@@ -250,6 +251,7 @@ export class ProductComponent implements OnInit {
   } = {}) {
     const params = {
       ...filters,
+      category_id: filters.category_id || this.category?.id
     };
     if (!Object.values(params).some(val => val !== undefined && val !== null && val !== '')) {
       return;
@@ -383,22 +385,22 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  onPriceRangeChanged(priceRange: {start: number, end: number}) {
+  onPriceRangeChanged(priceRangeChange: {start: number, end: number}) {
     this.isLoadingProductsContent = true;
     
-    if (priceRange && priceRange.start !== undefined && priceRange.end !== undefined) {
-      console.log('Selected price range:', priceRange);
+    if (priceRangeChange && priceRangeChange.start !== undefined && priceRangeChange.end !== undefined) {
+      console.log('Selected price range:', priceRangeChange);
       
       try {
-        if (isNaN(priceRange.start) || isNaN(priceRange.end)) {
+        if (isNaN(priceRangeChange.start) || isNaN(priceRangeChange.end)) {
           console.error('Invalid price range values');
           this.isLoadingProductsContent = false;
           return;
         }
         this.category!.type = "filter";
         this.productsGallery({
-          price_min: priceRange.start,
-          price_max: priceRange.end + 10
+          price_min: priceRangeChange.start,
+          price_max: priceRangeChange.end + 10
         });
         
       } catch (error) {

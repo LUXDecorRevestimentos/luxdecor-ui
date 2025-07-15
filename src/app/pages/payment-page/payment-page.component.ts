@@ -13,6 +13,7 @@ import { ClientService } from '../../service/client.service';
 import { CartService } from '../../service/cart.service';
 import { Cart, CartCardItemData, CartData, InstallOption } from '../../data/card.data';
 import { ClientInfoResponse } from '../../data/client.data';
+import { colorSets } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-payment-page',
@@ -38,6 +39,10 @@ export class PaymentPageComponent implements OnInit {
   clientData?: ClientInfoResponse;
   amount: string = "0";
 
+  totalPrice: string | undefined;
+
+  selectedDelivery: string | undefined;
+
   constructor(
     private saleService: SalesAuthService,
     private clientService: ClientService,
@@ -51,6 +56,7 @@ export class PaymentPageComponent implements OnInit {
     this.amount = this.cartData.items?.length.toString() || '0';
     this.fetchClient();
     this.fetchCartItems();
+    this.totalPrice = this.cartInfo?.product_total
   }
 
   private initializeCartData(): void {
@@ -73,7 +79,7 @@ export class PaymentPageComponent implements OnInit {
     this.cartService.getCart().subscribe({
       next: (response) => {
         this.cartInfo = response;
-        this.deliveryPrice = response.delivery_total === "0" ? undefined : response.delivery_total;
+        this.deliveryPrice = response.delivery_total === "0,00" ? undefined : response.delivery_total;
         this.opInstallations = [...response.install_list];
         console.log(response)
       },
@@ -88,7 +94,25 @@ export class PaymentPageComponent implements OnInit {
   }
 
   onDeliveryMethod(event: any): void {
-    console.log(event);
+    this.selectedDelivery = event
+    if (this.selectedDelivery && this.cartInfo){
+      this.totalPrice = this.sumValues(this.cartInfo.delivery_total, this.cartInfo.product_total)
+    } else {
+      this.totalPrice = this.cartInfo?.product_total
+    }
+  }
+
+  sumValues(...valores: string[]): string {
+    const numeros = valores.map(valor => {
+      const valorLimpo = valor.replace(/\./g, '').replace(',', '.');
+      return parseFloat(valorLimpo) || 0;
+    });
+  
+    const soma = numeros.reduce((total, num) => total + num, 0);
+  
+    return soma.toFixed(2)
+      .replace('.', ',')
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   }
 
   onConfirmCart(): void {

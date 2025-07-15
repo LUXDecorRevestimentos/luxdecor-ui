@@ -25,7 +25,7 @@ export class InstallationTableComponent {
   } 
   @Output() rowSelected: EventEmitter<Installation> = new EventEmitter<Installation>();
 
-  displayedColumns: string[] = ['installation_id', 'title', 'price'];
+  displayedColumns: string[] = ['installation_id', 'title'];
   selectedRow: Installation | null = null;
 
   constructor() {}

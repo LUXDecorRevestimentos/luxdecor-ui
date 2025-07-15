@@ -40,22 +40,14 @@
     margin-bottom: 5px;
 }
 
-
-.shiping-card.selected {
-    border-bottom: 3px solid black;
-    position: relative;
-}
-  
-.shiping-card.selected {
-    box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.1);
+.active-button {
     background-color: black;
     color: white;
 }
-  
-.shiping-card.selected img {
-    filter: brightness(0) invert(1);
-}
-  
-.shiping-card.selected .credit-icon {
-    color: inherit;
+
+.disabled-card {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    border-color: #ccc !important;
 }

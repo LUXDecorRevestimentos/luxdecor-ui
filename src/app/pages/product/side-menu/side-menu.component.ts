@@ -12,6 +12,7 @@ import { BarComponent } from '../../../shared/bar/bar.component';
   templateUrl: './side-menu.component.html',
   styleUrl: './side-menu.component.css'
 })
+
 export class SideMenuComponent implements OnInit, OnChanges{
   subCategoryTitle: string = 'SubCategorias' 
 
@@ -39,13 +40,25 @@ export class SideMenuComponent implements OnInit, OnChanges{
   value = 0;
 
   ngOnInit(): void {
-    if(this.priceRange)
+    if(this.priceRange != undefined && this.priceRange.end >= 0)
       this.min = this.priceRange.start;
       this.max = this.priceRange.end + 10;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['priceRange'] && changes['priceRange'].currentValue) {
+      this.updateSliderRange();
+    }
+  }
 
+  private updateSliderRange(): void {
+    if (this.priceRange) {
+      this.min = this.priceRange.start;
+      this.max = Math.max(this.priceRange.end + 10, this.priceRange.start + 10);
+      this.priceRange.start = Math.max(this.priceRange.start, this.min);
+      this.priceRange.end = Math.min(this.priceRange.end, this.max);
+    }
+  }
   onSubCategoryChange(subCategory: string, event: any) {
     if (event.selected) {
       this.selectedSubCategories = [];

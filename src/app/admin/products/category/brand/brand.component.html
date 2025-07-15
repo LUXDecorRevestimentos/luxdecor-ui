@@ -20,7 +20,7 @@
         </button>
     </div>  
     
-    <div class="imgSub" *ngIf="this.selectedBrand">
+    <div class="imgSub" *ngIf="this.selectedBrand && this.selectedBrand.banner_id !== ''">
         <app-banner-img 
         [inputWidth]="250"
         [inputHeight]="250"

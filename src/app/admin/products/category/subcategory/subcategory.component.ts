@@ -27,7 +27,7 @@ export class SubCategoryComponent {
   constructor (private bannerService: BannerService){}
 
   title!: string;
-  selectedSubCategory!: SubCategory | null;    
+  selectedSubCategory!: SubCategory | undefined;    
   currentSubCategories: SubCategory[] = [];
   subCategoryBanner: any;
   resetTableSelectionFlag = false;
@@ -79,7 +79,7 @@ export class SubCategoryComponent {
 
   newSubCategory(){
     this.clearInput()
-    this.selectedSubCategory = null
+    this.selectedSubCategory = undefined
     this.resetTableSelectionFlag = true;    
     setTimeout(() => this.resetTableSelectionFlag = false, 0);
   }

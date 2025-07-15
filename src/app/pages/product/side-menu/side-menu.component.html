@@ -12,10 +12,10 @@
       }
     </mat-chip-listbox>
     
-    <h2>Faixa de Preco</h2>
-    <app-bar class="bar"></app-bar>
-    <mat-card-content>    
-      <div class="label-container">
+    <h2 *ngIf="priceRange">Faixa de Preco</h2>
+    <app-bar class="bar" *ngIf="priceRange"></app-bar>
+    <mat-card-content *ngIf="priceRange">    
+      <div class="label-container" >
         <label id="name-label" class="name-label">Valor Inicial:</label>
         <label class="value-label">R$ {{priceRange.start}}</label>
         <label id="name-label" class="name-label">Valor Final:</label>
@@ -23,21 +23,18 @@
       </div>
       <mat-slider 
           class="slider"
-          [disabled]="disabled"
-          [step]="step"
-          [discrete]="thumbLabel"
-          [showTickMarks]="showTicks"
           [min]="min" 
           [max]="max"
+          [step]="step"
           (change)="onPriceRangeChange()">
-          <input [value]="priceRange.start" matSliderStartThumb [(ngModel)]="priceRange.start" #slider_start>
-          <input [value]="priceRange.end" matSliderEndThumb [(ngModel)]="priceRange.end" #slider_end>
+          <input matSliderStartThumb [(ngModel)]="priceRange.start">
+          <input matSliderEndThumb [(ngModel)]="priceRange.end">
       </mat-slider>
     </mat-card-content>
     
-    <h2>Instalacao</h2>
-    <app-bar class="bar"></app-bar>
-    <mat-chip-listbox aria-label="Tipos de instalação">
+    <h2 *ngIf="installTypes">Instalacao</h2>
+    <app-bar class="bar"  *ngIf="installTypes"></app-bar>
+    <mat-chip-listbox aria-label="Tipos de instalação"  *ngIf="installTypes">
       @for (installType of installTypes; track installType) {
         <mat-chip-option 
           class="custom-chip"
@@ -47,9 +44,9 @@
       }
     </mat-chip-listbox>
     
-    <h2>Marcas</h2>
-    <app-bar class="bar"></app-bar>
-    <mat-chip-listbox aria-label="Marcas">
+    <h2 *ngIf="brands">Marcas</h2>
+    <app-bar *ngIf="brands" class="bar"></app-bar>
+    <mat-chip-listbox aria-label="Marcas" *ngIf="brands">
       @for (brand of brands; track brand) {
         <mat-chip-option 
           class="custom-chip"

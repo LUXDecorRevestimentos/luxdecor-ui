@@ -5,44 +5,45 @@
 </div>
 <h1>Categorias</h1>
 <div class="container">
-    <table mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="category_id">
-            <th mat-header-cell *matHeaderCellDef> CategoriaId </th>
-            <td mat-cell *matCellDef="let category"> {{category.category_id}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="category_title">
-            <th mat-header-cell *matHeaderCellDef> Titulo </th>
-            <td mat-cell *matCellDef="let category"> {{category.category_title}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="subcategory">
-            <th mat-header-cell *matHeaderCellDef> SubCategoria </th>
-            <td mat-cell *matCellDef="let category"> {{category.subcategory}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="topic">
-            <th mat-header-cell *matHeaderCellDef> Topicos </th>
-            <td mat-cell *matCellDef="let category"> {{category.topic}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="items">
-            <th mat-header-cell *matHeaderCellDef> Items </th>
-            <td mat-cell *matCellDef="let category">{{category.items}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef> Tipo </th>
-            <td mat-cell *matCellDef="let category"> 
-                {{ getLabelStatus(category.category_type) }}
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let category; columns: displayedColumns;" 
-            (click)="onRowClicked(category)" 
-            [ngClass]="{'custom-row': true, 'selected-row': 
-            selectedRow?.category_id === category.category_id}"
-        ></tr>
-    </table>
+    <div class="table-scroll">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="category_id">
+                <th mat-header-cell *matHeaderCellDef> CategoriaId </th>
+                <td mat-cell *matCellDef="let category"> {{category.category_id}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="category_title">
+                <th mat-header-cell *matHeaderCellDef> Titulo </th>
+                <td mat-cell *matCellDef="let category"> {{category.category_title}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="subcategory">
+                <th mat-header-cell *matHeaderCellDef> SubCategoria </th>
+                <td mat-cell *matCellDef="let category"> {{category.subcategory}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="topic">
+                <th mat-header-cell *matHeaderCellDef> Topicos </th>
+                <td mat-cell *matCellDef="let category"> {{category.topic}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="items">
+                <th mat-header-cell *matHeaderCellDef> Items </th>
+                <td mat-cell *matCellDef="let category">{{category.items}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                <td mat-cell *matCellDef="let category"> 
+                    {{ getLabelStatus(category.category_type) }}
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let category; columns: displayedColumns;" 
+                (click)="onRowClicked(category)" 
+                [ngClass]="{'custom-row': true, 'selected-row': 
+                selectedRow?.category_id === category.category_id}"
+            ></tr>
+        </table>
+    </div>
 </div>

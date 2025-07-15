@@ -51,7 +51,6 @@ export class SideMenuModalComponent implements OnInit {
     ceil: 100
   };
   priceRange: any;
-  private sliderInitialized = false;
 
   constructor(
     public dialogRef: MatDialogRef<SideMenuModalComponent>,
@@ -60,13 +59,23 @@ export class SideMenuModalComponent implements OnInit {
     this.selectedSubCategories.push(data.modalInfo.selectedSubCategories)
     this.selectedBrands.push(data.modalInfo.selectedBrands)
     this.selectedInstallTypes.push(data.modalInfo.selectedInstallTypes)
+    this.priceRange = this.data?.modalInfo?.priceRange || {start: 0, end: 100}
   }
 
   ngOnInit(): void {
-    this.priceRange = this.data?.modalInfo.priceRange;
+    this.priceRange = this.data?.modalInfo?.priceRange || {start: 0, end: 100};
+    
+    this.updateSliderLimits();
+  }
+
+  private updateSliderLimits(): void {
     if (this.priceRange) {
+      
       this.min = this.priceRange.start;
-      this.max = this.priceRange.end;
+      this.max = this.priceRange.end + 10;
+      
+      this.priceRange.start = Math.max(this.min, this.priceRange.start);
+      this.priceRange.end = Math.min(this.max, this.priceRange.end);
     }
   }
 
@@ -104,6 +113,7 @@ export class SideMenuModalComponent implements OnInit {
   }
 
   onPriceRangeChange() {
+    // this.updateSliderLimits();
     this.priceRangeChanged.emit(this.priceRange);
     this.emitAllFilters();
   }

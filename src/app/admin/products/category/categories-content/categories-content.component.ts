@@ -92,7 +92,10 @@ export class CategoriesContentComponent  implements OnInit{
           return this.categoryService.updateCategory(category);
       })
     ).subscribe({
-        next: (updateResponse) => {},
+        next: (updateResponse) => {
+          this.loadCategories();
+          this.resetOperations();
+        },
         error: (error) => {
             console.error('Erro no fluxo:', error);
         }

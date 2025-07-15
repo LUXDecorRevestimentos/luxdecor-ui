@@ -19,8 +19,8 @@
         </div>
     </div>
     
-    <div class="imgCategory">
-        <app-banner-img
+    <div class="imgCategory" *ngIf="this.categoryInfo.banner_id">
+        <app-banner-img 
             [inputWidth]="1200"
             [inputHeight]="240"
             [bannerTitle]="this.categoryInfo.title" 

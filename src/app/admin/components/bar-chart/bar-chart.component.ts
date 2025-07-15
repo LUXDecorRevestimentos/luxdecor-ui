@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, HostBinding, OnInit, OnChanges, SimpleChanges  } from '@angular/core';
-import { NgxChartsModule, Color } from '@swimlane/ngx-charts';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges  } from '@angular/core';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CommonModule } from '@angular/common';
 import { BtnComponent } from '../btn/btn.component';
 

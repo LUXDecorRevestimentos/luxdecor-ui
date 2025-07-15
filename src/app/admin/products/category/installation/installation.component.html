@@ -1,16 +1,6 @@
 <div class="container">
     <div class="installations-table">
         <app-installation-table [installations]="installations" (rowSelected)="handleInstallationSelection($event)" [resetSelection]="resetTableSelectionFlag"></app-installation-table>
-        <h1 style="margin-bottom: 20px;">Valor do Instação: </h1>
-        <h1>R$
-            <input class="input-value" 
-                type="text"
-                (input)="onInputChange($event)"
-                placeholder="0.00"  
-                [(ngModel)]="installationValue" 
-                (blur)="emitPrices()"
-                value="{{ value }}"/>
-        </h1>
     </div>
     <div class="installations">
         <button (click)="newInstallation()">
@@ -29,7 +19,7 @@
         </button>
     </div>  
     
-    <div class="imgSub" *ngIf="this.selectedInstallation">
+    <div class="imgSub" *ngIf="this.selectedInstallation && this.selectedInstallation.banner_id !== ''">
         <app-banner-img 
         [inputWidth]="1200"
         [inputHeight]="240"

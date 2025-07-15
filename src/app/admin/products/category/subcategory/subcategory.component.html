@@ -18,7 +18,7 @@
             <mat-icon class="icon option">cleaning_services</mat-icon>
         </button>
     </div>  
-    <div class="imgSub" *ngIf="this.selectedSubCategory">
+    <div class="imgSub" *ngIf="this.selectedSubCategory && this.selectedSubCategory.banner_id !== ''">
         <app-banner-img 
             [inputWidth]="1200"
             [inputHeight]="240"

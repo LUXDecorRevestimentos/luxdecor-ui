@@ -2,12 +2,12 @@
     <div class="header-container">
         <div class="header">
             <div class="logo-menu">
-                <button class="menu-hamburguer">
+                <button class="menu-hamburguer" (click)="toggleMobileMenu()">
                     <div class="menu-icon">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </div>                        
+                        <span class="bar" [class.active]="mobileMenuOpen"></span>
+                        <span class="bar" [class.active]="mobileMenuOpen"></span>
+                        <span class="bar" [class.active]="mobileMenuOpen"></span>
+                    </div>
                 </button>
                 <a [routerLink]="['/']">
                     <img class="logo-mobile" src="logo.png" alt="Logo">
@@ -24,7 +24,11 @@
                 <button class="search">
                     <mat-icon class="search-icon">search</mat-icon>
                 </button>
-                <input type="text" placeholder="Pesquisar...">
+                <input type="text" 
+                    [formControl]="searchControl"
+                    (focus)="onSearchFocus()"
+                    (blur)="onSearchBlur()"
+                    placeholder="Pesquisar...">
                 <div class="icons">
                     <app-btn-icon [iconType]="'account_circle'" [routerLink]="['/client']"></app-btn-icon>
                     <app-btn-icon [iconType]="'shopping_cart'" [routerLink]="['/cart']" [notificationOp]="true" ></app-btn-icon>
@@ -41,4 +45,20 @@
             </a>
         </div>
     </div>
+    <!-- Overlay (fundo escuro) -->
+        <div class="mobile-menu-overlay" 
+            [class.active]="mobileMenuOpen" 
+            (click)="toggleMobileMenu()"></div>
+            <!-- Menu Mobile (sidebar) -->
+            <div class="mobile-menu" [class.active]="mobileMenuOpen">
+                <div class="mobile-nav-items">
+                <a class="mobile-nav-link" 
+                    *ngFor="let item of navItems" 
+                    [routerLink]="['/category']" 
+                    [queryParams]="{ category: item.route }"
+                    (click)="toggleMobileMenu()">
+                    {{ item.label }}
+                </a>
+            </div>
+        </div>
 </header>

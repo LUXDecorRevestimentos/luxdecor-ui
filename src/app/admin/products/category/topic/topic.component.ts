@@ -19,7 +19,7 @@ export class TopicComponent {
 
   topicCurrent: Topic[] = [];
   selectedTopic!: Topic | null;
-  selectedOption: number = 0;
+  selectedOption: number = 1;
   current_topic!: Topic;
   title!: string;
   resetTableSelectionFlag = false;

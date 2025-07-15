@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,12 +7,26 @@ import { CommonModule } from '@angular/common';
   templateUrl: './method-shipping-card.component.html',
   styleUrl: './method-shipping-card.component.css'
 })
-export class MethodShippingCardComponent {
+export class MethodShippingCardComponent  implements OnInit, OnChanges{
+
+  activeIdentifier: string | null = null;
 
   @Input() deliveryPrice: string | undefined;
   @Output() selectedMethod: EventEmitter<string> = new EventEmitter();
 
+  ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {}
+
+  isActive(identifier: string): boolean {
+    return this.activeIdentifier === identifier;
+  }
   selectMethod(method: string) {
-    this.selectedMethod.emit(method)
+    if (method === 'entrega') {
+      this.selectedMethod.emit(this.deliveryPrice);
+    } else if (method === 'retirada'){
+      this.selectedMethod.emit(undefined);
+    }
+    this.activeIdentifier = method;
   }
 }

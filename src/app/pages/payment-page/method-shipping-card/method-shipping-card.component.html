@@ -1,5 +1,9 @@
 <div class="container">
     <div class="shiping-card"
+        [ngClass]="{
+            'active-button': isActive('entrega'),
+            'disabled-card': !deliveryPrice
+        }"
         (click)="selectMethod('entrega')">
         <div class="card-content">
             <div class="top" *ngIf="deliveryPrice">
@@ -10,14 +14,23 @@
             </div>
             <div class="bottom">    
                 <h1>Data de Entrega: Entraremos em contato</h1>    
-          </div>
+            </div>
         </div>
     </div>
     
     <div class="shiping-card"
+        [ngClass]="{
+            'active-button': isActive('retirada'),
+            'only-option': !deliveryPrice
+        }"
         (click)="selectMethod('retirada')">
         <div class="card-content">
-            <h1>Retirada</h1>
+            <div class="top">
+                <h1>Retirada</h1>
+            </div>
+            <div *ngIf="!deliveryPrice" class="bottom">
+                (Única opção disponível)
+            </div>
         </div>
     </div>
 </div>

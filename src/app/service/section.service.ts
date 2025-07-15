@@ -9,9 +9,7 @@ import { environment } from "../../enviroments/enviroment";
     providedIn: 'root'
 })
 export class SectionService {
-      private apiUrl = environment.apiUrl;
-    
-
+    private apiUrl = environment.apiUrl;
     constructor(private http: HttpClient) {}
   
     getSections(): Observable<GenericSection[]> {

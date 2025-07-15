@@ -1,35 +1,36 @@
 <h1>Marcas</h1>
 
 <div class="container">
-  <table mat-table [dataSource]="dataSource" aria-label="Lista de marcas">
-
-    <ng-container matColumnDef="brand_id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let brand"> {{brand.brand_id}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Marca </th>
-      <td mat-cell *matCellDef="let brand"> {{brand.title}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="items">
-      <th mat-header-cell *matHeaderCellDef> Items </th>
-      <td mat-cell *matCellDef="let brand"> {{brand.items}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-    <tr mat-row 
-        *matRowDef="let brand; columns: displayedColumns;" 
-        (click)="onRowClicked(brand)"
-        [ngClass]="{'selected-row': selectedRow?.brand_id === brand.brand_id}">
-    </tr>
-
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" [colSpan]="displayedColumns.length">
-        Nenhuma marca encontrada
-      </td>
-    </tr>
-  </table>
+  <div class="table-scroll">
+    <table mat-table [dataSource]="dataSource" aria-label="Lista de marcas">
+      <ng-container matColumnDef="brand_id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let brand"> {{brand.brand_id}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Marca </th>
+        <td mat-cell *matCellDef="let brand"> {{brand.title}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="items">
+        <th mat-header-cell *matHeaderCellDef> Items </th>
+        <td mat-cell *matCellDef="let brand"> {{brand.items}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+      <tr mat-row 
+          *matRowDef="let brand; columns: displayedColumns;" 
+          (click)="onRowClicked(brand)"
+          [ngClass]="{'selected-row': selectedRow?.brand_id === brand.brand_id}">
+      </tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [colSpan]="displayedColumns.length">
+          Nenhuma marca encontrada
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

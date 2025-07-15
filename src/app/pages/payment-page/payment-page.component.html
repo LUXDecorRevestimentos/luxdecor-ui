@@ -41,25 +41,26 @@
                     </label>
                 </div>
             </div>
-
         </div>
-
         <div class="end">
-           
             <div class="shipping">
                 <app-bar [title]="'Método de entrega'" [type]="'long'"></app-bar>
                 <app-method-shiping-card [deliveryPrice]="deliveryPrice" (selectedMethod)="onDeliveryMethod($event)" ></app-method-shiping-card>
             </div>
             <div class="subtotal">
                 <app-bar [title]="'Resumo do pedido'" [type]="'long'"></app-bar>
+                <div class="value-container" *ngIf="this.selectedDelivery">
+                    <p>Frete</p>
+                    <p><strong>R$ {{this.selectedDelivery}}</strong></p>
+                </div>
                 <div class="value-container">
-                    <p>SubTotal</p>
-                    <p><strong>R$ </strong></p>
+                    <p>Produtos</p>
+                    <p><strong>R$ {{ cartInfo?.product_total }}</strong></p>
                 </div>
                 <app-bar [type]="'long'"></app-bar>
                 <div class="value-container">
                     <h3>Total</h3>
-                    <h3><strong>R$ {{ cartInfo?.product_total }}</strong></h3>
+                    <h3><strong>R$ {{ totalPrice }}</strong></h3>
                 </div>
                 <app-bar [type]="'long'"></app-bar>
             </div>

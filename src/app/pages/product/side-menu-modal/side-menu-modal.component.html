@@ -19,9 +19,9 @@
     <mat-card-content>    
       <div class="label-container">
         <label id="name-label" class="name-label">Valor Inicial:</label>
-        <label class="value-label">R$ {{priceRange?.start}}</label>
+        <label class="value-label">R$ {{priceRange.start}}</label>
         <label id="name-label" class="name-label">Valor Final:</label>
-        <label class="value-label">R$ {{priceRange?.end}}</label>
+        <label class="value-label">R$ {{priceRange.end}}</label>
       </div>
       <mat-slider 
           class="slider"
@@ -32,8 +32,8 @@
           [min]="min" 
           [max]="max"
           (change)="onPriceRangeChange()">
-          <input [value]="priceRange?.start" matSliderStartThumb [(ngModel)]="priceRange.start" #slider_start>
-          <input [value]="priceRange?.end" matSliderEndThumb [(ngModel)]="priceRange.end" #slider_end>
+          <input [value]="priceRange.start" matSliderStartThumb [(ngModel)]="priceRange.start" #slider_start>
+          <input [value]="priceRange.end" matSliderEndThumb [(ngModel)]="priceRange.end" #slider_end>
       </mat-slider>
     </mat-card-content>
     
