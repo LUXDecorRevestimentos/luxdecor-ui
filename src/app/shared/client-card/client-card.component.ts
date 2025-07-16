@@ -15,7 +15,5 @@ export class ClientCardComponent implements OnInit, OnChanges{
   @Input() clientData!: ClientInfoResponse;
 
   ngOnInit(): void {}
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.clientData)
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 }

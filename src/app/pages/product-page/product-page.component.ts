@@ -74,7 +74,7 @@ export class ProductPageComponent implements OnInit{
         return this.loadProductData(this.productId);
       })
     ).subscribe({
-      next: () => console.log("Tudo carregado!"),
+      next: () => {},
       error: (err) => console.error("Erro:", err),
     });
   }
@@ -133,7 +133,6 @@ export class ProductPageComponent implements OnInit{
   }
 
   addOrder(newOrder: [string, number]){
-    console.log(newOrder)
     this.cartService.addOrder(newOrder[0], newOrder[1]).subscribe({
       next: () => {
         this.notificationService.show("Adicinado ao carrinho!", "success")

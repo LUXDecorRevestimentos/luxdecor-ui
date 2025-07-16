@@ -118,7 +118,6 @@ export class ProductsContentComponent {
     if (productId) {
       this.productService.uploadImgs(this.productInfo?.imgs, productId).subscribe({
         next: response => {
-          console.log("Successo no envio das imagens")
         },
         error: error => console.error('Error updating category:', error)
       });
@@ -130,7 +129,6 @@ export class ProductsContentComponent {
       next: response => {
         if(this.productInfo)
           this.productInfo.product_id = response.product_id
-          console.log(this.imgsToUpload)
           this.onUploadImgs(this.imgsToUpload)
           this.loadProduct();
           this.resetOperations();

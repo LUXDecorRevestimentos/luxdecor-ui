@@ -81,7 +81,6 @@ export class PaymentPageComponent implements OnInit {
         this.cartInfo = response;
         this.deliveryPrice = response.delivery_total === "0,00" ? undefined : response.delivery_total;
         this.opInstallations = [...response.install_list];
-        console.log(response)
       },
       error: () => {}
     });

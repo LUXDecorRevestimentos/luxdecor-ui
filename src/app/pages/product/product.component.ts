@@ -119,7 +119,6 @@ export class ProductComponent implements OnInit {
     this.isLoadingCategory = true;
     return this.productService.getProductsCategories().pipe(
       tap(categories => {
-        console.log(categories)
         this.categories = categories;
         this.isLoadingCategory = false;
       }),
@@ -296,7 +295,6 @@ export class ProductComponent implements OnInit {
 
       this.currentSubCategory = this.currentSubCategory.filter(item => item.title !== subCategoryTitle);
       this.category = this.cardsCategory.find(item => item.title == subCategoryTitle);
-      console.log(this.category)
 
       this.selectedSubCategory = subCategoryTitle;
       if(this.category?.type == "category")
@@ -305,9 +303,7 @@ export class ProductComponent implements OnInit {
         this.productsGallery({'subcategory_id': this.category.id});
     } 
 
-  onFiltersChanged(filters: any) {
-    console.log('Todos os filtros:', filters);
-  }
+  onFiltersChanged(filters: any) {}
 
   onSubCategoriesChanged(subCategories: string[]) {
     this.isLoadingProductsContent = true;
@@ -335,7 +331,6 @@ export class ProductComponent implements OnInit {
   onInstallTypesChanged(installTypes: string[]) {
     this.isLoadingProductsContent = true;
     if (installTypes && installTypes.length > 0) {
-      console.log('Selected installation types:', installTypes);
       if (!this.cardsInstall || !Array.isArray(this.cardsInstall)) {
         console.error('cardsInstall is not properly initialized');
         this.isLoadingProductsContent = false;
@@ -361,24 +356,19 @@ export class ProductComponent implements OnInit {
   onBrandsChanged(brands: string[]) {
     this.isLoadingProductsContent = true;
     
-    // Verifica se há marcas selecionadas
     if (brands && brands.length > 0) {
-        console.log('Selected brands:', brands);
         
-        // Valida se as marcas estão inicializadas corretamente
         if (!this.brands || !Array.isArray(this.brands)) {
             console.error('Brands list is not properly initialized');
             this.isLoadingProductsContent = false;
             return;
         }
 
-        // Filtra marcas baseadas no tipo de instalação selecionado (se existir)
         const availableBrands = this.selectedInstallation 
             ? this.brands.filter(brand => 
                 brand.data.installationTypes?.includes(this.selectedInstallation!))
             : this.brands;
 
-        // Encontra a marca selecionada
         const selectedBrand = availableBrands.find(item => 
             item.title === brands[0] || item.imageUrl === brands[0]
         );
@@ -395,14 +385,12 @@ export class ProductComponent implements OnInit {
             this.isLoadingProductsContent = false;
         }
     } else {
-        // Caso nenhuma marca esteja selecionada
         this.selectedBranding = null;
         this.productsGallery({ 
             brand_id: undefined,
             installation_id: this.selectedInstallation || undefined
         });
         
-        // Se não houver instalação selecionada, volta para modo categoria
         if (!this.selectedInstallation) {
             this.category!.type = "category";
         }
@@ -414,9 +402,7 @@ export class ProductComponent implements OnInit {
   onPriceRangeChanged(priceRangeChange: {start: number, end: number}) {
     this.isLoadingProductsContent = true;
     
-    if (priceRangeChange && priceRangeChange.start !== undefined && priceRangeChange.end !== undefined) {
-      console.log('Selected price range:', priceRangeChange);
-      
+    if (priceRangeChange && priceRangeChange.start !== undefined && priceRangeChange.end !== undefined) {      
       try {
         if (isNaN(priceRangeChange.start) || isNaN(priceRangeChange.end)) {
           console.error('Invalid price range values');

@@ -98,7 +98,6 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
 
   toggleInstallation(installId: string, isChecked: boolean) {
     this.installOption = isChecked ? installId : null;
-    console.log('Instalação selecionada:', this.installOption); // Aqui você tem o ID
   }
 
   updateSelection(value: string, isChecked: boolean) {
@@ -206,7 +205,6 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
       this.imgs.emit(
         this.receivedImages
       )
-      console.log(this.imgs)
     } catch {
       alert('Campos incompletos');
     }

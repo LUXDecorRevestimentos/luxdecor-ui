@@ -22,7 +22,6 @@ export class ManagerTableComponent {
 
   ngOnInit(): void {
     this.dataSource.data = this.detailTable;
-    console.log(this.detailTable)
   }
 
   applyFilter(event: Event) {

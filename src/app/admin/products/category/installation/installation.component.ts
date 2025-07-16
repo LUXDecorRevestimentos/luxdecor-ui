@@ -36,7 +36,6 @@ export class InstallationComponent {
 
   ngOnInit(){
     this.currentInstallation = [...this.installations];
-    console.log(this.installations)
   }
 
   handleInstallationSelection(installation: Installation){
@@ -75,7 +74,6 @@ export class InstallationComponent {
   }
 
   saveInstallation(){
-    console.log(this.installationValue)
     if (this.title.trim() && this.selectedInstallation == null){
       let temporaryInstallation: Installation = {
         installation_id: `#${Math.random().toString(36).substring(2, 10).padStart(8, '0')}`,

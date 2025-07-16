@@ -56,7 +56,6 @@ export class AdminComponent {
   }
 
   isAuthenticated($event: boolean){
-    console.log($event)
     this.authenticated = $event
   }
 }

@@ -336,7 +336,6 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
         ? { ...inst, ...updatedInstallation }
         : inst
     );
-    console.log(this.categoryInfo)
   }
 
   // Detail

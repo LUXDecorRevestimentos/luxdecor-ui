@@ -109,7 +109,6 @@ export class OrdersComponent implements OnInit {
   }
 
   onChangeChart($event: string){
-    console.log($event)
     this.orderService.getOrderChart($event).subscribe((chart) => {
       this.orderChart = chart;
       const now = new Date();

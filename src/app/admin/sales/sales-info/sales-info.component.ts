@@ -35,7 +35,6 @@ export class SalesInfoComponent implements OnInit{
 
   onRowSelectedSale(row: SalesTable) {
     this.orderService.getCartHistory(row.cartId).subscribe((orderHistory) => {
-      console.log(orderHistory)
       this.historyTable = orderHistory;
     })
     this.orderService.getClientData(row.cartId).subscribe((client) => {

@@ -48,7 +48,6 @@ export class BarChartComponent implements OnInit, OnChanges{
   ngOnChanges(changes: SimpleChanges): void {}
 
   onSelect(event: any) {
-    console.log(event)
     this.customColors = [
       {
         name: event.name,

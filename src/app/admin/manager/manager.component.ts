@@ -65,16 +65,13 @@ export class ManagerComponent implements OnInit{
     } else {
       this.adminInfo = undefined;
       this.authService.getAdmin(row.adminId).subscribe((data) => {
-        console.log(data)
         this.adminInfo = data;
-        console.log(this.adminInfo)
       })
       this.details = true;
     }
   } 
 
   onUpdateManager(newAdminData: AdminData){
-    console.log(newAdminData)
     this.authService.updateAdmin(newAdminData).subscribe({})
   }
 

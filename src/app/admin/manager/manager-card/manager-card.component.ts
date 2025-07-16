@@ -26,7 +26,6 @@ export class ManagerCardComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    console.log(this.adminInfo)
     this.initForm()
   }
 
@@ -66,11 +65,8 @@ export class ManagerCardComponent implements OnInit{
         phoneNumber: formData.phone,
         created_at: this.adminInfo?.created_at || new Date().toISOString()
       };
-      
-      console.log('Dados enviados:', updatedAdmin);
       this.updateAdmin.emit(updatedAdmin);
     } else {
-      console.warn('Formulário inválido');
       this.markAllAsTouched();
     }
   }

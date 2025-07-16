@@ -85,7 +85,6 @@ export class DashboardComponent implements OnInit {
     })
     this.salesService.getSalesChart("resume").subscribe((data) =>{
       this.saleCardData = data;
-      console.log(this.saleCardData)
     })
 
     const now = new Date();
