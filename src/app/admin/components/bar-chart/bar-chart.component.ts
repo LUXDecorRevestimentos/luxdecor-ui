@@ -1,12 +1,11 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges  } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CommonModule } from '@angular/common';
-import { BtnComponent } from '../btn/btn.component';
 
 @Component({
   selector: 'app-bar-chart',
   standalone: true,
-  imports: [NgxChartsModule, CommonModule, BtnComponent],
+  imports: [NgxChartsModule, CommonModule],
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css']
 })

@@ -63,25 +63,25 @@ export class DashboardComponent implements OnInit {
   }
 
   populateDashboardData() {
-    this.orderService.getOrderData().subscribe((data) => {
-      this.detailTable = data;
+    this.orderService.getOrderTable().subscribe((data) => {
+      this.detailTable = data.map(order => ({
+        cartId: order.cartId,
+        status: order.status,
+        date: order.data
+      }));
     });
     this.clientService.getClientChart("mes").subscribe((chart) => {
       this.clientChartData = chart;
-      console.log(this.clientChartData)
     })
     this.orderService.getOrderChart("mes").subscribe((data) => {
       this.orderChartData = data;
-      console.log(this.orderChartData)
     })
     this.salesService.getSalesChart("mes").subscribe((data) =>{
       this.saleChartData = data;
-      console.log(this.saleChartData)
     })
     
     this.clientService.getClientChart("resume").subscribe((chart) => {
       this.clientCardData = chart;
-      console.log(this.clientChartData)
     })
     this.salesService.getSalesChart("resume").subscribe((data) =>{
       this.saleCardData = data;
@@ -91,5 +91,5 @@ export class DashboardComponent implements OnInit {
     const now = new Date();
     this.timeUpdate = formatDate(now, 'HH:mm dd/MM/yyyy', 'pt-BR');
   }
-  
+
 }

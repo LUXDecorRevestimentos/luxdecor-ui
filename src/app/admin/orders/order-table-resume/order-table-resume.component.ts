@@ -7,7 +7,7 @@ import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-order-table-resume',
-  imports: [MatTableModule, BtnComponent, OrderStatusComponent, DatePipe],
+  imports: [MatTableModule, OrderStatusComponent, DatePipe],
   templateUrl: './order-table-resume.component.html',
   styleUrl: './order-table-resume.component.css'
 })

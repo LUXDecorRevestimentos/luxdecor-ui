@@ -25,12 +25,12 @@ export class OrderAuthService {
       return this.http.get<OrderDetailsTable[]>(`${this.apiUrl}/admin/order/resume` , { headers });
     }
 
-    getOrderTable(): Observable<OrderTable[]> {
+    getOrderTable(): Observable<any[]> {
         let token = this.clientService.getCurrentUser()?.idToken
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${token}`
         });  
-        return this.http.get<OrderTable[]>(`${this.apiUrl}/admin/order/table` , { headers });
+        return this.http.get<any[]>(`${this.apiUrl}/admin/order/table` , { headers });
     }
 
     getOrderHistory(order_id: string): Observable<OrderDetailsTable[]>{
@@ -70,38 +70,6 @@ export class OrderAuthService {
         `${this.apiUrl}/admin/order/chart`,
         body,
         { headers });
-    }
-    
-
-     getOrderData(): Observable<OrderDetailsTable[]> {
-        const mockCards: OrderDetailsTable[] = [
-            {
-                cartId: "00001",
-                status: OrderStatus.PENDING,
-                date: this.currentDate
-            },
-            {
-                cartId: "00002",
-                status: OrderStatus.FINISHED,
-                date: this.currentDate
-            },
-            {
-                cartId: "00003",
-                status: OrderStatus.INSTALLATION,
-                date: this.currentDate
-            },
-            {
-                cartId: "00004",
-                status: OrderStatus.UNDERWAY,
-                date: this.currentDate
-            },
-            {
-                cartId: "00005",
-                status: OrderStatus.CANCELLED,
-                date: this.currentDate
-            }
-        ];
-      return of(mockCards);
     }
     
     getCartTable(cart_id: string): Observable<ProductTable[]> {

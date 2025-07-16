@@ -74,3 +74,11 @@ button[type="submit"]:hover {
     background-color: #000000;
     color: white;
 }
+
+.form-group {
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    margin-bottom: 30px;
+}

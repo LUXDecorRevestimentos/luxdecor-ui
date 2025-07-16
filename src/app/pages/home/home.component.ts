@@ -8,6 +8,7 @@ import { BarComponent } from '../../shared/bar/bar.component';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { CommonModule } from '@angular/common';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     CarouselCardsComponent,
     TopicComponent,
     BarComponent,
-    MatProgressSpinnerModule],
+    MatProgressSpinnerModule,
+    WhatsappComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

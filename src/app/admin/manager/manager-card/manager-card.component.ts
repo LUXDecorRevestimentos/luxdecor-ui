@@ -52,7 +52,7 @@ export class ManagerCardComponent implements OnInit{
   get name() { return this.formGroup.get('name'); }
   get surname() { return this.formGroup.get('surname'); }
   get phone() { return this.formGroup.get('phone'); }
-  get birth_date() { return this.formGroup.get('created_at'); }
+  get created_at() { return this.formGroup.get('created_at'); }
   get email() { return this.formGroup.get('email'); }
 
   onSubmit() {

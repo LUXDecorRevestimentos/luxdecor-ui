@@ -52,6 +52,10 @@ export class ManagerComponent implements OnInit{
       this.adminInfo = undefined;
       this.editOp = true;
       this.addOp = false;
+      this.adminInfo = undefined;
+      this.authService.cleanAdmin().subscribe((data) => {
+        this.adminInfo = data
+      })
     }
   }
 

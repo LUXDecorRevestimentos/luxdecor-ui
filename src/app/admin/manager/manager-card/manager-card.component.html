@@ -2,30 +2,43 @@
     <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 
         <div class="form-group">
-            <label>Nome</label>
-            <input type="text" formControlName="name" placeholder="Nome">
+            <h1>Nome</h1>
+            <input class="input-text"
+            type="text"
+            formControlName="name"
+            placeholder="Nome"
+            value="{{adminInfo.name}}">
             <small *ngIf="name?.invalid && name?.touched">
               Nome inválido (apenas letras)
             </small>
         </div>      
         <div class="form-group">
-            <label>Sobrenome</label>
-            <input type="text" formControlName="surname" placeholder="Sobrenome">
+            <h1>Sobrenome</h1>
+            <input class="input-text"
+            type="text"
+            formControlName="surname"
+            placeholder="Sobrenome"
+            value="{{adminInfo.surname}}">
             <small *ngIf="surname?.invalid && surname?.touched">
               Sobrenome inválido (apenas letras)
             </small>
         </div>
       
         <div class="form-group">
-            <label>Telefone</label>
-            <input type="text" formControlName="phone" mask="(00) 00000-0000" placeholder="(99) 99999-9999">
+            <h1>Telefone</h1>
+            <input class="input-text"
+            type="text"
+            formControlName="phone"
+            mask="(00) 00000-0000"
+            placeholder="(99) 99999-9999"
+            value="{{adminInfo.phoneNumber}}">
             <small *ngIf="phone?.invalid && phone?.touched">
               Telefone obrigatório
             </small>
           </div>
         <div class="input-content">
             <h1>Criado em: </h1>
-            <input [disabled]="true" type="text" placeholder="(11) 0000-0000" value="{{adminInfo.created_at}}" />
+            <input [disabled]="true" type="text" value="{{adminInfo.created_at}}" />
         </div>
         <button type="submit" [disabled]="formGroup.invalid">Salvar</button>
     </form>
