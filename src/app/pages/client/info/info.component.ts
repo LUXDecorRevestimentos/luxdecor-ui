@@ -8,6 +8,7 @@ import { BarComponent } from '../../../shared/bar/bar.component';
 import { CardDeliveryComponent } from './card-delivery/card-delivery.component';
 import { CardOrdersComponent } from './card-orders/card-orders.component';
 import { ClientInfoResponse } from '../../../data/client.data';
+import { WhatsappComponent } from '../../../shared/whatsapp/whatsapp.component';
 
 @Component({
   selector: 'app-info',
@@ -16,7 +17,8 @@ import { ClientInfoResponse } from '../../../data/client.data';
     CardInfoComponent,
     BarComponent,
     CardOrdersComponent,
-    CardDeliveryComponent
+    CardDeliveryComponent,
+    WhatsappComponent
   ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.css'

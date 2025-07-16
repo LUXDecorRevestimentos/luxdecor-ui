@@ -14,6 +14,7 @@ import { CartService } from '../../service/cart.service';
 import { Cart, CartCardItemData, CartData, InstallOption } from '../../data/card.data';
 import { ClientInfoResponse } from '../../data/client.data';
 import { colorSets } from '@swimlane/ngx-charts';
+import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
 
 @Component({
   selector: 'app-payment-page',
@@ -25,7 +26,8 @@ import { colorSets } from '@swimlane/ngx-charts';
     MethodPaymentCardComponent,
     MethodShippingCardComponent,
     BtnConfirmComponent,
-    CommonModule
+    CommonModule,
+    WhatsappComponent
   ],
   templateUrl: './payment-page.component.html',
   styleUrl: './payment-page.component.css'

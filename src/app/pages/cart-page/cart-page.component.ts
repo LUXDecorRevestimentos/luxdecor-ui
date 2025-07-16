@@ -11,6 +11,7 @@ import { BtnCleanComponent } from '../../shared/btn/btn-clean/btn-clean.componen
 import { Router } from '@angular/router';
 import { CartService } from '../../service/cart.service';
 import { switchMap, tap } from 'rxjs';
+import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
 
 @Component({
   selector: 'app-cart-page',
@@ -23,6 +24,7 @@ import { switchMap, tap } from 'rxjs';
     MatCheckboxModule,
     BtnNextComponent,
     BtnCleanComponent,
+    WhatsappComponent
   ],
   templateUrl: './cart-page.component.html',
   styleUrls: ['./cart-page.component.css']

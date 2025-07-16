@@ -8,6 +8,7 @@ import { MatIcon } from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
 import { ClientService } from '../../service/client.service';
+import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
 
 @Component({
   selector: 'app-order-page',
@@ -17,7 +18,8 @@ import { ClientService } from '../../service/client.service';
     CardOrderComponent,
     MatIcon,
     MatStepperModule,
-    BtnContinueComponent],
+    BtnContinueComponent,
+    WhatsappComponent],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })

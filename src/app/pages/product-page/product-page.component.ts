@@ -15,6 +15,7 @@ import { forkJoin, switchMap, tap } from 'rxjs';
 import { ClientService } from '../../service/client.service';
 import { CartService } from '../../service/cart.service';
 import { NotificationService } from '../../service/notification.service';
+import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
 
 @Component({
   selector: 'app-product-page',
@@ -25,7 +26,8 @@ import { NotificationService } from '../../service/notification.service';
     BtnAddComponent,
     CarouselCardsComponent,
     BtnCallComponent,
-    ProductTableComponent],
+    ProductTableComponent,
+    WhatsappComponent],
 
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'

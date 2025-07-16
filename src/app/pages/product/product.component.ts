@@ -16,6 +16,7 @@ import { BannerService } from '../../admin/service/banner.auth.service';
 import { CardComponent } from "../../shared/card/default/card-default.component";
 import { SideMenuModalComponent } from './side-menu-modal/side-menu-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
 
 @Component({
   selector: 'app-product',
@@ -28,6 +29,7 @@ import { MatDialog } from '@angular/material/dialog';
     CarouselCardsComponent,
     GalleryComponent,
     CommonModule,
+    WhatsappComponent
 ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
