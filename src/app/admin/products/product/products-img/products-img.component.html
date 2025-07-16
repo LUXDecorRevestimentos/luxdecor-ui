@@ -1,6 +1,6 @@
 <div class="container">
   <div class="first img-solo">
-    <img [src]="selectedImage.src || 'assets/placeholder.jpg'" [alt]="selectedImage.caption">
+    <img [src]="selectedImage.src" [alt]="selectedImage.caption">
     <div class="caption">{{ selectedImage.caption }}</div>
     <button (click)="triggerFileInput(selectedImage.id)">
       {{ selectedImage.src ? 'Alterar' : 'Selecionar' }} Imagem

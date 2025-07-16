@@ -1,5 +1,6 @@
 header{
     background-color: #f8f9fa;
+    margin-bottom: 20px;
 }
 
 .header-container {
@@ -29,8 +30,8 @@ header{
 
 .search-container {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 5px;
     background-color: #f8f9fa;
 }
 
@@ -175,6 +176,7 @@ header{
     }
 
     .search-container input {
+        display: flex;
         flex: 1;
         max-width: 100%;
     }
@@ -387,21 +389,3 @@ header{
 .suggestion-item:last-child {
   border-bottom: none;
 }
-
-/* Ajustes para mobile
-@media (max-width: 480px) {
-  .search-container input {
-    font-size: 16px;
-    padding: 10px 15px 10px 45px;
-    height: auto;
-  }
-  
-  .search-icon {
-    font-size: 32px;
-    left: 8px;
-  }
-  
-  .search-suggestions {
-    width: calc(100% - 20px); /* Ajuste para o padding do container */
-    /* left: 10px;
-  } */

@@ -140,6 +140,7 @@ export class ProductsContentComponent {
   private handleEditOperation(product: ProductInfo): void {
     this.productService.updateProduct(product).subscribe({
       next: response => {
+        this.onUploadImgs(this.imgsToUpload)
         this.loadProduct();
         this.resetOperations();
       },

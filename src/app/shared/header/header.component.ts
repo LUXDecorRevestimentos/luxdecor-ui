@@ -7,13 +7,7 @@ import { ProductService } from '../../service/product.service';
 import { GenericCard } from '../../data/card.data';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
 
-interface SearchResult {
-  id: string;
-  name: string;
-  product?: string;
-}
 @Component({
   selector: 'app-header',
   imports: [CommonModule, MatIconModule, RouterModule, BtnIconComponent, ReactiveFormsModule, RouterModule],

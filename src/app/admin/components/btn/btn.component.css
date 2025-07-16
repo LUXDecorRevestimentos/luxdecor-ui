@@ -1,18 +1,24 @@
 .container {
-    background-color: black;
+    background-color: white;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
-
-    color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+    color: black;
     padding: 20px;
-    border-radius: 8px;
     margin-top: 20px;
     height: 40px;
 }
 
 h1 {
     font-size: 26px;
+}
+
+.container:hover {
+    background-color: black;
+    color: white;
 }

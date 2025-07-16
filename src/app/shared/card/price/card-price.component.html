@@ -1,5 +1,5 @@
 <div class="card" [routerLink]="['/product']" [queryParams]="{ product: product?.id}">
-    <img [src]="product?.imageUrl || 'assets/images/placeholder.png'" 
+    <img [src]="product?.imageUrl" 
          [alt]="product?.title || 'Produto sem nome'"
          loading="lazy"
          [ngClass]="{'hidden': product?.imageUrl}"

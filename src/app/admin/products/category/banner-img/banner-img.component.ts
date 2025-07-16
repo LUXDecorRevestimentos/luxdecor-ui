@@ -2,6 +2,8 @@ import { AnimateTimings } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
+import { AlertModalComponent } from '../../../components/alert-modal/alert-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface BannerImage {
   src: string;
@@ -43,6 +45,8 @@ export class BannerImgComponent implements OnChanges, OnInit {
   croppedImage: Blob | string | null = null;
   instanceId = Math.random().toString(36).substring(2, 9);
 
+  constructor(private dialog: MatDialog){}
+  
   ngOnInit(): void {
     this.loadInitialImage(this.initialImage);
   }
@@ -67,6 +71,9 @@ export class BannerImgComponent implements OnChanges, OnInit {
     if (imageSrc){
       const img = new Image();
       img.onload = () => {
+        if (img.width !== this.inputWidth || img.height !== this.inputHeight) {
+          this.openAlert()
+        }
         this.currentImage = {
           src: imageSrc,
           width: img.width,
@@ -91,28 +98,33 @@ export class BannerImgComponent implements OnChanges, OnInit {
       this.resetImage();
       return;
     }
-
-    const file = fileInput.files[0];
-    this.imageChangedEvent = event;
-    
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const img = new Image();
-      img.onload = () => {
-        this.currentImage = {
-          src: e.target.result,
-          file: file,
-          width: img.width,
-          height: img.height,
-          caption: this.bannerTitle
+    if (fileInput){
+      const file = fileInput.files[0];
+      this.imageChangedEvent = event;
+      
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const img = new Image();
+        img.onload = () => {
+          if (img.width !== this.inputWidth || img.height !== this.inputHeight) {
+            this.openAlert()
+          }
+          console.log(img.width, this.inputWidth, img.height, this.inputHeight)
+          this.currentImage = {
+            src: e.target.result,
+            file: file,
+            width: img.width,
+            height: img.height,
+            caption: this.bannerTitle
+          };
+          this.emitImage();
         };
-        this.emitImage();
+        img.onerror = () => console.error('Failed to load image');
+        img.src = e.target.result;
       };
-      img.onerror = () => console.error('Failed to load image');
-      img.src = e.target.result;
-    };
-    reader.onerror = () => console.error('Failed to read file');
-    reader.readAsDataURL(file);
+      reader.onerror = () => console.error('Failed to read file');
+      reader.readAsDataURL(file);
+      }
   }
 
   openCropper() {
@@ -130,7 +142,6 @@ export class BannerImgComponent implements OnChanges, OnInit {
       this.showCropper = false;
       return;
     }
-
     try {
       let src: string;
       let file: File | null;
@@ -142,7 +153,6 @@ export class BannerImgComponent implements OnChanges, OnInit {
         src = this.croppedImage;
         file = null;
       }
-
       const img = new Image();
       img.onload = () => {
         this.currentImage = {
@@ -188,8 +198,19 @@ export class BannerImgComponent implements OnChanges, OnInit {
     });
   }
 
+  openAlert() {
+    this.dialog.open(AlertModalComponent, {
+      data: {
+        title: 'Atenção',
+        message: `A imagem principal deve ter exatamente ${this.inputWidth}x${this.inputHeight} pixels.`,
+        showCancel: false // Oculta o botão de cancelar
+      },
+      disableClose: true // Impede fechar clicando fora
+    });
+  }
+
   private emitImage() {
-    if (this.currentImage.width == 
+   if (this.currentImage.width == 
       this.inputWidth && this.currentImage.height == this.inputHeight) {
         this.imageChanged.emit({...this.currentImage});
     }

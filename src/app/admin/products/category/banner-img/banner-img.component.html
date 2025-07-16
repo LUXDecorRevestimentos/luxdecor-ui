@@ -1,7 +1,7 @@
 <div class="container">
   <div class="img">
     <div class="image-preview">
-      <img [src]="currentImage.src || 'assets/placeholder.jpg'" [alt]="currentImage.caption">
+      <img [src]="currentImage.src" [alt]="currentImage.caption">
     </div>
     <div class="caption">{{ currentImage.caption }}</div>
     <div *ngIf="currentImage.src" class="dimensions-info">

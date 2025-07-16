@@ -168,7 +168,6 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
   }
 
   onSaveProduct(){
-
     let category_data: CategoryData ={
       category_id: this.selectedCategory,
       category_title: "",
@@ -177,7 +176,6 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
       subcategory_id: this.selectedSubcategory,
       subcategory_title: ""
     }
-
     try {
       if(this.installOption != undefined){
         this.isInstallationSelected == false;

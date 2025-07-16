@@ -146,3 +146,9 @@ button:hover {
 .save-btn:hover {
   background-color: #45a049;
 }
+
+/* banner-img.component.css */
+.cancel-crop[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
