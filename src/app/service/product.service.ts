@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, distinctUntilChanged, map, Observable, of, shareReplay, switchMap, throwError, timeout } from 'rxjs';
+import { catchError, distinctUntilChanged, map, Observable, of, shareReplay, switchMap, tap, throwError, timeout } from 'rxjs';
 import { GenericCard, ProductData, CartCardItemData, CartData } from '../data/card.data';
 import { ProductDetailsTable } from '../data/table.data';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -237,4 +237,20 @@ export class ProductService {
     ];
     return of(mockCards);
   }
+
+
+  searchProducts(searchTerm: string, limit: number = 5): Observable<any[]> {
+    if (!searchTerm || searchTerm.length < 2) {
+      return of([]);
+    }
+
+    return this.http.get<any[]>(`${this.apiUrl}/product/search?params=${encodeURIComponent(searchTerm)}`)
+      .pipe(
+        catchError(error => {
+          console.error('Erro na busca:', error);
+          return of([]);
+        })
+      );
+  }
+
 }

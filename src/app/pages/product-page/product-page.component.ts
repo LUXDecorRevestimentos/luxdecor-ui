@@ -45,6 +45,8 @@ export class ProductPageComponent implements OnInit{
   selectedInstallations: string | undefined;
   opInstall: InstallOption | undefined;
 
+  avaliable: boolean = false;
+
   selectedImageIndex: number = 0;
   cardsProduct: GenericCard[] = [];
 
@@ -75,7 +77,6 @@ export class ProductPageComponent implements OnInit{
       next: () => console.log("Tudo carregado!"),
       error: (err) => console.error("Erro:", err),
     });
-
   }
 
   loadProductData(productId: string) {
@@ -84,7 +85,7 @@ export class ProductPageComponent implements OnInit{
         this.productContent = product;
         this.measureLabel = this.getMeasureUnitLabel(product.measure);
         this.opInstall = this.productContent.installations[0]
-        console.log(this.opInstall?.title)
+        this.avaliable = product.available;
       }),
       switchMap(product => 
         forkJoin({

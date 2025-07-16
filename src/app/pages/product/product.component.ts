@@ -119,6 +119,7 @@ export class ProductComponent implements OnInit {
     this.isLoadingCategory = true;
     return this.productService.getProductsCategories().pipe(
       tap(categories => {
+        console.log(categories)
         this.categories = categories;
         this.isLoadingCategory = false;
       }),
@@ -130,7 +131,6 @@ export class ProductComponent implements OnInit {
   }
 
   openFiltersModal() {
-    this.populateCategory(this.category?.data);
     const dialogRef = this.dialog.open(SideMenuModalComponent, {
       width: '450px',
       data: {
@@ -166,12 +166,6 @@ export class ProductComponent implements OnInit {
       this.onPriceRangeChanged(event)
     })
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Handle the applied filters if needed
-        this.onFiltersChanged(result);
-      }
-    });
   }
 
   populateCategory(categoryData: GenericCard): void {
@@ -251,13 +245,21 @@ export class ProductComponent implements OnInit {
   } = {}) {
     const params = {
       ...filters,
-      category_id: filters.category_id || this.category?.id
+      ...(filters.subcategory_id ? {} : { category_id: this.category?.id })
     };
-    if (!Object.values(params).some(val => val !== undefined && val !== null && val !== '')) {
+
+    const cleanParams = Object.fromEntries(
+      Object.entries(params).filter(([_, value]) => 
+        value !== undefined && value !== null && value !== ''
+      )
+    );
+
+    if (Object.keys(cleanParams).length === 0) {
       return;
     }
+
     this.isLoadingProductsContent = true;
-    this.productService.getProductsFiltered(params).subscribe({
+    this.productService.getProductsFiltered(cleanParams).subscribe({
       next: (products) => {
         this.productsContent = products;
         this.isLoadingProductsContent = false;
@@ -284,7 +286,7 @@ export class ProductComponent implements OnInit {
   }
 
 
-  onSubProductClick(subCategoryTitle: string) {
+  onSubProductClick(subCategoryTitle: string) {    
     if (this.category) {
       this.currentSubCategory.push(this.category);    
       this.categoryTitle = subCategoryTitle;
@@ -294,9 +296,13 @@ export class ProductComponent implements OnInit {
 
       this.currentSubCategory = this.currentSubCategory.filter(item => item.title !== subCategoryTitle);
       this.category = this.cardsCategory.find(item => item.title == subCategoryTitle);
-      
+      console.log(this.category)
+
       this.selectedSubCategory = subCategoryTitle;
-      this.productsGallery();
+      if(this.category?.type == "category")
+        this.productsGallery();
+      if(this.category?.type == "sub-category")
+        this.productsGallery({'subcategory_id': this.category.id});
     } 
 
   onFiltersChanged(filters: any) {
@@ -354,34 +360,54 @@ export class ProductComponent implements OnInit {
 
   onBrandsChanged(brands: string[]) {
     this.isLoadingProductsContent = true;
+    
+    // Verifica se há marcas selecionadas
     if (brands && brands.length > 0) {
-      console.log('Selected brands types:', brands);
-      if (!this.brands || !Array.isArray(this.brands)) {
-        console.error('brands is not properly initialized');
-        this.isLoadingProductsContent = false;
-        return;
-      }
-      const selectedBrand = this.brands.find(item => item.title === brands[0])?.data.brand_id;
-      if (selectedBrand) {
-        this.selectedBranding = brands[0];
-        this.category!.type = "filter";
-        this.productsGallery({ brand_id: selectedBrand });
-      } else {
-        try {
-          const selectedBrand = this.brands.find(item => item.imageUrl === brands[0])?.data.brand_id;
-          this.selectedBranding = brands[0];
-          this.category!.type = "filter";
-          this.productsGallery({ brand_id: selectedBrand });
-        } catch (error) {
-          console.warn('No matching installation found for:', brands[0]);
-          this.isLoadingProductsContent = false;
+        console.log('Selected brands:', brands);
+        
+        // Valida se as marcas estão inicializadas corretamente
+        if (!this.brands || !Array.isArray(this.brands)) {
+            console.error('Brands list is not properly initialized');
+            this.isLoadingProductsContent = false;
+            return;
         }
-      } 
+
+        // Filtra marcas baseadas no tipo de instalação selecionado (se existir)
+        const availableBrands = this.selectedInstallation 
+            ? this.brands.filter(brand => 
+                brand.data.installationTypes?.includes(this.selectedInstallation!))
+            : this.brands;
+
+        // Encontra a marca selecionada
+        const selectedBrand = availableBrands.find(item => 
+            item.title === brands[0] || item.imageUrl === brands[0]
+        );
+
+        if (selectedBrand) {
+            this.selectedBranding = brands[0];
+            this.category!.type = "filter";
+            this.productsGallery({ 
+                brand_id: selectedBrand.data.brand_id,
+                installation_id: this.selectedInstallation || undefined
+            });
+        } else {
+            console.warn('No matching brand found for:', brands[0]);
+            this.isLoadingProductsContent = false;
+        }
     } else {
-      this.selectedInstallation = null;
-      this.productsGallery({ installation_id: undefined });
-      this.category!.type = "category"
-      this.isLoadingProductsContent = false;
+        // Caso nenhuma marca esteja selecionada
+        this.selectedBranding = null;
+        this.productsGallery({ 
+            brand_id: undefined,
+            installation_id: this.selectedInstallation || undefined
+        });
+        
+        // Se não houver instalação selecionada, volta para modo categoria
+        if (!this.selectedInstallation) {
+            this.category!.type = "category";
+        }
+        
+        this.isLoadingProductsContent = false;
     }
   }
 

@@ -5,10 +5,9 @@
       [installTypes]="installTypes"
       [subCategorys]="subCategoryListString"
       [priceRange]="priceRange"
-      (filtersChanged)="onFiltersChanged($event)"
-      (subCategoriesChanged)="onSubCategoriesChanged($event)"
       (installTypesChanged)="onInstallTypesChanged($event)"
       (brandsChanged)="onBrandsChanged($event)"
+      (subCategoriesChanged)="onSubCategoriesChanged($event)"
       (priceRangeChanged)="onPriceRangeChanged($event)"></app-side-menu>
       
       <div class="content">
@@ -21,7 +20,7 @@
             </ng-template>
           </div>
           <div class="section-btns">
-            <button class="filter" [disabled]="!category" (click)="openFiltersModal()">Filtrar</button>
+            <button class="filter" (click)="openFiltersModal()">Filtrar</button>
           </div>
         </section>
   

@@ -93,10 +93,15 @@
                                 <h1 class="box-price">R$ {{ this.productContent?.price?.box }} / caixa ({{ productContent?.measures?.box }})</h1>
                             </div>
                         </div>
-                        <div class="action-btns">
+                        <div class="action-btns" *ngIf="avaliable">
                             <app-btn-add (order)="addOrder($event)"
                             [productId]="productId"
                             ></app-btn-add>
+                        </div>
+                        <div class="unavailable-message" *ngIf="!avaliable">
+                            <div class="message-container">
+                                <span class="text">Produto indisponível no momento</span>
+                            </div>
                         </div>
                         <div class="details">
                             <app-bar [title]="detailsLabel" type="long" class="bar"></app-bar>

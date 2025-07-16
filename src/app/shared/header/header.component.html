@@ -21,19 +21,31 @@
                 <a [routerLink]="['/']">
                     <img class="logo" src="logo.png" alt="Logo">
                 </a>
-                <button class="search">
-                    <mat-icon class="search-icon">search</mat-icon>
-                </button>
-                <input type="text" 
-                    [formControl]="searchControl"
-                    (focus)="onSearchFocus()"
-                    (blur)="onSearchBlur()"
-                    placeholder="Pesquisar...">
+                <div class="search-wrapper">
+                    <button class="search">
+                        <mat-icon class="search-icon">search</mat-icon>
+                    </button>
+                    <input type="text" 
+                        [formControl]="searchControl"
+                        (focus)="onSearchFocus()"
+                        (blur)="onSearchBlur()"
+                        placeholder="Pesquisar...">
+                    
+                    <div class="search-suggestions" *ngIf="showSuggestions">
+                    <div class="suggestion-item" 
+                        *ngFor="let product of suggestions"
+                        (mousedown)="$event.preventDefault()"
+                        (click)="selectProduct(product)">
+                        {{ product.title }}
+                    </div>
+                    </div>
+                </div>
+                
                 <div class="icons">
                     <app-btn-icon [iconType]="'account_circle'" [routerLink]="['/client']"></app-btn-icon>
-                    <app-btn-icon [iconType]="'shopping_cart'" [routerLink]="['/cart']" [notificationOp]="true" ></app-btn-icon>
+                    <app-btn-icon [iconType]="'shopping_cart'" [routerLink]="['/cart']" [notificationOp]="true"></app-btn-icon>
                 </div>      
-            </div>
+                </div>
             
            
         </div>

@@ -26,7 +26,8 @@ export class LoginAdminComponent implements OnInit {
   isLoading  = false;
 
   constructor(private formBuilder: FormBuilder,
-    private clientServie: ClientService, private router: Router,
+    private clientServie: ClientService,
+    private router: Router,
     private authService: AuthService){}
 
 

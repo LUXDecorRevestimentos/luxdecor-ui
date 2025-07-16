@@ -1,14 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { BtnIconComponent } from '../btn/btn-icon/btn-icon.component';
-import { MatDialog } from '@angular/material/dialog';
-import { CartPageComponent } from '../../pages/cart-page/cart-page.component';
 import { ProductService } from '../../service/product.service';
 import { GenericCard } from '../../data/card.data';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 interface SearchResult {
   id: string;
@@ -17,69 +16,86 @@ interface SearchResult {
 }
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, MatIconModule, RouterModule, BtnIconComponent, ReactiveFormsModule],
+  imports: [CommonModule, MatIconModule, RouterModule, BtnIconComponent, ReactiveFormsModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
   searchControl = new FormControl();
-  searchResults: SearchResult[] = [];
+  suggestions: any[] = [];
   showSuggestions = false;
+  mobileMenuOpen = false;
+  isSearchFocused = false;
 
   navItems: { label: string; route: string }[] = [];
-  mobileMenuOpen = false;
 
-  constructor(public dialog: MatDialog,
-    private productService: ProductService) {}
+  constructor(private router: Router,
+    private productService: ProductService) {
+          this.setupSearch();
+    }
 
   ngOnInit(): void {
     this.productService.getProductsCategories().subscribe((categories: GenericCard[]) => {
       this.navItems = categories.map(category => ({
         label: category.title.toUpperCase(),
-        route: category.title.toLowerCase().replace(/\s+/g, '-') // Substitui espaços por hífens
+        route: category.title.toLowerCase().replace(/\s+/g, '-')
       }));
     });
   }
+
   setupSearch(): void {
     this.searchControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap(query => {
-          if (query && query.length >= 2) { // Só pesquisa com 2+ caracteres
-            return this.productService.searchProducts(query);
-          } else {
-            return [];
-          }
-        })
-      )
-      .subscribe(results => {
-        this.searchResults = results;
-        this.showSuggestions = results.length > 0;
-      });
+    .pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(query => {
+        return this.productService.searchProducts(query).pipe();
+      })
+    )
+    .subscribe({
+      next: results => {
+        this.suggestions = results;
+        this.showSuggestions = results.length > 0 && this.isSearchFocused;
+      },
+      error: err => console.error('Erro:', err)
+    });
   }
 
-  onSearchFocus(): void {
-    if (this.searchControl.value && this.searchResults.length) {
-      this.showSuggestions = true;
+  onSearchFocus() {
+    this.isSearchFocused = true;
+    if (this.searchControl.value && this.searchControl.value.length >= 2) {
+      this.showSuggestions = this.suggestions.length > 0;
     }
   }
 
-  onSearchBlur(): void {
+  onSearchBlur() {
     setTimeout(() => {
+      this.isSearchFocused = false;
       this.showSuggestions = false;
     }, 200);
   }
 
-  selectSuggestion(result: SearchResult): void {
-    this.searchControl.setValue(result.name);
+  selectProduct(product: any) {
     this.showSuggestions = false;
-    console.log('Selected:', result);
+    this.searchControl.setValue('');
+    
+    this.router.navigate(['/product'], {
+      queryParams: { product: product.product_id }
+    }).then(navigated => {
+      if (!navigated) {
+        console.error('Falha na navegação');
+      }
+    }).catch(err => {
+      console.error('Erro na navegação:', err);
+    });
   }
-
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
     document.body.style.overflow = this.mobileMenuOpen ? 'hidden' : 'auto';
   }
 
+  @HostListener('document:keydown.escape')
+  onEscape() {
+    this.showSuggestions = false;
+  }
 }

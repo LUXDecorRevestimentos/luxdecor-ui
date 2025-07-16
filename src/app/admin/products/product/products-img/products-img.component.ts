@@ -57,33 +57,49 @@ export class ProductsImgComponent implements OnInit, OnChanges{
     const fileInput = event.target;
     
     if (fileInput.files.length === 0) {
-      this.removeImage(imageId);
-      return;
+        this.removeImage(imageId);
+        return;
     }
 
     const file = fileInput.files[0];
     if (file) {
-      const reader = new FileReader();
-      
-      reader.onload = (e: any) => {
-        this.images[imageId] = {
-          id: imageId,
-          src: e.target.result,
-          thumb: e.target.result,
-          caption: imageId === 0 ? 'Imagem Principal' : `Imagem ${imageId}`,
-          file: file
-        };
+        const reader = new FileReader();
+        
+        reader.onload = (e: any) => {
+            const img = new Image();
+            img.src = e.target.result;
+            
+            img.onload = () => {
+                if (imageId === 0 && (img.width !== 250 || img.height !== 250)) {
+                    alert(`A imagem principal deve ter exatamente 250x250 pixels. 
+                           Tamanho atual: ${img.width}x${img.height} pixels`);
+                    fileInput.value = '';
+                    return;
+                }
 
-        if (this.selectedImage.id === imageId) {
-          this.selectedImage = this.images[imageId];
-        }
-        this.emitImages();
-      };
-      
-      reader.readAsDataURL(file);
+                this.images[imageId] = {
+                    id: imageId,
+                    src: e.target.result,
+                    thumb: e.target.result,
+                    caption: imageId === 0 ? 'Imagem Principal' : `Imagem ${imageId}`,
+                    file: file
+                };
+
+                if (this.selectedImage.id === imageId) {
+                    this.selectedImage = this.images[imageId];
+                }
+                this.emitImages();
+            };
+
+            img.onerror = () => {
+                alert('Não foi possível carregar a imagem');
+                fileInput.value = '';
+            };
+        };
+        
+        reader.readAsDataURL(file);
     }
   }
-
   removeImage(imageId: number) {
     this.images[imageId] = {
       id: imageId,
