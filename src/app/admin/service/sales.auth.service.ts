@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { OrderDetailsTable, SalesTable } from '../../data/table.data';
+import { Observable } from 'rxjs';
+import { SalesTable } from '../../data/table.data';
 import { ClientService } from '../../service/client.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../enviroments/enviroment';
-import { InstallOption } from '../../data/card.data';
+import { InstallOption, PaymentMethodType } from '../../data/card.data';
 
 @Injectable({
   providedIn: 'root' 
@@ -50,13 +50,16 @@ export class SalesAuthService {
       { headers });
   }
  
-  postPayment(cart_id: string, install_list: InstallOption[]): Observable<any> {
+  postPayment(cart_id: string, install_list: InstallOption[], delivery: boolean, payment_method: PaymentMethodType): Observable<any> {
     let token = this.clientService.getCurrentUser()?.idToken
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
-    });  
+    });
     const body = { cart_id: cart_id,
-                   install_list: install_list }
+                   install_list: install_list,
+                   delivery_bool: delivery,
+                   payment_method: payment_method
+                  }
 
     return this.http.post<any>(`${this.apiUrl}/sales/finalization`, 
       body,

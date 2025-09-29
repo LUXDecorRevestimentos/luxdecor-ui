@@ -1,19 +1,43 @@
-<div class="container">
-    <div class="payment-card pix" 
-         [class.selected]="selectedMethod === 'pix'"
-         (click)="selectMethod('pix')">
-        <div class="card-content">
-            <img src="pix.png" alt="Pix">
-            <h1>Pix</h1>
+<div class="default">
+    <div class="container">
+        <div class="payment-card pix" 
+            *ngIf="shouldShowCard(PaymentMethod.PIX)"
+            [class.selected]="selectedMethod === PaymentMethod.PIX"
+            (click)="selectMethod(PaymentMethod.PIX)">
+            <div class="card-content">
+                <img src="pix.png" alt="Pix">
+                <h1>Pix</h1>
+            </div>
+        </div>
+
+        <div class="payment-card credit" 
+            *ngIf="shouldShowCard(PaymentMethod.CREDIT_CARD)"
+            [class.selected]="selectedMethod === PaymentMethod.CREDIT_CARD"
+            (click)="selectMethod(PaymentMethod.CREDIT_CARD)">
+            <div class="card-content">
+                <mat-icon class="credit-icon">credit_card</mat-icon>
+                <h1>Crédito</h1>
+            </div>
         </div>
     </div>
-
-    <div class="payment-card credit" 
-         [class.selected]="selectedMethod === 'credit'"
-         (click)="selectMethod('credit')">
-        <div class="card-content">
-            <mat-icon class="credit-icon">credit_card</mat-icon>
-            <h1>Crédito</h1>
+    <div class="container">
+        <div class="payment-card debit"
+            *ngIf="shouldShowCard(PaymentMethod.DEBIT_CARD)"
+            [class.selected]="selectedMethod === PaymentMethod.DEBIT_CARD"
+            (click)="selectMethod(PaymentMethod.DEBIT_CARD)">
+            <div class="card-content">
+                <mat-icon class="credit-icon">credit_card</mat-icon>
+                <h1>Débito</h1>
+            </div>
+        </div>
+        <div class="payment-card boleto"
+            *ngIf="shouldShowCard(PaymentMethod.BOLETO)"
+            [class.selected]="selectedMethod === PaymentMethod.BOLETO"
+            (click)="selectMethod(PaymentMethod.BOLETO)">
+            <div class="card-content">
+                <mat-icon class="credit-icon">qr_code</mat-icon>
+                <h1>Boleto</h1>
+            </div>
         </div>
     </div>
 </div>

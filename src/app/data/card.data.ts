@@ -125,8 +125,14 @@ export enum OrderStatus {
     FINISHED = 2
 }
 
-
 export const OrderStatusLabels: { [key: number]: string } = {
     [OrderStatus.UNDERWAY]: "A caminho",
     [OrderStatus.FINISHED]: "Concluido",
 };
+
+export enum PaymentMethodType {
+  CREDIT_CARD = 'CREDIT_CARD',
+  DEBIT_CARD = 'DEBIT_CARD',
+  PIX = 'PIX',
+  BOLETO = 'BOLETO'
+}

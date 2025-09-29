@@ -13,6 +13,8 @@ import { RegisterComponent } from '../../pages/client/register/register.componen
 import { InfoComponent } from '../../pages/client/info/info.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AdminComponent } from '../../admin/admin.component';
+import { FinallyPageComponent } from '../../pages/payment-page/finally-page/finally-page.component';
+import { PaymentGuard } from '../guards/payment.guard';
 
 export const routes: Routes = [
   { 
@@ -24,6 +26,7 @@ export const routes: Routes = [
   { path: 'product', component: ProductPageComponent },
   { path: 'cart', component: CartPageComponent, canActivate: [AuthGuard] },
   { path: 'payment', component: PaymentPageComponent, canActivate: [AuthGuard] },
+  { path: 'finally', component: FinallyPageComponent, canActivate: [AuthGuard]},
   { path: 'order', component: OrderComponent, canActivate: [AuthGuard] },
   { path: 'client', component: ClientComponent },
   { path: 'login', component: LoginComponent },

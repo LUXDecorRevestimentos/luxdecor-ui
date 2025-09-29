@@ -9,6 +9,7 @@ import { CardDeliveryComponent } from './card-delivery/card-delivery.component';
 import { CardOrdersComponent } from './card-orders/card-orders.component';
 import { ClientInfoResponse } from '../../../data/client.data';
 import { WhatsappComponent } from '../../../shared/whatsapp/whatsapp.component';
+import { BtnGenericComponent } from '../../../shared/btn/btn-generic/btn-generic.component';
 
 @Component({
   selector: 'app-info',
@@ -18,7 +19,8 @@ import { WhatsappComponent } from '../../../shared/whatsapp/whatsapp.component';
     BarComponent,
     CardOrdersComponent,
     CardDeliveryComponent,
-    WhatsappComponent
+    WhatsappComponent,
+    BtnGenericComponent
   ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.css'

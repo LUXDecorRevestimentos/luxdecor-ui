@@ -24,6 +24,15 @@ import { environment } from "../../enviroments/enviroment";
       return this.http.get<CartData>(`${this.apiUrl}/cart`, { headers });
     }
 
+    getCartId(cart_id: string): Observable<CartData> {
+      let token = this.clientService.getCurrentUser()?.idToken
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.get<CartData>(`${this.apiUrl}/cart`, { headers });
+    }
+
+
     transformToCardItems(cartData: CartData): Observable<CartCardItemData[]> {
       if (!cartData.orders || cartData.orders.length === 0) {
         return of([]);

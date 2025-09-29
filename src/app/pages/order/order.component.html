@@ -15,6 +15,14 @@
             </ng-container>
           </div>
         </mat-tab>
+        <mat-tab label="Pendente">
+          <div class="items">
+            <ng-container *ngFor="let order of orderUnderway; let i = index">
+              <app-card-order [order]="order" (click)="selectOrder(order)" [class.selected]="order === selectedOrder">
+              </app-card-order>
+            </ng-container>
+          </div>
+        </mat-tab>
         <mat-tab label="A caminho">
           <div class="items">
             <ng-container *ngFor="let order of orderUnderway; let i = index">

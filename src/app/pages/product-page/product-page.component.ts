@@ -12,7 +12,6 @@ import { BtnCallComponent } from '../../shared/btn/btn-call/btn-call.component';
 import { ProductTableComponent } from '../../shared/product-table/product-table.component';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, switchMap, tap } from 'rxjs';
-import { ClientService } from '../../service/client.service';
 import { CartService } from '../../service/cart.service';
 import { NotificationService } from '../../service/notification.service';
 import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
@@ -79,6 +78,7 @@ export class ProductPageComponent implements OnInit{
       next: () => {},
       error: (err) => console.error("Erro:", err),
     });
+
   }
 
   loadProductData(productId: string) {

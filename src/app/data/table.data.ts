@@ -61,10 +61,11 @@ export interface ManagerTable {
 export enum OrderStatus {
   PAYMENT = 0,
   PENDING = 1,
-  UNDERWAY = 2,
-  INSTALLATION = 3,
-  FINISHED = 4,
-  CANCELLED = 5
+  UNDERWAY = 4,
+  INSTALLATION = 2,
+  FINISHED = 3,
+  CANCELLED = 5,
+  PAIED = 6
 }
 
 export const OrderStatusLabels: { [key: number]: string } = {
@@ -73,5 +74,6 @@ export const OrderStatusLabels: { [key: number]: string } = {
   [OrderStatus.UNDERWAY]: "A caminho", // Processando
   [OrderStatus.INSTALLATION]: "Instalando", // Processando
   [OrderStatus.FINISHED]: "Concluido", // Concluido
-  [OrderStatus.CANCELLED]: "Cancelado" // Cancelado
+  [OrderStatus.CANCELLED]: "Cancelado", // Cancelado
+  [OrderStatus.PAIED]: "Pago" // Processando
 };

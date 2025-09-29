@@ -135,6 +135,7 @@ export class ClientService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+    console.log(token.currentUser.accessToken.token)
     return this.http.get<ClientInfoResponse>(`${this.apiUrl}/client/find`, { headers });
   }
 

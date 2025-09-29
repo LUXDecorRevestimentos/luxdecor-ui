@@ -1,0 +1,23 @@
+button[type="submit"] {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid black;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
+    font-weight: bold;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+
+    cursor: pointer;
+    margin: auto;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #000000;
+    color: white;
+}
+
+h1 {
+    padding: 30px;
+}

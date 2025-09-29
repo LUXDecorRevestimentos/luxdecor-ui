@@ -11,7 +11,7 @@ import { BtnConfirmComponent } from '../../shared/btn/btn-confirm/btn-confirm.co
 import { SalesAuthService } from '../../admin/service/sales.auth.service';
 import { ClientService } from '../../service/client.service';
 import { CartService } from '../../service/cart.service';
-import { Cart, CartCardItemData, CartData, InstallOption } from '../../data/card.data';
+import { Cart, CartCardItemData, CartData, InstallOption, PaymentMethodType } from '../../data/card.data';
 import { ClientInfoResponse } from '../../data/client.data';
 import { colorSets } from '@swimlane/ngx-charts';
 import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
@@ -40,10 +40,12 @@ export class PaymentPageComponent implements OnInit {
   deliveryPrice?: string;
   clientData?: ClientInfoResponse;
   amount: string = "0";
+  deliveryBool: boolean = false;
 
   totalPrice: string | undefined;
 
   selectedDelivery: string | undefined;
+  selectedMethod: PaymentMethodType | undefined;
 
   constructor(
     private saleService: SalesAuthService,
@@ -98,9 +100,15 @@ export class PaymentPageComponent implements OnInit {
     this.selectedDelivery = event
     if (this.selectedDelivery && this.cartInfo){
       this.totalPrice = this.sumValues(this.cartInfo.delivery_total, this.cartInfo.product_total)
+      this.deliveryBool = true
     } else {
       this.totalPrice = this.cartInfo?.product_total
+      this.deliveryBool = false
     }
+  }
+
+  onPaymentMethodSelected(event: any) {    
+    this.selectedMethod = event
   }
 
   sumValues(...valores: string[]): string {
@@ -117,8 +125,19 @@ export class PaymentPageComponent implements OnInit {
   }
 
   onConfirmCart(): void {
-    if (this.cartInfo?.cart_id) {
-      this.saleService.postPayment(this.cartInfo.cart_id, this.selectedInstallations).subscribe({});
+    if (this.cartInfo?.cart_id && this.selectedMethod) {
+      this.saleService.postPayment(this.cartInfo.cart_id, this.selectedInstallations, this.deliveryBool, this.selectedMethod).subscribe({
+        next: (response) => {
+          this.router.navigate(['/finally'], {
+            state: {
+              cartId: this.cartInfo?.cart_id,
+              paymentData: this.cartData.items,
+              paymentMethod: this.selectedMethod,
+              deliveryMethod: this.deliveryBool
+            }
+          });
+        }
+      });  
     }
   }
 

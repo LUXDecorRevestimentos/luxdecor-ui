@@ -1,0 +1,247 @@
+.container {
+    margin: 10px auto;
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.client {
+    margin-bottom: 20px;
+}
+
+.value-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.value-container p {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+.topic-checkbox {
+    margin: 10px;
+    padding: 10px;
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"].topic-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Checked state styles */
+input[type="checkbox"].topic-checkbox:checked {
+  background-color: #000;
+  border-color: #000;
+}
+
+/* Add the white checkmark using a pseudo-element */
+input[type="checkbox"].topic-checkbox:checked::after {
+  position: absolute;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #fff;
+  border: 2px solid #adb5bd;
+  border-radius: 6px;
+  transition: all 0.2s;
+  padding: 10px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.topic-checkbox {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #fff;
+  border: 2px solid #adb5bd;
+  border-radius: 6px;
+  transition: all 0.2s;
+  padding: 10px;
+}
+
+.topic-option:hover .checkmark {
+  border-color: #6c757d;
+}
+
+.topic-checkbox:checked ~ .checkmark {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.topic-checkbox:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+
+@media (min-width: 1000px) {
+    .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0;
+        gap: 30px;
+    }
+
+    .start {
+        min-width: 400px;
+        height: 80vh;
+        overflow-y: auto;
+    }
+  
+    .client {
+        width: 100%;
+    }
+    
+    .subtotal h1 {
+        margin-bottom: 20px;
+    }
+    
+    .top mat-checkbox {
+        margin-left: auto;
+    }
+
+}
+
+
+/* PIX */
+
+/* Container principal */
+.end {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+/* QR Code */
+.qrcode-container {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.qrcode-image {
+    max-width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+}
+
+/* Informações do pagamento */
+.payment-details {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.payment-details p {
+    margin: 0.5rem 0;
+}
+
+/* Código PIX */
+.pix-code {
+    margin-top: 1rem;
+}
+
+.pix-text {
+    width: 100%;
+    height: 60px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.copy-section button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Loading */
+.loading-message {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Steps */
+.step-complete {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

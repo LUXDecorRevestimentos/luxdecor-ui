@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderPageComponent } from './order-page.component';
+import { FinallyPageComponent } from './finally-page.component';
 
-describe('OrderPageComponent', () => {
-  let component: OrderPageComponent;
-  let fixture: ComponentFixture<OrderPageComponent>;
+describe('FinallyPageComponent', () => {
+  let component: FinallyPageComponent;
+  let fixture: ComponentFixture<FinallyPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OrderPageComponent]
+      imports: [FinallyPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OrderPageComponent);
+    fixture = TestBed.createComponent(FinallyPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
