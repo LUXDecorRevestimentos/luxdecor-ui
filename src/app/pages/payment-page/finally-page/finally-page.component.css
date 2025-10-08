@@ -2,7 +2,6 @@
     margin: 10px auto;
     max-width: 1440px;
     width: 100%;
-    padding: 0 20px;
     box-sizing: border-box;
 }
 
@@ -159,7 +158,6 @@ label {
     margin-top: 2rem;
     padding: 1rem;
     border-radius: 8px;
-    background: #f8f9fa;
 }
 
 /* QR Code */

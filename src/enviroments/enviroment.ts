@@ -6,5 +6,6 @@ export const environment = {
       apiKey: "AIzaSyAzdk_t3X_GoUAffXQPUtXIRdItyINx65E",           
       authDomain: "luxrevestimento.firebaseapp.com",  
       projectId: "luxrevestimento",
-    }
+    },
+    pbEnv: 'SANDBOX'
 };

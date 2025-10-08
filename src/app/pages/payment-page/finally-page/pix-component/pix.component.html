@@ -1,0 +1,25 @@
+<div class="confirm">
+    <app-bar [title]="'Confime o seu pedido'"></app-bar>
+    <app-btn-confirm (click)="onConfirmFinally()"></app-btn-confirm>
+</div>
+<div class="container" *ngIf="pixData">
+    <div class="pix">
+        <div class="qrcode-container">
+            <img [src]="pixData.qr_code.links.png" 
+                alt="QR Code PIX" 
+                class="qrcode-image">
+        </div>
+        <div class="pix-details">
+            <p><strong>Expira em:</strong> {{ pixData.qr_code.display.formatted_expiration }}</p>
+            <p><strong>Tempo restante:</strong> {{ pixData.qr_code.display.expires_in_minutes }} minutos</p>
+            <p><strong>ID do Pedido:</strong> {{ pixData.order_id }}</p>
+        </div>
+            <div class="pix-code" *ngIf="pixData.qr_code.links.text">
+            <p><strong>Ou copie o código PIX:</strong></p>
+            <div class="copy-section">
+                <textarea readonly class="pix-text">{{ pixData.qr_code.links.text }}</textarea>
+                <button (click)="copyPixCode()">Copiar Código</button>
+            </div>
+        </div>
+    </div>  
+</div>

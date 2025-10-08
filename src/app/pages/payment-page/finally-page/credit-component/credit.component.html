@@ -1,0 +1,8 @@
+<div class="container">
+    <app-card (cardDataUpdate)="onUpdateInfo($event)"></app-card>
+    <app-installment-table *ngIf="totalValue" (selectedInstallments)="selectedInstallment($event)" [interestRate]="0.10" [totalValue]="totalValue"></app-installment-table>
+    <div class="confirm">
+        <app-bar [title]="'Confime o seu pedido'"></app-bar>
+        <app-btn-confirm (click)="onConfirmFinally()"></app-btn-confirm>
+    </div>
+</div>

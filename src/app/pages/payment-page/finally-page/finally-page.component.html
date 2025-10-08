@@ -62,31 +62,21 @@
                 </div>
                 <app-bar [type]="'long'"></app-bar>
             </div>
-            <div class="confirm">
-                <app-bar [title]="'Confime o seu pedido'"></app-bar>
-                <app-btn-confirm (click)="onConfirmFinally()"></app-btn-confirm>
-            </div>
         </div>
         <div class="end">
-            <div class="pix" *ngIf="pixData">
-                <div class="qrcode-container">
-                    <img [src]="pixData.qr_code.links.png" 
-                        alt="QR Code PIX" 
-                        class="qrcode-image">
+            <div [ngSwitch]="paymentMethod" class="payment-model"> 
+        
+                <app-pix *ngSwitchCase="'PIX'" [cartId]="cartId"></app-pix>
+                
+                <app-credit *ngSwitchCase="'CREDIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-credit>
+
+                <!-- <app-debit *ngSwitchCase="'debit'"></app-debit> -->
+                
+                <div *ngSwitchDefault>
+                    <p>O método de pagamento selecionado não é suportado no momento.</p>
                 </div>
-                <div class="pix-details">
-                    <p><strong>Expira em:</strong> {{ pixData.qr_code.display.formatted_expiration }}</p>
-                    <p><strong>Tempo restante:</strong> {{ pixData.qr_code.display.expires_in_minutes }} minutos</p>
-                    <p><strong>ID do Pedido:</strong> {{ pixData.order_id }}</p>
-                </div>
-                 <div class="pix-code" *ngIf="pixData.qr_code.links.text">
-                    <p><strong>Ou copie o código PIX:</strong></p>
-                    <div class="copy-section">
-                        <textarea readonly class="pix-text">{{ pixData.qr_code.links.text }}</textarea>
-                        <button (click)="copyPixCode()">Copiar Código</button>
-                    </div>
-                </div>
-            </div>           
+                
+            </div>
         </div>
         <app-whatsapp
             [defaultMessage]="'Olá, preciso de ajuda!'"

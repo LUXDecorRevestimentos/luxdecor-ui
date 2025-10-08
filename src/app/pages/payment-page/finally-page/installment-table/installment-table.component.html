@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="installment-container">
+    <h2>Opções de Parcelamento</h2>
+
+    <div class="mat-elevation-z2">
+        <table mat-table [dataSource]="installmentsDataSource">
+            
+            <ng-container matColumnDef="option">
+                <th mat-header-cell *matHeaderCellDef> Parcela</th>
+                <td mat-cell *matCellDef="let installment"> 
+                    <span class="installment-label">{{ installment.number }}x</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> Valor</th>
+                <td mat-cell *matCellDef="let installment"> 
+                    <span class="installment-value">R$ {{ installment.value | number:'1.2-2' }}</span>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['option', 'total']"></tr>
+            
+            <tr mat-row *matRowDef="let row; columns: ['option', 'total'];" 
+                (click)="onInstallmentSelected(row)" 
+                [ngClass]="{'selected-row': selectedRow === row, 'custom-row': true}"
+            ></tr>
+        </table>
+    </div>
+</div>
+</div>

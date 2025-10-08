@@ -21,7 +21,7 @@ label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: black;
+    color: rgb(0, 0, 0);
 }
 
 .close {
@@ -87,7 +87,7 @@ button[type="submit"] {
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
     font-weight: bold;
     font-size: 15px;
-    color: rgb(0, 0, 0);
+    color: #000000;
     border-radius: 5px;
 
     cursor: pointer;

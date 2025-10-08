@@ -12,6 +12,8 @@ import { ClientInfoResponse } from '../../../data/client.data';
 import { WhatsappComponent } from '../../../shared/whatsapp/whatsapp.component';
 import { PaymentService } from '../../../service/payment.service';
 import { PaymentPixResponse, SaleDataCart } from '../../../data/payment.data';
+import { PixComponent } from './pix-component/pix.component';
+import { CreditComponent } from './credit-component/credit.component';
 
 
 @Component({
@@ -23,9 +25,10 @@ import { PaymentPixResponse, SaleDataCart } from '../../../data/payment.data';
     ClientCardComponent,
     MethodPaymentCardComponent,
     MethodShippingCardComponent,
-    BtnConfirmComponent,
     CommonModule,
-    WhatsappComponent
+    WhatsappComponent,
+    PixComponent,
+    CreditComponent
   ],
   templateUrl: './finally-page.component.html',
   styleUrl: './finally-page.component.css'
@@ -60,7 +63,7 @@ export class FinallyPageComponent implements OnInit {
 
   saleData?: SaleDataCart;
 
-  pixData?: PaymentPixResponse;
+  total_value: number = 0;
 
   readonly cart = signal<Cart>({
     id: 'Selecionar Tudo',
@@ -103,7 +106,9 @@ export class FinallyPageComponent implements OnInit {
         this.saleData = response;
         this.deliveryPrice = this.saleData.delivery_total;
         this.product_total = this.saleData.product_total;
-        this.totalPrice = this.sumValues(this.saleData.delivery_total, this.saleData.product_total)
+        let prices = this.sumValues(this.saleData.delivery_total, this.saleData.product_total)
+        this.totalPrice = prices[0]
+        this.total_value = prices[1]
       },
       error: (error) => {
         console.error('Erro ao carregar venda:', error);
@@ -119,43 +124,19 @@ export class FinallyPageComponent implements OnInit {
 
   onPaymentMethodSelected(event: any) {    
     this.selectedMethod = event
-    console.log(this.selectedMethod)
   }
 
-  onConfirmFinally(){
-    if(this.cartId){
-      this.paymentService.generatePaymentPix(this.cartId).subscribe({
-      next: (response: PaymentPixResponse) => {
-        this.isLoading = false;
-        this.pixData = response;
-        console.log(response)
-      },
-      error: (error) => {
-        this.isLoading = false;
-      }
-    });
-    }
-  }
-
-
-  copyPixCode() {
-    if (this.paymentData?.qr_code?.links?.text) {
-      navigator.clipboard.writeText(this.paymentData.qr_code.links.text);
-      alert('Código PIX copiado!');
-    }
-  }
-
-  private sumValues(...valores: string[]): string {
+  private sumValues(...valores: string[]): [string, number] {
     const numeros = valores.map(valor => {
       const valorLimpo = valor.replace(/\./g, '').replace(',', '.');
       return parseFloat(valorLimpo) || 0;
     });
   
     const soma = numeros.reduce((total, num) => total + num, 0);
-  
-    return soma.toFixed(2)
+
+    return [soma.toFixed(2)
       .replace('.', ',')
-      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'), soma]
   }
 
   private clearCart(): void {

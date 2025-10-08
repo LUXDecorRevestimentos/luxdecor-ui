@@ -54,3 +54,31 @@ export interface PaymentPixResponse {
   timestamps: string;
   total_amount: number;
 }
+
+export interface PaymentCard {
+  number: string;
+  expMonth: string;
+  expYear: string;
+  holder: {
+    name: string;
+  }
+  cvv: string;
+}
+
+export interface PaymentCredit {
+  installments: number;
+  card: PaymentCard;
+  encrypted: string;
+}
+
+export interface InstallmentsTable {
+  number: number;
+  value: number;  
+}
+
+
+export interface ThreeDSSession {
+  expires_at: number;
+  session: string;
+  public_key: string;
+}

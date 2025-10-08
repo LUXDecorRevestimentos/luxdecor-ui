@@ -1,0 +1,29 @@
+ <div class="card-container" *ngIf="cardData">
+        <div class="card-chip"></div>
+        <div class="card-number">{{ cardData.number | cardNumberFormat}}</div>
+        <div class="card-details-row">
+            <div class="card-holder">
+                <span class="label">Nome do Titular</span>
+                <span class="value">{{ cardData.holder.name }}</span>
+            </div>
+            <div class="card-expiry">
+                <span class="label">Validade</span>
+                <span class="value">{{ cardData.expMonth }}/{{ cardData.expYear }}</span>
+            </div>
+        </div>
+        <div class="card-cvv">
+            <span class="label">CVV</span>
+            <span class="value">{{ cardData.cvv }}</span>
+        </div>
+    </div>
+    <div class="btns">
+        <button class="btn edit-btn" (click)="openModal()" *ngIf="!cardData">
+            Adicionar
+        </button>
+        <button class="btn edit-btn" (click)="openModal()" *ngIf="cardData">
+            Editar
+        </button>
+        <button class="btn edit-btn" (click)="clearCardData()">
+            Remover
+        </button>
+    </div>

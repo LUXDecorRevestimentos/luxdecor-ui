@@ -1,0 +1,95 @@
+<div class="card-form">
+    <h2>Informações do Cartão</h2>
+
+    <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()"> 
+
+        <div class="form-group">
+            <label for="holder">Nome no Cartão:</label>
+            <input type="text" 
+                    id="holder" 
+                    placeholder="Nome impresso no cartão"
+                    class="form-control"
+                    formControlName="holder" 
+                    required>
+            <div *ngIf="holder?.invalid && holder?.touched" class="error-message">
+                <div *ngIf="holder?.errors?.['required']">O nome no cartão é obrigatório.</div>
+                <div *ngIf="holder?.errors?.['pattern']">O nome deve conter apenas letras.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cardNumber">Número do Cartão:</label>
+            <input type="text" 
+                    id="cardNumber" 
+                    placeholder="0000 0000 0000 0000"
+                    class="form-control"
+                    maxlength="19"
+                    formControlName="cardNumber"
+                    (input)="formatCardNumber($event)"
+                    required>
+            <div *ngIf="cardNumber?.invalid && cardNumber?.touched" class="error-message">
+                <div *ngIf="cardNumber?.errors?.['required']">O número do cartão é obrigatório.</div>
+                <div *ngIf="cardNumber?.errors?.['pattern']">O número do cartão deve conter apenas dígitos.</div>
+                <div *ngIf="cardNumber?.errors?.['minlength'] || cardNumber?.errors?.['maxlength']">O número deve ter entre 13 e 19 dígitos.</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group expiry-date">
+                <label>Validade:</label>
+                <div class="expiry-inputs">
+                    <input type="text" 
+                            placeholder="Mês (MM)"
+                            class="form-control"
+                            maxlength="2"
+                            formControlName="expiryMonth"
+                            required>
+                    <input type="text" 
+                            placeholder="Ano (AAAA)"
+                            class="form-control"
+                            maxlength="4"
+                            formControlName="expiryYear"
+                            required>
+                </div>
+                <div *ngIf="expMonth?.invalid && expMonth?.touched" class="error-message">
+                    <div *ngIf="expMonth?.errors?.['required']">Mês é obrigatório.</div>
+                    <div *ngIf="expMonth?.errors?.['min'] || expMonth?.errors?.['max']">Mês deve ser entre 01 e 12.</div>
+                </div>
+                <div *ngIf="expYear?.invalid && expYear?.touched" class="error-message">
+                    <div *ngIf="expYear?.errors?.['required']">Ano é obrigatório.</div>
+                    <div *ngIf="expYear?.errors?.['pattern'] || expYear?.errors?.['minlength']">Ano deve ter 4 dígitos.</div>
+                </div>
+            </div>
+            
+            <div class="form-group cvv">
+                <label for="cvv">CVV:</label>
+                <input type="password" 
+                        id="cvv" 
+                        placeholder="123"
+                        class="form-control"
+                        maxlength="4"
+                        formControlName="cvv"
+                        required>
+                <div *ngIf="cvv?.invalid && cvv?.touched" class="error-message">
+                    <div *ngIf="cvv?.errors?.['required']">CVV é obrigatório.</div>
+                    <div *ngIf="cvv?.errors?.['minlength'] || cvv?.errors?.['maxlength']">CVV deve ter 3 ou 4 dígitos.</div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="formGroup?.errors?.['expiredCard'] && (expMonth?.touched || expYear?.touched)" class="error-message">
+            O cartão está expirado.
+        </div>
+        
+        <button type="submit" (click)="onSubmit()">Pagar com Cartão</button>
+    </form>
+
+    <p class="security-info">Seus dados são criptografados e 100% seguros.</p>
+</div>
+<style>
+.error-message {
+  color: #d9534f; /* Vermelho padrão para erro */
+  font-size: 0.85em;
+  margin-top: 5px;
+}
+</style>
