@@ -70,7 +70,9 @@
                 
                 <app-credit *ngSwitchCase="'CREDIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-credit>
 
-                <!-- <app-debit *ngSwitchCase="'debit'"></app-debit> -->
+                <app-debit *ngSwitchCase="'DEBIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-debit>
+
+                <app-split *ngSwitchCase="'BOLETO'" [totalValue]="total_value" [cartId]="cartId"></app-split>
                 
                 <div *ngSwitchDefault>
                     <p>O método de pagamento selecionado não é suportado no momento.</p>

@@ -35,7 +35,6 @@ export class PixComponent implements OnInit {
       next: (response: PaymentPixResponse) => {
         this.isLoading = false;
         this.pixData = response;
-        console.log(response)
       },
       error: (error) => {
         this.isLoading = false;

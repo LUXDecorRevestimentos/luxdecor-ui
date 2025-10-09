@@ -14,6 +14,8 @@ import { PaymentService } from '../../../service/payment.service';
 import { PaymentPixResponse, SaleDataCart } from '../../../data/payment.data';
 import { PixComponent } from './pix-component/pix.component';
 import { CreditComponent } from './credit-component/credit.component';
+import { DebitComponent } from './debit-component/debit.component';
+import { BankSlipComponent } from './bankslip-component/bankslip.component';
 
 
 @Component({
@@ -28,7 +30,9 @@ import { CreditComponent } from './credit-component/credit.component';
     CommonModule,
     WhatsappComponent,
     PixComponent,
-    CreditComponent
+    CreditComponent,
+    DebitComponent,
+    BankSlipComponent
   ],
   templateUrl: './finally-page.component.html',
   styleUrl: './finally-page.component.css'

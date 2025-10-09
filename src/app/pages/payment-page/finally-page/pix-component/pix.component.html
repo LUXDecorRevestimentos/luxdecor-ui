@@ -4,10 +4,10 @@
 </div>
 <div class="container" *ngIf="pixData">
     <div class="pix">
-        <div class="qrcode-container">
+        <div class="bar-container">
             <img [src]="pixData.qr_code.links.png" 
                 alt="QR Code PIX" 
-                class="qrcode-image">
+                class="barcode-image">
         </div>
         <div class="pix-details">
             <p><strong>Expira em:</strong> {{ pixData.qr_code.display.formatted_expiration }}</p>

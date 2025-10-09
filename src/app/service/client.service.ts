@@ -7,7 +7,7 @@ import { environment } from '../../enviroments/enviroment';
 import { ClientServiceModel } from '../shared/models/response/client-service.model';
 import { ClientInfoResponse, ClientLoginRequest, ClientRegisterRequest, ClientRegisterResponse } from '../data/client.data';
 import { isPlatformBrowser } from '@angular/common';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'

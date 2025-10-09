@@ -71,6 +71,11 @@ export interface PaymentCredit {
   encrypted: string;
 }
 
+export interface PaymentDebit {
+  card: PaymentCard;
+  encrypted: string;
+}
+
 export interface InstallmentsTable {
   number: number;
   value: number;  
@@ -81,4 +86,41 @@ export interface ThreeDSSession {
   expires_at: number;
   session: string;
   public_key: string;
+}
+
+export interface threeDSRequest {
+}
+
+
+/// BOLETO
+export interface BankSlipLinks{
+  png: string;
+  pdf: string;
+  text_formatted: string;
+  text: string;
+}
+
+export interface BankSlipDisplay {
+  formatted_amount: string;
+  formatted_expiration: string;
+  expires_in_date: string;
+  imgUrl: string;
+}
+
+export interface BankSlipBarCode {
+  id: string;
+  amount: number;
+  expiration_date: string;
+  links: BankSlipLinks;
+  display: BankSlipDisplay;
+}
+
+export interface PaymentBankSlip{
+  barcode: BankSlipBarCode; 
+  created_at: string;
+  order_id: string;
+  reference_id: string;
+  status: string;
+  timestamps: string;
+  total_amount: number;
 }

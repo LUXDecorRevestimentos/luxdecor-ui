@@ -1,0 +1,13 @@
+<div class="confirm">
+    <app-bar [title]="'Confime o seu pedido'"></app-bar>
+    <app-btn-confirm (click)="onConfirmFinally()"></app-btn-confirm>
+</div>
+<div class="container" *ngIf="bankSlipData">
+    <div class="pix">
+        <div class="qrcode-container">
+            <img [src]="bankSlipData.barcode.display.imgUrl" 
+                alt="QR Code PIX" 
+                class="qrcode-image">
+        </div>
+    </div>
+</div>

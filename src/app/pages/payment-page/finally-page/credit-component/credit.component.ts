@@ -7,7 +7,6 @@ import { InstallmentTableComponent } from "../installment-table/installment-tabl
 import { CardComponent } from '../card/card.component';
 import { BtnConfirmComponent } from '../../../../shared/btn/btn-confirm/btn-confirm.component';
 import { BarComponent } from '../../../../shared/bar/bar.component';
-import { PagBankService } from '../../../../service/pagbank.service';
 
 @Component({
   selector: 'app-credit',
@@ -36,14 +35,12 @@ export class CreditComponent implements OnInit {
   ngOnInit(): void {}
 
   onConfirmFinally() {
-    console.log(this.cardData)
     if (this.cardData && this.cartId) {
       let creditCard: PaymentCredit = {
         card: this.cardData,
         installments: this.installments,
         encrypted: ""
       };
-      console.log(creditCard)
       this.paymentService.processCreditCardPayment(creditCard, this.cartId).subscribe({
         next: () => console.log('Ambiente PagBank inicializado e pronto!'),
         error: (err) => {

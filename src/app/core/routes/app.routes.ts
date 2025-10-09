@@ -34,7 +34,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'info', component: InfoComponent },
   { path: 'orders', component: OrderComponent, canActivate: [AuthGuard] },
-  { path: 'credit', component: CreditComponent },
+  { path: 'bankslip', component: CreditComponent },
   // {
   //   path: 'admin',
   //   loadChildren: () => import('../routes/admin.routes').then(m => m.ADMIN_ROUTES),
