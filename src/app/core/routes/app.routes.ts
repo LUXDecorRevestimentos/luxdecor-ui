@@ -16,6 +16,7 @@ import { AdminComponent } from '../../admin/admin.component';
 import { FinallyPageComponent } from '../../pages/payment-page/finally-page/finally-page.component';
 import { PaymentGuard } from '../guards/payment.guard';
 import { CreditComponent } from '../../pages/payment-page/finally-page/credit-component/credit.component';
+import { BankSlipComponent } from '../../pages/payment-page/finally-page/bankslip-component/bankslip.component';
 
 export const routes: Routes = [
   { 
@@ -34,7 +35,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'info', component: InfoComponent },
   { path: 'orders', component: OrderComponent, canActivate: [AuthGuard] },
-  { path: 'bankslip', component: CreditComponent },
+  { path: 'bankslip', component: BankSlipComponent },
   // {
   //   path: 'admin',
   //   loadChildren: () => import('../routes/admin.routes').then(m => m.ADMIN_ROUTES),

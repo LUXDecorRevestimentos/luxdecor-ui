@@ -1,0 +1,136 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: #008000;
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.status {
+    color: #f0ad4e;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.bankslip-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.bankslip-price {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bankslip-price h2 {
+    font-size: 2em;
+    color: #333;
+    margin: 5px 0;
+}
+
+.label {
+    display: block;
+    color: #777;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.bankslip-date-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.info-item {
+    text-align: center;
+}
+
+.info-item h3 {
+    font-size: 1.2em;
+    margin: 5px 0 0 0;
+    font-weight: bold;
+    color: #444;
+}
+
+.barcode-details {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #fafafa;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+}
+
+.barcode-text-formatted {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 15px;
+    user-select: all; 
+    word-break: break-all;
+}
+
+.barcode-container {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.barcode-image {
+    max-width: 90%;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 5px;
+    background-color: white;
+}
+
+.reference {
+    margin-top: 15px;
+    font-size: 0.85em;
+    color: #999;
+}
+
+/* Ações (Botões/Links) */
+.bankslip-actions {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Azul padrão */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

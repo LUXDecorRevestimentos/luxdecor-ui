@@ -13,3 +13,6 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: "Arimo", "Helvetica Neue", sans-serif; }
+
+/* Exemplo no styles.css */
+@import '@angular/material/prebuilt-themes/indigo-pink.css'; 

@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../enviroments/enviroment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ClientService } from "./client.service";
-import { from, map, Observable, of, switchMap } from "rxjs";
+import { delay, finalize, from, map, Observable, of, switchMap } from "rxjs";
 import { PaymentBankSlip, PaymentCard, PaymentCredit, PaymentDebit, PaymentPixResponse, SaleDataCart, threeDSRequest, ThreeDSSession } from "../data/payment.data";
 import { PaymentMethodType } from "../data/card.data";
 import { PagBankService } from "./pagbank.service";
+import { LoadingService } from "../shared/loading/loading.service";
 
 
 @Injectable({
@@ -16,7 +17,9 @@ import { PagBankService } from "./pagbank.service";
 
     constructor(private http: HttpClient,
         private clientService: ClientService,
-        private pagBankService: PagBankService) {}
+        private pagBankService: PagBankService,
+        private loadingService: LoadingService
+    ) {}
 
     getSale(cart_id: string): Observable<SaleDataCart>{
         let token = this.clientService.getCurrentUser()?.idToken;

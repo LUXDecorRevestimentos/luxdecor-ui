@@ -11,6 +11,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { HttpLoaderInterceptor } from './core/interceptors/http-loader.interceptor';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -26,6 +27,10 @@ export const appConfig: ApplicationConfig = {
     provideNgxMask(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 
-    { provide: LOCALE_ID, useValue: 'pt-BR' }
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: HTTP_INTERCEPTORS, 
+      useClass: HttpLoaderInterceptor,
+      multi:true
+     }
   ]
 };
