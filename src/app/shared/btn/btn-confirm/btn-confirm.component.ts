@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-btn-confirm',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './btn-confirm.component.css'
 })
 export class BtnConfirmComponent {
-
+  @Input() btn_label: string = "Confirmar";
 }

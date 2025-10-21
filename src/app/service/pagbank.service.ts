@@ -98,7 +98,6 @@ interface ThreeDSResult {
         if (typeof PagSeguro === 'undefined' || !PagSeguro.authenticate3DS) {
             return from(Promise.reject(new Error("PagBank SDK ou PagSeguro.authenticate3DS não está disponível.")));
         }
-        // console.log()
         const authPromise = PagSeguro.authenticate3DS(threeDSRequest);
         return from(authPromise);
     }

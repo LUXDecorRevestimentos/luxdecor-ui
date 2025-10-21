@@ -68,7 +68,7 @@ export enum OrderStatus {
   PAIED = 6
 }
 
-export const OrderStatusLabels: { [key: number]: string } = {
+export const OrderStatusLabels: { [key: string]: string } = {
   [OrderStatus.PAYMENT]: "Em Aberto", // Pendente
   [OrderStatus.PENDING]: "Pendente", // Pendente
   [OrderStatus.UNDERWAY]: "A caminho", // Processando

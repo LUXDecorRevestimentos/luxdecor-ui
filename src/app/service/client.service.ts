@@ -8,6 +8,7 @@ import { ClientServiceModel } from '../shared/models/response/client-service.mod
 import { ClientInfoResponse, ClientLoginRequest, ClientRegisterRequest, ClientRegisterResponse } from '../data/client.data';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { error } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,9 @@ export class ClientService {
   private auth: any;
   private currentUserSubject = new BehaviorSubject<ClientServiceModel | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
+
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -53,9 +57,15 @@ export class ClientService {
             idToken,
             expiresIn: '3600'
           };
-          console.log(userData)
+          this.clientStatus()
           this.saveUserData(userData);
           return userData;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Login Fail:", errorCode, errorMessage);
+          throw error;
         })
     );
   }
@@ -97,9 +107,7 @@ export class ClientService {
   }
 
   private clearUserData(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('currentUser');
-    }
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
 
@@ -112,22 +120,18 @@ export class ClientService {
     return user ? user.idToken : null;
   }
 
-  canActivate(): boolean {
-    if (this.getToken()) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+  getClientStatus() {
+    return this.isAuthenticated$;
   }
 
-  clientStatus(): Observable<boolean> {
-    return new Observable<boolean>(subscriber => {
-      onAuthStateChanged(this.auth, (user) => {
-        subscriber.next(!!user);
-        subscriber.complete();
-      });
-    });
+
+  clientStatus(): void {
+    if (this.auth){
+      this.isAuthenticatedSubject.next(true);
+    } else {
+      this.isAuthenticatedSubject.next(false);
+    }
+
   }
 
   getClient(): Observable<ClientInfoResponse> {
@@ -135,7 +139,6 @@ export class ClientService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    console.log(token.currentUser.accessToken.token)
     return this.http.get<ClientInfoResponse>(`${this.apiUrl}/client/find`, { headers });
   }
 

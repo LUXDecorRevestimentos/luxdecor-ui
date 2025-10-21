@@ -114,7 +114,6 @@ import { LoadingService } from "../shared/loading/loading.service";
                 );
             }),
             switchMap(threeDSResult => {
-                console.log(threeDSResult)
                 if (threeDSResult.status === "AUTH_FLOW_COMPLETED") {
                     return of(threeDSResult.id); 
                 } else {
@@ -123,7 +122,6 @@ import { LoadingService } from "../shared/loading/loading.service";
                 }
             }),
             switchMap((threedsIdValue: string) => {  
-                console.log(threedsIdValue)              
                 const body = {
                     "cart_id": cart_id,
                     "payment_type": PaymentMethodType.DEBIT_CARD,

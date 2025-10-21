@@ -5,7 +5,6 @@
 
   <div class="content">
     <div class="start" *ngIf="!selectedOrder || isDesktopView()">
-      <!-- Your existing tab group remains unchanged -->
       <mat-tab-group>
         <mat-tab label="Ver Tudo">
           <div class="items">
@@ -15,7 +14,7 @@
             </ng-container>
           </div>
         </mat-tab>
-        <mat-tab label="Pendente">
+        <mat-tab label="Em Aberto">
           <div class="items">
             <ng-container *ngFor="let order of orderUnderway; let i = index">
               <app-card-order [order]="order" (click)="selectOrder(order)" [class.selected]="order === selectedOrder">
@@ -43,19 +42,19 @@
     </div>
   
     <div class="end-desktop" *ngIf="isDesktopView() || openItem && selectedOrder">
-      <app-card-order [order]="selectedOrder"></app-card-order>
-      
+      <app-card-order [order]="selectedOrder" [isList]="false"></app-card-order>
+      <app-btn-confirm [btn_label]="'Carrinho'" (click)="navigateToCart(selectedOrder!.cartId, selectedOrder!.status)" ></app-btn-confirm>
       <!-- Shipping Status Component -->
       <div class="shipping-container" *ngIf="orderInfoRespone?.status_list">
         <div class="shipping_status">
           <div class="step" [class.active]="isStatusActive('Em Aberto')">
-            <h1 class="step-label">Preparação</h1>
+            <h1 class="step-label">Em Aberto</h1>
             <div class="box">
               <mat-icon class="package">pallet</mat-icon>
             </div>
           </div>
           <div class="step" [class.active]="isStatusActive('Pendente')">
-            <h1 class="step-label">Preparação</h1>
+            <h1 class="step-label">Pendente</h1>
             <div class="box">
               <mat-icon class="package">pallet</mat-icon>
             </div>

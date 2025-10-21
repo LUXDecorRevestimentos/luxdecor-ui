@@ -29,7 +29,12 @@ import { environment } from "../../enviroments/enviroment";
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-      return this.http.get<CartData>(`${this.apiUrl}/cart`, { headers });
+
+      const body = {
+        "cart_id": cart_id 
+      }
+
+      return this.http.post<CartData>(`${this.apiUrl}/cart/id`, body, { headers });
     }
 
 

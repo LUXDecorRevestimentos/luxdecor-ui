@@ -15,6 +15,8 @@ import { Cart, CartCardItemData, CartData, InstallOption, PaymentMethodType } fr
 import { ClientInfoResponse } from '../../data/client.data';
 import { colorSets } from '@swimlane/ngx-charts';
 import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
+import { switchMap, tap } from 'rxjs';
+import { response } from 'express';
 
 @Component({
   selector: 'app-payment-page',
@@ -33,6 +35,10 @@ import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
   styleUrl: './payment-page.component.css'
 })
 export class PaymentPageComponent implements OnInit {
+
+  cartId: string | undefined;
+  cartStatus: number | undefined;
+
   cartData: Cart = { id: 'Selecionar Tudo', completed: false, items: [] };
   cartInfo?: CartData;
   opInstallations: InstallOption[] = [];
@@ -54,6 +60,7 @@ export class PaymentPageComponent implements OnInit {
     private router: Router
   ) {
     this.initializeCartData();
+
   }
 
   ngOnInit(): void {
@@ -66,10 +73,12 @@ export class PaymentPageComponent implements OnInit {
   private initializeCartData(): void {
     const navigation = this.router.getCurrentNavigation();
     const stateCart = navigation?.extras.state?.['cart'] || history.state?.['cart'];
-    
+    this.cartId = stateCart.cartId;
+    this.cartStatus = stateCart.cartStatus;
     if (stateCart?.items) {
       this.cartData = { ...this.cartData, ...stateCart };
     }
+    
   }
 
   fetchClient(): void {
@@ -80,14 +89,50 @@ export class PaymentPageComponent implements OnInit {
   }
 
   fetchCartItems(): void {
-    this.cartService.getCart().subscribe({
-      next: (response) => {
-        this.cartInfo = response;
-        this.deliveryPrice = response.delivery_total === "0,00" ? undefined : response.delivery_total;
-        this.opInstallations = [...response.install_list];
-      },
-      error: () => {}
-    });
+    if (this.cartId == undefined) {
+      this.cartService.getCart().subscribe({
+        next: (response) => {
+          this.cartInfo = response;
+          this.deliveryPrice = response.delivery_total === "0,00" ? undefined : response.delivery_total;
+          this.opInstallations = [...response.install_list];
+        },
+        error: () => {}
+      });
+    } else {
+      this.cartService.getCartId(this.cartId).pipe(
+        tap(response =>  this.cartInfo = response),
+        switchMap(response => this.cartService.transformToCardItems(response))
+      ).subscribe({
+        next: (items) => {
+          this.cartData.items =[...items]
+          this.deliveryPrice = this.cartInfo?.delivery_total
+          this.opInstallations = this.cartInfo!.install_list
+          if(this.cartId)
+          this.goFinally(this.cartId); 
+        }
+      });
+    }
+    
+   
+  }
+
+  goFinally(cart_id: string){
+    if (this.cartStatus && this.cartStatus > 0) {
+      this.saleService.getPayment(cart_id).subscribe({
+        next: (response) => {
+          this.router.navigate(['/finally'], {
+            state: {
+              cartId: this.cartInfo?.cart_id,
+              paymentData: this.cartData.items,
+              paymentMethod: this.selectedMethod,
+              deliveryMethod: this.deliveryBool,
+              cartStatus: this.cartStatus,
+              orderData: response
+            }
+          });
+        }
+      });
+    }
   }
 
   onCheckboxChange(installation: InstallOption): void {
@@ -125,6 +170,7 @@ export class PaymentPageComponent implements OnInit {
   }
 
   onConfirmCart(): void {
+    console.log(this.cartStatus)
     if (this.cartInfo?.cart_id && this.selectedMethod) {
       this.saleService.postPayment(this.cartInfo.cart_id, this.selectedInstallations, this.deliveryBool, this.selectedMethod).subscribe({
         next: (response) => {
@@ -133,7 +179,8 @@ export class PaymentPageComponent implements OnInit {
               cartId: this.cartInfo?.cart_id,
               paymentData: this.cartData.items,
               paymentMethod: this.selectedMethod,
-              deliveryMethod: this.deliveryBool
+              deliveryMethod: this.deliveryBool,
+              cartStatus: this.cartStatus
             }
           });
         }

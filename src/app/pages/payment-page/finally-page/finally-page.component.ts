@@ -39,6 +39,10 @@ import { BankSlipComponent } from './bankslip-component/bankslip.component';
 })
 export class FinallyPageComponent implements OnInit {
   
+  cartStatus: number = 0;
+  paymentMethodLoad: PaymentMethodType | null = null;
+  orderData: any;
+
   cartId: string | null = null;
   paymentData: any;
   paymentMethod: PaymentMethodType | null = null;
@@ -91,14 +95,15 @@ export class FinallyPageComponent implements OnInit {
   }
 
   private getNavigationData(): void {
+    console.log(history.state)
+    this.cartStatus = history.state.cartStatus;
+    this.paymentMethodLoad = history.state.paymentMethod;
     this.cartId = history.state.cartId;
     this.paymentData = history.state.paymentData;
     this.paymentMethod = history.state.paymentMethod;
     this.deliveryBool = history.state.deliveryMethod;
-    console.log(this.paymentData)
-    console.log(this.paymentMethod)
-    console.log(this.deliveryBool)
-    console.log(this.saleData)
+    this.orderData = history.state.orderData;
+    console.log(this.orderData)
     if (!this.cartId) {
       this.cartId = sessionStorage.getItem('cartId');
     }
@@ -107,9 +112,11 @@ export class FinallyPageComponent implements OnInit {
   loadSale(cartId: string): void {
     this.paymentService.getSale(cartId).subscribe({
       next: (response: SaleDataCart) => {
+        console.log(response)
         this.saleData = response;
         this.deliveryPrice = this.saleData.delivery_total;
         this.product_total = this.saleData.product_total;
+        this.paymentMethod = this.saleData.payment_method;
         let prices = this.sumValues(this.saleData.delivery_total, this.saleData.product_total)
         this.totalPrice = prices[0]
         this.total_value = prices[1]

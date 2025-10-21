@@ -3,6 +3,8 @@ import { Router, RouterModule } from '@angular/router';
 import { ClientService } from '../../service/client.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../admin/service/auth.service';
+import { catchError, of } from 'rxjs';
+import { error } from 'console';
 
 @Component({
   selector: 'app-client',
@@ -20,7 +22,7 @@ export class ClientComponent implements OnInit{
     private router: Router){}
 
   ngOnInit(): void {
-    this.clientService.clientStatus().subscribe(isAuthenticated => {
+    this.clientService.getClientStatus().subscribe(isAuthenticated => {
       this.authenticated = isAuthenticated;
       this.authService.getClient().subscribe(response => {
         if(response){
@@ -31,16 +33,10 @@ export class ClientComponent implements OnInit{
       })
       if (this.authenticated && !this.isAdmim) {
         this.router.navigate(['/info']);
-      } else if (this.authenticated && this.isAdmim){
-        // this.router.navigate(['/admin']);
-        this.clientService.clientSignOut()
-      } else {
-        this.clientService.clientSignOut()
-        this.router.navigate(['/client']);
       }
-    });
+  });
+}
 
-    
-  }
+// ---
 
 }

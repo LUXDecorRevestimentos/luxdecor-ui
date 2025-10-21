@@ -65,4 +65,16 @@ export class SalesAuthService {
       body,
       { headers });
   }
+
+  getPayment(cart_id: string) {
+      let token = this.clientService.getCurrentUser()?.idToken;
+      const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+      });
+      const body = {
+          "cart_id": cart_id,
+      }
+      return this.http.post<any>(`${this.apiUrl}/sales`, 
+          body, {headers})
+  }
 }

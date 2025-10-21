@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { catchError, forkJoin, map, Observable, switchMap, tap, throwError } from "rxjs";
-import { CartCardItemData, OrderCardData, OrderCardInfo, OrderCardResponse, OrderStatus } from "../data/card.data";
+import { CartCardItemData, OrderCardData, OrderCardInfo, OrderCardResponse, OrderStatus, OrderStatusValue } from "../data/card.data";
 import { ClientService } from "./client.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../enviroments/enviroment";
 import { ProductService } from "./product.service";
+import { OrderStatusLabels } from "../data/card.data";
 
 @Injectable({
     providedIn: 'root'
@@ -68,12 +69,13 @@ export class OrderService {
         map(imageUrl => ({
             id: order.order_id,
             title: order.product_title,
+            cartId: order.cart_id,
             type: 'product',
             imageUrl: imageUrl[0].src,
             price: order.product_price,
             amount: order.amount,
             select: true,
-            status: OrderStatus.UNDERWAY,
+            status: OrderStatusValue[order.status],
             date: order.date,
             lastUpdate: order.date
         }))

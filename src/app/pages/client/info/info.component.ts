@@ -39,14 +39,11 @@ export class InfoComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit(): void {
-    this.authSub = this.clientService.clientStatus().subscribe(isAuthenticated => {
+    this.authSub = this.clientService.getClientStatus().subscribe(isAuthenticated => {
       if (!isAuthenticated) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/client']);
       }
     });
-    if (!this.clientService.clientStatus()) {
-      this.router.navigate(['/']);
-    }
     this.fetchClient()
   }
 
@@ -56,6 +53,11 @@ export class InfoComponent implements OnInit, OnDestroy  {
 
   signOut(){
     this.clientService.clientSignOut()
+     this.authSub = this.clientService.getClientStatus().subscribe(isAuthenticated => {
+      if (!isAuthenticated) {
+        this.router.navigate(['/client']);
+      }
+    });
   }
 
   onUpdateInfo($event: any){

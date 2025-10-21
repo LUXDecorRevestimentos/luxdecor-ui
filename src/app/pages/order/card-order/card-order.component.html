@@ -1,11 +1,10 @@
 <div class="card-order" *ngIf="order">
     <div class="top">
         <h1>ID: {{ order.id }}</h1>
-        <h1>{{ status }}</h1>
-        <h1>6, fev, 2025</h1>
+        <h1 *ngIf="isList">{{ statusLabel }}</h1>
+        <h1>{{ order.date | date:'dd/MM/yyyy' }} </h1>
     </div>
     <app-bar [type]="'long'"></app-bar>  
-
     <div class="content">
       <div class="img-backgroud">
         <img src="{{ order.imageUrl }}" alt="">
@@ -16,5 +15,4 @@
           <h3>x{{ order.amount }}</h3>    
       </div>
     </div>
-    
 </div>

@@ -17,6 +17,7 @@ export class InstallmentTableComponent implements OnInit {
   @Input() totalValue: number = 1000;
   @Input() interestRate: number = 1.99;
   @Input() maxInstallments: number = 12;
+  @Input() closeChanges: InstallmentsTable | undefined;
 
   installmentsData: InstallmentsTable[] = [];
   installmentsDataSource = new MatTableDataSource<InstallmentsTable>();
@@ -30,23 +31,30 @@ export class InstallmentTableComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.totalValue)
-    this.generateInstallments();
+    if (this.closeChanges) {
+      this.onClosedChanges(this.closeChanges)
+    } else {
+      this.generateInstallments(1);
+    }
   }
 
-  generateInstallments(): void {
+  onClosedChanges(closeChanges: InstallmentsTable){
+    this.installmentsDataSource.data = [closeChanges]
+  }
+
+  generateInstallments(limit: number): void {
     const P = this.totalValue;
     const i = this.interestRate / 100;
     this.installmentsData = [];
-
-    for (let n = 2; n <= this.maxInstallments; n++) {
+    
+    for (let n = 2; n <= limit; n++) { 
       let M: number;
 
       if(i  == 0) {
         M = P / n;
       } else {
         const numerator = i * Math.pow(1 + i, n);
-        const denominator = Math.pow(1 + i, n) -1;
+        const denominator = Math.pow(1 + i, n) - 1;
         M = P * (numerator / denominator);
       }
 
@@ -57,8 +65,6 @@ export class InstallmentTableComponent implements OnInit {
     }
 
     this.installmentsDataSource.data = this.installmentsData;
-    console.log(this.installmentsDataSource)
-    console.log(this.installmentsData)
   }
   
   onInstallmentSelected(installment: InstallmentsTable): void {

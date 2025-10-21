@@ -1,7 +1,6 @@
-import { CSP_NONCE, Component, OnInit, computed, signal } from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import { BarComponent } from '../../shared/bar/bar.component';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../../service/product.service';
 import { CartCardItemData, Cart, CartData } from '../../data/card.data';
 import { CartCardComponent } from '../../shared/cart-card/cart-card.component'
 import { BtnContinueComponent } from '../../shared/btn/btn-continue/btn-continue.component';
@@ -30,6 +29,8 @@ import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
   styleUrls: ['./cart-page.component.css']
 })
 export class CartPageComponent implements OnInit {
+
+  cartId: string | null = null;
 
   cartData: any;
   cartItems: CartCardItemData[] = [];
@@ -62,22 +63,45 @@ export class CartPageComponent implements OnInit {
   }
 
   loadCart(): void {
-    this.cartService.getCart().pipe(
-      tap(cartData => this.cartData = cartData),
-      switchMap(cartData => this.cartService.transformToCardItems(cartData))
-    ).subscribe({
-      next: (items) => {
-        this.cartItems = [...items];
-        this.cart.set({
-          ...this.cart(),
-          items: [...this.cartItems]
-        });
-        this.product_total = this.cartData.product_total
-        this.installation_total = this.cartData.installation_total
-        this.delivery_total = this.cartData.delivery_total
-      },
-      error: (err) => console.error('Error loading cart:', err)
-    });
+    const navigation = this.router.getCurrentNavigation();
+    this.cartId = navigation?.extras.state?.['cartId'] || history.state?.['cartId'];
+
+    if (!this.cartId) {
+      this.cartService.getCart().pipe(
+        tap(cartData => this.cartData = cartData),
+        switchMap(cartData => this.cartService.transformToCardItems(cartData))
+      ).subscribe({
+        next: (items) => {
+          this.cartItems = [...items];
+          this.cart.set({
+            ...this.cart(),
+            items: [...this.cartItems]
+          });
+          this.product_total = this.cartData.product_total
+          this.installation_total = this.cartData.installation_total
+          this.delivery_total = this.cartData.delivery_total
+        },
+        error: (err) => console.error('Error loading cart:', err)
+      });
+    } else {
+      this.cartService.getCartId(this.cartId).pipe(
+        tap(cartData => this.cartData = cartData),
+        switchMap(cartData => this.cartService.transformToCardItems(cartData))
+      ).subscribe({
+        next: (items) => {
+          this.cartItems = [...items];
+          this.cart.set({
+            ...this.cart(),
+            items: [...this.cartItems]
+          });
+          this.product_total = this.cartData.product_total
+          this.installation_total = this.cartData.installation_total
+          this.delivery_total = this.cartData.delivery_total
+        },
+        error: (err) => console.error('Error loading cart:', err)
+      });
+    }
+    
   }
 
   update(completed: boolean, index?: number) {

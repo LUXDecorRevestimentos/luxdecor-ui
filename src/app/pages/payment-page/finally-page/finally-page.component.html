@@ -66,11 +66,11 @@
         <div class="end">
             <div [ngSwitch]="paymentMethod" class="payment-model"> 
         
-                <app-pix *ngSwitchCase="'PIX'" [cartId]="cartId"></app-pix>
+                <app-pix *ngSwitchCase="'PIX'" [cartId]="cartId" [pixData]="orderData"></app-pix>
                 
-                <app-credit *ngSwitchCase="'CREDIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-credit>
+                <app-credit *ngSwitchCase="'CREDIT_CARD'" [totalValue]="total_value" [cartId]="cartId" [creditData]="orderData"></app-credit>
 
-                <app-debit *ngSwitchCase="'DEBIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-debit>
+                <!-- <app-debit *ngSwitchCase="'DEBIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-debit> -->
 
                 <app-split *ngSwitchCase="'BOLETO'" [totalValue]="total_value" [cartId]="cartId"></app-split>
                 

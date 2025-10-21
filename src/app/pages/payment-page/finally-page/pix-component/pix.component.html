@@ -1,4 +1,4 @@
-<div class="confirm">
+<div class="confirm" *ngIf="!pixData">
     <app-bar [title]="'Confime o seu pedido'"></app-bar>
     <app-btn-confirm (click)="onConfirmFinally()"></app-btn-confirm>
 </div>

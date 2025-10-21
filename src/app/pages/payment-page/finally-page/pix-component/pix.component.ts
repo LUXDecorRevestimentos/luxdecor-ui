@@ -18,8 +18,9 @@ import { BtnConfirmComponent } from '../../../../shared/btn/btn-confirm/btn-conf
 export class PixComponent implements OnInit {
 
   @Input() cartId: string | null = "";
+  @Input() cartStatus: number = 0;
 
-  pixData: PaymentPixResponse | undefined;
+  @Input() pixData: PaymentPixResponse | undefined;
 
   isLoading: boolean = true;
 
@@ -27,19 +28,34 @@ export class PixComponent implements OnInit {
     private paymentService: PaymentService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.pixData)
+  }
 
   onConfirmFinally(){
     if(this.cartId){
-      this.paymentService.generatePaymentPix(this.cartId).subscribe({
-      next: (response: PaymentPixResponse) => {
-        this.isLoading = false;
-        this.pixData = response;
-      },
-      error: (error) => {
-        this.isLoading = false;
+      if (this.cartStatus > 0) {
+        this.paymentService.generatePaymentPix(this.cartId).subscribe({
+          next: (response: PaymentPixResponse) => {
+            this.isLoading = false;
+            this.pixData = response;
+          },
+          error: (error) => {
+            this.isLoading = false;
+          }
+        })
+      } else {
+          this.paymentService.generatePaymentPix(this.cartId).subscribe({
+            next: (response: PaymentPixResponse) => {
+              this.isLoading = false;
+              this.pixData = response;
+            },
+            error: (error) => {
+              this.isLoading = false;
+            }
+          }); 
       }
-    });
+
     }
   }
 

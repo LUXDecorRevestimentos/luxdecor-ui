@@ -133,7 +133,6 @@ export class ModalCardComponent implements OnInit {
       this.cardDataUpdate.emit(paymentCard)
  
     } else {
-      console.log('Formulário Inváido!');
       this.formGroup.markAllAsTouched();
     }
   }

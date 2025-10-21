@@ -24,6 +24,7 @@ export class CreditComponent implements OnInit {
 
   @Input() cartId!: string | null;
   @Input() totalValue!: number;
+  @Input() creditData: PaymentCredit | undefined;
 
   installments!: number;
   cardData: PaymentCard | undefined;
@@ -32,7 +33,12 @@ export class CreditComponent implements OnInit {
 
   constructor (private paymentService: PaymentService){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.creditData){
+      this.cardData = this.creditData.card;
+      this.installments = this.creditData.installments;
+    }
+  }
 
   onConfirmFinally() {
     if (this.cardData && this.cartId) {
@@ -47,7 +53,7 @@ export class CreditComponent implements OnInit {
           console.error('Erro ao iniciar o PagBank. O formulário não deve ser usado.', err);
         }
       });
-    }
+    } 
   }
 
   onUpdateInfo($event: PaymentCard) {

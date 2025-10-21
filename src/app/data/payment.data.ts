@@ -66,7 +66,7 @@ export interface PaymentCard {
 }
 
 export interface PaymentCredit {
-  installments: number;
+  installments: number | InstallmentsTable;
   card: PaymentCard;
   encrypted: string;
 }

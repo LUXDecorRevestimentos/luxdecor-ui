@@ -111,6 +111,7 @@ export interface OrderCardInfo {
 export interface OrderCardData {
     id: string;
     title: string;
+    cartId: string;
     imageUrl: string;
     price: any;
     amount: string;
@@ -121,13 +122,33 @@ export interface OrderCardData {
 }
 
 export enum OrderStatus {
-    UNDERWAY = 0,
-    FINISHED = 2
+  PAYMENT = 0,
+  PENDING = 1,
+  UNDERWAY = 4,
+  INSTALLATION = 2,
+  FINISHED = 3,
+  CANCELLED = 5,
+  PAIED = 6
 }
 
 export const OrderStatusLabels: { [key: number]: string } = {
-    [OrderStatus.UNDERWAY]: "A caminho",
-    [OrderStatus.FINISHED]: "Concluido",
+  [OrderStatus.PAYMENT]: "Em Aberto", // Pendente
+  [OrderStatus.PENDING]: "Pendente", // Pendente
+  [OrderStatus.UNDERWAY]: "A caminho", // Processando
+  [OrderStatus.INSTALLATION]: "Instalando", // Processando
+  [OrderStatus.FINISHED]: "Concluido", // Concluido
+  [OrderStatus.CANCELLED]: "Cancelado", // Cancelado
+  [OrderStatus.PAIED]: "Pago" // Processando
+};
+
+export const OrderStatusValue: { [key: string]: OrderStatus } = {
+  "Em Aberto": OrderStatus.PAYMENT,
+  "Pendente": OrderStatus.PENDING,
+  "A caminho": OrderStatus.UNDERWAY,
+  "Instalando": OrderStatus.INSTALLATION,
+  "Concluido": OrderStatus.FINISHED,
+  "Cancelado": OrderStatus.CANCELLED,
+  "Pago": OrderStatus.PAIED
 };
 
 export enum PaymentMethodType {

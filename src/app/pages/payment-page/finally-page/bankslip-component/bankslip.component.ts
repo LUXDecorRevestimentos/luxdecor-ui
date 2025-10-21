@@ -55,9 +55,7 @@ export class BankSlipComponent implements OnInit {
     public loadingService: LoadingService
   ){}
 
-  ngOnInit(): void {
-    console.log("Open Split")
-  }
+  ngOnInit(): void {}
 
   onConfirmFinally(){
     this.bankSlipData = this.mockBoletoResponse
@@ -66,7 +64,6 @@ export class BankSlipComponent implements OnInit {
       next: (response: any) => {
         this.isLoading = false;
         this.bankSlipData = response;
-        console.log(response)
       },
       error: (error) => {
         this.isLoading = false;

@@ -109,7 +109,6 @@ export class BannerImgComponent implements OnChanges, OnInit {
           if (img.width !== this.inputWidth || img.height !== this.inputHeight) {
             this.openAlert()
           }
-          console.log(img.width, this.inputWidth, img.height, this.inputHeight)
           this.currentImage = {
             src: e.target.result,
             file: file,
