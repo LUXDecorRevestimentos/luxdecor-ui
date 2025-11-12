@@ -68,7 +68,6 @@ export class OrderComponent implements OnInit {
   }
 
   navigateToCart(cartId: string, orderStatus: number) {
-    console.log(orderStatus)
     if (orderStatus == 0) {
       this.router.navigate(['/cart'], {
         state: { 

@@ -72,9 +72,11 @@ export class OrdersComponent implements OnInit {
   }
 
   onRowSelectedOrder(row: OrderTable) {
+    this.detailProducts = []
     this.orderService.getCartTable(row.cartId).subscribe((products) => {
       this.detailProducts = products;
     });
+
     this.orderService.getClientData(row.cartId).subscribe((client) => {
       this.client = client;
     })
@@ -82,6 +84,11 @@ export class OrdersComponent implements OnInit {
   }
 
   onRowSelectedProduct(row: ProductTable) {
+    this.product == null;
+    this.orderStatus = {...{
+        order_id: '',
+        status: OrderStatus.PENDING,
+      }};
     this.productService.getProductId(row.orderId, row.productId).subscribe((product) => {
       this.product = product;
       this.orderStatus = {...{

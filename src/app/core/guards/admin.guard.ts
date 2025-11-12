@@ -10,6 +10,6 @@ export const adminGuard: CanMatchFn = () => {
 //   if (authService.isAdmin()) {
 //     return true;
 //   }
-  // return router.createUrlTree(['/']); // Redireciona se não for admin
+  // return router.createUrlTree(['/']);
   return true;  
 };

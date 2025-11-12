@@ -10,6 +10,7 @@ import { ManagerComponent } from './manager/manager.component';
 import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
+import { TaxComponent } from './tax/tax.component';
 
 @Component({
   selector: 'app-admin',
@@ -20,7 +21,8 @@ import { LoginAdminComponent } from './login-admin/login-admin.component';
     ClientsComponent,
     SalesComponent,
     ManagerComponent,
-    LoginAdminComponent],
+    LoginAdminComponent,
+    TaxComponent],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
@@ -31,24 +33,24 @@ export class AdminComponent {
   authenticated: boolean = false;
 
   constructor(private authService: AuthService,
-    private router: Router
-){}
+    private router: Router){}
 
   ngOnInit(): void {
-    // this.router.navigate(['/admin/login']);
+    console.log(this.authenticated)
+    console.log("Admin component")
 
-    // this.authService.getClient().subscribe({
-    //   next: (isAuthenticated) => {
-    //     this.authenticated = isAuthenticated;
-    //     if (!isAuthenticated) {
-    //       this.router.navigate(['/admin/login']);
-    //     }
-    //   },
-    //   error: (err) => {
-    //     console.error('Auth check failed:', err);
-    //   }
-    // });
-    // this.handleButtonClick('dashboard');
+    this.authService.getClient().subscribe({
+      next: (isAuthenticated) => {
+        this.authenticated = isAuthenticated.isAdmin;
+        if (!isAuthenticated) {
+          this.router.navigate(['/admin/login']);
+        }
+      },
+      error: (err) => {
+        console.error('Auth check failed:', err);
+      }
+    });
+    this.handleButtonClick('dashboard');
   }
 
   handleButtonClick(identifier: string) {

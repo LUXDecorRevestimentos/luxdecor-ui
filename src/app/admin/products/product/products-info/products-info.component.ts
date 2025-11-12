@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { CategoryData, Data, DetailsData, PriceType, ProductInfo } from '../../../data/category.data';
+import { CategoryData, Data, DateDelivery, DetailsData, PriceType, ProductInfo } from '../../../data/category.data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -58,10 +58,15 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
   selectedOptions: string[] = [];
   onSave: boolean = false;
 
+
+  date_delivery_min!: number;
+  date_delivery_max!: number;
   aboutText!: string;
 
   isAvailableSelected: boolean = false;
   isInstallationSelected: boolean = false;
+
+  dateDelivery!: DateDelivery;
 
   constructor(private cdRef: ChangeDetectorRef) {}
 
@@ -79,6 +84,8 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
     this.aboutText = this.productInfo.about
     this.cdRef.detectChanges();
     this.installOption = this.productInfo.installations[0]?.installation_id
+    this.date_delivery_min = this.productInfo.date_delivery.min;
+    this.date_delivery_max = this.productInfo.date_delivery.max;
   }
 
   ngOnChanges(changes: any): void {}
@@ -176,6 +183,13 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
       subcategory_id: this.selectedSubcategory,
       subcategory_title: ""
     }
+
+    this.dateDelivery = {
+      product_id: "",
+      max: this.date_delivery_max,
+      min: this.date_delivery_min
+    }
+
     try {
       if(this.installOption != undefined){
         this.isInstallationSelected == false;
@@ -197,7 +211,8 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
           installation: this.isInstallationSelected,
           installations: this.installOptionList,
           topics: this.selectedOptions,
-          about: this.aboutText
+          about: this.aboutText,
+          date_delivery: this.dateDelivery
         }
       )
       this.imgs.emit(

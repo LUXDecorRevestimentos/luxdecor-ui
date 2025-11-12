@@ -1,0 +1,75 @@
+<div class="container" *ngIf="reload">
+    <div class="header">
+        <h1>Taxas</h1>
+        <mat-icon class="icon">percent</mat-icon>
+    </div>
+    <div class="cards-data">
+        <app-card-data icon="calendar_month" title="Taxa Pix" data="{{pix_tax}}%" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
+        <app-card-data icon="calendar_month" title="Taxa Credito" data="{{credit_tax}}%" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
+        <app-card-data icon="calendar_month" title="Taxa Boleto" data="{{boleto_tax}}%" update="Atualizado em ({{ timeUpdate }})"></app-card-data>
+    </div>
+    <div class="form-container">
+        <div class="select-wrapper"  style="background-color: white;">
+            <mat-select
+            [(ngModel)]="selectedOption" 
+            (selectionChange)="onSelectChange($event.value)" panelClass="custom-panel-class"  style="background-color: rgb(255, 255, 255) !important;">
+                <mat-option value=1  style="background-color: rgb(255, 255, 255);">PIX</mat-option>
+                <mat-option value=2 style="background-color: rgb(255, 255, 255);">CREDITO</mat-option>
+                <mat-option value=3 style="background-color: rgb(255, 255, 255);">BOLETO</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div class="forms" (load)="loadTax()">
+        <div class="form">
+            <div class="input-tax">
+                <h1>Taxa: </h1>
+                <input type="text"
+                class="input-value"
+                [(ngModel)]="taxValue"
+                (input)="emitTax()">
+            </div>
+            <div class="input-tax" *ngIf="isCreditCard()">
+                <h1>Parcela Mínima: </h1>
+                <input type="text"
+                class="input-value"
+                [(ngModel)]="minValue"
+                (input)="emitMin()">
+            </div>
+            <div class="input-tax" *ngIf="isCreditCard()">
+                <h1>Parcela Máxima: </h1>
+                <input type="text"
+                class="input-value"
+                [(ngModel)]="maxValue"
+                (input)="emitMax()">
+            </div>
+            <div class="btn">
+                <app-btn (click)="onSave()" [title]="'OK'"></app-btn>
+            </div>
+        </div>
+        <div class="credit" *ngIf="isCreditCard()">
+            <h1>Valor: </h1>
+            <input type="text"
+            class="input-value"
+            [(ngModel)]="teste_value"
+            (input)="emitTeste()">
+            <app-bar [title]="'Resumo do pedido'" [type]="'long'"></app-bar>
+            <div class="value-container">
+                <p>Produtos</p>
+                <p><strong>R$ {{ criteriaValue }}</strong></p>
+            </div>
+            <app-installment-table
+                [totalValue]="teste_value"
+                [interestRate]="taxValue"
+                [maxInstallments]="maxValue" 
+                [interestStartInstallment]="minValue" 
+                (selectedInstallments)="emitTeste()">
+            </app-installment-table>                
+            <app-bar [type]="'long'"></app-bar>
+                <div class="value-container">
+                    <h3>Total</h3>
+                    <h3><strong>{{ totalPrice }}</strong></h3>
+                </div>
+                <app-bar [type]="'long'"></app-bar>
+            </div>
+        </div>
+</div>

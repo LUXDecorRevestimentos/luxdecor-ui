@@ -93,6 +93,9 @@
                                 <h1 class="box-price">R$ {{ this.productContent?.price?.box }} / caixa ({{ productContent?.measures?.box }})</h1>
                             </div>
                         </div>
+                        <div class="delivery">
+                            <h1>{{ deliveryMessage() }}</h1>
+                        </div>
                         <div class="action-btns" *ngIf="avaliable">
                             <app-btn-add (order)="addOrder($event)"
                             [productId]="productId"
@@ -128,7 +131,7 @@
                     <app-bar [title]="specLabel" type="long" class="bar"></app-bar>
                     <div class="table-content">
                         <app-product-table [detailTable]="dimensionsTable" [title]="'Detalhes'" class="table" ></app-product-table>
-                        <app-product-table [detailTable]="detailTable" [title]="'Dimensões'" class="table"></app-product-table>
+                        <app-product-table *ngIf="detailTable" [detailTable]="detailTable" [title]="'Dimensões'" class="table"></app-product-table>
                     </div>
                 </div>
                 <div class="other-products">
@@ -158,6 +161,7 @@
 
             <div class="mobile" *ngIf="productContent">
                 <!-- Actual Mobile Content (unchanged) -->
+                 
                 <div class="price">
                     <div class="top">
                         <h1>R$ {{ this.productContent?.price?.unitary }}  /{{ this.productContent?.measures?.unitary }}</h1>
@@ -166,21 +170,24 @@
                     <div class="bot" *ngIf="this.productContent?.price?.box">
                         <h1 class="box-price">R$ {{ this.productContent?.price?.box }}  / caixa ({{ this.productContent?.measures?.box }})</h1>
                     </div>
-                    <div class="bot" *ngIf="this.productContent?.installations[0]">
+                    <div class="bot" *ngIf="opInstall">
                         <h1 class="box-price">Instalação: </h1>
                         <label>
                             <input
                                 type="checkbox"
                                 class="topic-checkbox"
-                                [value]="this.productContent?.installations[0].title"
+                                [value]="opInstall"
                                 (change)="onCheckboxChange($event)"
                             />
                             <span class="checkmark"></span>
-                            <span class="option-text">{{ this.productContent }}</span>
+                            <span class="option-text">{{ this.opInstall.title }}</span>
                         </label>
                     </div>
                 </div>
-                <div class="action-btns">
+                <div class="delivery">
+                    <h1>{{ deliveryMessage() }}</h1>
+                </div>
+                <div class="action-btns" *ngIf="avaliable">
                     <app-btn-add (order)="addOrder($event)"
                     [productId]="productId"></app-btn-add>
                 </div>
@@ -192,7 +199,7 @@
                 </div>
                 <div class="spec-mobile" *ngIf="detailTable">
                     <app-bar [title]="specLabel" type="long" class="bar"></app-bar>
-                    <app-product-table [detailTable]="detailTable" [title]="'Detalhes'"></app-product-table>
+                    <app-product-table *ngIf="dimensionsTable" [detailTable]="dimensionsTable" [title]="'Detalhes'"></app-product-table>
                     <app-product-table [detailTable]="detailTable" [title]="'Dimensões'"></app-product-table>
                 </div>
                 <div class="other-products">

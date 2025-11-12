@@ -1,7 +1,7 @@
 <div class="container">
     <div class="installment-container">
-    <h2>Opções de Parcelamento</h2>
-
+    <h2 *ngIf="!installment">Opções de Parcelamento</h2>
+    <h3 *ngIf="installment">Parcelamento Selecionado</h3>
     <div class="mat-elevation-z2">
         <table mat-table [dataSource]="installmentsDataSource">
             

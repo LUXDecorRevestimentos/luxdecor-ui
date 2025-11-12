@@ -66,7 +66,7 @@ export interface PaymentCard {
 }
 
 export interface PaymentCredit {
-  installments: number | InstallmentsTable;
+  installments: number;
   card: PaymentCard;
   encrypted: string;
 }
@@ -123,4 +123,17 @@ export interface PaymentBankSlip{
   status: string;
   timestamps: string;
   total_amount: number;
+}
+
+// PaymentResponse
+
+export interface PaymentResponse {
+  cart_id: string; // CartId
+  status: string; // Status Pago
+  timestamp: string; // Data da Finalizacao
+  installments: InstallmentsTable | undefined; // Parcela Caso Credito
+  installations: []; // Instalacoes
+  shipping: string; // Data de Entrega
+  address: string; // Endereço 
+  value: string;
 }

@@ -15,7 +15,7 @@ export class SectionService {
     getSections(): Observable<GenericSection[]> {
       return this.http.get<any[]>(`${this.apiUrl}/section/home`).pipe(
         map(this.transformApiData),
-        shareReplay(1), // Cacheia o resultado para múltiplos subscribers
+        shareReplay(1),
         catchError(error => {
           console.error('Error fetching sections, returning empty array', error);
           return of([] as GenericSection[]);

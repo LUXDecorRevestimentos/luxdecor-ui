@@ -164,4 +164,8 @@ export class ClientService {
       { headers });
   }
 
+  canActivate() {
+    return true;
+  }
+
 }

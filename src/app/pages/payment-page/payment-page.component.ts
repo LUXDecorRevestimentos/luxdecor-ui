@@ -112,8 +112,6 @@ export class PaymentPageComponent implements OnInit {
         }
       });
     }
-    
-   
   }
 
   goFinally(cart_id: string){
@@ -170,7 +168,6 @@ export class PaymentPageComponent implements OnInit {
   }
 
   onConfirmCart(): void {
-    console.log(this.cartStatus)
     if (this.cartInfo?.cart_id && this.selectedMethod) {
       this.saleService.postPayment(this.cartInfo.cart_id, this.selectedInstallations, this.deliveryBool, this.selectedMethod).subscribe({
         next: (response) => {

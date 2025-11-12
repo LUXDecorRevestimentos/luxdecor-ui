@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, computed, LOCALE_ID, Inject } from '@angular/core';
 import { ProductService } from '../../service/product.service';
 import { InstallOption, ProductData } from '../../data/card.data';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ProductDetailsTable } from '../../data/table.data';
 import { BarComponent } from '../../shared/bar/bar.component';
@@ -11,10 +11,11 @@ import { GenericCard } from '../../data/card.data';
 import { BtnCallComponent } from '../../shared/btn/btn-call/btn-call.component';
 import { ProductTableComponent } from '../../shared/product-table/product-table.component';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, switchMap, tap } from 'rxjs';
+import { forkJoin, min, switchMap, tap } from 'rxjs';
 import { CartService } from '../../service/cart.service';
 import { NotificationService } from '../../service/notification.service';
 import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
+import { DateDelivery } from '../../admin/data/category.data';
 
 @Component({
   selector: 'app-product-page',
@@ -29,7 +30,11 @@ import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';
     WhatsappComponent],
 
   templateUrl: './product-page.component.html',
-  styleUrl: './product-page.component.css'
+  styleUrl: './product-page.component.css',
+  providers: [
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
+  ]
 })
 export class ProductPageComponent implements OnInit{
 
@@ -45,7 +50,8 @@ export class ProductPageComponent implements OnInit{
   otherProductsLabel: string = "Outros Produtos"
   selectedInstallations: string | undefined;
   opInstall: InstallOption | undefined;
-
+  date_delivery!: DateDelivery;
+  install_label!: string;
   avaliable: boolean = false;
 
   selectedImageIndex: number = 0;
@@ -62,7 +68,9 @@ export class ProductPageComponent implements OnInit{
   constructor (private productService: ProductService,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private notificationService: NotificationService) {}
+    private notificationService: NotificationService,
+    private datePipe: DatePipe,
+    @Inject(LOCALE_ID) public locale: string) {}
   
 
   ngOnInit(): void {
@@ -88,6 +96,7 @@ export class ProductPageComponent implements OnInit{
         this.measureLabel = this.getMeasureUnitLabel(product.measure);
         this.opInstall = this.productContent.installations[0]
         this.avaliable = product.available;
+        this.date_delivery = product.date_delivery;
       }),
       switchMap(product => 
         forkJoin({
@@ -99,6 +108,8 @@ export class ProductPageComponent implements OnInit{
         })
       ),
       tap(({ imgs, promotions, details, dimensions, banner }) => {
+        console.log(this.productContent?.installations)
+        this.install_label = this.productContent?.installation[0]?.title;
         this.productImgs = imgs;
         this.cardsProduct = [];
         this.cardsProduct = [...this.cardsProduct, ...promotions];
@@ -142,4 +153,23 @@ export class ProductPageComponent implements OnInit{
       error: (err) => this.notificationService.show("Erro ao adicionar no carrinho", "error")
     });
   }
+
+  deliveryMessage = computed(() => {
+    const minD = this.date_delivery.min;
+    const maxD = this.date_delivery.max;
+
+    const baseDate = new Date();
+    const minDate = new Date(baseDate);
+    const maxDate = new Date(baseDate);
+    minDate.setDate(baseDate.getDate() + minD);
+    maxDate.setDate(baseDate.getDate() + maxD);
+
+    const formattedMin = this.datePipe.transform(minDate, 'dd/MM', undefined, this.locale);
+    const formattedMax = this.datePipe.transform(maxDate, 'dd/MM', undefined, this.locale);
+    
+    if (!formattedMin || !formattedMax) {
+      return 'Erro interno ao formatar datas!'
+    }
+    return `Receba entre ${formattedMin} e ${formattedMax}`;
+  });
 }

@@ -129,9 +129,8 @@
                         <span class="option-text">Instalação</span>
                     </label>
                     </div>
-
-                    <div class="options-container">
-                        <div class="installation-options">
+                    <div class="options-container" *ngIf="isInstallationSelected">
+                        <div class="installation-options" >
                             <h3>Selecione uma opção de instalação:</h3>
                             <div class="topic-option" *ngFor="let install of installationList">
                               <label>
@@ -146,7 +145,24 @@
                             </div>
                           </div>
                     </div>
+                </div>
             </div>
+        <div class="data-entrega">
+            <h2>Prazos de Entrega/Retirada:</h2>
+            <h1>Menor prazo - em dias: </h1>
+            <h1>
+                <input class="input-value" 
+                    type="number"
+                    placeholder="{{ date_delivery_min }}"
+                    [(ngModel)]="date_delivery_min"/>
+                </h1>
+            <h1>Maior prazo - em dias: </h1>
+            <h1>
+                <input class="input-value" 
+                    type="number"
+                    placeholder="{{ date_delivery_max }}"
+                    [(ngModel)]="date_delivery_max"/>
+            </h1>
         </div>
     </div>
 

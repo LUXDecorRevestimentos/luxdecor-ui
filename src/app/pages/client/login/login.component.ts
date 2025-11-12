@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     this.clientService.loginClient(requestData).subscribe({
       next: () => {
         this.notificationService.show('Seja bem-vindo!', 'success');
-        this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
         this.isLoading = false;
       },
       error: (err) => {

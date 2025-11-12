@@ -1,0 +1,22 @@
+<div class="paid" *ngIf="paidData">
+    <div class="success" *ngIf="!error">
+        <h1>Pedido realizado com sucesso!</h1>
+        <p><strong>Pago em:</strong> {{ paidData.timestamp }}</p>
+    </div>
+    <div class="bar-container">
+        <p>Previsão de Entrega: {{ paidData.shipping }}</p>
+        <p><strong>Endereçõ de Entrega: {{ paidData.address }}</strong></p>
+    </div>
+    <div class="installments" *ngIf="paidData.installments">
+        <app-installment-table [installment]="paidData.installments"></app-installment-table>
+    </div>
+    <div class="bar-container" *ngIf="paidData.installations">
+        <p>Instalacoes Requsitadas:</p>
+        <p> - Click</p>
+        <p><strong>Entraremos em contato pelo Whatsapp!</strong></p>
+    </div>
+    
+</div>
+<div class="error" *ngIf="error">
+    <h1>Erro ao realizar pedido!</h1>
+</div>

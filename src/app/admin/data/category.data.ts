@@ -113,6 +113,7 @@ export interface ProductInfo {
     installations: any[];
     available: boolean;
     about: string;
+    date_delivery: DateDelivery;
 }
 
 export interface DetailsData {
@@ -133,4 +134,10 @@ export interface CategoryData {
     brand_title: string;
     category_title: string;
     subcategory_title: string;
+}
+
+export interface DateDelivery {
+    product_id: string;
+    min: number;
+    max: number;
 }

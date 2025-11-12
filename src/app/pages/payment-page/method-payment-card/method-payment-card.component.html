@@ -7,6 +7,7 @@
             <div class="card-content">
                 <img src="pix.png" alt="Pix">
                 <h1>Pix</h1>
+                <p>4% de desconto</p>
             </div>
         </div>
 
@@ -21,7 +22,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="payment-card debit"
+        <!-- <div class="payment-card debit"
             *ngIf="shouldShowCard(PaymentMethod.DEBIT_CARD)"
             [class.selected]="selectedMethod === PaymentMethod.DEBIT_CARD"
             (click)="selectMethod(PaymentMethod.DEBIT_CARD)">
@@ -29,7 +30,7 @@
                 <mat-icon class="credit-icon">credit_card</mat-icon>
                 <h1>Débito</h1>
             </div>
-        </div>
+        </div> -->
         <div class="payment-card boleto"
             *ngIf="shouldShowCard(PaymentMethod.BOLETO)"
             [class.selected]="selectedMethod === PaymentMethod.BOLETO"

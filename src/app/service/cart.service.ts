@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { from, map, mergeMap, Observable, of, toArray } from "rxjs";
+import { from, map, mergeMap, Observable, of, tap, toArray } from "rxjs";
 import { CartCardItemData, CartData, CartResponseItem } from "../data/card.data";
 import { ProductService } from "./product.service";
 import { ClientService } from "./client.service";
@@ -50,12 +50,13 @@ import { environment } from "../../enviroments/enviroment";
   
     private transformOrderItem(order: CartResponseItem): Observable<CartCardItemData> {
       return this.productService.getImgs(order.product_id).pipe(
+        tap(imageUrl => {}),
         map(imageUrl => ({
           id: order.order_id,
           product_id: order.product_id,
           title: order.product_title,
           type: 'product',
-          imageUrl: imageUrl[0].src,
+          imageUrl: imageUrl[0].src, 
           price: order.product_price,
           amount: order.amount,
           select: true

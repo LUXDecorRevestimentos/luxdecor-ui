@@ -1,0 +1,119 @@
+/* --- Estilos Gerais do Container Principal --- */
+.paid {
+    max-width: 768px; /* Limita a largura para melhor leitura em desktop */
+    margin: 40px auto; /* Centraliza o container na página */
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    color: #1f2937; /* Cor do texto principal (Cinza escuro) */
+}
+
+/* --- Estilos da Seção de Sucesso (Cabeçalho) --- */
+.success {
+    background-color: #ecfdf5; /* Verde muito claro */
+    border: 1px solid #a7f3d0; /* Borda verde suave */
+    padding: 25px 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.success h1 {
+    color: #059669; /* Verde esmeralda forte */
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+}
+
+.success p {
+    font-size: 1.1rem;
+    color: #10b981; /* Verde um pouco mais escuro */
+    margin: 0;
+}
+
+.success p strong {
+    font-weight: 500;
+}
+
+.error {
+    background-color: #fdecec; /* Verde muito claro */
+    border: 1px solid #f3a7a7; /* Borda verde suave */
+    padding: 25px 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.error h1 {
+    color: #960505; /* Verde esmeralda forte */
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+}
+
+.error p {
+    font-size: 1.1rem;
+    color: #b91010; /* Verde um pouco mais escuro */
+    margin: 0;
+}
+
+.error p strong {
+    font-weight: 500;
+}
+
+.bar-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb; /* Borda sutil */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+.bar-container p {
+    margin: 8px 0;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.bar-container p strong {
+    font-weight: 600;
+    color: #374151;
+}
+
+.bar-container:last-child {
+    border-left: 5px solid #3b82f6;
+    background-color: #eff6ff;
+}
+
+.installments {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+    .paid {
+        margin: 20px 10px;
+        padding: 0;
+    }
+    
+    .success {
+        padding: 20px 15px;
+        border-radius: 6px;
+    }
+
+    .success h1 {
+        font-size: 1.5rem;
+    }
+
+    .success p {
+        font-size: 0.95rem;
+    }
+
+    .bar-container {
+        padding: 15px;
+        border-radius: 6px;
+    }
+}

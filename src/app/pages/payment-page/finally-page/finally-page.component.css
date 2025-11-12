@@ -4,7 +4,9 @@
     width: 100%;
     box-sizing: border-box;
 }
-
+.discount {
+    color: #49d76f;
+}
 .client {
     margin-bottom: 20px;
 }

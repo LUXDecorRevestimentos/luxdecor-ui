@@ -34,7 +34,7 @@ export class ProductService {
 
   getProductPromotionMainList(): Observable<GenericCard[]> {
     return this.http.get<any[]>(`${this.apiUrl}/section/promotions`).pipe(
-      timeout(5000),
+      timeout(10000),
       map(this.transformApiDataPromotions),
       shareReplay(1),
       catchError(error => throwError(() => error))
@@ -147,7 +147,8 @@ export class ProductService {
           installation: apiResponse.installation,
           installations: apiResponse.installations,
           available: apiResponse.available,
-          about: apiResponse.about
+          about: apiResponse.about,
+          date_delivery: apiResponse.date_delivery
         }
       })
     )
@@ -171,7 +172,7 @@ export class ProductService {
 
   getImgs(productId: string){
     let params = new HttpParams().set('product_id', productId);
-    return this.http.get<any>(`${this.apiUrl}/product/img`, { params })
+    return this.http.get<any[]>(`${this.apiUrl}/product/img`, { params })
   }
 
   getBrandAndThenBanner(brand_id: string) {

@@ -1,66 +1,67 @@
-/* ====================================
-   Estilos do Componente PIX
-   ==================================== */
-
 .container {
-    /* Base do card */
     display: flex;
     justify-content: center;
     padding: 20px;
 }
 
 .pix {
-    /* Estrutura principal do PIX */
     width: 100%;
-    max-width: 450px; /* Limita a largura para melhor leitura */
+    max-width: 450px;
     background-color: #ffffff;
     padding: 25px;
     border: 1px solid #e0e0e0;
-    border-radius: 8px; /* Arredondamento conforme solicitado */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave para profundidade */
-    font-family: Arial, sans-serif; /* Fonte padrão para clareza */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    font-family: Arial, sans-serif;
 }
 
-/* --- Container do QR Code --- */
 .qrcode-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px dashed #cccccc; /* Borda tracejada para destacar a área de leitura */
+    border: 1px dashed #cccccc;
     border-radius: 6px;
 }
 
 .barcode-image {
-    /* Garante que a imagem do QR Code seja bem visualizada */
     width: 100%;
-    max-width: 80px;
     height: auto;
-    display: block; /* Remove possíveis margens indesejadas */
+    display: block;
 }
 
-/* --- Detalhes e Expiração --- */
 .pix-details {
     margin-bottom: 20px;
     padding: 10px 0;
     border-top: 1px solid #f0f0f0;
     border-bottom: 1px solid #f0f0f0;
     color: #444;
-    font-size: 14px;
+    font-size: 20px;
+}
+
+.success {
+    height: 170px;
+    padding: 20px;
+}
+
+.success h1 {
+    margin: 15px;
+}
+
+.success p {
+    margin: 15px;
 }
 
 .pix-details p {
     margin: 5px 0;
 }
 
-/* Garante o negrito para os rótulos */
 .pix-details strong {
     font-weight: bold;
-    color: #333; /* Cor mais escura para rótulos */
+    color: #333;
 }
 
-/* --- Seção Copia e Cola --- */
 .pix-code {
     margin-top: 20px;
 }
@@ -72,40 +73,38 @@
 }
 
 .pix-code strong {
-    font-weight: bold; /* Garante o negrito no "Ou copie o código PIX" */
+    font-weight: bold;
 }
 
 .copy-section {
     display: flex;
-    gap: 10px; /* Espaçamento entre o campo de texto e o botão */
+    gap: 10px;
 }
 
 .pix-text {
-    /* Campo de texto para o código PIX */
     flex-grow: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f7f7f7;
     font-size: 14px;
-    resize: none; /* Impede que o usuário redimensione a caixa de texto */
-    height: 40px; /* Altura fixa */
+    resize: none;
+    height: 40px;
     white-space: nowrap;
-    overflow-x: auto; /* Permite rolar se o código for muito longo */
+    overflow-x: auto;
     line-height: 20px;
 }
 
 .copy-section button {
-    /* Botão de Copiar */
     padding: 10px 15px;
-    background-color: #007bff; /* Cor primária */
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.2s ease;
-    flex-shrink: 0; /* Impede que o botão encolha */
+    flex-shrink: 0;
 }
 
 .copy-section button:hover {

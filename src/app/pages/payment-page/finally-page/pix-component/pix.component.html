@@ -3,16 +3,15 @@
     <app-btn-confirm (click)="onConfirmFinally()"></app-btn-confirm>
 </div>
 <div class="container" *ngIf="pixData">
-    <div class="pix">
+    <div class="pix" *ngIf="!paid">
+         <div class="pix-details">
+            <app-progress-bar (timerFinished)="handleTimerCompletion()"></app-progress-bar>
+            <p><strong>ID do Pedido:</strong> {{ pixData.order_id }}</p>
+        </div>
         <div class="bar-container">
             <img [src]="pixData.qr_code.links.png" 
                 alt="QR Code PIX" 
                 class="barcode-image">
-        </div>
-        <div class="pix-details">
-            <p><strong>Expira em:</strong> {{ pixData.qr_code.display.formatted_expiration }}</p>
-            <p><strong>Tempo restante:</strong> {{ pixData.qr_code.display.expires_in_minutes }} minutos</p>
-            <p><strong>ID do Pedido:</strong> {{ pixData.order_id }}</p>
         </div>
             <div class="pix-code" *ngIf="pixData.qr_code.links.text">
             <p><strong>Ou copie o código PIX:</strong></p>
@@ -21,5 +20,6 @@
                 <button (click)="copyPixCode()">Copiar Código</button>
             </div>
         </div>
-    </div>  
+    </div>
+    <app-paid *ngIf="paid" [paidData]="paidData"></app-paid>
 </div>

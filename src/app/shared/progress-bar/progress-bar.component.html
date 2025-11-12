@@ -1,0 +1,11 @@
+<div class="timer-container">
+  <h2>Tempo restante {{ totalTimeInSeconds }} segundos</h2>
+
+  <div class="progress-bar-base">
+    <div 
+      class="progress-bar-fill" 
+      [ngStyle]="{'width': progressValue + '%'}"
+    >
+    </div>
+  </div>
+</div>

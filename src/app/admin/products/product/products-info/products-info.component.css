@@ -369,3 +369,11 @@ label {
   border-radius: 10px;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.322);
 }
+
+.data-entrega h1{
+  font-size: 16px;
+}
+
+.data-entrega input {
+  max-width: 100px;
+}

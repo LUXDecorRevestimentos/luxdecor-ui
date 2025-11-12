@@ -34,14 +34,7 @@
       <div class="value-container">
           <p>Produtos</p>
           <p><strong>R$ {{ product_total }}</strong></p>
-      </div>
-      <app-bar [type]="'long'"></app-bar>
-        <div class="value-container" *ngIf="delivery_total">
-            <h1>Frete: R$ {{delivery_total}}</h1>
-        </div>
-        <div class="value-container" *ngIf="!delivery_total">
-            <h1>Não conseguimos atender esse local por enquanto.</h1>
-        </div>
+      </div> 
       <app-bar [type]="'long'"></app-bar>
       <div class="btn-container">
         <app-btn-next (click)="navigateToPayment()"></app-btn-next>

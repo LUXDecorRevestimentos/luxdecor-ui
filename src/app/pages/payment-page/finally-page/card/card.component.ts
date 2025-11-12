@@ -31,9 +31,7 @@ export class CardComponent implements OnInit {
     this.cardDataUpdate.emit($event)
   }
 
-  ngOnInit(): void {
-    console.log(this.cardData);
-  }
+  ngOnInit(): void {}
 
   openModal() {
     const dialogRef = this.dialog.open(ModalCardComponent, {

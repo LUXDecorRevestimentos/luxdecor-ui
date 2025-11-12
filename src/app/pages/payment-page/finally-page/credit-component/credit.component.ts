@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { InstallmentsTable, PaymentCard, PaymentCredit, ThreeDSSession } from '../../../../data/payment.data';
+import { InstallmentsTable, PaymentCard, PaymentCredit, PaymentResponse, ThreeDSSession } from '../../../../data/payment.data';
 import { PaymentService } from '../../../../service/payment.service';
 import { InstallmentTableComponent } from "../installment-table/installment-table.component";
 import { CardComponent } from '../card/card.component';
 import { BtnConfirmComponent } from '../../../../shared/btn/btn-confirm/btn-confirm.component';
 import { BarComponent } from '../../../../shared/bar/bar.component';
+import { PaidComponent } from '../paid/paid.component';
 
 @Component({
   selector: 'app-credit',
@@ -15,7 +16,8 @@ import { BarComponent } from '../../../../shared/bar/bar.component';
     InstallmentTableComponent,
     CardComponent,
     BarComponent,
-    BtnConfirmComponent
+    BtnConfirmComponent,
+    PaidComponent
 ],
   templateUrl: './credit.component.html',
   styleUrl: './credit.component.css'
@@ -25,6 +27,15 @@ export class CreditComponent implements OnInit {
   @Input() cartId!: string | null;
   @Input() totalValue!: number;
   @Input() creditData: PaymentCredit | undefined;
+  @Input() installment: InstallmentsTable | undefined;
+
+  @Input() taxValue: number = 0;
+  @Input() criteriaValue: number = 0;
+  @Input() minValue: number = 0;
+  @Input() maxValue: number = 0;
+
+  paidData!: PaymentResponse;
+  error: boolean = false;
 
   installments!: number;
   cardData: PaymentCard | undefined;
@@ -34,10 +45,7 @@ export class CreditComponent implements OnInit {
   constructor (private paymentService: PaymentService){}
 
   ngOnInit(): void {
-    if (this.creditData){
-      this.cardData = this.creditData.card;
-      this.installments = this.creditData.installments;
-    }
+    console.log(this.creditData)
   }
 
   onConfirmFinally() {
@@ -48,12 +56,20 @@ export class CreditComponent implements OnInit {
         encrypted: ""
       };
       this.paymentService.processCreditCardPayment(creditCard, this.cartId).subscribe({
-        next: () => console.log('Ambiente PagBank inicializado e pronto!'),
+        next: (response) => {
+          this.paidData = response;
+        },
         error: (err) => {
-          console.error('Erro ao iniciar o PagBank. O formulário não deve ser usado.', err);
+          this.error = true;
         }
       });
     } 
+  }
+
+  statusPayment(status: string) {
+    if (status == "PAID") {
+      
+    }
   }
 
   onUpdateInfo($event: PaymentCard) {

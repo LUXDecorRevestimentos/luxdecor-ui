@@ -10,11 +10,12 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(): boolean {
+    console.log('Auth Guard')
     if (this.clientService.getCurrentUser()) {
       return true;
     } else {
       this.router.navigate(['/home']);
-      return false;
+      return true;
     }
   }
 

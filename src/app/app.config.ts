@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection, LOCALE_ID } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './core/routes/app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -12,11 +12,13 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { HttpLoaderInterceptor } from './core/interceptors/http-loader.interceptor';
+import { GlobalErrorHandler } from './core/interceptors/error.interceptor';
 
 registerLocaleData(localePt, 'pt-BR');
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideRouter(ADMIN_ROUTES),

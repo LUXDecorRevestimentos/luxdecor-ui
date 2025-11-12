@@ -3,7 +3,7 @@ import { environment } from "../../enviroments/enviroment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ClientService } from "./client.service";
 import { delay, finalize, from, map, Observable, of, switchMap } from "rxjs";
-import { PaymentBankSlip, PaymentCard, PaymentCredit, PaymentDebit, PaymentPixResponse, SaleDataCart, threeDSRequest, ThreeDSSession } from "../data/payment.data";
+import { PaymentBankSlip, PaymentCard, PaymentCredit, PaymentDebit, PaymentPixResponse, PaymentResponse, SaleDataCart, threeDSRequest, ThreeDSSession } from "../data/payment.data";
 import { PaymentMethodType } from "../data/card.data";
 import { PagBankService } from "./pagbank.service";
 import { LoadingService } from "../shared/loading/loading.service";
@@ -59,7 +59,7 @@ import { LoadingService } from "../shared/loading/loading.service";
         return this.http.post<PaymentBankSlip>(`${this.apiUrl}/payment/order/create`, body, { headers })
     }
 
-    public processCreditCardPayment(creditCardFormData: PaymentCredit, cart_id: string): Observable<any> {
+    public processCreditCardPayment(creditCardFormData: PaymentCredit, cart_id: string): Observable<PaymentResponse> {
         return from(this.pagBankService.initializePagBank()).pipe(
             switchMap(() => from(this.pagBankService.encryptCardData(creditCardFormData.card))),
             switchMap(cardToken => {
@@ -77,7 +77,7 @@ import { LoadingService } from "../shared/loading/loading.service";
                 const headers = new HttpHeaders({
                     'Authorization': `Bearer ${token}`
                 });
-                return this.http.post(`${this.apiUrl}/payment/order/create`, body, { headers });
+                return this.http.post<PaymentResponse>(`${this.apiUrl}/payment/order/create`, body, { headers });
             })
         )
     }

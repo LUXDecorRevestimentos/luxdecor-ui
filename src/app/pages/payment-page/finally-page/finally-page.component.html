@@ -55,10 +55,14 @@
                     <p>Frete</p>
                     <p><strong>R$ {{this.deliveryPrice}}</strong></p>
                 </div>
+                 <div class="value-container" *ngIf="tax != 0">
+                    <p>Desconto</p>
+                    <p class="discount"><strong>{{this.tax}}% </strong></p>
+                </div>
                 <app-bar [type]="'long'"></app-bar>
                 <div class="value-container">
                     <h3>Total</h3>
-                    <h3><strong>R$ {{ totalPrice }}</strong></h3>
+                    <h3><strong>{{ totalPrice }}</strong></h3>
                 </div>
                 <app-bar [type]="'long'"></app-bar>
             </div>
@@ -68,7 +72,13 @@
         
                 <app-pix *ngSwitchCase="'PIX'" [cartId]="cartId" [pixData]="orderData"></app-pix>
                 
-                <app-credit *ngSwitchCase="'CREDIT_CARD'" [totalValue]="total_value" [cartId]="cartId" [creditData]="orderData"></app-credit>
+                <app-credit *ngSwitchCase="'CREDIT_CARD'" [totalValue]="total_value" 
+                [cartId]="cartId"
+                [creditData]="orderData"
+                [taxValue]="tax"
+                [maxValue]="maxValue" 
+                [minValue]="minValue" 
+                ></app-credit>
 
                 <!-- <app-debit *ngSwitchCase="'DEBIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-debit> -->
 

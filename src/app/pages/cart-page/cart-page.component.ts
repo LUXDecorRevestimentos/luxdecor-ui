@@ -35,9 +35,9 @@ export class CartPageComponent implements OnInit {
   cartData: any;
   cartItems: CartCardItemData[] = [];
 
-  product_total: number = 0;
+  product_total!: number;
   installation_total: string = "0,00";
-  delivery_total: string = "0,00";
+  delivery_total!: string;
 
   error: string | null = null;
   isLoading = false;
@@ -66,42 +66,26 @@ export class CartPageComponent implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     this.cartId = navigation?.extras.state?.['cartId'] || history.state?.['cartId'];
 
-    if (!this.cartId) {
-      this.cartService.getCart().pipe(
-        tap(cartData => this.cartData = cartData),
-        switchMap(cartData => this.cartService.transformToCardItems(cartData))
-      ).subscribe({
-        next: (items) => {
-          this.cartItems = [...items];
-          this.cart.set({
-            ...this.cart(),
-            items: [...this.cartItems]
-          });
-          this.product_total = this.cartData.product_total
-          this.installation_total = this.cartData.installation_total
-          this.delivery_total = this.cartData.delivery_total
-        },
-        error: (err) => console.error('Error loading cart:', err)
-      });
-    } else {
-      this.cartService.getCartId(this.cartId).pipe(
-        tap(cartData => this.cartData = cartData),
-        switchMap(cartData => this.cartService.transformToCardItems(cartData))
-      ).subscribe({
-        next: (items) => {
-          this.cartItems = [...items];
-          this.cart.set({
-            ...this.cart(),
-            items: [...this.cartItems]
-          });
-          this.product_total = this.cartData.product_total
-          this.installation_total = this.cartData.installation_total
-          this.delivery_total = this.cartData.delivery_total
-        },
-        error: (err) => console.error('Error loading cart:', err)
-      });
-    }
-    
+    const cartObservable = this.cartId
+      ? this.cartService.getCartId(this.cartId)
+      : this.cartService.getCart();
+
+    cartObservable.pipe(
+      tap(cartData => this.cartData = cartData),
+      switchMap(cartData => this.cartService.transformToCardItems(cartData))
+    ).subscribe({
+      next: (items) => {
+        this.cartItems = items;
+        this.cart.set({
+          ...this.cart(),
+          items: this.cartItems
+        });
+        this.product_total = this.cartData.product_total;
+        this.installation_total = this.cartData.installation_total;
+        this.delivery_total = this.cartData.delivery_total;
+      },
+      error: (err) => console.error('Error loading cart:', err)
+    });
   }
 
   update(completed: boolean, index?: number) {

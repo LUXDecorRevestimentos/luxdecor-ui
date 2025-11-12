@@ -1,11 +1,9 @@
 import { Injectable, ɵIS_INCREMENTAL_HYDRATION_ENABLED } from '@angular/core';
 import { Observable, of, map } from 'rxjs';
 import { ProductData } from '../data/product.data';
-import { OrderStatus } from '../../data/table.data';
-import { ProductTable, ProductInfo, PriceType, CategoryData } from '../data/category.data';
+import { ProductTable, ProductInfo, PriceType, CategoryData, DateDelivery } from '../data/category.data';
 import { environment } from '../../../enviroments/enviroment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { application } from 'express';
 import { ClientService } from '../../service/client.service';
 
 
@@ -42,7 +40,8 @@ export class ProductAuthService {
       available: product.available,
       topics: product.topics,
       about: product.about,
-      measure: product.measure
+      measure: product.measure,
+      date_delivery: product.date_delivery
     }
   }
 
@@ -109,7 +108,8 @@ export class ProductAuthService {
           installations: apiResponse.installations,
           available: apiResponse.available,
           about: apiResponse.about,
-          measure: apiResponse.measure
+          measure: apiResponse.measure,
+          date_delivery: apiResponse.date_delivery
         }
       })
     )
@@ -123,6 +123,12 @@ export class ProductAuthService {
       brand_title: "",
       subcategory_title: "",
       category_title: ""
+    }
+
+    let date_delivery: DateDelivery = {
+      product_id: "",
+      max: 5,
+      min: 15
     }
 
     return of({
@@ -140,7 +146,8 @@ export class ProductAuthService {
       installation: false,
       installations: [],
       about: "",
-      measure: 0
+      measure: 0,
+      date_delivery: date_delivery
     })
   }
 
