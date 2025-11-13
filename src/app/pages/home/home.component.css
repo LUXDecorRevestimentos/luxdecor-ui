@@ -45,15 +45,42 @@
     .page {
         display: flex;
         justify-content: center;
-        /* align-items: center; */
         max-width: 100%;
     }
     .container {
         max-width: 1440px;
-        /* margin-left: 40%; */
         display: block;
         justify-content: center;
         align-items: center;
     }
 }
 
+
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0; 
+  align-items: center; 
+}
+
+.image-gallery img {
+  width: 100%;
+  max-width: 450px; 
+  height: auto;
+  margin: 0;
+  padding: 0;
+  display: block; 
+}
+
+
+@media (min-width: 720px) {
+  .image-gallery {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .image-gallery img {
+    flex: 1 1 33.333%;
+    width: auto;
+  }
+}
