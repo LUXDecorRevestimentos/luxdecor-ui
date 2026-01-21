@@ -3,20 +3,17 @@
 
     <app-carousel class="banner"></app-carousel>
 
-    <!-- Cards Category Carousel -->
     <ng-container *ngIf="cardsCategory.length > 0; else categorySkeleton">
       <app-carousel-cards [cardsCategory]="cardsCategory"></app-carousel-cards>
       <app-bar [title]="'Recomendado'"></app-bar>
     </ng-container>
 
-    <!-- Cards Product Carousel -->
     <ng-container *ngIf="cardsProduct.length > 0; else productSkeleton">
       <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
     </ng-container>
 
     <app-topic [type]="'large'"></app-topic>
 
-    <!-- Skeletons for Loading or Empty States -->
     <ng-template #categorySkeleton>
     <div class="skeleton-grid">
         <div class="skeleton-card" *ngFor="let item of [1, 2, 3, 4, 5]"></div>

@@ -15,7 +15,7 @@ export class ProductService {
 
   getProductsCategories(): Observable<GenericCard[]> {
     return this.http.get<GenericCard[]>(`${this.apiUrl}/section/header`).pipe(
-      timeout(5000),
+      timeout(10000),
       map(this.transformApiDataCategories),
       shareReplay(1),
       catchError(error => throwError(() => error))
@@ -60,7 +60,7 @@ export class ProductService {
       distinctUntilChanged(),
       shareReplay(1),
       map(apiInstallations => this.transformApiDataInstallations(apiInstallations)),
-      timeout(5000),
+      timeout(10000),
       catchError(error => throwError(() => error))
     );
   }
@@ -72,7 +72,7 @@ export class ProductService {
       distinctUntilChanged(),
       shareReplay(1),
       map(apiInstallations => this.transformApiDataInstallations(apiInstallations)),
-      timeout(5000),
+      timeout(10000),
       catchError(error => throwError(() => error))
     );
   }
@@ -117,7 +117,7 @@ export class ProductService {
         ...(params.price_max && { price_max: formatToBRL(params.price_max) })
       }
     }).pipe(
-      timeout(5000),
+      timeout(10000),
       catchError(error => throwError(() => error))
     );
   }

@@ -11,7 +11,6 @@
       (priceRangeChanged)="onPriceRangeChanged($event)"></app-side-menu>
       
       <div class="content">
-        <!-- Header Section with Skeleton -->
         <section [style.background-image]="'url(' + category?.imageUrl + ')'" class="section-header">
           <div class="section-title">
             <p *ngIf="category?.title; else titleSkeleton">{{ this.category?.title }}</p>
