@@ -1,7 +1,7 @@
 <div class="container">
   <div
     class="card {{ type }}"
-    [ngStyle]="imageUrl ? {'background-image': 'url(' + imageUrl + ')'} : {}">
+    [ngStyle]="imageUrl ? {'background-image': 'url(' + (imageUrl | imgUrl) + ')'} : {}">
     <h3>{{ title }}</h3>
   </div>
 </div>

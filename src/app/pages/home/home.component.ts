@@ -29,6 +29,10 @@ export class HomeComponent implements OnInit{
   cardsCategory: GenericCard[] = [];
   cardsProduct: GenericCard[] = [];
   cardsSection: any[] = [];
+
+  loadingCategories = true;
+  loadingProducts = true;
+
   isLoading = true;
 
   constructor(private productService: ProductService) {}
@@ -38,13 +42,22 @@ export class HomeComponent implements OnInit{
   }
 
   private loadAllData(): void {
-    forkJoin([
-      this.productService.getProductPromotionMainList(),
-      this.productService.getProductsCategories()
-    ]).subscribe(([promotions, categories]) => {
-      this.cardsProduct = promotions;
-      this.cardsCategory = categories;
-      this.isLoading = true;
+    // Busca Categorias
+    this.productService.getProductsCategories().subscribe({
+      next: (res) => {
+        this.cardsCategory = res;
+        this.loadingCategories = false;
+      },
+      error: () => (this.loadingCategories = false)
+    });
+
+    // Busca Produtos
+    this.productService.getProductPromotionMainList().subscribe({
+      next: (res) => {
+        this.cardsProduct = res;
+        this.loadingProducts = false;
+      },
+      error: () => (this.loadingProducts = false)
     });
   }
 

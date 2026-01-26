@@ -15,7 +15,7 @@ export class ProductService {
 
   getProductsCategories(): Observable<GenericCard[]> {
     return this.http.get<GenericCard[]>(`${this.apiUrl}/section/header`).pipe(
-      timeout(10000),
+      timeout(100000),
       map(this.transformApiDataCategories),
       shareReplay(1),
       catchError(error => throwError(() => error))
