@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BannerImgComponent } from '../banner-img/banner-img.component';
 import { BannerService } from '../../../service/banner.auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertModalComponent } from '../../../components/alert-modal/alert-modal.component';
+
 
 @Component({
   selector: 'app-subcategory',
@@ -24,7 +27,7 @@ export class SubCategoryComponent {
   @Input() subCategories!: SubCategory[];
   @Output() subCategoryEvent = new EventEmitter<[SubCategory, String]>();
 
-  constructor (private bannerService: BannerService){}
+  constructor (private bannerService: BannerService,  private dialog: MatDialog){}
 
   title!: string;
   selectedSubCategory!: SubCategory | undefined;    
@@ -54,22 +57,49 @@ export class SubCategoryComponent {
   }
 
   saveSubCategory() {
-    if (this.title.trim() && this.selectedSubCategory == null){
-      let temporarySubCategory: SubCategory = {
+    const newTitle = this.title.trim();
+    if (!newTitle) return;
+    const isDuplicate = this.currentSubCategories.some(sc => {
+      const isSameTitle = sc.title.trim().toLowerCase() === newTitle.toLowerCase();
+      if (this.selectedSubCategory) {
+        return isSameTitle && sc.subcategory_id !== this.selectedSubCategory.subcategory_id;
+      }
+      return isSameTitle;
+    });
+    if (isDuplicate) {
+      this.openAlert();
+      return;
+    } else {
+      if (this.selectedSubCategory == null) {
+        let temporarySubCategory: SubCategory = {
           category_id: "#00000000",
           subcategory_id: `#${Math.random().toString(36).substring(2, 10).padStart(8, '0')}`,
-          title: this.title,
+          title: newTitle,
           banner_id: "",
           items: 0
+        };
+        this.subCategoryEvent.emit([temporarySubCategory, "add"]);
+        this.clearInput();
       }
-      this.subCategoryEvent.emit([temporarySubCategory, "add"]);
-      this.clearInput();
-    }
-    else if(this.title.trim() && this.selectedSubCategory != null){
-      this.selectedSubCategory.title = this.title
-      this.subCategoryEvent.emit([this.selectedSubCategory, "update"])
+      else {
+        this.selectedSubCategory.title = newTitle;
+        this.subCategoryEvent.emit([this.selectedSubCategory, "update"]);
+        this.clearInput();
+      }
     }
   }
+
+  openAlert() {
+    this.dialog.open(AlertModalComponent, {
+      data: {
+        title: 'Atenção',
+        message: `SubCategoria ja existente!`,
+        showCancel: false
+      },
+      disableClose: true
+    });
+  }
+
 
   deleteSubCategory(){
     if (this.selectedSubCategory)

@@ -1,4 +1,3 @@
-import { AnimateTimings } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
@@ -202,9 +201,9 @@ export class BannerImgComponent implements OnChanges, OnInit {
       data: {
         title: 'Atenção',
         message: `A imagem principal deve ter exatamente ${this.inputWidth}x${this.inputHeight} pixels.`,
-        showCancel: false // Oculta o botão de cancelar
+        showCancel: false
       },
-      disableClose: true // Impede fechar clicando fora
+      disableClose: true
     });
   }
 

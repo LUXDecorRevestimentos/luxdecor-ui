@@ -12,6 +12,9 @@ import { DetailsTableComponent } from '../../details-table/details-table.compone
 import { BannerImgComponent } from '../banner-img/banner-img.component';
 import { BannerService } from '../../../service/banner.auth.service';
 import { InstallationComponent } from '../installation/installation.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertModalComponent } from '../../../components/alert-modal/alert-modal.component';
+
 
 @Component({
   selector: 'app-category-info',
@@ -42,7 +45,7 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
   @Output() categoryUpdate = new EventEmitter<CategoryInfo>(); 
   @Output() categoryImgUpdate = new EventEmitter<any>();
   
-  constructor (private bannerService: BannerService){}
+  constructor (private bannerService: BannerService, private dialog: MatDialog){}
 
   categoryTitle: string = "";
   subCategories!: SubCategory[];
@@ -139,7 +142,7 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
 
   onSubCategoryEvent(newSubCategory: [SubCategory, String]) {
     const [subCategory, action] = newSubCategory;
-    
+    subCategory.title = subCategory.title.trim();
     switch(action) {
       case 'add':
         this.handleAddSubCategory(subCategory);
@@ -157,11 +160,12 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
         console.warn(`Ação desconhecida: ${action}`);
     }
   }
-  
+
   private handleAddSubCategory(subCategory: SubCategory) {
-    const exists = this.categoryInfo.subcategory.some(
-      sc => sc.subcategory_id === subCategory.subcategory_id
-    );
+    const exists = this.categoryInfo.subcategory.some( sc => {
+      return sc.subcategory_id === subCategory.subcategory_id || 
+      sc.title.toLowerCase() === subCategory.title.toLowerCase();
+    });
     
     if (!exists) {
       this.categoryInfo.subcategory = [
@@ -169,10 +173,21 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
         subCategory
       ];
     } else {
-      console.warn('Subcategoria já existe:', subCategory);
+      this.openAlert();
     }
   }
-  
+
+  openAlert() {
+    this.dialog.open(AlertModalComponent, {
+      data: {
+        title: 'Atenção',
+        message: `SubCategoria ja existente!`,
+        showCancel: false
+      },
+      disableClose: true
+    });
+  }
+
   private handleRemoveSubCategory(subCategory: SubCategory) {
     this.categoryInfo.subcategory = this.categoryInfo.subcategory.filter(
       sc => sc.subcategory_id !== subCategory.subcategory_id
@@ -180,11 +195,22 @@ export class CategoryInfoComponent implements OnInit, OnChanges{
   }
   
   private handleUpdateSubCategory(updatedSubCategory: SubCategory) {
-    this.categoryInfo.subcategory = this.categoryInfo.subcategory.map(sc => 
-      sc.subcategory_id === updatedSubCategory.subcategory_id 
-        ? updatedSubCategory 
-        : sc
+    const nameExists = this.categoryInfo.subcategory.some(sc => 
+      sc.subcategory_id !== updatedSubCategory.subcategory_id && 
+      sc.title.trim().toLowerCase() === updatedSubCategory.title.trim().toLowerCase()
     );
+
+    if (nameExists) {
+      this.openAlert();
+      return;
+    } else {
+          this.categoryInfo.subcategory = this.categoryInfo.subcategory.map(sc => 
+      sc.subcategory_id === updatedSubCategory.subcategory_id 
+        ? { ...updatedSubCategory, title: updatedSubCategory.title.trim() }
+        : sc
+      );
+    }
+
   }
   // Brand
   onBrandEvent(newBrand: [Brand, String]) {
