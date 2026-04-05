@@ -7,6 +7,8 @@ import { ProductsImgComponent } from '../products-img/products-img.component';
 import { ProductsPriceComponent } from '../products-price/products-price.component';
 import { DetailsTableComponent } from '../../details-table/details-table.component';
 import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertModalComponent } from '../../../components/alert-modal/alert-modal.component';
 
 @Component({
   selector: 'app-products-info',
@@ -50,7 +52,7 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
   detailProduct!: DetailsData;
   dimensionsProduct!: DetailsData;
   priceType!: PriceType;
-  priceInput!: string[];
+  priceInput!: any;
   measuresInput!: string[];
   measureType!: number;
   installOption: string | null = null;
@@ -68,7 +70,7 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
 
   dateDelivery!: DateDelivery;
 
-  constructor(private cdRef: ChangeDetectorRef) {}
+  constructor(private cdRef: ChangeDetectorRef, private dialog: MatDialog) {}
 
   ngOnInit(): void  {
     this.selectedCategory = this.productInfo.category_data.category_id
@@ -173,8 +175,119 @@ export class ProductsInfoComponent implements OnInit, OnChanges {
   onMeasuresChange(newMeasures: string[]) {
     this.measuresInput = newMeasures;
   }
+  
+  openAlertProduct() {
+    this.dialog.open(AlertModalComponent, {
+      data: {
+        title: 'Atenção',
+        message: `Valor do produto incompativel!`,
+        showCancel: false
+      },
+      disableClose: true
+    });
+  }
+  
+  openAlertDateDelivery(){
+    this.dialog.open(AlertModalComponent, {
+      data: {
+        title: 'Atenção',
+        message: `Prazo de entrega incompativel!`,
+        showCancel: false
+      },
+      disableClose: true
+    });
+  }
+
+  openAlertMeasures(){
+    this.dialog.open(AlertModalComponent, {
+      data: {
+        title: 'Atenção',
+        message: `Medidas incompativel!`,
+        showCancel: false
+      },
+      disableClose: true
+    });
+  }
+
+  validateDateDelivery(max: number, min: number) {
+    const maxVal = Number(max);
+    const minVal = Number(min);
+
+    if (minVal > maxVal) {
+      this.openAlertDateDelivery();
+      return false;
+    }
+    
+    if (minVal < 0 || maxVal < 0) {
+      this.openAlertDateDelivery();
+      return false;
+    }
+
+    return true;
+  }
+  validateMeasure(measure: any): boolean {
+    if (!measure || (Array.isArray(measure) && measure.length === 0) || typeof measure !== 'object') {
+      this.openAlertMeasures();
+      return false;
+    }
+
+    const unitary = measure.unitary !== undefined ? measure.unitary : measure.min;
+    const box = measure.box !== undefined ? measure.box : measure.max;
+   
+    if (!unitary || unitary.toString().trim() === '') {
+      this.openAlertMeasures();
+      return false;
+    }
+
+    return true;
+  }
+
+
+  validatePriceInput(price_input: any, price_type: string): boolean {
+    if (!price_input || !price_input.unitary || price_input.unitary.trim() === '') {
+      this.openAlertProduct();      
+      return false;
+    }
+
+    if (price_type === 'DUAL') {
+      if (!price_input.box || price_input.box.trim() === '') {
+        this.openAlertProduct();
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  validateInputObject(data: any, type: string, label: string): boolean {
+    if (!data || !data.unitary || data.unitary.toString().trim() === '' || data.unitary == 0) {
+      alert(`O campo unitário de ${label} é obrigatório.`);
+      return false;
+    }
+    if (type === 'DUAL') {
+      if (data.box === undefined || data.box === null || data.box.toString().trim() === '' || data.box == 0) {
+        alert(`O campo de caixa (box) de ${label} é obrigatório para o tipo DUAL.`);
+        return false;
+      }
+    }
+
+    return true;
+  }
 
   onSaveProduct(){
+    if (!this.validatePriceInput(this.priceInput, this.priceType)) {
+      return; 
+    }
+
+    if (!this.validateDateDelivery(this.date_delivery_max, this.date_delivery_min)) {
+      return;
+    }
+    
+    if (!this.validateMeasure(this.measuresInput)) {
+      return;
+    }
+
+
     let category_data: CategoryData ={
       category_id: this.selectedCategory,
       category_title: "",
