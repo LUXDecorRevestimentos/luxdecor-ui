@@ -1,8 +1,8 @@
 section {
     width: 99%;
-    background-color: bisque;
+    background-color: rgb(0, 0, 0);
     color: white;
-    background-image: url('../../../../public/promo.png');
+    font-size: 70px;
 }
 
 .container {
@@ -51,8 +51,8 @@ section {
 
 .section-btns button {
     width: 100%;
-    background-color: black;
-    color: #f4f4f4;
+    background-color: rgb(255, 255, 255);
+    color: #000000;
     font-size: 24px;
     font-weight: bold;
     max-width: 200px;

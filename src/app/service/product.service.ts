@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, distinctUntilChanged, map, Observable, of, shareReplay, switchMap, tap, throwError, timeout } from 'rxjs';
-import { GenericCard, ProductData, CartCardItemData, CartData } from '../data/card.data';
-import { ProductDetailsTable } from '../data/table.data';
+import { GenericCard, CartCardItemData, CartData } from '../data/card.data';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ProductInfo } from '../admin/data/category.data';
 import { environment } from '../../enviroments/enviroment';

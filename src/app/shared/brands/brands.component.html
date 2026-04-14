@@ -3,7 +3,7 @@
 <div class="container">
     <ng-container *ngFor="let image of images; let i = index">
         <img
-            [src]="image"
+            [src]="image | imgUrl"
             [ngClass]="{
                 'small-image': i < 2,
                 'large-image': i === 2

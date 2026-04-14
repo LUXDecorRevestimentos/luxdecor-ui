@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarouselComponent implements OnInit {
   images: string[] = [
-    'banner/banner.png',
-    'banner/banner2.png',
-    'banner/banner3.png'
+    'banner/banner.webp',
+    'banner/banner2.webp',
+    'banner/banner3.webp'
   ];
   currentIndex: number = 0;
 

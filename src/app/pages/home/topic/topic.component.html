@@ -1,9 +1,9 @@
 <section>
     <ng-container *ngFor="let section of sections">
       <ng-container *ngIf="section.data !== null">
-        <app-bar [title]="section.title" class="app-bar" [titleType]="'titulo'"></app-bar>
-        <app-featured-promotions [cardsContent]="section.data" [typeContainer]="type"></app-featured-promotions>
-        <app-gallery [cardsContent]="section.data"></app-gallery>
+        <app-bar [title]="section.title" class="app-bar" [titleType]="'titulo'" style="margin-top: 10px;"></app-bar>
+        <app-featured-promotions [cardsContent]="section.data" [typeContainer]="type" style="margin-top: 10px;"></app-featured-promotions>
+        <app-gallery [cardsContent]="section.data" style="margin-top: 10px;"></app-gallery>
         <app-btn-call></app-btn-call>
       </ng-container>
     </ng-container>

@@ -13,7 +13,7 @@
 
 h3{
     text-align: left;
-    font-size: 15px;
+    font-size: 1rem;
     justify-content: left;
     font-weight: 300;
 }
@@ -22,7 +22,7 @@ p {
     margin-top: 5%;
     justify-content: left;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1.3rem;
 }
 
 .img-backgroud {

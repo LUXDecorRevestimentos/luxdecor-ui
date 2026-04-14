@@ -17,6 +17,8 @@ export class CarouselCardsComponent {
   @Input() cardsProduct: GenericCard[] = [];
   @Input() type: string = "";
 
+  @Input() image: boolean = true;
+
   @ViewChild('categoryContainer', { static: false }) categoryContainer!: ElementRef;
   @ViewChild('productContainer', { static: false }) productContainer!: ElementRef;
 

@@ -1,7 +1,7 @@
 <div class="carousel">
   <div class="cards-container-category cards-container" *ngIf="cardsCategory.length > 0" #categoryContainer>
     <ng-container *ngFor="let card of cardsCategory">
-      <app-card [title]="card.title" [imageUrl]="card.imageUrl" [type]="type" [routerLink]="['/category']" [queryParams]="{ category: card.title}"></app-card>
+      <app-card [title]="card.title" [type]="type" [routerLink]="['/category']" [queryParams]="{ category: card.title}"></app-card>
     </ng-container>
   </div>
 

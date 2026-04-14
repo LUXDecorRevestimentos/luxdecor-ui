@@ -16,6 +16,7 @@ import { CreditComponent } from './credit-component/credit.component';
 import { BankSlipComponent } from './bankslip-component/bankslip.component';
 import { TaxAuthService } from '../../../admin/service/tax.auth.service';
 import { TaxInfo } from '../../../admin/data/tax.data';
+import { DebitComponent } from './debit-component/debit.component';
 
 
 @Component({
@@ -30,6 +31,7 @@ import { TaxInfo } from '../../../admin/data/tax.data';
     WhatsappComponent,
     PixComponent,
     CreditComponent,
+    DebitComponent,
     BankSlipComponent,
     CommonModule
   ],

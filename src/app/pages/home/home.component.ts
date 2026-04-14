@@ -5,7 +5,6 @@ import { ProductService } from '../../service/product.service';
 import { GenericCard } from '../../data/card.data';
 import { TopicComponent } from './topic/topic.component';
 import { BarComponent } from '../../shared/bar/bar.component';
-import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { CommonModule } from '@angular/common';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { WhatsappComponent } from '../../shared/whatsapp/whatsapp.component';

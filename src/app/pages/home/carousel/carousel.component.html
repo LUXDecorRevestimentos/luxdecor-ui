@@ -1,7 +1,10 @@
 <div class="carousel">
     <div class="carousel-inner">
-      <img [src]="images[currentIndex]" alt="Carousel Image">
+      <img [src]="images[currentIndex]" 
+           alt="Banner Lux Revestimentos" 
+           fetchpriority="high" 
+           loading="eager">
     </div>
-    <button class="carousel-control prev" (click)="prev()">&#10094;</button>
-    <button class="carousel-control next" (click)="next()">&#10095;</button>
-  </div>
+    <button class="carousel-control prev" (click)="prev()" aria-label="Anterior">&#10094;</button>
+    <button class="carousel-control next" (click)="next()" aria-label="Próximo">&#10095;</button>
+</div>

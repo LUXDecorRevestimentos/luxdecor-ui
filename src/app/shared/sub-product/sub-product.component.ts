@@ -2,24 +2,22 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { CommonModule } from '@angular/common';
 import { GenericCard } from '../../data/card.data';
 import { RouterModule } from '@angular/router';
-
+import { ImgUrlPipe } from '../pipe/img-url.pipe';
 
 @Component({
   selector: 'app-sub-product',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ImgUrlPipe], 
   templateUrl: './sub-product.component.html',
   styleUrl: './sub-product.component.css'
 })
-export class SubProductComponent implements OnInit, OnChanges{
-  @Input() cardsCategory: GenericCard [] = [];
+export class SubProductComponent implements OnInit, OnChanges {
+  @Input() cardsCategory: GenericCard[] = [];
   @Output() subProductClick = new EventEmitter<string>();
 
   ngOnInit(): void {}
-
   ngOnChanges(changes: SimpleChanges) {}
   
-  onSubProductClick(subCategoryId: string ) {
+  onSubProductClick(subCategoryId: string) {
     this.subProductClick.emit(subCategoryId);
   }
-
 }

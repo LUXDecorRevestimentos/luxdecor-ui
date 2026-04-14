@@ -5,7 +5,7 @@ export interface GenericCard {
     id: string;
     title: string;
     type: string;
-    imageUrl: string
+    imageUrl: string;
     data?: any;
 }
 

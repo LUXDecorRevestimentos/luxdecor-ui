@@ -11,7 +11,7 @@
       (priceRangeChanged)="onPriceRangeChanged($event)"></app-side-menu>
       
       <div class="content">
-        <section [style.background-image]="'url(' + category?.imageUrl + ')'" class="section-header">
+        <section class="section-header">
           <div class="section-title">
             <p *ngIf="category?.title; else titleSkeleton">{{ this.category?.title }}</p>
             <ng-template #titleSkeleton>
@@ -56,7 +56,6 @@
           </ng-template>
           
           <app-bar *ngIf="selectedSubCategory" [title]="''"></app-bar>
-          
           <!-- Installations with Skeleton -->
           <ng-container *ngIf="!isLoadingInstallations && cardsInstall.length > 0; else installSkeleton">
             <app-sub-product [cardsCategory]="cardsInstall" (subProductClick)="onInstallTypesChanged([$event])"></app-sub-product>

@@ -80,7 +80,7 @@
                 [minValue]="minValue" 
                 ></app-credit>
 
-                <!-- <app-debit *ngSwitchCase="'DEBIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-debit> -->
+                <app-debit *ngSwitchCase="'DEBIT_CARD'" [totalValue]="total_value" [cartId]="cartId"></app-debit>
 
                 <app-split *ngSwitchCase="'BOLETO'" [totalValue]="total_value" [cartId]="cartId"></app-split>
                 
