@@ -75,10 +75,16 @@ export class ProductPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.queryParams.pipe(
+      tap(() => {
+        window.scrollTo(0, 0); 
+        this.selectedImageIndex = 0;
+      }),
       switchMap(params => {
         const productParam = params['product'];
-         this.productId = productParam.startsWith('#') 
-          ? productParam.substring(0) 
+        if (!productParam) return []; 
+        
+        this.productId = productParam.startsWith('#') 
+          ? productParam 
           : productParam;
         return this.loadProductData(this.productId);
       })
@@ -86,7 +92,6 @@ export class ProductPageComponent implements OnInit{
       next: () => {},
       error: (err) => console.error("Erro:", err),
     });
-
   }
 
   loadProductData(productId: string) {
@@ -113,7 +118,6 @@ export class ProductPageComponent implements OnInit{
         this.cardsProduct = [];
         this.cardsProduct = [...this.cardsProduct, ...promotions];
         this.brandImg = banner;
-        console.log(this.productImgs)
         this.detailTable = details.map(item => ({
           label: item.key,
           value: item.value

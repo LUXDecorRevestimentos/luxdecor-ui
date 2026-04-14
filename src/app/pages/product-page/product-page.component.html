@@ -51,28 +51,27 @@
                 <div class="other-products">
                     <div class="skeleton-bar"></div>
                     <div class="skeleton-carousel">
-                        <div class="skeleton-card" *ngFor="let item of [1,2,3,4]"></div>
+                        <div class="skeleton-card" *ngFor="let item of productImgs"></div>
                     </div>
                     <div class="skeleton-btn-call"></div>
                 </div>
             </div>
 
             <div class="product-data" *ngIf="productImgs">
-                <!-- Actual Content (unchanged) -->
                 <div class="image-container">
-                    <div class="image-mobile">
-                      <img [src]="productImgs[selectedImageIndex].src" />
+                    <div class="image-mobile" *ngIf="productImgs[selectedImageIndex]">
+                        <img [src]="productImgs[selectedImageIndex].src" alt="Produto" />
                     </div>
+
                     <div class="image-gallery">
-                      <ng-container *ngFor="let image of productImgs; let i = index">
-                        <div
-                          class="thumbnail"
-                          [class.selected]="selectedImageIndex === i"
-                          (click)="selectImage(i)"
-                        >
-                          <img [src]="image.src"/>
-                        </div>
-                      </ng-container>
+                        <ng-container *ngFor="let image of productImgs; let i = index">
+                            <div *ngIf="image?.src"
+                                class="thumbnail"
+                                [class.selected]="selectedImageIndex === i"
+                                (click)="selectImage(i)">
+                                <img [src]="image.src" />
+                            </div>
+                        </ng-container>
                     </div>
                     <div class="image">
                         <img [src]="productImgs[selectedImageIndex].src" />
@@ -133,11 +132,6 @@
                         <app-product-table [detailTable]="dimensionsTable" [title]="'Detalhes'" class="table" ></app-product-table>
                         <app-product-table *ngIf="detailTable" [detailTable]="detailTable" [title]="'Dimensões'" class="table"></app-product-table>
                     </div>
-                </div>
-                <div class="other-products">
-                    <app-bar [title]="otherProductsLabel" type="long" class="bar"></app-bar>
-                    <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-                    <app-btn-call></app-btn-call>
                 </div>
             </div>
     
@@ -202,10 +196,10 @@
                     <app-product-table *ngIf="dimensionsTable" [detailTable]="dimensionsTable" [title]="'Detalhes'"></app-product-table>
                     <app-product-table [detailTable]="detailTable" [title]="'Dimensões'"></app-product-table>
                 </div>
-                <div class="other-products">
-                    <app-bar [title]="otherProductsLabel" type="long" class="bar"></app-bar>
-                    <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
-                </div>
+            </div>
+            <div class="other-products">
+                <app-bar [title]="otherProductsLabel" type="long" class="bar"></app-bar>
+                <app-carousel-cards [cardsProduct]="cardsProduct"></app-carousel-cards>
             </div>
         </div>
         <app-whatsapp
