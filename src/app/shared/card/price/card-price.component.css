@@ -44,7 +44,7 @@ p {
 
     h3{
         text-align: left;
-        font-size: 20px;
+        font-size: 1rem;
         justify-content: left;
         font-weight: 300;
     }
@@ -53,6 +53,6 @@ p {
         margin-top: 5%;
         justify-content: left;
         font-weight: bold;
-        font-size: 28px;
+        font-size: 1.3rem;
     }
 }
