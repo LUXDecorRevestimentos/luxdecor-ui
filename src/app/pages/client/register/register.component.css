@@ -1,6 +1,4 @@
 .container {
-    margin: 0;
-    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,8 +15,8 @@
     max-width: 800px;
     background-color: white;
     margin: auto;
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 100px;
+    margin-top: 115px;
 }
 
 .header {
@@ -55,7 +53,7 @@ input, select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1.2rem;
     box-sizing: border-box;
 }
 
@@ -117,7 +115,6 @@ button:hover {
         margin-bottom: 300px;
     }
     .card{
-        height: 110vh;
         margin-bottom: 30px;
         margin-top: 30px;
     }
@@ -129,4 +126,19 @@ button:hover {
 
 .alert {
   transition: opacity 0.5s ease;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha o X verticalmente com o H2 */
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    margin-bottom: 0; /* Remove a margem que empurra o header para baixo */
+}
+
+.close {
+    cursor: pointer;
 }

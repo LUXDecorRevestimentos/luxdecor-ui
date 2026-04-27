@@ -25,7 +25,6 @@ import { DateDelivery } from '../../admin/data/category.data';
     BarComponent,
     BtnAddComponent,
     CarouselCardsComponent,
-    BtnCallComponent,
     ProductTableComponent,
     WhatsappComponent],
 

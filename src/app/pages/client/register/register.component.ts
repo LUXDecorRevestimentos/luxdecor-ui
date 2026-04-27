@@ -49,6 +49,7 @@ export class RegisterComponent implements OnInit {
       postal_code: ['', [Validators.required]],
       number: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       street: ['', [Validators.required]],
+      complement: [''],
       phone: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
@@ -100,6 +101,9 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     const formData = this.formGroup.value;
+    const streetWithComplement = formData.complement 
+      ? `${formData.street} - ${formData.complement}` 
+      : formData.street;
    
     if (this.formGroup.valid) {
       const requestData: ClientRegisterRequest = {
@@ -119,7 +123,7 @@ export class RegisterComponent implements OnInit {
         address: {
           address_id: '',
           number: formData.number,
-          street: formData.street,
+          street: streetWithComplement,
           city: formData.city,
           state: formData.state,
           postal_code: formData.postal_code,
