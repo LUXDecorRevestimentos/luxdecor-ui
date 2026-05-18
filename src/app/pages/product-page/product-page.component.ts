@@ -129,6 +129,7 @@ export class ProductPageComponent implements OnInit{
       })
     );
   }
+
   getMeasureUnitLabel(value: number): string {
     const unit = this.measureUnits.find(item => item.value === value);
     return unit ? unit.label : 'Desconhecido';
