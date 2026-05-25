@@ -8,7 +8,20 @@ import { Component, Input } from '@angular/core';
 })
 export class WhatsappComponent {
 
-  @Input() whatsappNumber: string = '551143858177'; // Número padrão
-  @Input() defaultMessage: string = 'Olá, gostaria de mais informações!'; // Mensagem padrão
+  @Input() whatsappNumber: string = '551143858177';
 
+  @Input() defaultMessage: string =
+    'Olá, gostaria de mais informações!';
+
+  openWhatsApp(message?: string): void {
+
+    const finalMessage = message || this.defaultMessage;
+
+    const encodedMessage = encodeURIComponent(finalMessage);
+
+    const url =
+      `https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`;
+
+    window.open(url, '_blank');
+  }
 }

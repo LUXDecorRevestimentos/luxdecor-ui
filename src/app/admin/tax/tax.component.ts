@@ -190,11 +190,11 @@ export class TaxComponent implements OnInit {
   }
 
   onSave() {
-    console.log(this.selectedOption,
-      this.taxValue,
-      this.minValue,
-      this.maxValue,
-    )
+    // console.log(this.selectedOption,
+    //   this.taxValue,
+    //   this.minValue,
+    //   this.maxValue,
+    // )
     let method = "" 
     if (this.selectedOption == "1"){
       method = "PIX"

@@ -36,9 +36,6 @@ export class AdminComponent {
     private router: Router){}
 
   ngOnInit(): void {
-    console.log(this.authenticated)
-    console.log("Admin component")
-
     this.authService.getClient().subscribe({
       next: (isAuthenticated) => {
         this.authenticated = isAuthenticated.isAdmin;

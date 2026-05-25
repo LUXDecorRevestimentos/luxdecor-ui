@@ -32,7 +32,7 @@ export class LoginAdminComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('Login Admin')
+    // console.log('Login Admin')
     this.formGroup = this.createLoginForm()
   }
 

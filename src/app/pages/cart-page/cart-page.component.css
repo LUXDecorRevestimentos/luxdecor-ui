@@ -2,14 +2,20 @@
     margin: 10px auto;
     max-width: 1440px;
     width: 100%;
-    min-height: 100%;
+    min-height: 75vh;
     padding: 0 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .return {
     margin: 10px 0 0 0;
     width: 100%;
+}
+
+.content {
+    flex: 1;
 }
 
 .value-container {
@@ -53,27 +59,27 @@ h1 {
         align-items: flex-start;
         padding: 0;
         gap: 30px;
+        box-sizing: border-box;
     }
 
     .products {
         width: 65%;
-        margin-bottom: 10%;
+        margin-bottom: 5%;
     }
+
     .subtotal {
         width: 35%;
         margin-left: 0;
         position: sticky;
-        margin-top: 10px;
         top: 20px;
+        margin-top: 10px;
+        align-self: flex-start;
     }
 
     .subtotal h1 {
         margin-bottom: 20px;
     }
-    
     .top mat-checkbox {
         margin-left: auto;
     }
-
 }
-

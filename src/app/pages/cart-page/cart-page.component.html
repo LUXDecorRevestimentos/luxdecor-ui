@@ -1,48 +1,59 @@
-
 <div class="container">
   <div class="return">
     <app-btn-continue></app-btn-continue>
   </div>
 
   <div class="content">
+
     <div class="products">
       <div class="top">
-        <h1>No Carrinho ({{ cart().items?.length }})</h1>
+        <h1>No Carrinho ({{ cart().items?.length ?? 0 }})</h1>
+
         <mat-checkbox
-            [checked]="cart().completed"
-            [indeterminate]="partiallyComplete()"
-            (change)="update($event.checked)"
-          >
-            {{cart().id}}
-          </mat-checkbox>
+          [checked]="cart()?.completed ?? false"
+          [indeterminate]="partiallyComplete()"
+          (change)="update($event.checked)"
+        >
+          {{ cart()?.id }}
+        </mat-checkbox>
       </div>
+
       <app-bar [type]="'long'"></app-bar>
-      @for (item of cart().items; track item; let i = $index) {
-          <app-cart-card 
-            [cart]="item"
-            [checked]="item.select"
-            (checkChange)="update($event, i)"
-            (orderUpdate)="onOrderUpdate($event)"
-            (orderRemove)="onOrderRemove($event)"
-            [display]="true"
-          ></app-cart-card>
+
+      @for (item of (cart().items ?? []); track item; let i = $index) {
+        <app-cart-card
+          [cart]="item"
+          [checked]="item.select"
+          (checkChange)="update($event, i)"
+          (orderUpdate)="onOrderUpdate($event)"
+          (orderRemove)="onOrderRemove($event)"
+          [display]="true"
+        ></app-cart-card>
       }
+
     </div>
+
     <div class="subtotal">
       <h1>Resumo do pedido</h1>
+
       <app-bar [type]="'long'"></app-bar>
+
       <div class="value-container">
-          <p>Produtos</p>
-          <p><strong>R$ {{ product_total }}</strong></p>
-      </div> 
+        <p>Produtos</p>
+        <p><strong>R$ {{ product_total }}</strong></p>
+      </div>
+
       <app-bar [type]="'long'"></app-bar>
+
       <div class="btn-container">
-        <app-btn-next (click)="navigateToPayment()"></app-btn-next>
+        <app-btn-next (click)="navigateToWpp()"></app-btn-next>
         <app-btn-clean></app-btn-clean>
       </div>
-  </div>
-  <app-whatsapp
-    [defaultMessage]="'Olá, preciso de ajuda!'"
-  ></app-whatsapp>
+    </div>
+
+    <app-whatsapp
+      [defaultMessage]="'Olá, preciso de ajuda!'"
+    ></app-whatsapp>
+
   </div>
 </div>

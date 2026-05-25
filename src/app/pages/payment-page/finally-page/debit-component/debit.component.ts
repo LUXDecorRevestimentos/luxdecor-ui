@@ -35,12 +35,12 @@ export class DebitComponent implements OnInit {
         card: this.cardData,
         encrypted: ""
       };
-      this.paymentService.processDebitCardPaymentWith3DS(debitCard, this.cartId, this.totalValue).subscribe({
-        next: () => console.log('Ambiente PagBank inicializado e pronto!'),
-        error: (err) => {
-          console.error('Erro ao iniciar o PagBank. O formulário não deve ser usado.', err);
-        }
-      })
+      // this.paymentService.processDebitCardPaymentWith3DS(debitCard, this.cartId, this.totalValue).subscribe({
+      //   next: () => console.log('Ambiente PagBank inicializado e pronto!'),
+      //   error: (err) => {
+      //     console.error('Erro ao iniciar o PagBank. O formulário não deve ser usado.', err);
+      //   }
+      // })
     }
   }
 

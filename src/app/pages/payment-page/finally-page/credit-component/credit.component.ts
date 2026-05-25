@@ -55,14 +55,14 @@ export class CreditComponent implements OnInit {
         installments: this.installments,
         encrypted: ""
       };
-      this.paymentService.processCreditCardPayment(creditCard, this.cartId).subscribe({
-        next: (response) => {
-          this.paidData = response;
-        },
-        error: (err) => {
-          this.error = true;
-        }
-      });
+      // this.paymentService.processCreditCardPayment(creditCard, this.cartId).subscribe({
+      //   next: (response) => {
+      //     this.paidData = response;
+      //   },
+      //   error: (err) => {
+      //     this.error = true;
+      //   }
+      // });
     } 
   }
 

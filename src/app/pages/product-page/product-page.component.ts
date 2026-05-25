@@ -148,12 +148,31 @@ export class ProductPageComponent implements OnInit{
     }
   }
 
-  addOrder(newOrder: [string, number]){
+  addOrder(newOrder: [string, number]) {
+
     this.cartService.addOrder(newOrder[0], newOrder[1]).subscribe({
       next: () => {
-        this.notificationService.show("Adicinado ao carrinho!", "success")
+        this.notificationService.show("Adicionado ao carrinho!", "success");
       },
-      error: (err) => this.notificationService.show("Erro ao adicionar no carrinho", "error")
+
+      error: () => {
+        const localCart = JSON.parse(localStorage.getItem('temp_cart') || '[]');
+        const existingItem = localCart.find(
+          (item: any) => item.product_id === newOrder[0]
+        );
+
+        if (existingItem) {
+          existingItem.quantity += newOrder[1];
+        } else {
+          localCart.push({
+            product_id: newOrder[0],
+            quantity: newOrder[1]
+          });
+        }
+
+        localStorage.setItem('temp_cart', JSON.stringify(localCart));
+        this.notificationService.show("Adicionado ao carrinho!", "success");
+      }
     });
   }
 

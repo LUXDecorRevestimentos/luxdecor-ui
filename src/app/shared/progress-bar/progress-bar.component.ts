@@ -18,7 +18,6 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('ProgressBar')
     this.startTimer();
   }
 
@@ -41,7 +40,6 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
             }
           },
           complete: () => {
-            console.log('Timer Completo no Componente Filho.');
             // 2. DISPARA o evento quando o timer é concluído
             this.timerFinished.emit();
           }

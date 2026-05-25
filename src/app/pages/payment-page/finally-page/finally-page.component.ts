@@ -123,7 +123,7 @@ export class FinallyPageComponent implements OnInit {
     this.paymentService.getSale(cartId).subscribe({
       next: (response: SaleDataCart) => {
         this.saleData = response;
-        console.log(response)
+        // console.log(response)
         this.deliveryPrice = this.saleData.delivery_total;
         this.product_total = this.saleData.product_total;
         this.paymentMethod = this.saleData.payment_method;
@@ -151,7 +151,7 @@ export class FinallyPageComponent implements OnInit {
   loadTax(){
     this.taxService.getTaxList().subscribe((data: any) => {
       this.taxInfoList = data;
-      console.log(this.taxInfoList)
+      // console.log(this.taxInfoList)
       if (this.paymentMethod == PaymentMethodType.PIX) {
         this.discount = this.taxInfoList[0].rate_percentage;
         this.tax = this.taxInfoList[0].rate_percentage;
@@ -201,7 +201,7 @@ export class FinallyPageComponent implements OnInit {
 
     const precoFinal: number = (valorNumerico + (valorDoDescontoAplicado)) + deliveryNumerico;
     // const precoEmReais = precoFinal * 10;
-    console.log(precoFinal, precoFinal, valorNumerico, valorNumerico, deliveryNumerico, valorDoDescontoAplicado, this.discount, this.delivery_total)
+    // console.log(precoFinal, precoFinal, valorNumerico, valorNumerico, deliveryNumerico, valorDoDescontoAplicado, this.discount, this.delivery_total)
     this.totalPrice = precoFinal.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL'

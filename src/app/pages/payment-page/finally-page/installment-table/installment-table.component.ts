@@ -38,7 +38,6 @@ export class InstallmentTableComponent implements OnInit, OnChanges {
         value: this.installment.value / 100,
         number: this.installment.number
       })
-      console.log(this.installmentsData)
       this.installmentsDataSource.data = this.installmentsData;
     } else {this.generateInstallments(this.maxInstallments);}
     
@@ -51,7 +50,6 @@ export class InstallmentTableComponent implements OnInit, OnChanges {
         value: this.installment.value / 100,
         number: this.installment.number
       })
-      console.log(this.installmentsData)
       this.installmentsDataSource.data = this.installmentsData;
     } else {this.generateInstallments(this.maxInstallments);}
     

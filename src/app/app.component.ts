@@ -28,13 +28,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      console.log("Iniciando teste de loading...");
       this.loadingService.show();
     }, 0); 
 
     setTimeout(() => {
       this.loadingService.hide();
-      console.log("Teste de loading finalizado.");
     }, 3000); 
   }
 
